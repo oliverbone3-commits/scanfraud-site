@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScanFraud — BIN Checker</title>
+  <meta name="description" content="Free BIN lookup tool. Enter the first 6-8 digits of any payment card to identify the issuer, card type, brand, and country."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="shared.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --col-width:1160px; --side-pad:140px; --cell-pad:40px; --nav-h:65px; --accent:#1a56ff; --font-g:'Geist',sans-serif; --font-i:'Inter',sans-serif; }
+[data-theme="dark"] { --bg:#08090a; --bg2:#141516; --bg3:#0d0f14; --bd:#212223; --bdl:1px solid #212223; --t1:#ffffff; --t2:rgba(255,255,255,0.6); --t3:#8b909e; --tb:rgba(255,255,255,0.55); --nav-bg:rgba(8,9,10,0.92); --btn-bg:#ffffff; --btn-fg:#08090a; --btn-ob:rgba(255,255,255,0.6); --btn-ot:#ffffff; }
+[data-theme="light"] { --bg:#ffffff; --bg2:#f7f8fa; --bg3:#f0f1f3; --bd:#e4e7ed; --bdl:1px solid #e4e7ed; --t1:#171717; --t2:#4d4d4d; --t3:#8b909e; --tb:#86888b; --nav-bg:rgba(255,255,255,0.92); --btn-bg:#0d0f14; --btn-fg:#ffffff; --btn-ob:#d0d4dd; --btn-ot:#3d4151; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--t1); font-family:var(--font-i); -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .25s,color .25s; }
+a { text-decoration:none; color:inherit; }
+.grid-wrap { width:var(--col-width); margin:0 auto; border-left:var(--bdl); border-right:var(--bdl);  }
+nav { position:fixed; top:0; left:0; right:0; height:var(--nav-h); background:var(--nav-bg); backdrop-filter:blur(8px); border-bottom:var(--bdl); z-index:100; transition:background .25s,border-color .25s; }
+
+
+
+
+
+
+
+
+
+
+
+
+[data-theme="light"] 
+
+
+
+
+.btn-dark { padding:14px 20px; background:var(--btn-bg); border:1px solid var(--bd); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-fg); cursor:pointer; white-space:nowrap; transition:opacity .15s,background .25s,color .25s; }
+.btn-dark:hover { opacity:.88; }
+.btn-ghost { padding:14px 21px; background:transparent; border:1px solid var(--btn-ob); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-ot); cursor:pointer; white-space:nowrap; transition:background .15s,border-color .25s,color .25s; }
+.btn-ghost:hover { background:rgba(128,128,128,.08); }
+
+
+footer { background:#08090a; }
+[data-theme="light"] footer { background:#ffffff; }
+.footer-outer { padding:0; }
+.footer-inner-wrap { width:var(--col-width); margin:0 auto; border-left:var(--bdl); border-right:var(--bdl); }
+.ft-top-row { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding:40px var(--cell-pad); border-bottom:1px solid rgba(255,255,255,0.08); }
+.ft-brand-col { display:flex; flex-direction:column; gap:11px; }
+.footer-logo { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+.footer-logomark { width:28px; height:28px; border-radius:6px; background:#ffffff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.footer-logomark svg { width:16px; height:16px; }
+.footer-brand-name { font-family:var(--font-i); font-weight:600; font-size:15px; color:#ffffff; letter-spacing:-.3px; }
+.footer-desc { font-family:var(--font-i); font-weight:400; font-size:13px; line-height:21.45px; color:rgba(255,255,255,0.6); max-width:240px; }
+.ft-col-title { font-family:var(--font-i); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; color:rgba(255,255,255,0.6); margin-bottom:16px; }
+.ft-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.ft-col ul li a { font-family:var(--font-i); font-weight:400; font-size:14px; line-height:22.4px; color:rgba(255,255,255,0.6); transition:color .15s; text-decoration:none; }
+.ft-col ul li a:hover { color:#ffffff; }
+.ft-bottom-bar { display:flex; justify-content:space-between; align-items:center; padding:20px var(--cell-pad); }
+.ft-copy { font-family:var(--font-i); font-weight:400; font-size:13px; color:rgba(255,255,255,0.6); }
+.ft-legal { display:flex; gap:24px; }
+.ft-legal a { font-family:var(--font-i); font-weight:400; font-size:13px; color:rgba(255,255,255,0.6); transition:color .15s; }
+.ft-legal a:hover { color:#ffffff; }
+[data-theme="light"] .footer-inner-wrap { border-color:#e4e7ed; }
+[data-theme="light"] .footer-logomark { background:#0d0f14; }
+[data-theme="light"] .footer-brand-name { color:#171717; }
+[data-theme="light"] .footer-desc { color:#8b909e; }
+[data-theme="light"] .ft-col-title { color:#8b909e; }
+[data-theme="light"] .ft-col ul li a { color:#3d4151; }
+[data-theme="light"] .ft-col ul li a:hover { color:#171717; }
+[data-theme="light"] .ft-bottom-bar { border-top-color:#e4e7ed; }
+[data-theme="light"] .ft-copy { color:#8b909e; }
+[data-theme="light"] .ft-legal a { color:#8b909e; }
+[data-theme="light"] .ft-legal a:hover { color:#171717; }
+[data-theme="light"] .ft-top-row { border-bottom-color:#e4e7ed; }
+[data-theme="light"] .footer-logomark svg path { fill:#ffffff; }
+/* ── HERO (Three.js dots) ── */
+.hero-sec { position:relative; overflow:visible; }
+.hero-sec::after { content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100vw; height:0; border-bottom:var(--bdl); z-index:10; }
+[data-theme="light"] .hero-sec { background:linear-gradient(180deg,#eef2ff 0%,#fff 100%); }
+#dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#dots canvas { display:block; width:100%!important; height:100%!important; }
+.hero-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,86,255,.18) 0%,transparent 60%); pointer-events:none; z-index:1; }
+[data-theme="light"] .hero-sec::before { background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(26,86,255,.06) 0%,transparent 70%); }
+.hero-main { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:20px; padding:calc(var(--nav-h) + 100px) var(--cell-pad) 80px; }
+.h-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
+.h-sub { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--t2); text-align:center; max-width:600px; }
+.h-cta { display:flex; gap:12px; align-items:center; margin-top:8px; }
+.page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); }
+.page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+.page-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; color:var(--t1); max-width:720px; }
+.page-subtitle { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--tb); margin-top:16px; max-width:560px; }
+.page-section { padding:60px 0; }
+.page-section-inner { padding:0 var(--cell-pad); }
+.sec-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.sec-title { font-family:var(--font-g); font-weight:600; font-size:32px; line-height:36px; letter-spacing:-1.6px; color:var(--t1); margin-bottom:16px; }
+.sec-desc { font-family:var(--font-g); font-weight:400; font-size:15px; line-height:22px; color:var(--tb); max-width:600px; }
+/* ── CTA (Three.js dots) ── */
+.cta-sec { position:relative; overflow:visible; }
+[data-theme="light"] .cta-sec { background:linear-gradient(180deg,#fff 0%,#eef2ff 50%,#fff 100%); }
+.cta-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.15) 0%,transparent 65%); pointer-events:none; z-index:1; }
+[data-theme="light"] .cta-sec::before { background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.06) 0%,transparent 65%); }
+#cta-dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#cta-dots canvas { display:block; width:100%!important; height:100%!important; }
+.cta-inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:20px; padding:80px var(--cell-pad); text-align:center; max-width:680px; margin:0 auto; width:100%; }
+
+.cta-block-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--t3); }
+.cta-block-title { font-family:var(--font-g); font-weight:600; font-size:36px; line-height:40px; letter-spacing:-2px; color:var(--t1); }
+.cta-block-sub { font-family:var(--font-g); font-weight:400; font-size:15px; line-height:22px; color:var(--tb); max-width:480px; }
+
+
+/* BIN CHECKER */
+.bin-form { padding:var(--cell-pad); border-bottom:var(--bdl); display:flex; gap:12px; align-items:flex-end; }
+.bin-input-wrap { flex:1; display:flex; flex-direction:column; gap:6px; }
+.bin-label { font-family:var(--font-i); font-weight:600; font-size:12px; letter-spacing:.5px; text-transform:uppercase; color:var(--t3); }
+.bin-input { width:100%; height:48px; padding:0 16px; font-family:var(--font-g); font-size:18px; font-weight:500; letter-spacing:1px; color:var(--t1); background:var(--bg2); border:1px solid var(--bd); border-radius:10px; outline:none; transition:border-color .15s; }
+.bin-input::placeholder { color:var(--t3); font-weight:400; letter-spacing:0; }
+.bin-input:focus { border-color:var(--accent); }
+.bin-btn { height:48px; padding:0 24px; background:var(--accent); color:#ffffff; border:none; border-radius:10px; font-family:var(--font-i); font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap; transition:opacity .15s; flex-shrink:0; }
+.bin-btn:hover { opacity:.88; }
+.bin-error { font-family:var(--font-i); font-size:13px; color:#ef4444; padding:12px var(--cell-pad); display:none; }
+.bin-result { display:none; }
+.bin-result.visible { display:block; }
+.bin-table { width:100%; border-collapse:collapse; }
+.bin-table tr { border-bottom:var(--bdl); }
+.bin-table tr:last-child { border-bottom:none; }
+.bin-table td { padding:14px var(--cell-pad); font-family:var(--font-g); font-size:14px; line-height:20px; vertical-align:top; }
+.bin-table td:first-child { font-weight:500; color:var(--t3); width:180px; font-family:var(--font-i); font-size:13px; }
+.bin-table td:last-child { color:var(--t1); font-weight:500; }
+
+/* Scroll reveal */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.revealed { opacity:1; transform:translateY(0); }
+
+
+/* Full-width dividers */
+.stats-row, .feature-row, .prod-grid { border-bottom: var(--bdl); position:relative; }
+.stats-row::after, .feature-row::after, .prod-grid::after {
+  content:""; position:absolute; bottom:-1px; left:0; right:0; height:1px;
+  background:var(--bd); box-shadow: 100vw 0 0 0 var(--bd), -100vw 0 0 0 var(--bd);
+}
+@media (max-width:1280px) { :root { --col-width:100%; --side-pad:40px; } }
+@media (max-width:768px) {
+  
+  .h-title { font-size: 36px; line-height: 40px; }
+  .hero-main { padding: calc(var(--nav-h) + 40px) var(--cell-pad) 40px; }
+  .h-cta { flex-direction: column; width: 100%; }
+  .h-cta .btn-dark, .h-cta .btn-ghost { width: 100%; text-align: center; }
+  .cta-title { font-size: 28px; line-height: 32px; }
+  .cta-btns { flex-direction: column; width: 100%; }
+  .cta-btns .btn-dark, .cta-btns .btn-ghost { width: 100%; text-align: center; }
+  .nav-links,
+  .h-title { font-size:36px; line-height:40px; }
+  .sec-title { font-size:26px; line-height:30px; }
+  .bin-form { flex-direction:column; align-items:stretch; }
+  .bin-table td:first-child { width:120px; }
+  .ft-top-row { grid-template-columns:1fr 1fr; gap:24px; }
+  .ft-brand-col { grid-column:1/-1; }
+  .ft-bottom-bar { flex-direction:column; align-items:flex-start; gap:12px; }
+}
+@media (max-width:480px) {
+  :root { --cell-pad:20px; }
+  
+  .h-title { font-size:28px; line-height:34px; }
+  .ft-top-row { grid-template-columns:1fr; }
+  .cta-title { font-size:28px; line-height:32px; }
+  
+  
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-mark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="var(--bg)"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="var(--bg)" opacity=".4"/></svg></div>
+      <span class="nav-brand">ScanFraud</span>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="products.html">Products <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="transaction-monitoring.html"><span class="nav-drop-icon"><i data-lucide="activity"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Transaction Monitoring</span><span class="nav-drop-desc">Real-time scoring & rules engine</span></span></a>
+          <a href="routing-cascading.html"><span class="nav-drop-icon"><i data-lucide="git-branch"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Routing & Cascading</span><span class="nav-drop-desc">Smart payment routing</span></span></a>
+          <a href="dispute-resolution.html"><span class="nav-drop-icon"><i data-lucide="shield-check"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Dispute Resolution</span><span class="nav-drop-desc">Chargeback management</span></span></a>
+          <a href="risk-management.html"><span class="nav-drop-icon"><i data-lucide="users"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Risk Outsourcing</span><span class="nav-drop-desc">Expert fraud operations</span></span></a>
+        </div>
+      </li>
+      <li>
+        <a href="industries.html">Industries <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="gambling.html"><span class="nav-drop-icon"><i data-lucide="dice-5"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Gambling & iGaming</span><span class="nav-drop-desc">Betting, casino & sports</span></span></a>
+          <a href="crypto.html"><span class="nav-drop-icon"><i data-lucide="bitcoin"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Crypto</span><span class="nav-drop-desc">Wallets, exchanges & stablecoins</span></span></a>
+          <a href="fintech.html"><span class="nav-drop-icon"><i data-lucide="landmark"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Fintech</span><span class="nav-drop-desc">Neobanks & digital finance</span></span></a>
+          <a href="payment-providers.html"><span class="nav-drop-icon"><i data-lucide="credit-card"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Payment Providers</span><span class="nav-drop-desc">PSPs & acquirers</span></span></a>
+          <a href="ecommerce.html"><span class="nav-drop-icon"><i data-lucide="shopping-cart"></i></span><span class="nav-drop-text"><span class="nav-drop-title">E-commerce</span><span class="nav-drop-desc">Online retail & marketplaces</span></span></a>
+          <a href="trading.html"><span class="nav-drop-icon"><i data-lucide="trending-up"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Trading</span><span class="nav-drop-desc">Forex, CFDs & prop firms</span></span></a>
+        </div>
+      </li>
+      <li><a href="overview.html">Overview</a></li>
+      <li><a href="security.html">Security</a></li>
+      <li>
+        <a href="resources.html" class="active">Docs <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">API docs & guides</span></span></a>
+          <a href="security.html"><span class="nav-drop-icon"><i data-lucide="lock"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Security</span><span class="nav-drop-desc">Compliance & data protection</span></span></a>
+          <a href="bin-checker.html"><span class="nav-drop-icon"><i data-lucide="search"></i></span><span class="nav-drop-text"><span class="nav-drop-title">BIN Checker</span><span class="nav-drop-desc">Card BIN lookup tool</span></span></a>
+          <a href="overview.html"><span class="nav-drop-icon"><i data-lucide="building-2"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Company Overview</span><span class="nav-drop-desc">About ScanFraud</span></span></a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="btn-ol">Log in</button>
+      <button class="btn-sl">Book a demo</button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="grid-wrap">
+<div class="hero-sec" id="heroWrap">
+  <div id="dots" aria-hidden="true"></div>
+  <section class="hero-main reveal">
+    <p class="page-eyebrow">Resources / BIN Checker</p>
+    <h1 class="h-title">BIN Checker</h1>
+    <p class="h-sub">Enter the first 6-8 digits of any payment card to identify the issuer, card type, brand, and country of origin. Free and instant.</p>
+    <div class="h-cta">
+      <button class="btn-dark">Book a demo</button>
+      <button class="btn-ghost">Contact sales</button>
+    </div>
+  </section>
+</div>
+
+  <div class="bin-form">
+    <div class="bin-input-wrap">
+      <label class="bin-label" for="binInput">Card BIN (first 6-8 digits)</label>
+      <input type="text" id="binInput" class="bin-input" placeholder="e.g. 411111" maxlength="8" autocomplete="off"/>
+    </div>
+    <button class="bin-btn" id="binBtn">Check BIN</button>
+  </div>
+  <div class="bin-error" id="binError"></div>
+  <div class="bin-result" id="binResult">
+    <table class="bin-table">
+      <tr><td>BIN</td><td id="resBin"></td></tr>
+      <tr><td>Card brand</td><td id="resBrand"></td></tr>
+      <tr><td>Card type</td><td id="resType"></td></tr>
+      <tr><td>Card category</td><td id="resCategory"></td></tr>
+      <tr><td>Issuer</td><td id="resIssuer"></td></tr>
+      <tr><td>Country</td><td id="resCountry"></td></tr>
+      <tr><td>Country code</td><td id="resCode"></td></tr>
+      <tr><td>Currency</td><td id="resCurrency"></td></tr>
+    </table>
+  </div>
+
+  <section class="page-section page-section--divider">
+    <div class="page-section-inner">
+      <p class="sec-eyebrow">About</p>
+      <h2 class="sec-title">What is a BIN?</h2>
+      <p class="sec-desc">A Bank Identification Number (BIN) is the first 6-8 digits of a payment card number. It identifies the issuing institution, card network, card type, and country of origin. BIN data is used in fraud prevention to verify that a transaction's card details match the expected issuer and geography.</p>
+    </div>
+  </section>
+
+<div class="cta-sec" id="ctaSection">
+  <div id="cta-dots" aria-hidden="true"></div>
+  <div class="cta-inner reveal">
+    <p class="cta-eyebrow">Need full BIN access?</p>
+    <h2 class="cta-title">Unlimited BIN lookups via API</h2>
+    <p class="cta-sub">Integrate BIN verification directly into your payment flow. Get detailed issuer data on every transaction in real time.</p>
+    <div class="cta-btns"><button class="btn-dark">Book a demo</button><button class="btn-ghost">Contact sales</button></div>
+  </div>
+</div>
+</div>
+<footer>
+  <div class="footer-outer"><div class="footer-inner-wrap">
+    <div class="ft-top-row">
+      <div class="ft-brand-col">
+        <a href="/" class="footer-logo"><div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div><span class="footer-brand-name">ScanFraud</span></a>
+        <p class="footer-desc">Smart risk and payment management for high-growth businesses.</p>
+      </div>
+      <div class="ft-col"><div class="ft-col-title">Products</div><ul><li><a href="transaction-monitoring.html">Transaction Monitoring</a></li><li><a href="routing-cascading.html">Routing &amp; Cascading</a></li><li><a href="dispute-resolution.html">Dispute Resolution</a></li><li><a href="risk-management.html">Risk Outsourcing</a></li></ul></div>
+      <div class="ft-col"><div class="ft-col-title">Industries</div><ul><li><a href="industries.html">Gambling &amp; iGaming</a></li><li><a href="industries.html">Crypto</a></li><li><a href="industries.html">Fintech</a></li><li><a href="industries.html">E-commerce</a></li><li><a href="industries.html">Trading</a></li></ul></div>
+      <div class="ft-col"><div class="ft-col-title">Resources</div><ul><li><a href="security.html">Security</a></li><li><a href="bin-checker.html">BIN Checker</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="overview.html">Overview</a></li></ul></div>
+    </div>
+    <div class="ft-bottom-bar"><p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; London, UK</p><div class="ft-legal"><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Terms</a></div></div>
+  </div></div>
+</footer>
+<script>
+  const html=document.documentElement;
+  const saved=localStorage.getItem('sf-theme')||'dark';
+  html.setAttribute('data-theme',saved);
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+    html.setAttribute('data-theme',next);localStorage.setItem('sf-theme',next);
+    if(window._sfDotTheme)window._sfDotTheme(next);
+  });
+  if(typeof lucide!=='undefined')lucide.createIcons();
+
+  /* BIN Checker — mock data (replace with API call) */
+  const BIN_DB={
+    '411111':{brand:'Visa',type:'Debit',category:'Classic',issuer:'JPMorgan Chase Bank N.A.',country:'United States',code:'US',currency:'USD'},
+    '431940':{brand:'Visa',type:'Credit',category:'Classic',issuer:'Citibank N.A.',country:'United States',code:'US',currency:'USD'},
+    '520000':{brand:'Mastercard',type:'Credit',category:'Standard',issuer:'Royal Bank of Canada',country:'Canada',code:'CA',currency:'CAD'},
+    '545454':{brand:'Mastercard',type:'Credit',category:'World',issuer:'HSBC Bank plc',country:'United Kingdom',code:'GB',currency:'GBP'},
+    '374245':{brand:'American Express',type:'Credit',category:'Corporate',issuer:'American Express Company',country:'United States',code:'US',currency:'USD'},
+    '356600':{brand:'JCB',type:'Credit',category:'Standard',issuer:'JCB Co., Ltd.',country:'Japan',code:'JP',currency:'JPY'},
+    '621234':{brand:'UnionPay',type:'Debit',category:'Standard',issuer:'Industrial and Commercial Bank of China',country:'China',code:'CN',currency:'CNY'},
+    '400000':{brand:'Visa',type:'Credit',category:'Gold',issuer:'Barclays Bank UK PLC',country:'United Kingdom',code:'GB',currency:'GBP'}
+  };
+  const binInput=document.getElementById('binInput');
+  const binBtn=document.getElementById('binBtn');
+  const binError=document.getElementById('binError');
+  const binResult=document.getElementById('binResult');
+  function lookup(){
+    const val=binInput.value.replace(/\s/g,'');
+    binError.style.display='none';
+    binResult.classList.remove('visible');
+    if(!/^\d{6,8}$/.test(val)){binError.textContent='Enter 6 to 8 digits.';binError.style.display='block';return;}
+    const data=BIN_DB[val]||BIN_DB[val.substring(0,6)];
+    if(!data){binError.textContent='BIN not found in demo database. In production, this connects to the full ScanFraud BIN API.';binError.style.display='block';return;}
+    document.getElementById('resBin').textContent=val.substring(0,6);
+    document.getElementById('resBrand').innerHTML=data.brand+' <span style="font-family:var(--font-i);font-weight:600;font-size:11px;padding:3px 8px;border-radius:4px;background:rgba(26,86,255,.1);color:var(--accent);margin-left:8px">'+data.brand.toUpperCase()+'</span>';
+    document.getElementById('resType').textContent=data.type;
+    document.getElementById('resCategory').textContent=data.category;
+    document.getElementById('resIssuer').textContent=data.issuer;
+    document.getElementById('resCountry').textContent=data.country;
+    document.getElementById('resCode').textContent=data.code;
+    document.getElementById('resCurrency').textContent=data.currency;
+    binResult.classList.add('visible');
+  }
+  binBtn.addEventListener('click',lookup);
+  binInput.addEventListener('keydown',function(e){if(e.key==='Enter')lookup();});
+  binInput.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,8);});
+  (function(){const els=document.querySelectorAll('.reveal');if(!els.length)return;const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('revealed');obs.unobserve(x.target);}});},{threshold:.12});els.forEach(e=>obs.observe(e));})();
+  /* ── Three.js Hero Dots ── */
+  (function(){
+    const wrap=document.getElementById('heroWrap'),cont=document.getElementById('dots');
+    if(!wrap||!cont||typeof THREE==='undefined')return;
+    const SEP=180,AX=30,AY=40;
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,wrap.offsetWidth/wrap.offsetHeight,1,10000);
+    cam.position.set(0,355,1220);
+    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(wrap.offsetWidth,wrap.offsetHeight);ren.setClearColor(0,0);
+    cont.appendChild(ren.domElement);
+    const geo=new THREE.BufferGeometry(),pos=[],col=[];
+    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:7,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
+    scene.add(new THREE.Points(geo,mat));
+    let count=0;
+    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*40+Math.sin((iy+count)*.4)*40;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.08;}
+    function resize(){const w=wrap.offsetWidth,h=wrap.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
+    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
+    window._sfDotTheme=function(theme){
+      const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;
+      if(window._sfCtaDotTheme)window._sfCtaDotTheme(theme);
+    };
+    window._sfDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Three.js CTA Dots ── */
+  (function(){
+    const cont=document.getElementById('cta-dots');
+    if(!cont||typeof THREE==='undefined')return;
+    const SEP=200,AX=25,AY=30;
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,cont.offsetWidth/cont.offsetHeight,1,10000);
+    cam.position.set(0,280,1100);
+    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(cont.offsetWidth,cont.offsetHeight);ren.setClearColor(0,0);
+    cont.appendChild(ren.domElement);
+    const geo=new THREE.BufferGeometry(),pos=[],col=[];
+    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:6,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true});
+    scene.add(new THREE.Points(geo,mat));
+    let count=0;
+    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*35+Math.sin((iy+count)*.4)*35;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.06;}
+    function resize(){const w=cont.offsetWidth,h=cont.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
+    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
+    window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
+    window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+</script>
+</body>
+</html>

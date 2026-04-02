@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScanFraud — Documentation</title>
+  <meta name="description" content="Privacy policy, cookie policy, and terms of use for the ScanFraud platform."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="shared.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+/* ═══════════════════════════════════════════════
+   ScanFraud — Shared Styles
+   Used across all pages: nav, footer, grid, theme
+   ═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --col-width:  1160px;
+  --side-pad:   140px;
+  --cell-pad:   40px;
+  --nav-h:      65px;
+  --accent:     #1a56ff;
+  --font-g:     'Geist', sans-serif;
+  --font-i:     'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg: #08090a; --bg2: #141516; --bg3: #0d0f14;
+  --bd: #212223; --bdl: 1px solid #212223;
+  --t1: #ffffff; --t2: rgba(255,255,255,0.6); --t3: #8b909e; --tb: rgba(255,255,255,0.55);
+  --nav-bg: rgba(8,9,10,0.92);
+  --btn-bg: #ffffff; --btn-fg: #08090a; --btn-ob: rgba(255,255,255,0.6); --btn-ot: #ffffff;
+}
+[data-theme="light"] {
+  --bg: #ffffff; --bg2: #f7f8fa; --bg3: #f0f1f3;
+  --bd: #e4e7ed; --bdl: 1px solid #e4e7ed;
+  --t1: #171717; --t2: #4d4d4d; --t3: #8b909e; --tb: #86888b;
+  --nav-bg: rgba(255,255,255,0.92);
+  --btn-bg: #0d0f14; --btn-fg: #ffffff; --btn-ob: #d0d4dd; --btn-ot: #3d4151;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--t1); font-family: var(--font-i); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: background .25s, color .25s; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+.grid-wrap { width: var(--col-width); margin: 0 auto; border-left: var(--bdl); border-right: var(--bdl);  }
+
+/* ── NAV ── */
+nav { position: fixed; top:0; left:0; right:0; height: var(--nav-h); background: var(--nav-bg); backdrop-filter: blur(8px); border-bottom: var(--bdl); z-index:100; transition: background .25s, border-color .25s; }
+
+
+
+
+
+
+
+
+/* Theme toggle */
+
+
+
+
+
+[data-theme="light"] 
+
+/* Buttons */
+
+
+
+
+.btn-dark { padding:14px 20px; background:var(--btn-bg); border:1px solid var(--bd); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-fg); cursor:pointer; white-space:nowrap; transition:opacity .15s,background .25s,color .25s; }
+.btn-dark:hover { opacity:.88; }
+.btn-ghost { padding:14px 21px; background:transparent; border:1px solid var(--btn-ob); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-ot); cursor:pointer; white-space:nowrap; transition:background .15s,border-color .25s,color .25s; }
+.btn-ghost:hover { background:rgba(128,128,128,.08); }
+
+/* Burger */
+
+
+
+
+
+
+/* ── FOOTER ── */
+footer { background: #08090a; }
+[data-theme="light"] footer { background: #ffffff; }
+.footer-outer { padding: 0; }
+.footer-inner-wrap { width: var(--col-width); margin: 0 auto; border-left: var(--bdl); border-right: var(--bdl); }
+.ft-top-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding: 40px var(--cell-pad); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.ft-brand-col { display: flex; flex-direction: column; gap: 11px; }
+.footer-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+.footer-logomark { width: 28px; height: 28px; border-radius: 6px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.footer-logomark svg { width: 16px; height: 16px; }
+.footer-brand-name { font-family: var(--font-i); font-weight: 600; font-size: 15px; color: #ffffff; letter-spacing: -.3px; }
+.footer-desc { font-family: var(--font-i); font-weight: 400; font-size: 13px; line-height: 21.45px; color: rgba(255,255,255,0.6); max-width: 240px; }
+.ft-col-title { font-family: var(--font-i); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+.ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ft-col ul li a { font-family: var(--font-i); font-weight: 400; font-size: 14px; line-height: 22.4px; color: rgba(255,255,255,0.6); transition: color .15s; text-decoration: none; }
+.ft-col ul li a:hover { color: #ffffff; }
+.ft-bottom-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px var(--cell-pad); }
+.ft-copy { font-family: var(--font-i); font-weight: 400; font-size: 13px; color: rgba(255,255,255,0.6); }
+.ft-legal { display: flex; gap: 24px; }
+.ft-legal a { font-family: var(--font-i); font-weight: 400; font-size: 13px; color: rgba(255,255,255,0.6); transition: color .15s; }
+.ft-legal a:hover { color: #ffffff; }
+
+/* Light footer overrides */
+[data-theme="light"] .footer-inner-wrap { border-color: #e4e7ed; }
+[data-theme="light"] .footer-logomark { background: #0d0f14; }
+[data-theme="light"] .footer-brand-name { color: #171717; }
+[data-theme="light"] .footer-desc { color: #8b909e; }
+[data-theme="light"] .ft-col-title { color: #8b909e; }
+[data-theme="light"] .ft-col ul li a { color: #3d4151; }
+[data-theme="light"] .ft-col ul li a:hover { color: #171717; }
+[data-theme="light"] .ft-bottom-bar { border-top-color: #e4e7ed; }
+[data-theme="light"] .ft-copy { color: #8b909e; }
+[data-theme="light"] .ft-legal a { color: #8b909e; }
+[data-theme="light"] .ft-legal a:hover { color: #171717; }
+[data-theme="light"] .ft-top-row { border-bottom-color: #e4e7ed; }
+[data-theme="light"] .footer-logomark svg path { fill: #ffffff; }
+
+/* ── HERO (Three.js dots) ── */
+.hero-sec { position:relative; overflow:visible; }
+.hero-sec::after { content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100vw; height:0; border-bottom:var(--bdl); z-index:10; }
+[data-theme="light"] .hero-sec { background:linear-gradient(180deg,#eef2ff 0%,#fff 100%); }
+#dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#dots canvas { display:block; width:100%!important; height:100%!important; }
+.hero-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,86,255,.18) 0%,transparent 60%); pointer-events:none; z-index:1; }
+[data-theme="light"] .hero-sec::before { background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(26,86,255,.06) 0%,transparent 70%); }
+.hero-main { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:20px; padding:calc(var(--nav-h) + 100px) var(--cell-pad) 80px; }
+.h-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
+.h-sub { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--t2); text-align:center; max-width:600px; }
+.h-cta { display:flex; gap:12px; align-items:center; margin-top:8px; }
+.page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); }
+
+/* Section pattern for inner pages */
+.page-section {
+  padding: 60px 0;
+  border-bottom: var(--bdl);
+}
+.page-section-inner {
+  padding: 0 var(--cell-pad);
+}
+.sec-eyebrow {
+  font-family: var(--font-i); font-weight: 700; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 8px;
+}
+.sec-title {
+  font-family: var(--font-g); font-weight: 600;
+  font-size: 32px; line-height: 36px; letter-spacing: -1.6px;
+  color: var(--t1); margin-bottom: 16px;
+}
+.sec-desc {
+  font-family: var(--font-g); font-weight: 400;
+  font-size: 15px; line-height: 22px;
+  color: var(--tb); max-width: 600px;
+}
+
+/* Grid cards */
+.card-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+}
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card {
+  padding: var(--cell-pad); border-right: var(--bdl); border-bottom: var(--bdl);
+  display: flex; flex-direction: column; gap: 8px;
+  transition: box-shadow .4s ease;
+}
+.card:nth-child(2n) { border-right: none; }
+.card-grid-3 .card:nth-child(2n) { border-right: var(--bdl); }
+.card-grid-3 .card:nth-child(3n) { border-right: none; }
+.card-grid .card:nth-last-child(-n+2) { border-bottom: none; }
+.card-grid-3 .card:nth-last-child(-n+3) { border-bottom: none; }
+.card:hover { box-shadow: inset 0 60px 120px -50px rgba(26,86,255,0.12); }
+.card-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(26,86,255,.1); display: flex;
+  align-items: center; justify-content: center; margin-bottom: 8px;
+}
+.card-icon svg { width: 18px; height: 18px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
+[data-theme="light"] .card-icon { background: rgba(26,86,255,.07); }
+.card-title {
+  font-family: var(--font-g); font-weight: 600;
+  font-size: 18px; line-height: 24px; letter-spacing: -.4px;
+  color: var(--t1);
+}
+.card-desc {
+  font-family: var(--font-g); font-weight: 400;
+  font-size: 13px; line-height: 20px;
+  color: var(--tb);
+}
+.card-link {
+  font-family: var(--font-g); font-weight: 500;
+  font-size: 13px; color: var(--accent);
+  margin-top: auto; padding-top: 8px;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* Feature rows (alternating text + visual) */
+.feature-row {
+  display: flex; align-items: stretch;
+  border-bottom: var(--bdl);
+}
+.feature-row-content {
+  flex: 1; padding: var(--cell-pad);
+  display: flex; flex-direction: column; gap: 16px;
+  border-right: var(--bdl);
+}
+.feature-row-visual {
+  flex: 1; padding: var(--cell-pad);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg2);
+}
+.feature-row.reversed .feature-row-content { order: 2; border-right: none; border-left: var(--bdl); }
+.feature-row.reversed .feature-row-visual { order: 1; }
+.feature-number {
+  font-family: var(--font-i); font-weight: 700; font-size: 10px;
+  letter-spacing: 1px; color: var(--t3);
+}
+.feature-heading {
+  font-family: var(--font-g); font-weight: 600;
+  font-size: 24px; line-height: 30px; letter-spacing: -.8px;
+  color: var(--t1);
+}
+.feature-desc {
+  font-family: var(--font-g); font-weight: 400;
+  font-size: 14px; line-height: 21px;
+  color: var(--tb);
+}
+.feature-list {
+  list-style: none; display: flex; flex-direction: column; gap: 12px;
+}
+.feature-list li {
+  font-family: var(--font-g); font-weight: 400;
+  font-size: 13px; line-height: 20px; color: var(--tb);
+  padding-left: 16px; position: relative;
+}
+.feature-list li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+}
+
+/* ── CTA (Three.js dots) ── */
+.cta-sec { position:relative; overflow:visible; }
+[data-theme="light"] .cta-sec { background:linear-gradient(180deg,#fff 0%,#eef2ff 50%,#fff 100%); }
+.cta-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.15) 0%,transparent 65%); pointer-events:none; z-index:1; }
+[data-theme="light"] .cta-sec::before { background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.06) 0%,transparent 65%); }
+#cta-dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#cta-dots canvas { display:block; width:100%!important; height:100%!important; }
+.cta-inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:20px; padding:80px var(--cell-pad); text-align:center; max-width:680px; margin:0 auto; width:100%; }
+.cta-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--t3); }
+.cta-title { font-family:var(--font-g); font-weight:600; font-size:36px; line-height:40px; letter-spacing:-2px; color:var(--t1); }
+.cta-sub { font-family:var(--font-g); font-weight:400; font-size:15px; line-height:22px; color:var(--tb); max-width:480px; }
+.cta-btns { display:flex; gap:12px; margin-top:8px; }
+
+/* Stats row */
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+.stat {
+  padding: 32px var(--cell-pad); text-align: center;
+  border-right: var(--bdl);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-g); font-weight: 700;
+  font-size: 36px; line-height: 36px; letter-spacing: -2px;
+  color: var(--t1);
+}
+.stat-label {
+  font-family: var(--font-i); font-weight: 400;
+  font-size: 13px; color: var(--t3); margin-top: 6px;
+}
+
+/* Industry cards (taller, with icon) */
+.industry-card {
+  padding: var(--cell-pad); border-right: var(--bdl); border-bottom: var(--bdl);
+  display: flex; flex-direction: column; gap: 12px;
+  transition: box-shadow .4s ease;
+}
+.industry-card:nth-child(2n) { border-right: none; }
+.industry-card:hover { box-shadow: inset 0 60px 120px -50px rgba(26,86,255,0.12); }
+.industry-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(26,86,255,.08); display: flex;
+  align-items: center; justify-content: center;
+}
+.industry-icon svg { width: 20px; height: 20px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.industry-name {
+  font-family: var(--font-g); font-weight: 600;
+  font-size: 20px; line-height: 26px; letter-spacing: -.6px;
+  color: var(--t1);
+}
+.industry-desc {
+  font-family: var(--font-g); font-weight: 400;
+  font-size: 13px; line-height: 20px; color: var(--tb);
+}
+.industry-link {
+  font-family: var(--font-g); font-weight: 500;
+  font-size: 13px; color: var(--accent); margin-top: auto;
+}
+.industry-link:hover { text-decoration: underline; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+/* Full-width dividers */
+.stats-row, .feature-row, .prod-grid, .card-grid, .card-grid-3 { border-bottom: var(--bdl); position:relative; }
+.stats-row::after, .feature-row::after, .prod-grid::after, .card-grid::after, .card-grid-3::after {
+  content:""; position:absolute; bottom:-1px; left:0; right:0; height:1px;
+  background:var(--bd); box-shadow: 100vw 0 0 0 var(--bd), -100vw 0 0 0 var(--bd);
+}
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1280px) {
+  :root { --col-width: 100%; --side-pad: 40px; }
+}
+@media (max-width: 768px) {
+  
+  .nav-links, 
+  .h-title { font-size: 36px; line-height: 40px; }
+  .sec-title { font-size: 26px; line-height: 30px; }
+  .card-grid, .card-grid-3 { grid-template-columns: 1fr; }
+  .card, .card-grid-3 .card { border-right: none; }
+  .card-grid .card:nth-last-child(-n+2), .card-grid-3 .card:nth-last-child(-n+3) { border-bottom: var(--bdl); }
+  .card-grid .card:last-child, .card-grid-3 .card:last-child { border-bottom: none; }
+  .feature-row { flex-direction: column; }
+  .feature-row-content { border-right: none; border-bottom: var(--bdl); }
+  .feature-row.reversed .feature-row-content { order: 1; border-left: none; border-bottom: var(--bdl); }
+  .feature-row.reversed .feature-row-visual { order: 2; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2n) { border-right: none; }
+  .stat:nth-child(n+3) { border-top: var(--bdl); }
+  .ft-top-row { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ft-brand-col { grid-column: 1 / -1; }
+  .ft-bottom-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+@media (max-width: 480px) {
+  :root { --cell-pad: 20px; }
+  
+  .h-title { font-size: 28px; line-height: 34px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: var(--bdl); }
+  .stat:last-child { border-bottom: none; }
+  .ft-top-row { grid-template-columns: 1fr; }
+  .cta-title { font-size: 28px; line-height: 32px; }
+  
+  
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-mark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="var(--bg)"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="var(--bg)" opacity=".4"/></svg></div>
+      <span class="nav-brand">ScanFraud</span>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="products.html">Products <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="transaction-monitoring.html"><span class="nav-drop-icon"><i data-lucide="activity"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Transaction Monitoring</span><span class="nav-drop-desc">Real-time scoring & rules engine</span></span></a>
+          <a href="routing-cascading.html"><span class="nav-drop-icon"><i data-lucide="git-branch"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Routing & Cascading</span><span class="nav-drop-desc">Smart payment routing</span></span></a>
+          <a href="dispute-resolution.html"><span class="nav-drop-icon"><i data-lucide="shield-check"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Dispute Resolution</span><span class="nav-drop-desc">Chargeback management</span></span></a>
+          <a href="risk-management.html"><span class="nav-drop-icon"><i data-lucide="users"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Risk Outsourcing</span><span class="nav-drop-desc">Expert fraud operations</span></span></a>
+        </div>
+      </li>
+      <li>
+        <a href="industries.html">Industries <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="gambling.html"><span class="nav-drop-icon"><i data-lucide="dice-5"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Gambling & iGaming</span><span class="nav-drop-desc">Betting, casino & sports</span></span></a>
+          <a href="crypto.html"><span class="nav-drop-icon"><i data-lucide="bitcoin"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Crypto</span><span class="nav-drop-desc">Wallets, exchanges & stablecoins</span></span></a>
+          <a href="fintech.html"><span class="nav-drop-icon"><i data-lucide="landmark"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Fintech</span><span class="nav-drop-desc">Neobanks & digital finance</span></span></a>
+          <a href="payment-providers.html"><span class="nav-drop-icon"><i data-lucide="credit-card"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Payment Providers</span><span class="nav-drop-desc">PSPs & acquirers</span></span></a>
+          <a href="ecommerce.html"><span class="nav-drop-icon"><i data-lucide="shopping-cart"></i></span><span class="nav-drop-text"><span class="nav-drop-title">E-commerce</span><span class="nav-drop-desc">Online retail & marketplaces</span></span></a>
+          <a href="trading.html"><span class="nav-drop-icon"><i data-lucide="trending-up"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Trading</span><span class="nav-drop-desc">Forex, CFDs & prop firms</span></span></a>
+        </div>
+      </li>
+      <li><a href="overview.html">Overview</a></li>
+      <li><a href="security.html">Security</a></li>
+      <li>
+        <a href="resources.html" class="active">Docs <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">API docs & guides</span></span></a>
+          <a href="security.html"><span class="nav-drop-icon"><i data-lucide="lock"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Security</span><span class="nav-drop-desc">Compliance & data protection</span></span></a>
+          <a href="bin-checker.html"><span class="nav-drop-icon"><i data-lucide="search"></i></span><span class="nav-drop-text"><span class="nav-drop-title">BIN Checker</span><span class="nav-drop-desc">Card BIN lookup tool</span></span></a>
+          <a href="overview.html"><span class="nav-drop-icon"><i data-lucide="building-2"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Company Overview</span><span class="nav-drop-desc">About ScanFraud</span></span></a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="btn-ol">Log in</button>
+      <button class="btn-sl">Book a demo</button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="grid-wrap">
+<div class="hero-sec" id="heroWrap">
+  <div id="dots" aria-hidden="true"></div>
+  <section class="hero-main reveal">
+    <p class="page-eyebrow">Resources / Documentation</p>
+    <h1 class="h-title">Legal documentation</h1>
+    <p class="h-sub">Our policies on data handling, cookies, and terms of service. Updated and maintained to reflect current regulations.</p>
+    <div class="h-cta">
+      <button class="btn-dark">Book a demo</button>
+      <button class="btn-ghost">Contact sales</button>
+    </div>
+  </section>
+</div>
+
+  <div class="card-grid">
+    <div class="card reveal">
+      <div class="card-icon"><i data-lucide="file-text"></i></div>
+      <div class="card-title">Privacy Policy</div>
+      <div class="card-desc">How we collect, handle, store, and protect your personal data. Covers data processing for anti-fraud services, data retention, and your rights under GDPR and UK GDPR.</div>
+      <div style="font-family:var(--font-i);font-size:12px;color:var(--t3);margin-top:8px">Last updated: October 2023</div>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon"><i data-lucide="cookie"></i></div>
+      <div class="card-title">Cookie Policy</div>
+      <div class="card-desc">What cookies and similar technologies we use, why we use them, and how you can control your preferences. Covers essential, preference, analytical, and advertising cookies.</div>
+      <div style="font-family:var(--font-i);font-size:12px;color:var(--t3);margin-top:8px">Last updated: October 2023</div>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon"><i data-lucide="scale"></i></div>
+      <div class="card-title">Terms of Use</div>
+      <div class="card-desc">The rules and guidelines for using the ScanFraud platform and website. Covers acceptable use, intellectual property, liability limitations, and dispute resolution.</div>
+      <div style="font-family:var(--font-i);font-size:12px;color:var(--t3);margin-top:8px">Last updated: October 2023</div>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon"><i data-lucide="handshake"></i></div>
+      <div class="card-title">Data Processing Agreement</div>
+      <div class="card-desc">Standard DPA available for all clients. Covers data processing scope, security measures, sub-processors, and breach notification procedures.</div>
+      <div style="font-family:var(--font-i);font-size:12px;color:var(--t3);margin-top:8px">Available on request</div>
+    </div>
+  </div>
+
+<div class="cta-sec" id="ctaSection">
+  <div id="cta-dots" aria-hidden="true"></div>
+  <div class="cta-inner reveal">
+    <p class="cta-eyebrow">Ready to start?</p>
+    <h2 class="cta-title">Stop fraud. Protect revenue.</h2>
+    <p class="cta-sub">Get up and running in days, not months. Our team will guide you through setup.</p>
+    <div class="cta-btns"><button class="btn-dark">Book a demo</button><button class="btn-ghost">Contact sales</button></div>
+  </div>
+</div>
+</div><footer>
+  <div class="footer-outer"><div class="footer-inner-wrap">
+    <div class="ft-top-row">
+      <div class="ft-brand-col">
+        <a href="/" class="footer-logo"><div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div><span class="footer-brand-name">ScanFraud</span></a>
+        <p class="footer-desc">Smart risk and payment management for high-growth businesses.</p>
+      </div>
+      <div class="ft-col"><div class="ft-col-title">Products</div><ul><li><a href="transaction-monitoring.html">Transaction Monitoring</a></li><li><a href="routing-cascading.html">Routing &amp; Cascading</a></li><li><a href="dispute-resolution.html">Dispute Resolution</a></li><li><a href="risk-management.html">Risk Outsourcing</a></li></ul></div>
+      <div class="ft-col"><div class="ft-col-title">Industries</div><ul><li><a href="industries.html">Gambling &amp; iGaming</a></li><li><a href="industries.html">Crypto</a></li><li><a href="industries.html">Fintech</a></li><li><a href="industries.html">E-commerce</a></li><li><a href="industries.html">Trading</a></li></ul></div>
+      <div class="ft-col"><div class="ft-col-title">Resources</div><ul><li><a href="security.html">Security</a></li><li><a href="bin-checker.html">BIN Checker</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="overview.html">Overview</a></li></ul></div>
+    </div>
+    <div class="ft-bottom-bar"><p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; London, UK</p><div class="ft-legal"><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Terms</a></div></div>
+  </div></div>
+</footer><script>
+  const html=document.documentElement;
+  const saved=localStorage.getItem('sf-theme')||'dark';
+  html.setAttribute('data-theme',saved);
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+    html.setAttribute('data-theme',next);localStorage.setItem('sf-theme',next);
+    if(window._sfDotTheme)window._sfDotTheme(next);
+  });
+  if(typeof lucide!=='undefined')lucide.createIcons();
+  (function(){const els=document.querySelectorAll('.reveal');if(!els.length)return;const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('revealed');obs.unobserve(x.target);}});},{threshold:.12});els.forEach(e=>obs.observe(e));})();
+  /* ── Three.js Hero Dots ── */
+  (function(){
+    const wrap=document.getElementById('heroWrap'),cont=document.getElementById('dots');
+    if(!wrap||!cont||typeof THREE==='undefined')return;
+    const SEP=180,AX=30,AY=40;
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,wrap.offsetWidth/wrap.offsetHeight,1,10000);
+    cam.position.set(0,355,1220);
+    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(wrap.offsetWidth,wrap.offsetHeight);ren.setClearColor(0,0);
+    cont.appendChild(ren.domElement);
+    const geo=new THREE.BufferGeometry(),pos=[],col=[];
+    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:7,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
+    scene.add(new THREE.Points(geo,mat));
+    let count=0;
+    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*40+Math.sin((iy+count)*.4)*40;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.08;}
+    function resize(){const w=wrap.offsetWidth,h=wrap.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
+    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
+    window._sfDotTheme=function(theme){
+      const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;
+      if(window._sfCtaDotTheme)window._sfCtaDotTheme(theme);
+    };
+    window._sfDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Three.js CTA Dots ── */
+  (function(){
+    const cont=document.getElementById('cta-dots');
+    if(!cont||typeof THREE==='undefined')return;
+    const SEP=200,AX=25,AY=30;
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,cont.offsetWidth/cont.offsetHeight,1,10000);
+    cam.position.set(0,280,1100);
+    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(cont.offsetWidth,cont.offsetHeight);ren.setClearColor(0,0);
+    cont.appendChild(ren.domElement);
+    const geo=new THREE.BufferGeometry(),pos=[],col=[];
+    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:6,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true});
+    scene.add(new THREE.Points(geo,mat));
+    let count=0;
+    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*35+Math.sin((iy+count)*.4)*35;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.06;}
+    function resize(){const w=cont.offsetWidth,h=cont.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
+    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
+    window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
+    window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+</script></body></html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScanFraud — Risk Management Outsourcing</title>
+  <meta name="description" content="Delegate fraud operations to our expert team. White-box rules, tailored strategies, full reporting transparency."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="shared.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--col-width:1160px;--cell-pad:40px;--nav-h:65px;--accent:#1a56ff;--font-g:'Geist',sans-serif;--font-i:'Inter',sans-serif}
+[data-theme="dark"]{--bg:#08090a;--bg2:#141516;--bg3:#0d0f14;--bd:#212223;--bdl:1px solid #212223;--t1:#ffffff;--t2:rgba(255,255,255,0.6);--t3:#8b909e;--tb:rgba(255,255,255,0.55);--nav-bg:rgba(8,9,10,0.92);--btn-bg:#ffffff;--btn-fg:#08090a;--btn-ob:rgba(255,255,255,0.6);--btn-ot:#ffffff}
+[data-theme="light"]{--bg:#ffffff;--bg2:#f7f8fa;--bg3:#f0f1f3;--bd:#e4e7ed;--bdl:1px solid #e4e7ed;--t1:#171717;--t2:#4d4d4d;--t3:#8b909e;--tb:#86888b;--nav-bg:rgba(255,255,255,0.92);--btn-bg:#0d0f14;--btn-fg:#ffffff;--btn-ob:#d0d4dd;--btn-ot:#3d4151}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--font-i);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .25s,color .25s}
+a{text-decoration:none;color:inherit}
+.grid-wrap{width:var(--col-width);margin:0 auto;border-left:var(--bdl);border-right:var(--bdl);}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--nav-bg);backdrop-filter:blur(8px);border-bottom:var(--bdl);z-index:100;transition:background .25s,border-color .25s}
+
+
+
+
+
+
+
+
+
+
+
+[data-theme="light"] 
+
+
+
+
+.btn-dark{padding:14px 20px;background:var(--btn-bg);border:1px solid var(--bd);border-radius:10px;font-size:15px;font-weight:500;color:var(--btn-fg);cursor:pointer;white-space:nowrap;transition:opacity .15s,background .25s,color .25s}
+.btn-dark:hover{opacity:.88}
+.btn-ghost{padding:14px 21px;background:transparent;border:1px solid var(--btn-ob);border-radius:10px;font-size:15px;font-weight:500;color:var(--btn-ot);cursor:pointer;white-space:nowrap;transition:background .15s,border-color .25s,color .25s}
+.btn-ghost:hover{background:rgba(128,128,128,.08)}
+
+
+
+
+
+
+
+
+.mob-btns{display:flex;flex-direction:column;gap:8px}
+/* ── HERO (Three.js dots) ── */
+.hero-sec { position:relative; overflow:visible; }
+.hero-sec::after { content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100vw; height:0; border-bottom:var(--bdl); z-index:10; }
+[data-theme="light"] .hero-sec { background:linear-gradient(180deg,#eef2ff 0%,#fff 100%); }
+#dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#dots canvas { display:block; width:100%!important; height:100%!important; }
+.hero-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,86,255,.18) 0%,transparent 60%); pointer-events:none; z-index:1; }
+[data-theme="light"] .hero-sec::before { background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(26,86,255,.06) 0%,transparent 70%); }
+.hero-main { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:20px; padding:calc(var(--nav-h) + 100px) var(--cell-pad) 80px; }
+.h-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
+.h-sub { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--t2); text-align:center; max-width:600px; }
+.h-cta { display:flex; gap:12px; align-items:center; margin-top:8px; }
+.page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); }
+.page-section{padding:60px 0}
+.page-section-inner{padding:0 var(--cell-pad)}
+.sec-eyebrow{font-family:var(--font-i);font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.sec-title{font-family:var(--font-g);font-weight:600;font-size:32px;line-height:36px;letter-spacing:-1.6px;color:var(--t1);margin-bottom:16px}
+.feature-row{display:flex;align-items:stretch}
+.feature-row-content{flex:1;padding:var(--cell-pad);display:flex;flex-direction:column;gap:16px;border-right:var(--bdl)}
+.feature-row-visual{flex:1;padding:var(--cell-pad);display:flex;align-items:center;justify-content:center;background:var(--bg2)}
+.feature-row.reversed .feature-row-content{order:2;border-right:none;border-left:var(--bdl)}
+.feature-row.reversed .feature-row-visual{order:1}
+.feature-number{font-family:var(--font-i);font-weight:700;font-size:10px;letter-spacing:1px;color:var(--t3)}
+.feature-heading{font-family:var(--font-g);font-weight:600;font-size:24px;line-height:30px;letter-spacing:-.8px;color:var(--t1)}
+.feature-desc{font-family:var(--font-g);font-weight:400;font-size:14px;line-height:21px;color:var(--tb)}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.feature-list li{font-family:var(--font-g);font-weight:400;font-size:13px;line-height:20px;color:var(--tb);padding-left:16px;position:relative}
+.feature-list li::before{content:'';position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+/* PROCESS */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.process-step{padding:var(--cell-pad);border-right:var(--bdl);border-bottom:var(--bdl);display:flex;flex-direction:column;gap:12px}
+.process-step:last-child{border-right:none}
+.step-num{font-family:var(--font-g);font-weight:700;font-size:28px;line-height:28px;letter-spacing:-1px;color:var(--accent);opacity:.5}
+.step-title{font-family:var(--font-g);font-weight:600;font-size:16px;line-height:22px;letter-spacing:-.3px;color:var(--t1)}
+.step-desc{font-family:var(--font-g);font-weight:400;font-size:13px;line-height:20px;color:var(--tb)}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:32px var(--cell-pad);text-align:center;border-right:var(--bdl)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:var(--font-g);font-weight:700;font-size:36px;line-height:36px;letter-spacing:-2px;color:var(--t1)}
+.stat-label{font-family:var(--font-i);font-weight:400;font-size:13px;color:var(--t3);margin-top:6px}
+.other-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.other-card{padding:var(--cell-pad);border-right:var(--bdl);border-bottom:var(--bdl);display:flex;flex-direction:column;gap:10px;transition:box-shadow .4s ease;text-decoration:none;color:inherit}
+.other-card:last-child{border-right:none}
+.other-card:hover{box-shadow:inset 0 60px 120px -50px rgba(26,86,255,0.1)}
+.other-icon{width:36px;height:36px;border-radius:8px;background:rgba(26,86,255,.1);display:flex;align-items:center;justify-content:center}
+.other-icon svg{width:18px;height:18px;stroke:var(--accent);stroke-width:1.5;fill:none}
+[data-theme="light"] .other-icon{background:rgba(26,86,255,.07)}
+.other-title{font-family:var(--font-g);font-weight:600;font-size:16px;line-height:22px;letter-spacing:-.3px;color:var(--t1)}
+.other-desc{font-family:var(--font-g);font-weight:400;font-size:13px;line-height:20px;color:var(--tb)}
+.other-link{font-family:var(--font-g);font-weight:500;font-size:12px;color:var(--accent);margin-top:auto;padding-top:4px}
+/* ── CTA (Three.js dots) ── */
+.cta-sec { position:relative; overflow:visible; }
+[data-theme="light"] .cta-sec { background:linear-gradient(180deg,#fff 0%,#eef2ff 50%,#fff 100%); }
+.cta-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.15) 0%,transparent 65%); pointer-events:none; z-index:1; }
+[data-theme="light"] .cta-sec::before { background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.06) 0%,transparent 65%); }
+#cta-dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#cta-dots canvas { display:block; width:100%!important; height:100%!important; }
+.cta-inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:20px; padding:80px var(--cell-pad); text-align:center; max-width:680px; margin:0 auto; width:100%; }
+.cta-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--t3); }
+.cta-title { font-family:var(--font-g); font-weight:600; font-size:36px; line-height:40px; letter-spacing:-2px; color:var(--t1); }
+.cta-sub { font-family:var(--font-g); font-weight:400; font-size:15px; line-height:22px; color:var(--tb); max-width:480px; }
+.cta-btns { display:flex; gap:12px; margin-top:8px; }
+footer{background:#08090a}
+[data-theme="light"] footer{background:#ffffff}
+.footer-outer{padding:0}
+.footer-inner-wrap{max-width:1160px;margin:0 auto;border-left:1px solid #212223;border-right:1px solid #212223}
+[data-theme="light"] .footer-inner-wrap{border-color:#e4e7ed}
+.ft-top-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:32px;padding:40px}
+.ft-brand-col{display:flex;flex-direction:column;gap:11px}
+.footer-logo{display:inline-flex;align-items:center;gap:8px}
+.footer-logomark{width:30px;height:30px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+[data-theme="light"] .footer-logomark{background:#0d0f14}
+.footer-logomark svg{width:16px;height:16px}
+.footer-brand-name{font-family:var(--font-i);font-weight:600;font-size:16px;letter-spacing:-.3px;color:#fff;white-space:nowrap}
+[data-theme="light"] .footer-brand-name{color:#171717}
+.footer-desc{font-family:var(--font-i);font-size:13px;line-height:21px;color:rgba(255,255,255,.6);max-width:240px}
+[data-theme="light"] .footer-desc{color:#8b909e}
+.ft-col-title{font-family:var(--font-i);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.6);margin-bottom:16px}
+[data-theme="light"] .ft-col-title{color:#8b909e}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.ft-col ul li a{font-family:var(--font-i);font-size:14px;color:rgba(255,255,255,.6);transition:color .15s}
+.ft-col ul li a:hover{color:#fff}
+[data-theme="light"] .ft-col ul li a{color:#3d4151}[data-theme="light"] .ft-col ul li a:hover{color:#171717}
+.ft-bottom-bar{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;border-top:1px solid rgba(255,255,255,.08)}
+[data-theme="light"] .ft-bottom-bar{border-top-color:#e4e7ed}
+.ft-copy{font-family:var(--font-i);font-size:13px;color:rgba(255,255,255,.6)}[data-theme="light"] .ft-copy{color:#8b909e}
+.ft-legal{display:flex;gap:24px}
+.ft-legal a{font-family:var(--font-i);font-size:13px;color:rgba(255,255,255,.6);transition:color .15s}
+.ft-legal a:hover{color:#fff}[data-theme="light"] .ft-legal a{color:#8b909e}[data-theme="light"] .ft-legal a:hover{color:#171717}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.revealed{opacity:1;transform:translateY(0)}
+/* REPORT MOCK */
+.report-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd)}
+.report-item:last-child{border-bottom:none}
+.report-icon{width:28px;height:28px;border-radius:6px;background:rgba(26,86,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.report-icon svg{width:14px;height:14px;stroke:var(--accent);stroke-width:1.5;fill:none}
+[data-theme="light"] .report-icon{background:rgba(26,86,255,.07)}
+.report-title{font-family:var(--font-i);font-size:12px;font-weight:500;color:var(--t1);line-height:1.4}
+.report-sub{font-family:var(--font-i);font-size:11px;color:var(--t3);margin-top:2px}
+.report-time{font-family:var(--font-i);font-size:10px;color:var(--t3);flex-shrink:0;margin-top:2px;white-space:nowrap}
+/* RULE PERF TABLE */
+.rule-table{width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg);font-family:var(--font-i)}
+.rule-thead{display:grid;grid-template-columns:1.5fr .7fr .7fr .7fr;padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2)}
+.rule-th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)}
+.rule-trow{display:grid;grid-template-columns:1.5fr .7fr .7fr .7fr;padding:9px 12px;border-bottom:1px solid var(--bd);align-items:center}
+.rule-trow:last-child{border-bottom:none}
+.rule-tname{font-size:12px;font-weight:500;color:var(--t1)}
+.rule-tval{font-size:12px;color:var(--t2)}
+.rule-tval.good{color:#22c55e;font-weight:500}
+.rule-tval.warn{color:#eab308;font-weight:500}
+[data-theme="light"] .rule-tval.good{color:#16a34a}[data-theme="light"] .rule-tval.warn{color:#ca8a04}
+.rule-tbadge{font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:rgba(34,197,94,.15);color:#22c55e;width:fit-content}
+.rule-tbadge.review{background:rgba(234,179,8,.15);color:#eab308}
+[data-theme="light"] .rule-tbadge{background:rgba(22,163,74,.1);color:#16a34a}
+[data-theme="light"] .rule-tbadge.review{background:rgba(202,138,4,.1);color:#ca8a04}
+@media(max-width:1280px){:root{--col-width:100%;--cell-pad:32px}.nav-inner,.grid-wrap{width:100%;border-left:none;border-right:none}.footer-inner-wrap{max-width:100%}}
+@media(max-width:1024px){:root{--cell-pad:28px}.h-title{font-size:38px;line-height:44px}.process-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){:root{--cell-pad:24px;--nav-h:56px}.nav-links,
+  .h-title { font-size: 36px; line-height: 40px; }
+  .hero-main { padding: calc(var(--nav-h) + 40px) var(--cell-pad) 40px; }
+  .h-cta { flex-direction: column; width: 100%; }
+  .h-cta .btn-dark, .h-cta .btn-ghost { width: 100%; text-align: center; }
+  .cta-title { font-size: 28px; line-height: 32px; }
+  .cta-btns { flex-direction: column; width: 100%; }
+  .cta-btns .btn-dark, .cta-btns .btn-ghost { width: 100%; text-align: center; }.h-title{font-size:30px;line-height:36px}.feature-row{flex-direction:column}.feature-row-content,.feature-row-visual{flex:none;width:100%}.feature-row-content{border-right:none!important;border-left:none!important;border-bottom:var(--bdl)}.feature-row.reversed .feature-row-content{order:1}.feature-row.reversed .feature-row-visual{order:2}.stats-row{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2n){border-right:none}.stat:nth-child(n+3){border-top:var(--bdl)}.other-grid{grid-template-columns:1fr}.other-card{border-right:none}.process-grid{grid-template-columns:1fr}.process-step{border-right:none}.ft-top-row{grid-template-columns:1fr 1fr;gap:24px}.ft-brand-col{grid-column:1/-1}.ft-bottom-bar{flex-direction:column;align-items:flex-start;gap:12px}}
+@media(max-width:480px){:root{--cell-pad:20px}.h-title{font-size:26px;line-height:32px}.stats-row{grid-template-columns:1fr}.stat{border-right:none;border-bottom:var(--bdl)}.stat:last-child{border-bottom:none}.ft-top-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-mark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="var(--bg)"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="var(--bg)" opacity=".4"/></svg></div>
+      <span class="nav-brand">ScanFraud</span>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="products.html" class="active">Products <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="transaction-monitoring.html"><span class="nav-drop-icon"><i data-lucide="activity"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Transaction Monitoring</span><span class="nav-drop-desc">Real-time scoring & rules engine</span></span></a>
+          <a href="routing-cascading.html"><span class="nav-drop-icon"><i data-lucide="git-branch"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Routing & Cascading</span><span class="nav-drop-desc">Smart payment routing</span></span></a>
+          <a href="dispute-resolution.html"><span class="nav-drop-icon"><i data-lucide="shield-check"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Dispute Resolution</span><span class="nav-drop-desc">Chargeback management</span></span></a>
+          <a href="risk-management.html"><span class="nav-drop-icon"><i data-lucide="users"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Risk Outsourcing</span><span class="nav-drop-desc">Expert fraud operations</span></span></a>
+        </div>
+      </li>
+      <li>
+        <a href="industries.html">Industries <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="gambling.html"><span class="nav-drop-icon"><i data-lucide="dice-5"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Gambling & iGaming</span><span class="nav-drop-desc">Betting, casino & sports</span></span></a>
+          <a href="crypto.html"><span class="nav-drop-icon"><i data-lucide="bitcoin"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Crypto</span><span class="nav-drop-desc">Wallets, exchanges & stablecoins</span></span></a>
+          <a href="fintech.html"><span class="nav-drop-icon"><i data-lucide="landmark"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Fintech</span><span class="nav-drop-desc">Neobanks & digital finance</span></span></a>
+          <a href="payment-providers.html"><span class="nav-drop-icon"><i data-lucide="credit-card"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Payment Providers</span><span class="nav-drop-desc">PSPs & acquirers</span></span></a>
+          <a href="ecommerce.html"><span class="nav-drop-icon"><i data-lucide="shopping-cart"></i></span><span class="nav-drop-text"><span class="nav-drop-title">E-commerce</span><span class="nav-drop-desc">Online retail & marketplaces</span></span></a>
+          <a href="trading.html"><span class="nav-drop-icon"><i data-lucide="trending-up"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Trading</span><span class="nav-drop-desc">Forex, CFDs & prop firms</span></span></a>
+        </div>
+      </li>
+      <li><a href="overview.html">Overview</a></li>
+      <li><a href="security.html">Security</a></li>
+      <li>
+        <a href="resources.html">Docs <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-drop">
+          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">API docs & guides</span></span></a>
+          <a href="security.html"><span class="nav-drop-icon"><i data-lucide="lock"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Security</span><span class="nav-drop-desc">Compliance & data protection</span></span></a>
+          <a href="bin-checker.html"><span class="nav-drop-icon"><i data-lucide="search"></i></span><span class="nav-drop-text"><span class="nav-drop-title">BIN Checker</span><span class="nav-drop-desc">Card BIN lookup tool</span></span></a>
+          <a href="overview.html"><span class="nav-drop-icon"><i data-lucide="building-2"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Company Overview</span><span class="nav-drop-desc">About ScanFraud</span></span></a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="btn-ol">Log in</button>
+      <button class="btn-sl">Book a demo</button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <ul class="mob-links">
+    <li><a href="overview.html">Overview</a></li><li><a href="products.html">Products</a></li><li><a href="industries.html">Industries</a></li><li><a href="security.html">Security</a></li><li><a href="resources.html">Docs</a></li>
+  </ul>
+  <div class="mob-btns"><button class="btn-dark" style="width:100%;text-align:center">Book a demo</button></div>
+</div>
+
+</div>
+
+<div class="grid-wrap">
+<div class="hero-sec" id="heroWrap">
+  <div id="dots" aria-hidden="true"></div>
+  <section class="hero-main reveal">
+    <p class="page-eyebrow">Products / Risk Management Outsourcing</p>
+    <h1 class="h-title">Let experts handle your fraud operations.</h1>
+    <p class="h-sub">Our team works as an extension of your staff — white-box rules, tailored strategies, and full transparency. You stay in control.</p>
+    <div class="h-cta">
+      <button class="btn-dark">Book a demo</button>
+      <button class="btn-ghost">Contact sales</button>
+    </div>
+  </section>
+</div>
+
+
+  <!-- ROW 1: Expert team -->
+  <div class="feature-row reveal">
+    <div class="feature-row-content">
+      <p class="feature-number">01 — EXPERT TEAM</p>
+      <h2 class="feature-heading">A dedicated risk team without the hiring cost</h2>
+      <p class="feature-desc">Our analysts work with your data every day — creating rules, investigating suspicious patterns, and tuning thresholds. Full transparency: you see every rule, every decision, every report. You stay in control, we do the operational work.</p>
+      <ul class="feature-list">
+        <li>Dedicated team assigned to your account</li>
+        <li>White-box rules — you see exactly what runs and why</li>
+        <li>Clear communication and regular check-ins</li>
+        <li>Seamless transition if you ever want to bring it back in-house</li>
+        <li>Cost savings vs. building and staffing an internal risk function</li>
+      </ul>
+    </div>
+    <div class="feature-row-visual">
+      <div style="max-width:380px;width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg)">
+        <div style="padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;gap:6px">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
+          <span style="font-family:var(--font-i);font-size:11px;color:var(--t3);margin-left:4px">Risk team activity — today</span>
+        </div>
+        <div class="report-item">
+          <div class="report-icon"><svg viewBox="0 0 14 14"><path d="M7 1L2 3.5v5L7 11l5-2.5v-5L7 1z"/></svg></div>
+          <div style="flex:1"><div class="report-title">3 new rules deployed to production</div><div class="report-sub">High-risk velocity + device mismatch rules</div></div>
+          <span class="report-time">09:14</span>
+        </div>
+        <div class="report-item">
+          <div class="report-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5"/><path d="M7 4v3l2 2" stroke-linecap="round"/></svg></div>
+          <div style="flex:1"><div class="report-title">Weekly performance review completed</div><div class="report-sub">Fraud rate ↓ 0.3% · False positives ↓ 12%</div></div>
+          <span class="report-time">11:30</span>
+        </div>
+        <div class="report-item">
+          <div class="report-icon"><svg viewBox="0 0 14 14"><path d="M2 10L7 4l5 6M5 7l2-3 2 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div style="flex:1"><div class="report-title">Suspicious cluster identified — 14 accounts</div><div class="report-sub">Same device, 6 different cards · Blocked</div></div>
+          <span class="report-time">13:55</span>
+        </div>
+        <div class="report-item">
+          <div class="report-icon"><svg viewBox="0 0 14 14"><rect x="2" y="3" width="10" height="8" rx="1"/><path d="M5 7h4M5 9h2" stroke-linecap="round"/></svg></div>
+          <div style="flex:1"><div class="report-title">Monthly report sent to stakeholders</div><div class="report-sub">KPIs, rule changes, recommendations included</div></div>
+          <span class="report-time">17:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Rule management -->
+  <div class="feature-row reversed reveal">
+    <div class="feature-row-visual">
+      <div class="rule-table" style="max-width:400px;width:100%">
+        <div style="padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;gap:6px">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
+          <span style="font-family:var(--font-i);font-size:11px;color:var(--t3);margin-left:4px">Active rules — performance</span>
+        </div>
+        <div class="rule-thead">
+          <span class="rule-th">Rule</span>
+          <span class="rule-th">Hits/day</span>
+          <span class="rule-th">Accuracy</span>
+          <span class="rule-th">Status</span>
+        </div>
+        <div class="rule-trow">
+          <span class="rule-tname">Velocity 1h limit</span>
+          <span class="rule-tval">1,243</span>
+          <span class="rule-tval good">98.2%</span>
+          <span class="rule-tbadge">Active</span>
+        </div>
+        <div class="rule-trow">
+          <span class="rule-tname">High-risk country</span>
+          <span class="rule-tval">847</span>
+          <span class="rule-tval good">96.8%</span>
+          <span class="rule-tbadge">Active</span>
+        </div>
+        <div class="rule-trow">
+          <span class="rule-tname">Device mismatch</span>
+          <span class="rule-tval">312</span>
+          <span class="rule-tval warn">89.4%</span>
+          <span class="rule-tbadge review">Tuning</span>
+        </div>
+        <div class="rule-trow">
+          <span class="rule-tname">BIN geo mismatch</span>
+          <span class="rule-tval">528</span>
+          <span class="rule-tval good">97.1%</span>
+          <span class="rule-tbadge">Active</span>
+        </div>
+        <div class="rule-trow">
+          <span class="rule-tname">Brute-force guard</span>
+          <span class="rule-tval">94</span>
+          <span class="rule-tval good">99.6%</span>
+          <span class="rule-tbadge">Active</span>
+        </div>
+      </div>
+    </div>
+    <div class="feature-row-content">
+      <p class="feature-number">02 — RULE MANAGEMENT &amp; REPORTING</p>
+      <h2 class="feature-heading">Tailored strategy, continuous optimisation</h2>
+      <p class="feature-desc">We start by aligning on your risk appetite and business model, then build and deploy rules accordingly. Rules are tested on historical data first. Performance is tracked continuously — thresholds adjusted, false positives reduced over time.</p>
+      <ul class="feature-list">
+        <li>Strategy built around your specific risk profile and business model</li>
+        <li>All rules tested on historical data before production deployment</li>
+        <li>Continuous tuning — accuracy improves over time</li>
+        <li>Scheduled reports: weekly performance, monthly trend analysis</li>
+        <li>Instant alerts for critical patterns or threshold breaches</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROCESS -->
+<div class="grid-wrap">
+  <section class="page-section">
+    <div class="page-section-inner">
+      <p class="sec-eyebrow">How we work</p>
+      <h2 class="sec-title">Getting started in four steps</h2>
+    </div>
+  </section>
+  <div class="process-grid reveal">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Collaborate</div>
+      <div class="step-desc">We align on your risk appetite, KPIs, and business model. Together we define metrics and rule presets.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Customise</div>
+      <div class="step-desc">We set up dashboards, alerts, and reporting tailored to your team's needs. Everything is visible to you.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Integrate</div>
+      <div class="step-desc">Connect your transaction data via API. We import historical data to test rules before going live.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Operate &amp; report</div>
+      <div class="step-desc">We handle daily risk operations. You receive scheduled performance updates and have full access at any time.</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="grid-wrap">
+  <div class="stats-row reveal">
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Monitoring coverage</div></div>
+    <div class="stat"><div class="stat-num">White-box</div><div class="stat-label">Rules — full visibility</div></div>
+    <div class="stat"><div class="stat-num">Weekly</div><div class="stat-label">Performance reports</div></div>
+    <div class="stat"><div class="stat-num">2–3 days</div><div class="stat-label">To go live via API</div></div>
+  </div>
+</div>
+
+<!-- OTHER PRODUCTS -->
+<div class="grid-wrap">
+  <section class="page-section">
+    <div class="page-section-inner">
+      <p class="sec-eyebrow">Also in the platform</p>
+      <h2 class="sec-title">Other products</h2>
+    </div>
+  </section>
+  <div class="other-grid reveal">
+    <a href="transaction-monitoring.html" class="other-card">
+      <div class="other-icon"><svg viewBox="0 0 20 20"><path d="M10 2L3 5.5v7L10 16l7-3.5v-7L10 2z"/><path d="M10 7l-3 1.5v3L10 13l3-1.5v-3L10 7z" opacity=".4"/></svg></div>
+      <div class="other-title">Transaction Monitoring</div>
+      <div class="other-desc">Real-time fraud detection with rules engine, alerts, and cross-entity analysis.</div>
+      <span class="other-link">Learn more →</span>
+    </a>
+    <a href="routing-cascading.html" class="other-card">
+      <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="4" cy="10" r="2"/><circle cx="16" cy="5" r="2"/><circle cx="16" cy="15" r="2"/><path d="M6 10h4m0 0l4-3m-4 3l4 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="other-title">Payment Routing &amp; Cascading</div>
+      <div class="other-desc">Route transactions to the optimal provider. Automatic cascading rescues failed payments.</div>
+      <span class="other-link">Learn more →</span>
+    </a>
+    <a href="dispute-resolution.html" class="other-card">
+      <div class="other-icon"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 10l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="other-title">Dispute Resolution</div>
+      <div class="other-desc">Manage chargebacks from one interface. Evidence prep, case tracking, threshold monitoring.</div>
+      <span class="other-link">Learn more →</span>
+    </a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="grid-wrap">
+<div class="cta-sec" id="ctaSection">
+  <div id="cta-dots" aria-hidden="true"></div>
+  <div class="cta-inner reveal">
+    <p class="cta-eyebrow">Get started</p>
+    <h2 class="cta-title">Outsource fraud operations.</h2>
+    <p class="cta-sub">Our team integrates with yours. White-box rules, full reporting, no black boxes.</p>
+    <div class="cta-btns"><button class="btn-dark">Book a demo</button><button class="btn-ghost">Contact sales</button></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-outer"><div class="footer-inner-wrap">
+    <div class="ft-top-row">
+      <div class="ft-brand-col">
+        <a href="index.html" class="footer-logo"><div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div><span class="footer-brand-name">ScanFraud</span></a>
+        <p class="footer-desc">Smart risk and payment management for high-growth businesses.</p>
+      </div>
+      <div class="ft-col"><div class="ft-col-title">Products</div><ul><li><a href="transaction-monitoring.html">Transaction Monitoring</a></li><li><a href="routing-cascading.html">Routing &amp; Cascading</a></li><li><a href="dispute-resolution.html">Dispute Resolution</a></li><li><a href="risk-management.html">Risk Outsourcing</a></li></ul></div>
+      <div class="ft-col"><div class="ft-col-title">Industries</div><ul><li><a href="industries.html">Gambling &amp; iGaming</a></li><li><a href="industries.html">Crypto</a></li><li><a href="industries.html">Fintech</a></li><li><a href="industries.html">E-commerce</a></li><li><a href="industries.html">Trading</a></li></ul></div>
+      <div class="ft-col"><div class="ft-col-title">Resources</div><ul><li><a href="security.html">Security</a></li><li><a href="bin-checker.html">BIN Checker</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="overview.html">Overview</a></li></ul></div>
+    </div>
+    <div class="ft-bottom-bar"><p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; London, UK</p><div class="ft-legal"><a href="#">Privacy Policy</a><a href="#">Cookie Policy</a><a href="#">Terms of Use</a></div></div>
+  </div></div>
+</footer>
+
+<script>
+  const html=document.documentElement;const saved=localStorage.getItem('sf-theme')||'dark';html.setAttribute('data-theme',saved);
+  document.getElementById('themeBtn').addEventListener('click',()=>{const next=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',next);localStorage.setItem('sf-theme',next);
+    if(window._sfDotTheme)window._sfDotTheme(next);});
+  const burger=document.getElementById('burger');const mob=document.getElementById('mobMenu');burger.addEventListener('click',()=>{burger.classList.toggle('open');mob.classList.toggle('open');});
+  if(typeof lucide!=='undefined')lucide.createIcons();
+  (function(){const els=document.querySelectorAll('.reveal');if(!els.length)return;const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('revealed');obs.unobserve(x.target);}});},{threshold:.12});els.forEach(e=>obs.observe(e));})();
+  /* ── Three.js Hero Dots ── */
+  (function(){
+    const wrap=document.getElementById('heroWrap'),cont=document.getElementById('dots');
+    if(!wrap||!cont||typeof THREE==='undefined')return;
+    const SEP=180,AX=30,AY=40;
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,wrap.offsetWidth/wrap.offsetHeight,1,10000);
+    cam.position.set(0,355,1220);
+    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(wrap.offsetWidth,wrap.offsetHeight);ren.setClearColor(0,0);
+    cont.appendChild(ren.domElement);
+    const geo=new THREE.BufferGeometry(),pos=[],col=[];
+    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:7,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
+    scene.add(new THREE.Points(geo,mat));
+    let count=0;
+    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*40+Math.sin((iy+count)*.4)*40;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.08;}
+    function resize(){const w=wrap.offsetWidth,h=wrap.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
+    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
+    window._sfDotTheme=function(theme){
+      const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;
+      if(window._sfCtaDotTheme)window._sfCtaDotTheme(theme);
+    };
+    window._sfDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Three.js CTA Dots ── */
+  (function(){
+    const cont=document.getElementById('cta-dots');
+    if(!cont||typeof THREE==='undefined')return;
+    const SEP=200,AX=25,AY=30;
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,cont.offsetWidth/cont.offsetHeight,1,10000);
+    cam.position.set(0,280,1100);
+    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(cont.offsetWidth,cont.offsetHeight);ren.setClearColor(0,0);
+    cont.appendChild(ren.domElement);
+    const geo=new THREE.BufferGeometry(),pos=[],col=[];
+    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:6,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true});
+    scene.add(new THREE.Points(geo,mat));
+    let count=0;
+    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*35+Math.sin((iy+count)*.4)*35;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.06;}
+    function resize(){const w=cont.offsetWidth,h=cont.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
+    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
+    window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
+    window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+</script>
+</body>
+</html>
