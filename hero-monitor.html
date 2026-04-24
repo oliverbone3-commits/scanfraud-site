@@ -1,0 +1,145 @@
+<!-- Hero Monitoring Dashboard Component -->
+<div class="hm">
+  <!-- Sidebar — icons match ❖ Core Menu component exactly -->
+  <div class="hm-side">
+    <div class="hm-logo"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#fff"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#fff" opacity=".4"/></svg></div>
+    <!-- Monitoring (bar-chart-2) — active -->
+    <div class="hm-side-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+    <!-- Rules (grid-3x3) -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+    <!-- Chargebacks (undo-2) -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></svg></div>
+    <!-- Data sources (database) -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
+    <!-- Entities (layout-grid) -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+    <!-- Statistics (pie-chart) -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+    <!-- Reports (file-text) -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8"/><path d="M16 17H8"/><path d="M16 9H8"/></svg></div>
+    <!-- Users -->
+    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="hm-main">
+    <!-- Header — H3: Inter Bold 20/28 -0.5px -->
+    <div class="hm-header">
+      <div class="hm-header-title">Monitoring</div>
+      <div class="hm-header-right">
+        <button class="hm-hbtn">[Legal Entity Name] <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="m6 9 6 6 6-6"/></svg></button>
+        <button class="hm-hbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> UTC+02:00 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="hm-hdiv"></div>
+        <div class="hm-hico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <div class="hm-hico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+        <div class="hm-hico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      </div>
+    </div>
+
+    <!-- Tabs — Segmented Picker + Buttons/13 Medium -->
+    <div class="hm-tabs">
+      <button class="hm-tab hm-tab-active">All</button>
+      <button class="hm-tab hm-tab-default">For review <span class="hm-tab-count">1285</span></button>
+      <div class="hm-tab-sep"></div>
+      <button class="hm-tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> Filters</button>
+      <button class="hm-tab-btn">Last Hour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+    </div>
+
+    <!-- Filter chips — Subtitle 12/16, 0px -->
+    <div class="hm-filters">
+      <div class="hm-chip">Event ID: <span class="hm-chip-val">1897651</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip hm-chip-hi">Event ID: <span class="hm-chip-val">1897651</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Merchant name: <span class="hm-chip-val">SFC GROUP LTD</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Reaction: <span class="hm-chip-val">Decline, Approved</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Email: <span class="hm-chip-val">blacklist@gmail.com</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">IP: <span class="hm-chip-val">2A84:4A00:5:1014:1080</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Marker: <span class="hm-chip-val">Fraud confirm, Fraud</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Marker: <span class="hm-chip-val">Fraud confirm, Fraud</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Marker: <span class="hm-chip-val">Fraud confirm, Fraud</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip">Created period: <span class="hm-chip-val">2022.12.30 13:30 — 2022.12.30 13:30</span> <span class="hm-chip-x">×</span></div>
+      <div class="hm-chip-reset">Reset All</div>
+    </div>
+
+    <!-- Table — headers: Subtitle 12/16, cells: Body 13/20, Event ID: JetBrains Mono 12/16 -->
+    <div class="hm-table-wrap">
+      <table class="hm-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="hm-cb"></th>
+            <th>ID <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
+            <th>Event ID <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
+            <th>Event type</th>
+            <th>Transaction type <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
+            <th>Payment method <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
+            <th>System</th>
+            <th>Merchant name <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
+            <th>Service name</th>
+            <th>Terminal name</th>
+            <th>Provider name</th>
+          </tr>
+        </thead>
+        <tbody id="hm-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Footer — pagination + download -->
+    <div class="hm-footer">
+      <div class="hm-pag">
+        <button class="hm-pag-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="hm-pag-btn active">1</button>
+        <button class="hm-pag-btn">2</button>
+        <button class="hm-pag-btn">3</button>
+        <button class="hm-pag-btn">4</button>
+        <button class="hm-pag-btn">5</button>
+        <button class="hm-pag-btn">6</button>
+        <button class="hm-pag-btn">7</button>
+        <button class="hm-pag-btn">8</button>
+        <button class="hm-pag-btn">9</button>
+        <button class="hm-pag-btn">10</button>
+        <span class="hm-pag-dots">…</span>
+        <button class="hm-pag-btn">1285</button>
+        <button class="hm-pag-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hm-hbtn">10 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <span class="hm-pag-info">Shown<span>10 of 2,121,055</span></span>
+      </div>
+      <div class="hm-footer-right">
+        <button class="hm-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg> Download CSV</button>
+        <button class="hm-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Generate table rows matching Figma Monitoring screen
+(function(){
+  const rows = [
+    {id:'12789402012',eid:'7c66b56a7831',sys:'amex',etype:'TRANSACTION',type:'PAYMENT',merchant:'SFC GROUP LTD',service:'MB_Cards_EUR_Any_In',terminal:'2198_Cards_EUR_Any_InOut',provider:'promogator'},
+    {id:'12789402011',eid:'a3f19c82d045',sys:'mc',etype:'TRANSACTION',type:'PAYOUT',merchant:'SFC GROUP LTD',service:'MB_Cards_EUR_Any_In',terminal:'2198_Cards_EUR_Any_InOut',provider:'promogator'},
+    {id:'12789402010',eid:'e8d24f17b962',sys:'visa',etype:'TRANSACTION',type:'PAYMENT',merchant:'Betway Holdings',service:'BW_Cards_GBP_UK_In',terminal:'3301_Cards_GBP_UK_InOut',provider:'adyen'},
+    {id:'12789402009',eid:'1b7a03ec5d88',sys:'visa',etype:'TRANSACTION',type:'PAYOUT',merchant:'Betway Holdings',service:'BW_Cards_GBP_UK_In',terminal:'3301_Cards_GBP_UK_InOut',provider:'adyen'},
+    {id:'12789402008',eid:'f42c8e6a1907',sys:'visa',etype:'CHARGEBACK',type:'REFUND',merchant:'CoinFlow AG',service:'CF_Crypto_USD_Global',terminal:'5500_Crypto_USD_In',provider:'checkout'},
+    {id:'12789402007',eid:'5d91ba3f7c24',sys:'mc',etype:'TRANSACTION',type:'PAYMENT',merchant:'NovaPay Inc',service:'NP_Cards_USD_US_In',terminal:'4410_Cards_USD_US_InOut',provider:'stripe'},
+    {id:'12789402006',eid:'c0e47d28a5f3',sys:'visa',etype:'TRANSACTION',type:'PAYOUT',merchant:'NovaPay Inc',service:'NP_Cards_USD_US_In',terminal:'4410_Cards_USD_US_InOut',provider:'stripe'},
+    {id:'12789402005',eid:'89b36f1e0c72',sys:'mc',etype:'ALERT',type:'PAYMENT',merchant:'LuckyBet GmbH',service:'LB_Cards_EUR_DE_In',terminal:'6620_Cards_EUR_DE_InOut',provider:'worldpay'},
+    {id:'12789402004',eid:'d6a058c4e3b1',sys:'amex',etype:'TRANSACTION',type:'PAYOUT',merchant:'LuckyBet GmbH',service:'LB_Cards_EUR_DE_In',terminal:'6620_Cards_EUR_DE_InOut',provider:'worldpay'}
+  ];
+  // Card logos — exported directly from Figma ❖ Core (222:58625)
+  const cardSvg = {
+    visa:'<img src="img/Method=visa.svg" class="hm-card-logo" alt="Visa">',
+    mc:'<img src="img/Method=mastercard.svg" class="hm-card-logo" alt="Mastercard">',
+    amex:'<img src="img/Method=amex.svg" class="hm-card-logo" alt="Amex">'
+  };
+  const txBadge = {PAYMENT:'hm-b-green',PAYOUT:'hm-b-orange',REFUND:'hm-b-red'};
+  const etBadge = {TRANSACTION:'hm-b-blue',CHARGEBACK:'hm-b-red',ALERT:'hm-b-orange'};
+  const tbody = document.getElementById('hm-tbody');
+  if(!tbody) return;
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><input type="checkbox" class="hm-cb"></td><td class="hm-td-id">${r.id}</td><td class="hm-td-eid">${r.eid}…</td><td><span class="hm-badge ${etBadge[r.etype]}">${r.etype}</span></td><td><span class="hm-badge ${txBadge[r.type]}">${r.type}</span></td><td><span class="hm-badge hm-b-blue">CARD</span></td><td>${cardSvg[r.sys]}</td><td>${r.merchant}</td><td>${r.service}</td><td>${r.terminal}</td><td>${r.provider}</td>`;
+    tbody.appendChild(tr);
+  });
+})();
+</script>

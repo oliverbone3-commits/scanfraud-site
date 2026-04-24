@@ -1,0 +1,170 @@
+<!-- Rule Builder — ❖ Core Design System — Interactive -->
+<div class="rb" id="ruleBuilder">
+  <!-- Header — Figma: 4 sections separated by border-right -->
+  <div class="rb-header">
+    <div class="rb-header-section">
+      <button class="rb-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    </div>
+    <div class="rb-header-section rb-header-info">
+      <div>
+        <div class="rb-title">Create a new rule</div>
+        <div class="rb-step">Step 1</div>
+      </div>
+    </div>
+    <div class="rb-header-section rb-header-actions">
+      <button class="rb-mode active" onclick="rbSetMode(this)"><svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M11 4h10v2H11V4zm0 4h6v2h-6V8zm0 6h10v2H11v-2zm0 4h6v2h-6v-2zM3 4h6v6H3V4zm2 2v2h2V6H5zM3 14h6v6H3v-6zm2 2v2h2v-2H5z"/></svg> Visual</button>
+      <button class="rb-mode" onclick="rbSetMode(this)"><svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M24 12l-5.66 5.66-1.41-1.41L21.17 12l-4.24-4.24 1.41-1.41L24 12zM.83 12l4.24 4.24-1.41 1.41L-2 12l5.66-5.66 1.41 1.41L.83 12zm6.34 9.49L14.32 2.51l1.88.68-7.15 18.98-1.88-.68z"/></svg> Code</button>
+    </div>
+    <div class="rb-header-section">
+      <button class="rb-btn-primary">Continue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <div class="rb-canvas" id="rbCanvas"></div>
+</div>
+
+<script>
+(function(){
+  const state = {
+    blocks: [
+      { type:'func', func:'UNIQUE_COUNT', funcParam:'Customer Email', interval:'Calendar 24 Hours', param:'Amount', op:'>=', value:'2500', mode:'value' },
+      { type:'func', func:'UNIQUE_COUNT', funcParam:'Card', interval:'Calendar 24 Hours', param:'Amount', op:'<=', value:'5000', mode:'value' },
+      { type:'param', param:'BIN_Country', op:'==', value:'IP_Country', mode:'parameter' },
+      { type:'param', param:'Amount', op:'>', value:'100', mode:'value' },
+    ],
+    connectors: ['AND','AND','AND'],
+    reaction:'Decline', score:80, notify:true, expanded:0
+  };
+
+  const PARAMS = ['Amount','Currency','BIN','BIN_Country','IP','IP_Country','Card','Customer_email','Customer_ID','Device_ID','Phone','Cardholder_name','Service_ID','Terminal_ID','Merchant_ID','Provider_ID','Transaction_type','Payment_system'];
+  const FUNCTIONS = ['COUNT','UNIQUE_COUNT','TOTAL_SUM','AVERAGE','MIN','MAX'];
+  const FUNC_PARAMS = ['Customer Email','Customer ID','Device ID','Card','IP','Phone','BIN','Amount','Event ID'];
+  const INTERVALS = ['Calendar 24 Hours','Last 24 Hours','Calendar 1 Day','Last 7 Days','Calendar 1 Week','Last 30 Days'];
+  const ALL_OPS = ['==','!=','>','<','>=','<=','IN','NOT IN','IN LIST','NOT IN LIST','LIKE','ILIKE','IS NULL','IS NOT NULL'];
+
+  const svgPlus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M12 5v14M5 12h14"/></svg>';
+  const svgTrash = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+
+  function opts(list, sel) { return list.map(v => `<option ${v===sel?'selected':''}>${v}</option>`).join(''); }
+
+  function cardInput(label, type, idx, key, val) {
+    if (type === 'select') {
+      const list = key==='func'?FUNCTIONS : key==='funcParam'?FUNC_PARAMS : key==='interval'?INTERVALS : PARAMS;
+      return `<div class="rb-card-input" onclick="event.stopPropagation()"><span class="rb-card-input-label">${label}</span><select onchange="rbUpd(${idx},'${key}',this.value)">${opts(list,val)}</select></div>`;
+    }
+    return `<div class="rb-card-input" onclick="event.stopPropagation()"><span class="rb-card-input-label">${label}</span><input type="text" value="${val||''}" onchange="rbUpd(${idx},'${key}',this.value)" placeholder="Enter value"></div>`;
+  }
+
+  function render() {
+    const c = document.getElementById('rbCanvas');
+    if (!c) return;
+    let h = '';
+
+    state.blocks.forEach((b, i) => {
+      const exp = state.expanded === i;
+      const isF = b.type === 'func';
+
+      h += `<div class="rb-card ${exp?'':'rb-collapsed'}" onclick="rbToggle(${i},event)">`;
+
+      // Header: tabs + delete
+      h += `<div class="rb-card-header"><div class="rb-card-tabs"><button class="rb-card-tab ${b.type==='param'?'active':''}" onclick="rbSetType(${i},'param',event)">Parameter</button><button class="rb-card-tab ${isF?'active':''}" onclick="rbSetType(${i},'func',event)">Function</button></div>`;
+      if (state.blocks.length > 1) h += `<button style="margin-left:8px;background:none;border:none;color:var(--rb-t4);cursor:pointer;padding:4px;border-radius:4px;display:flex;" onclick="rbRemoveBlock(${i},event)" onmouseover="this.style.color='var(--rb-red)'" onmouseout="this.style.color='var(--rb-t4)'">${svgTrash}</button>`;
+      h += `</div>`;
+
+      // ── COLLAPSED: summary line ──
+      if (isF) {
+        h += `<div class="rb-summary" style="padding:12px 16px"><span class="rb-field-label">${b.func}(${b.funcParam})</span> <span class="rb-param-op">${b.op}</span> <span class="rb-param-val">${b.value}</span></div>`;
+      } else {
+        h += `<div class="rb-summary" style="padding:12px 16px"><span class="rb-field-label">Parameter :</span> <span class="rb-field-value">${b.param}</span> <span class="rb-param-op">${b.op}</span>`;
+        if (b.value && !b.op.includes('NULL')) h += ` <span class="rb-param-val">${b.value}</span>`;
+        h += `</div>`;
+      }
+
+      // ── EXPANDED: full form ──
+      h += `<div class="rb-detail">`;
+
+      // Rule Section — label : value fields
+      if (isF) {
+        h += `<div class="rb-section" style="border-bottom:1px solid var(--rb-bd2)">`;
+        h += `<div class="rb-field"><span class="rb-field-label">Aggregation Function</span><span class="rb-field-sep">:</span><span class="rb-field-value">${b.func}</span></div>`;
+        h += `<div class="rb-field"><span class="rb-field-label">Parameter</span><span class="rb-field-sep">:</span><span class="rb-field-value">${b.funcParam}</span></div>`;
+        h += `<div class="rb-field"><span class="rb-field-label">Created at</span><span class="rb-field-sep">:</span><span class="rb-field-value">${b.interval||'Calendar 24 Hours'}</span></div>`;
+        h += `</div>`;
+      }
+
+      // Card Number inputs
+      h += `<div style="padding-top:16px">`;
+      if (isF) {
+        h += cardInput('Aggregation Function','select',i,'func',b.func);
+        h += cardInput('Parameter','select',i,'funcParam',b.funcParam);
+        h += `<div class="rb-where-badge" style="margin:4px 16px 8px">WHERE</div>`;
+        h += cardInput('Created at','select',i,'interval',b.interval);
+      }
+
+      // Parameter + operator + value
+      h += cardInput('Parameter','select',i,'param',b.param);
+
+      // Operators as Segmented Control
+      h += `<div style="padding:0 16px 8px"><div class="rb-val-tabs" style="flex-wrap:wrap;gap:0;">`;
+      ALL_OPS.forEach(op => {
+        h += `<button class="rb-val-tab ${b.op===op?'active':''}" style="flex:none;padding:0 8px;font-size:11px;font-weight:600;${b.op===op?'background:var(--rb-blue);color:#fff;':''}" onclick="rbUpd(${i},'op','${op}');event.stopPropagation()">${op}</button>`;
+      });
+      h += `</div></div>`;
+
+      // Value input (if not NULL)
+      if (!b.op.includes('NULL')) {
+        // Value/Parameter toggle
+        h += `<div style="padding:0 16px 8px"><div class="rb-val-tabs"><button class="rb-val-tab ${b.mode==='value'?'active':''}" onclick="rbUpd(${i},'mode','value');event.stopPropagation()">Value</button><button class="rb-val-tab ${b.mode==='parameter'?'active':''}" onclick="rbUpd(${i},'mode','parameter');event.stopPropagation()">Parameter</button></div></div>`;
+
+        if (b.mode === 'value') {
+          h += cardInput('Value','input',i,'value',b.value);
+        } else {
+          h += cardInput('Parameter','select',i,'value',b.value);
+        }
+      }
+
+      // Add parameter link
+      h += `<div class="rb-add" style="padding:0 16px 16px">${svgPlus} Add Parameter</div>`;
+
+      h += `</div></div>`; // detail + card
+
+      // Connector
+      if (i < state.blocks.length - 1) {
+        const cn = state.connectors[i] || 'AND';
+        h += `<div class="rb-connector"><div class="rb-conn-pill"><button class="rb-conn-btn ${cn==='AND'?'active':''}" onclick="rbConn(${i},'AND')">AND</button><button class="rb-conn-btn ${cn==='OR'?'active':''}" onclick="rbConn(${i},'OR')">OR</button></div></div>`;
+      }
+    });
+
+    // Add condition
+    h += `<div class="rb-connector"><div class="rb-conn-pill"><button class="rb-conn-btn" onclick="rbAddBlock()" style="gap:4px;display:flex;align-items:center;padding:0 12px;">${svgPlus} Add condition</button></div></div>`;
+
+    // THEN
+    h += `<div class="rb-connector"><div class="rb-conn-pill"><div class="rb-then-badge">THEN</div></div></div>`;
+
+    // Reaction card
+    h += `<div class="rb-card" style="cursor:default;padding:16px">`;
+    h += `<div class="rb-then-row"><span class="rb-then-label">Reaction :</span><span class="rb-then-val" style="font-weight:700">${state.reaction}</span></div>`;
+    h += `<div class="rb-then-row"><span class="rb-then-label">Score :</span><span class="rb-then-val" style="font-weight:700">${state.score}</span></div>`;
+    h += `<div class="rb-then-row"><span class="rb-then-label">Notification :</span><span class="rb-then-val" style="font-weight:700">${state.notify?'TRUE':'FALSE'}</span></div>`;
+    h += `<div class="rb-divider"></div>`;
+    h += cardInput('Reaction','select','_r','reaction',state.reaction).replace('onchange="rbUpd','onchange="rbUpdReaction');
+    h += `<div class="rb-card-input" onclick="event.stopPropagation()"><span class="rb-card-input-label">Score</span><input type="number" value="${state.score}" onchange="state.score=+this.value"></div>`;
+    h += `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 16px 16px"><span style="font-size:13px;color:var(--rb-t2)">Notification</span><button class="rb-toggle ${state.notify?'on':''}" onclick="state.notify=!state.notify;render();event.stopPropagation()"></button></div>`;
+    h += `</div>`;
+
+    c.innerHTML = h;
+  }
+
+  window.rbToggle = (i,e) => { if(e.target.closest('select,input,button:not(.rb-card),.rb-card-input')) return; state.expanded=state.expanded===i?null:i; render(); };
+  window.rbUpd = (i,k,v) => { if(typeof i==='string') return; state.blocks[i][k]=v; render(); };
+  window.rbUpdReaction = (_,__,v) => { state.reaction=v; render(); };
+  window.rbConn = (i,v) => { state.connectors[i]=v; render(); };
+  window.rbSetType = (i,t,e) => { e.stopPropagation(); const b=state.blocks[i]; b.type=t; if(t==='func'&&!b.func){b.func='COUNT';b.funcParam='Amount';b.interval='Calendar 24 Hours';} state.expanded=i; render(); };
+  window.rbSetMode = el => { el.parentElement.querySelectorAll('.rb-mode').forEach(b=>b.classList.remove('active')); el.classList.add('active'); };
+  window.rbAddBlock = () => { state.blocks.push({type:'param',param:'Amount',op:'>',value:'0',mode:'value'}); state.connectors.push('AND'); state.expanded=state.blocks.length-1; render(); };
+  window.rbRemoveBlock = (i,e) => { e.stopPropagation(); state.blocks.splice(i,1); state.connectors.splice(i,1); if(state.expanded===i)state.expanded=null; else if(state.expanded>i)state.expanded--; render(); };
+
+  render();
+})();
+</script>

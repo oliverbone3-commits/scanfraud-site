@@ -1,0 +1,145 @@
+/* ═══ HERO MONITORING DASHBOARD ═══
+   Typography: Inter (Figma Typography v2)
+   Colors: Figma Color Scheme — primary.* tokens
+   Spacing: paddings/1=8, paddings/1.5=12, paddings/2=16, paddings/3=24
+   Corners: corners/1=8px
+   ═══════════════════════════════════ */
+.hm { display:flex; width:100%; height:100%; border-radius:12px; overflow:hidden; font-family:'Inter',sans-serif; font-size:13px; line-height:20px; letter-spacing:-0.15px; background:var(--hm-bg); color:var(--hm-t1); border:1px solid var(--hm-bd); font-feature-settings:'cv11' 1,'cv10' 1,'cv09' 1,'cv08' 1,'cv05' 1,'cv04' 1,'cv03' 1,'cv02' 1,'cv01' 1,'ss01' 1,'ss02' 1,'ss04' 1; }
+
+/* ── Theme tokens (from Figma Color Scheme) ── */
+[data-theme="dark"] .hm {
+  --hm-bg:#0c0c0c; --hm-bg2:#161616; --hm-bg3:#1e1e1e;
+  --hm-bd:rgba(255,255,255,.08); --hm-bd2:rgba(255,255,255,.04);
+  --hm-t1:#fff; --hm-t2:rgba(255,255,255,.68); --hm-t3:rgba(255,255,255,.36); --hm-t4:rgba(255,255,255,.16);
+  --hm-sidebar:#0c0c0c; --hm-header:#0c0c0c;
+  --hm-row-hover:rgba(255,255,255,.03); --hm-chip-bg:rgba(255,255,255,.06);
+  --hm-blue:#3b82f6; --hm-blue-bg:rgba(59,130,246,.16);
+  --hm-green:#22c55e; --hm-green-bg:rgba(34,197,94,.16);
+  --hm-orange:#f59e0b; --hm-orange-bg:rgba(245,158,11,.16);
+  --hm-red:#ef4444; --hm-red-bg:rgba(239,68,68,.16);
+  --hm-shadow:0px 1px 2px 0px rgba(255,255,255,.06);
+}
+[data-theme="light"] .hm {
+  --hm-bg:#fff; --hm-bg2:#fafafa; --hm-bg3:#f5f5f5;
+  --hm-bd:rgba(12,12,12,.08); --hm-bd2:rgba(12,12,12,.04);
+  --hm-t1:#0c0c0c; --hm-t2:rgba(12,12,12,.68); --hm-t3:rgba(12,12,12,.36); --hm-t4:rgba(12,12,12,.16);
+  --hm-sidebar:#fafafa; --hm-header:#fff;
+  --hm-row-hover:rgba(12,12,12,.02); --hm-chip-bg:rgba(12,12,12,.05);
+  --hm-blue:#2563eb; --hm-blue-bg:rgba(37,99,235,.08);
+  --hm-green:#16a34a; --hm-green-bg:rgba(22,163,74,.08);
+  --hm-orange:#d97706; --hm-orange-bg:rgba(217,119,6,.08);
+  --hm-red:#dc2626; --hm-red-bg:rgba(220,38,38,.08);
+  --hm-shadow:0px 1px 2px 0px rgba(12,12,12,.06);
+}
+
+/* ── Sidebar (72px in Figma → scaled to 48px for hero) ── */
+.hm-side { width:48px; flex-shrink:0; background:var(--hm-sidebar); border-right:1px solid var(--hm-bd); display:flex; flex-direction:column; align-items:center; padding:10px 0; gap:2px; }
+.hm-logo { width:28px; height:28px; border-radius:7px; background:var(--hm-blue); display:flex; align-items:center; justify-content:center; margin-bottom:10px; flex-shrink:0; transition:transform .15s; }
+.hm-logo:hover { transform:scale(1.05); }
+.hm-logo svg { width:14px; height:14px; }
+.hm-side-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--hm-t4); cursor:pointer; transition:background .15s, color .15s; flex-shrink:0; }
+.hm-side-icon:hover { background:var(--hm-chip-bg); color:var(--hm-t2); }
+.hm-side-icon.active { color:var(--hm-blue); background:var(--hm-blue-bg); }
+.hm-side-icon.active:hover { background:var(--hm-blue-bg); color:var(--hm-blue); }
+.hm-side-icon svg { width:16px; height:16px; stroke-width:1.5; }
+/* Logo: blue bg in both themes, white icon inside */
+.hm-logo { background:var(--hm-blue); }
+[data-theme="light"] .hm-logo svg path { fill:var(--hm-blue); }
+[data-theme="light"] .hm-logo { background:var(--hm-blue); }
+.hm-logo svg path { fill:#fff; }
+
+/* ── Main area ── */
+.hm-main { flex:1; display:flex; flex-direction:column; min-width:0; overflow:hidden; }
+
+/* ── Header bar — H3: 20/28, Bold, -0.5px ── */
+.hm-header { display:flex; align-items:center; justify-content:space-between; height:48px; padding:0 16px; border-bottom:1px solid var(--hm-bd); flex-shrink:0; }
+.hm-header-title { font-weight:700; font-size:20px; line-height:28px; letter-spacing:-0.5px; color:var(--hm-t1); }
+.hm-header-right { display:flex; align-items:center; gap:12px; }
+/* Buttons: Secondary Medium from Core — Default → Hover = border thickens, text darkens */
+.hm-hbtn { height:32px; padding:0 12px; border-radius:8px; border:1px solid var(--hm-bd); background:var(--hm-bg); color:var(--hm-t2); font-size:13px; font-weight:500; line-height:20px; letter-spacing:-0.15px; display:flex; align-items:center; gap:8px; cursor:pointer; white-space:nowrap; font-family:inherit; box-shadow:var(--hm-shadow); font-feature-settings:inherit; transition:border-color .15s, color .15s, box-shadow .15s; }
+.hm-hbtn:hover { border-color:var(--hm-t3); color:var(--hm-t1); }
+.hm-hbtn svg { width:14px; height:14px; opacity:.5; transition:opacity .15s; }
+.hm-hbtn:hover svg { opacity:.8; }
+.hm-hdiv { width:1px; height:16px; background:var(--hm-t4); margin:0 4px; }
+.hm-hico { width:32px; height:32px; border-radius:8px; border:1px solid var(--hm-bd); display:flex; align-items:center; justify-content:center; color:var(--hm-t2); cursor:pointer; box-shadow:var(--hm-shadow); background:var(--hm-bg); transition:border-color .15s, color .15s, background .15s; }
+.hm-hico:hover { border-color:var(--hm-t3); color:var(--hm-t1); }
+.hm-hico svg { width:16px; height:16px; stroke-width:1.5; }
+
+/* ── Tab bar — Buttons/13 Medium ── */
+.hm-tabs { display:flex; align-items:center; gap:8px; height:44px; padding:0 16px; border-bottom:1px solid var(--hm-bd); flex-shrink:0; }
+/* Tabs: Primary = blue bg, hover darkens; Segmented default hover = border thicken */
+.hm-tab { height:32px; padding:0 12px; border-radius:8px; font-size:13px; font-weight:500; line-height:20px; letter-spacing:-0.15px; border:none; cursor:pointer; display:flex; align-items:center; gap:6px; font-family:inherit; font-feature-settings:inherit; transition:background .15s, box-shadow .15s; }
+.hm-tab-active { background:var(--hm-blue); color:#fff; }
+.hm-tab-active:hover { background:#315eec; box-shadow:0px 1px 3px 0px rgba(12,12,12,.08),0px 1px 2px 0px rgba(12,12,12,.06); }
+.hm-tab-default { background:transparent; color:var(--hm-t2); border:1px solid var(--hm-bd); box-shadow:var(--hm-shadow); transition:border-color .15s, color .15s; }
+.hm-tab-default:hover { border-color:var(--hm-t3); color:var(--hm-t1); }
+.hm-tab-count { font-size:12px; line-height:16px; opacity:.7; }
+.hm-tab-sep { width:1px; height:16px; background:var(--hm-t4); margin:0 4px; }
+.hm-tab-btn { height:32px; padding:0 12px; border-radius:8px; border:1px solid var(--hm-bd); background:var(--hm-bg); color:var(--hm-t2); font-size:13px; font-weight:500; line-height:20px; letter-spacing:-0.15px; display:flex; align-items:center; gap:8px; cursor:pointer; font-family:inherit; box-shadow:var(--hm-shadow); font-feature-settings:inherit; transition:border-color .15s, color .15s; }
+.hm-tab-btn:hover { border-color:var(--hm-t3); color:var(--hm-t1); }
+.hm-tab-btn svg { width:14px; height:14px; }
+
+/* ── Filter chips — Caption 10/14, 0.5px ── */
+.hm-filters { display:flex; flex-wrap:wrap; gap:6px; padding:10px 16px; border-bottom:1px solid var(--hm-bd); flex-shrink:0; }
+/* Chips: hover = slightly darker bg, × button hover = darker */
+.hm-chip { height:24px; padding:0 8px; border-radius:6px; background:var(--hm-chip-bg); color:var(--hm-t2); font-size:12px; line-height:16px; letter-spacing:0px; font-weight:400; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; cursor:pointer; transition:background .12s; }
+.hm-chip:hover { background:var(--hm-t4); }
+.hm-chip-val { color:var(--hm-t1); font-weight:500; }
+.hm-chip-hi { background:var(--hm-blue-bg); }
+.hm-chip-hi:hover { background:var(--hm-blue-bg); }
+.hm-chip-hi .hm-chip-val { color:var(--hm-blue); }
+.hm-chip-x { font-size:14px; cursor:pointer; color:var(--hm-t3); margin-left:2px; line-height:1; transition:color .12s; }
+.hm-chip-x:hover { color:var(--hm-t1); }
+.hm-chip-reset { color:var(--hm-blue); font-size:12px; font-weight:500; cursor:pointer; display:flex; align-items:center; padding:0 4px; transition:opacity .12s; }
+.hm-chip-reset:hover { opacity:.75; }
+
+/* ── Table — Subtitle 12/16 headers, Body 13/20 cells ── */
+.hm-table-wrap { flex:1; overflow:hidden; overflow-x:auto; }
+.hm-table { width:max-content; min-width:100%; border-collapse:collapse; }
+/* Table headers: hover = text darkens, sort arrow appears; rows: hover = subtle bg */
+.hm-table th { position:sticky; top:0; background:var(--hm-bg2); font-weight:500; font-size:12px; line-height:16px; letter-spacing:0px; color:var(--hm-t3); text-align:left; padding:0 12px; height:36px; border-bottom:1px solid var(--hm-bd); white-space:nowrap; cursor:pointer; transition:color .12s; }
+.hm-table th:hover { color:var(--hm-t2); }
+.hm-table th svg { width:10px; height:10px; vertical-align:middle; margin-left:3px; opacity:.35; transition:opacity .12s; }
+.hm-table th:hover svg { opacity:.7; }
+.hm-table td { padding:0 12px; height:44px; border-bottom:1px solid var(--hm-bd2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--hm-t2); font-size:13px; line-height:20px; letter-spacing:-0.15px; font-weight:400; transition:background .1s; }
+.hm-table tbody tr { cursor:pointer; }
+.hm-table tbody tr:hover td { background:var(--hm-row-hover); }
+.hm-table .hm-td-id { color:var(--hm-t1); font-weight:500; font-variant-numeric:tabular-nums; }
+.hm-table .hm-td-eid { color:var(--hm-t2); font-family:'JetBrains Mono','SF Mono','Menlo',monospace; font-size:12px; line-height:16px; letter-spacing:0px; }
+
+/* Badges — Tagline 10/14, 0.5px, Medium ── */
+.hm-badge { display:inline-block; padding:2px 8px; border-radius:6px; font-size:10px; line-height:14px; font-weight:500; letter-spacing:.5px; text-transform:uppercase; }
+.hm-b-blue { background:var(--hm-blue-bg); color:var(--hm-blue); }
+.hm-b-green { background:var(--hm-green-bg); color:var(--hm-green); }
+.hm-b-orange { background:var(--hm-orange-bg); color:var(--hm-orange); }
+.hm-b-red { background:var(--hm-red-bg); color:var(--hm-red); }
+
+/* Card logos — from Figma Core 222:58625: 37×24, corners/0.5 = 4px */
+.hm-card-logo { width:37px; height:24px; border-radius:4px; object-fit:contain; display:block; }
+
+/* Checkbox — from Core: Default = border primary.200, Hover = border primary.300 */
+.hm-cb { width:16px; height:16px; border-radius:4px; border:1.5px solid var(--hm-t4); appearance:none; cursor:pointer; flex-shrink:0; background:transparent; transition:border-color .12s, background .12s; }
+.hm-cb:hover { border-color:var(--hm-t3); }
+.hm-cb:checked { background:var(--hm-blue); border-color:var(--hm-blue); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8l3 3 5-5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size:12px; background-position:center; background-repeat:no-repeat; }
+.hm-cb:checked:hover { background:var(--hm-blue); border-color:var(--hm-blue); opacity:.85; }
+.hm-table th:first-child, .hm-table td:first-child { width:40px; text-align:center; padding:0 12px; }
+
+/* ── Footer — Subtitle 12/16 ── */
+.hm-footer { display:flex; align-items:center; justify-content:space-between; height:44px; padding:0 16px; border-top:1px solid var(--hm-bd); flex-shrink:0; background:var(--hm-bg); }
+.hm-pag { display:flex; align-items:center; gap:4px; }
+/* Pagination buttons — hover: bg subtle, active hover: darker blue */
+.hm-pag-btn { width:24px; height:24px; border-radius:6px; border:1px solid var(--hm-bd); background:transparent; color:var(--hm-t2); font-size:12px; line-height:16px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:inherit; font-feature-settings:inherit; transition:background .12s, border-color .12s, color .12s; }
+.hm-pag-btn:hover { background:var(--hm-chip-bg); border-color:var(--hm-t3); color:var(--hm-t1); }
+.hm-pag-btn.active { background:var(--hm-blue); color:#fff; border-color:var(--hm-blue); }
+.hm-pag-btn.active:hover { background:#315eec; }
+.hm-pag-dots { color:var(--hm-t3); font-size:12px; padding:0 2px; }
+.hm-pag-info { color:var(--hm-t3); font-size:12px; line-height:16px; }
+.hm-pag-info span { display:block; color:var(--hm-t2); font-weight:500; }
+.hm-footer-right { display:flex; align-items:center; gap:8px; }
+/* Download buttons — same hover pattern as Secondary buttons */
+.hm-dl-btn { height:28px; padding:0 10px; border-radius:6px; border:1px solid var(--hm-bd); background:var(--hm-bg); color:var(--hm-t2); font-size:12px; line-height:16px; font-weight:500; display:flex; align-items:center; gap:6px; cursor:pointer; font-family:inherit; box-shadow:var(--hm-shadow); font-feature-settings:inherit; transition:border-color .15s, color .15s; }
+.hm-dl-btn:hover { border-color:var(--hm-t3); color:var(--hm-t1); }
+.hm-dl-btn svg { width:14px; height:14px; }
+
+/* ── Responsive: scale in hero ── */
+@media (max-width:768px) { .hm-side { display:none; } .hm-filters { display:none; } .hm { font-size:11px; } }

@@ -122,18 +122,35 @@
 
 ## 4. TRANSACTION MONITORING (transaction-monitoring.html)
 
+> Updated 2026-04-24 — ANTF-864
+
 ### Hero
 - **Eyebrow:** Products / Transaction Monitoring
-- **H1:** See every transaction. Stop fraud in real time.
-- **Subtitle:** Analyse transaction patterns, detect suspicious activity, and make decisions in under 300ms. Rules engine, performance tracking, alerts, and data enrichment.
+- **H1:** Transaction Monitoring: Full Spectrum Control.
+- **Subtitle:** Every transaction enriched, every decline explained, and every critical event surfaced in real time — decisions in under 300ms.
 
-### Why choose this
-- **Fast decisions** — Data collection and decision in under 300ms.
-- **Threshold monitoring** — Keep chargeback rates within Visa/Mastercard requirements. Maintain favourable PSP standing.
-- **Versatile** — Works for merchants, PSPs, crypto platforms, and gambling operators.
-- **Cost-effective** — Pay-as-you-go pricing. Easy to scale.
-- **100+ proven rules** — Pre-built rules tested across industries for immediate deployment.
-- **Compliance** — Meets Visa, Mastercard, PSD2, and SCA requirements.
+### Feature blocks (4)
+
+**01 — Complete data enrichment per event**
+Every transaction is automatically enriched with 15+ data points. Even if the merchant sends incomplete data, the system identifies and fills the gaps in real time.
+- Identification: BIN, country of origin, issuing bank, and payment system
+- Technical profile: IP address, Device ID, and Email fingerprinting
+- Financial accuracy: real-time conversion to base currency for precise limit and velocity checks
+
+**02 — Instant root cause analysis**
+Eliminate the guesswork behind rejected payments. The monitoring table displays the exact decline reason for every transaction.
+- See the specific Rule ID and the condition that triggered the block
+- Differentiate between technical failures (provider errors) and risk-based declines
+
+**03 — "For Review" strategic pipeline**
+Transactions flagged by specific rules are automatically routed to the For Review queue.
+- Analyse suspicious patterns without interrupting the main traffic flow
+- One-click actions: add to blacklists or run a Crosscheck analysis to uncover linked fraud networks
+
+**04 — Instant notifications**
+Stay informed without refreshing the dashboard.
+- Late April: native "In-Platform Bell" notifications for critical events and threshold breaches
+- May: external integration with messengers (Slack, Telegram) and webhooks for automated response
 
 ### Before / With us
 **Before:**
@@ -158,16 +175,18 @@
 
 ## 5. DISPUTE RESOLUTION (dispute-resolution.html)
 
-### Hero
-- **Eyebrow:** Products / Dispute Resolution
-- **H1:** Handle chargebacks without the headache.
-- **Subtitle:** Manage disputes from a single interface. We prepare evidence, track cases, and monitor thresholds — so you can focus on growing your business.
+> Updated 2026-04-24 — ANTF-860
 
-### What sets us apart
-- **Expertise** — We handle stolen cards, friendly fraud, system errors, and merchant fraud cases.
-- **Continuous monitoring** — Track chargeback thresholds from payment providers and card networks in real time.
-- **Comprehensive evidence** — Industry-specific chargeback evidence compiled for each case.
-- **Flexible pricing** — Fixed fee from EUR 40 per case, or package options with included cases.
+### Hero
+- **Eyebrow:** Products / Chargeback Management
+- **H1:** Lower chargeback rates and recover lost revenue.
+- **Subtitle:** Friendly fraud and disputes continue after the payment is completed. We prepare and package all evidence for you — so you can fight chargebacks without operational overhead.
+
+### Feature row 01 — Chargeback management bullets
+- Evidence tailored to reason codes and card network requirements
+- We collect and prepare all documentation — your team does nothing
+- Track disputes across representment and pre-arbitration stages
+- Stay below Visa/Mastercard chargeback thresholds
 
 ### Before / With us
 **Before:**
@@ -269,13 +288,13 @@ Resubmits a failed transaction to an alternative provider automatically — with
 - **H1:** Built for businesses that move money.
 - **Subtitle:** Whether you run a gaming platform, a payment gateway, or a crypto exchange — we have tools and rules designed for your industry.
 
-### Industry cards (6 шт)
-- **Gambling & iGaming** — Protect revenues, fight bonus abuse, maintain compliance with PSD2 and 3DS 2.0.
-- **Payment Providers** — Secure your gateway, onboard merchants confidently, keep card network ratios healthy.
-- **Crypto** — Monitor transactions, prevent suspicious activity, adapt to fast-moving market conditions.
-- **E-commerce** — Reduce chargebacks, eliminate false declines, create a frictionless checkout.
-- **Fintech Solutions** — Scale payment processing, maintain AML compliance, handle chargebacks efficiently.
-- **Trading** — Protect trading operations from fraud, ensure secure transactions, manage risk proactively.
+### Industry cards (6 шт) — Updated 2026-04-24 (ANTF-861)
+- **Gambling & iGaming** — Stop bonus abuse, multi-accounting, and chargeback fraud before it hits your margins. Detect coordinated behavior and prevent payout manipulation in real time.
+- **Crypto** — Detect laundering patterns and suspicious cash-out behavior before funds leave your platform. Flag risky wallets and high-velocity flows across on/off-ramps.
+- **Fintech** — Prevent account takeover and synthetic identity fraud at scale. Apply real-time controls to protect transactions and user accounts.
+- **Payment Providers** — Add fraud protection and routing optimization to your merchant stack. Control risk across multiple merchants and PSP flows.
+- **E-commerce** — Reduce fraud without hurting conversion. Lower chargeback rates and protect checkout revenue.
+- **Trading** — Detect suspicious deposits, withdrawals, and account takeovers. Prevent unauthorized fund movements before execution.
 
 ### Personalised solutions
 - Every industry has unique challenges. We tailor rules, thresholds, and routing to your specific business model.
@@ -304,6 +323,22 @@ Resubmits a failed transaction to an alternative provider automatically — with
 - Конкретные возможности платформы для этой индустрии
 
 ### CTA block
+
+---
+
+### 9a. E-COMMERCE (ecommerce.html) — Updated 2026-04-24 (ANTF-862)
+
+#### Hero
+- **Eyebrow:** E-commerce
+- **H1:** Reduce fraud without hurting conversion.
+- **Subtitle:** Most orders are legitimate — but aggressive fraud rules often block good customers. We stop fraud before fulfilment while keeping approval rates high.
+
+#### Feature row 01 — Order fraud prevention (5 bullets)
+- Approve more legitimate orders by reducing false positives
+- Block card testing and bot traffic before cards are validated
+- Route high-risk orders to review — not blind declines
+- Real-time risk scoring based on device, behavior, and payment data
+- Flexible rules by order value, geography, and payment method
 
 ---
 
@@ -348,7 +383,14 @@ Resubmits a failed transaction to an alternative provider automatically — with
 ---
 
 ## 17. DOCUMENTATION, BIN CHECKER
-Эти страницы утилитарные — контент определяется функционалом, не маркетингом.
+
+### Documentation (documentation.html) — Updated 2026-04-24 (ANTF-863)
+Карточки: Privacy Policy, Cookie Policy, Terms of Use (3 шт, 3-column grid). Раздел про DPA удалён.
+
+### BIN Checker (bin-checker.html) — Updated 2026-04-24 (ANTF-859)
+- **Eyebrow:** Resources / BIN Checker
+- **H1:** BIN Checker
+- **Subtitle:** Stop fraud at the first 6 digits. Identify issuer, country, and card type — before the transaction clears.
 
 ---
 

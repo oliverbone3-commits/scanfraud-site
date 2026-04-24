@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ScanFraud — Transaction Monitoring</title>
-  <meta name="description" content="Real-time transaction monitoring with rules engine, alerts, device fingerprinting, and cross-entity analysis. Decisions in under 300ms."/>
+  <meta name="description" content="Transaction Monitoring: full spectrum control. Complete data enrichment, instant root cause analysis, review pipelines, and real-time notifications."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
@@ -294,8 +294,8 @@ footer{background:#08090a}
   <div id="dots" aria-hidden="true"></div>
   <section class="hero-main reveal">
     <p class="page-eyebrow">Products / Transaction Monitoring</p>
-    <h1 class="h-title">See every transaction. Stop fraud in real time.</h1>
-    <p class="h-sub">Rules engine, real-time alerts, device fingerprinting, and cross-entity analysis — decisions in under 300ms.</p>
+    <h1 class="h-title">Transaction Monitoring: Full Spectrum Control.</h1>
+    <p class="h-sub">Every transaction enriched, every decline explained, and every critical event surfaced in real time — decisions in under 300ms.</p>
     <div class="h-cta">
       <button class="btn-dark">Book a demo</button>
       <button class="btn-ghost">Contact sales</button>
@@ -303,28 +303,52 @@ footer{background:#08090a}
   </section>
 </div>
 
-<!-- FEATURE ROW 1: Rules engine -->
+<!-- FEATURE ROW 1: Data enrichment -->
   <div class="feature-row reveal">
     <div class="feature-row-content">
-      <p class="feature-number">01 — RULES ENGINE</p>
-      <h2 class="feature-heading">Build fraud rules without writing code</h2>
-      <p class="feature-desc">Create, test, and deploy fraud rules using a visual builder. Combine conditions on any transaction attribute — geography, amount, velocity, device, and more. Simulate against historical data before going live.</p>
+      <p class="feature-number">01 — DATA ENRICHMENT</p>
+      <h2 class="feature-heading">Complete data enrichment per event</h2>
+      <p class="feature-desc">Every transaction is automatically enriched with 15+ data points. Even if the merchant sends incomplete data, the system identifies and fills the gaps in real time.</p>
       <ul class="feature-list">
-        <li>Visual rule builder — no technical expertise required</li>
-        <li>Custom code for complex logic when you need it</li>
-        <li>Rule simulation and backtesting on real data</li>
-        <li>100+ expert-built rules available from day one</li>
-        <li>Version control and instant rollback</li>
+        <li><strong>Identification:</strong> BIN, country of origin, issuing bank, and payment system</li>
+        <li><strong>Technical profile:</strong> IP address, Device ID, and Email fingerprinting</li>
+        <li><strong>Financial accuracy:</strong> Real-time conversion to base currency for precise limit and velocity checks</li>
       </ul>
     </div>
     <div class="feature-row-visual">
+      <div style="max-width:380px;width:100%;border:1px solid var(--bd);border-radius:10px;background:var(--bg);overflow:hidden">
+        <div style="padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:var(--font-i);font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">TX-104832 · Enriched</span>
+          <span style="padding:2px 8px;border-radius:3px;background:rgba(34,197,94,.15);color:#22c55e;font-family:var(--font-i);font-size:10px;font-weight:600">+15 fields</span>
+        </div>
+        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-family:var(--font-i);font-size:12px">
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">BIN</span><span style="color:var(--t1);font-weight:500">411111 · Chase (US)</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Network</span><span style="color:var(--t1);font-weight:500">Visa · Credit</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Device ID</span><span style="color:var(--t1);font-weight:500">a3f8b2···c41a</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">IP geo</span><span style="color:var(--t1);font-weight:500">US · 192.0.2.44</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Email FP</span><span style="color:var(--t1);font-weight:500">verified · 2y old</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Base currency</span><span style="color:var(--t1);font-weight:500">€238.40 (EUR)</span></div>
+          <div style="margin-top:4px;padding-top:8px;border-top:1px solid var(--bd);display:flex;justify-content:space-between"><span style="color:var(--t3)">Merchant sent</span><span style="color:#22c55e;font-weight:600">3 / 15 fields</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Auto-filled</span><span style="color:var(--accent);font-weight:600">12 / 15 fields</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE ROW 2: Root cause analysis -->
+  <div class="feature-row reversed reveal">
+    <div class="feature-row-visual">
       <div class="rule-card">
         <div class="rule-header">
-          <span class="rule-name">High-risk country + large amount</span>
-          <span class="rule-status">Active</span>
+          <span class="rule-name">Decline reason · TX-104755</span>
+          <span class="rule-status">Blocked</span>
         </div>
         <div class="rule-body">
-          <div class="rule-label">Conditions</div>
+          <div class="rule-label">Triggered by</div>
+          <div class="rule-cond">
+            <span class="rule-op">RULE</span>
+            <span class="rule-cond-text">R-218 · High-risk country + large amount</span>
+          </div>
           <div class="rule-cond">
             <span class="rule-op">IF</span>
             <span class="rule-cond-text">country IN [KZ, VN, ID, UA]</span>
@@ -333,104 +357,49 @@ footer{background:#08090a}
             <span class="rule-op">AND</span>
             <span class="rule-cond-text">amount &gt; $500.00</span>
           </div>
-          <div class="rule-cond">
-            <span class="rule-op">AND</span>
-            <span class="rule-cond-text">velocity_1h &gt; 3 attempts</span>
-          </div>
           <div style="height:1px;background:var(--bd);margin:4px 0"></div>
-          <div class="rule-label">Action</div>
+          <div class="rule-label">Classification</div>
           <div class="rule-action-row">
-            <span class="rule-action-label">Trigger</span>
-            <span class="rule-action-val">REVIEW + Alert team</span>
+            <span class="rule-action-label">Type</span>
+            <span class="rule-action-val">Risk-based decline</span>
           </div>
           <div style="display:flex;justify-content:space-between;margin-top:4px">
-            <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Score weight: +45</span>
-            <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Hits today: 12</span>
+            <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Not a provider error</span>
+            <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Score: +45</span>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FEATURE ROW 2: Alerts -->
-  <div class="feature-row reversed reveal">
-    <div class="feature-row-visual">
-      <div class="mock-wrap" style="max-width:380px">
-        <div class="mock-header">
-          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
-          <span class="mock-title">Alert feed — live</span>
-          <span style="margin-left:auto;font-size:10px;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,.15);color:#ef4444;font-weight:600">3 critical</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot critical"></div>
-          <div style="flex:1">
-            <div class="alert-title">12 blocked transactions from same IP in 2 min</div>
-            <div class="alert-sub">IP 185.220.101.x · Rule: Brute-force protection</div>
-          </div>
-          <span class="alert-time">0:43</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot critical"></div>
-          <div style="flex:1">
-            <div class="alert-title">Chargeback rate approaching threshold — 0.87%</div>
-            <div class="alert-sub">Visa · Limit: 1.0% · 38 disputes this month</div>
-          </div>
-          <span class="alert-time">1:15</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot warning"></div>
-          <div style="flex:1">
-            <div class="alert-title">Velocity limit 85% reached — Card ···4242</div>
-            <div class="alert-sub">5 attempts · 3 countries · 8 min window</div>
-          </div>
-          <span class="alert-time">3:02</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot info"></div>
-          <div style="flex:1">
-            <div class="alert-title">New device fingerprint — User #48821</div>
-            <div class="alert-sub">Different OS + location from last session</div>
-          </div>
-          <span class="alert-time">5:47</span>
         </div>
       </div>
     </div>
     <div class="feature-row-content">
-      <p class="feature-number">02 — REAL-TIME ALERTS</p>
-      <h2 class="feature-heading">Get notified the moment something looks wrong</h2>
-      <p class="feature-desc">Configure alerts on any rule, metric, or threshold. Route them by severity and team. Never miss a fraud spike, a provider issue, or a chargeback rate climbing toward the limit.</p>
+      <p class="feature-number">02 — ROOT CAUSE ANALYSIS</p>
+      <h2 class="feature-heading">Instant root cause analysis</h2>
+      <p class="feature-desc">Eliminate the guesswork behind rejected payments. The monitoring table displays the exact decline reason for every transaction.</p>
       <ul class="feature-list">
-        <li>Webhook, email, and in-platform notifications</li>
-        <li>Configurable severity levels — critical, warning, info</li>
-        <li>Team-based routing — ops, risk, finance</li>
-        <li>Threshold monitoring for card networks and PSPs</li>
-        <li>Automated escalation when alerts are not actioned</li>
+        <li>See the specific Rule ID and the condition that triggered the block</li>
+        <li>Differentiate between technical failures (provider errors) and risk-based declines</li>
       </ul>
     </div>
   </div>
 
-  <!-- FEATURE ROW 3: Cross-entity analysis -->
+  <!-- FEATURE ROW 3: For Review pipeline -->
   <div class="feature-row reveal">
     <div class="feature-row-content">
-      <p class="feature-number">03 — CROSS-ENTITY ANALYSIS</p>
-      <h2 class="feature-heading">Detect fraud networks, not just individual transactions</h2>
-      <p class="feature-desc">Link transactions by shared device, card, IP, email, or any custom parameter. Identify coordinated fraud rings and repeat offenders automatically. Combined with device fingerprinting to catch even sophisticated actors.</p>
+      <p class="feature-number">03 — FOR REVIEW PIPELINE</p>
+      <h2 class="feature-heading">"For Review" strategic pipeline</h2>
+      <p class="feature-desc">Transactions flagged by specific rules are automatically routed to the For Review queue — so you analyse suspicious activity without disrupting the main traffic flow.</p>
       <ul class="feature-list">
-        <li>Device fingerprinting embedded on checkout pages</li>
-        <li>Link analysis across IP, email, device, and card</li>
-        <li>Velocity checks across linked entities</li>
-        <li>Shared black/white lists across your merchant base</li>
-        <li>Suspicious pattern alerts across the transaction graph</li>
+        <li>Analyse suspicious patterns without interrupting the main traffic flow</li>
+        <li>One-click actions: add to blacklists or run a Crosscheck analysis to uncover linked fraud networks</li>
       </ul>
     </div>
     <div class="feature-row-visual">
       <div style="max-width:360px;width:100%">
         <div class="graph-wrap">
-          <div style="font-family:var(--font-i);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px">Linked entity graph</div>
+          <div style="font-family:var(--font-i);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px">Crosscheck · For Review queue</div>
           <div class="graph-node root">
             <span class="graph-node-icon">💳</span>
             <span class="graph-node-label">Card ···4421</span>
-            <span class="graph-node-val">Origin</span>
+            <span class="graph-node-val">Flagged</span>
           </div>
           <div class="graph-line" style="margin-left:29px;margin-top:0;margin-bottom:0"></div>
           <div style="display:flex;flex-direction:column;gap:6px;padding-left:20px">
@@ -464,6 +433,60 @@ footer{background:#08090a}
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- FEATURE ROW 4: Notifications -->
+  <div class="feature-row reversed reveal">
+    <div class="feature-row-visual">
+      <div class="mock-wrap" style="max-width:380px">
+        <div class="mock-header">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">In-Platform Bell · live</span>
+          <span style="margin-left:auto;font-size:10px;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,.15);color:#ef4444;font-weight:600">3 critical</span>
+        </div>
+        <div class="alert-item">
+          <div class="alert-dot critical"></div>
+          <div style="flex:1">
+            <div class="alert-title">12 blocked transactions from same IP in 2 min</div>
+            <div class="alert-sub">IP 185.220.101.x · Rule: Brute-force protection</div>
+          </div>
+          <span class="alert-time">0:43</span>
+        </div>
+        <div class="alert-item">
+          <div class="alert-dot critical"></div>
+          <div style="flex:1">
+            <div class="alert-title">Chargeback rate approaching threshold — 0.87%</div>
+            <div class="alert-sub">Visa · Limit: 1.0% · 38 disputes this month</div>
+          </div>
+          <span class="alert-time">1:15</span>
+        </div>
+        <div class="alert-item">
+          <div class="alert-dot warning"></div>
+          <div style="flex:1">
+            <div class="alert-title">Velocity limit 85% reached — Card ···4242</div>
+            <div class="alert-sub">5 attempts · 3 countries · 8 min window</div>
+          </div>
+          <span class="alert-time">3:02</span>
+        </div>
+        <div class="alert-item">
+          <div class="alert-dot info"></div>
+          <div style="flex:1">
+            <div class="alert-title">Slack delivery · #risk-ops (scheduled May)</div>
+            <div class="alert-sub">Webhook + messenger integration enabled</div>
+          </div>
+          <span class="alert-time">5:47</span>
+        </div>
+      </div>
+    </div>
+    <div class="feature-row-content">
+      <p class="feature-number">04 — NOTIFICATIONS</p>
+      <h2 class="feature-heading">Instant notifications</h2>
+      <p class="feature-desc">Stay informed without refreshing the dashboard. Critical events and threshold breaches reach you where you already work.</p>
+      <ul class="feature-list">
+        <li><strong>Late April:</strong> Native "In-Platform Bell" notifications for critical events and threshold breaches</li>
+        <li><strong>May:</strong> External integration with messengers (Slack, Telegram) and webhooks for automated response</li>
+      </ul>
     </div>
   </div>
 </div>

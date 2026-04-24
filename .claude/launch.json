@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "ScanFraud Static Site",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3001", "--directory", "/Users/dmitry/Desktop/Scanfraud/scanfraud-site"],
-      "port": 3001
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["/Users/dmitry/Desktop/Scanfraud/scanfraud-site/serve.sh"],
+      "port": 3002
     }
   ]
 }

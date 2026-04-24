@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rule Builder Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="rule-builder.css">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#08090a; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px; }
+    [data-theme="light"] body { background:#f5f5f5; }
+    .preview-wrap { width:960px; height:680px; border-radius:16px; border:1px solid rgba(255,255,255,.08); box-shadow:0 32px 80px rgba(0,0,0,.3); display:flex; flex-direction:column; }
+    [data-theme="light"] .preview-wrap { border-color:rgba(0,0,0,.08); box-shadow:0 16px 48px rgba(0,0,0,.08); }
+    .theme-switch { position:fixed; top:16px; right:16px; height:32px; padding:0 14px; border-radius:8px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06); color:#fff; font-size:12px; font-weight:500; cursor:pointer; font-family:Inter,sans-serif; }
+    [data-theme="light"] .theme-switch { border-color:rgba(0,0,0,.1); background:rgba(0,0,0,.04); color:#111; }
+  </style>
+</head>
+<body>
+  <button class="theme-switch" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">Toggle Theme</button>
+  <div class="preview-wrap" id="wrap"></div>
+  <script>
+    fetch('hero-rules.html').then(r=>r.text()).then(html=>{
+      const wrap = document.getElementById('wrap');
+      // Split HTML and script
+      const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>/);
+      const cleanHtml = html.replace(/<script>[\s\S]*?<\/script>/, '');
+      wrap.innerHTML = cleanHtml;
+      // Execute script
+      if (scriptMatch) {
+        const s = document.createElement('script');
+        s.textContent = scriptMatch[1];
+        document.body.appendChild(s);
+      }
+    });
+  </script>
+</body>
+</html>
