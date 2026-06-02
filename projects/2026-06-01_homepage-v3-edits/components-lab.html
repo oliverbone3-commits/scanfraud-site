@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScanFraud — Components Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+  :root {
+    --col-width: 1160px;
+    --cell-pad: 40px;
+    --accent: #1a56ff;
+    --font-g: 'Geist', system-ui, sans-serif;
+    --font-i: 'Inter', system-ui, sans-serif;
+    --font-m: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #08090a; --bg2: #141516; --bg3: #0d0f14;
+    --bd: #212223; --bdl: 1px solid #212223;
+    --t1: #ffffff; --t2: rgba(255,255,255,0.6); --t3: #8b909e; --tb: rgba(255,255,255,0.55);
+  }
+  [data-theme="light"] {
+    --bg: #ffffff; --bg2: #f7f8fa; --bg3: #f0f1f3;
+    --bd: #e4e7ed; --bdl: 1px solid #e4e7ed;
+    --t1: #171717; --t2: #4d4d4d; --t3: #8b909e; --tb: #86888b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--t1);
+    font-family: var(--font-g);
+    transition: background .3s, color .3s;
+  }
+
+  /* ── Sidebar nav ── */
+  .lab-nav {
+    position: fixed;
+    top: 16px; left: 16px;
+    width: 220px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 12px;
+    padding: 14px;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    font-family: var(--font-i);
+  }
+  .lab-nav-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bd);
+  }
+  .lab-nav-head h1 {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .lab-nav-head button {
+    border: none; background: transparent; color: var(--t2);
+    width: 26px; height: 26px; border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lab-nav-head button:hover { color: var(--t1); background: rgba(255,255,255,0.04); }
+  [data-theme="light"] .lab-nav-head button:hover { background: rgba(0,0,0,0.04); }
+  .lab-group {
+    margin-bottom: 14px;
+  }
+  .lab-group-name {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--t3);
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+  .lab-group a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--t2);
+    font-size: 13px;
+    font-weight: 500;
+    transition: background .15s, color .15s;
+    margin-bottom: 2px;
+  }
+  .lab-group a:hover {
+    color: var(--t1);
+    background: rgba(255,255,255,0.04);
+  }
+  [data-theme="light"] .lab-group a:hover { background: rgba(0,0,0,0.04); }
+  .lab-group a span {
+    font-family: var(--font-m);
+    font-size: 10px;
+    color: var(--t3);
+    background: var(--bg);
+    border: 1px solid var(--bd);
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+  @media (max-width: 900px) {
+    .lab-nav { width: 180px; padding: 10px; }
+  }
+  @media (max-width: 700px) {
+    .lab-nav { width: 120px; left: 8px; top: 8px; }
+    .lab-nav a { font-size: 11px; }
+    .lab-group a span { display: none; }
+  }
+
+  /* ── Variant frame ── */
+  .variant {
+    position: relative;
+    min-height: 100vh;
+    border-bottom: 1px dashed var(--bd);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .variant-label {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: var(--font-m);
+    font-size: 10px;
+    color: var(--t3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 5;
+  }
+  .variant-label strong { color: var(--accent); font-weight: 600; }
+
+  /* Shared CTA */
+  .btn-dark, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 21px;
+    border-radius: 10px;
+    font-family: var(--font-g);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s, background .15s, border-color .15s;
+  }
+  .btn-dark {
+    background: var(--t1);
+    color: var(--bg);
+    border: 1px solid var(--t1);
+  }
+  .btn-dark:hover { transform: translateY(-1px); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.06);
+    color: var(--t1);
+    border: 1px solid var(--bd);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
+  [data-theme="light"] .btn-ghost {
+    background: rgba(255,255,255,0.55);
+    border-color: rgba(13,15,20,0.12);
+  }
+
+  .eyebrow {
+    font-family: var(--font-i);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Aurora background — shared for all rotation variants */
+  .hero-aurora::before {
+    content: '';
+    position: absolute;
+    inset: -15%;
+    pointer-events: none;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.28) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.20) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.16) 0%, transparent 65%);
+    filter: blur(40px);
+    animation: auroraFlow 22s ease-in-out infinite;
+  }
+  [data-theme="light"] .hero-aurora::before {
+    background:
+      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.10) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.07) 0%, transparent 65%);
+  }
+  @keyframes auroraFlow {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    50%      { transform: translate3d(2%, 1%, 0) scale(1.05); }
+  }
+  .hero-dots { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .hero-dots canvas { display: block; width: 100% !important; height: 100% !important; }
+  .hero-inner {
+    position: relative;
+    z-index: 3;
+    max-width: 920px;
+    padding: 100px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .hero-cta { display: flex; gap: 12px; margin-top: 12px; }
+
+  /* ════════════════════════════════════════════════════════════════
+     A — Rotating hero states (cross-fade between full states)
+     ════════════════════════════════════════════════════════════════ */
+  .rA-stage {
+    position: relative;
+    width: 100%;
+    max-width: 920px;
+    min-height: 280px;
+    display: grid;
+  }
+  .rA-state {
+    grid-column: 1; grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .55s ease, transform .55s ease;
+    pointer-events: none;
+  }
+  .rA-state.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .rA-title {
+    font-size: 64px; font-weight: 600;
+    line-height: 68px; letter-spacing: -2.4px;
+    margin: 0;
+  }
+  .rA-sub {
+    font-size: 18px; line-height: 26px;
+    color: var(--t2); max-width: 620px; margin: 0;
+  }
+  .rA-dots {
+    display: flex; gap: 8px;
+    margin-top: 36px;
+  }
+  .rA-dot {
+    width: 24px; height: 4px; border-radius: 2px;
+    background: var(--bd);
+    border: none; padding: 0; cursor: pointer;
+    transition: background .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .rA-dot::after {
+    content: ''; position: absolute; inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .rA-dot.active::after {
+    transform: scaleX(1);
+    transition: transform 7s linear;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     B — Rotating word in fixed headline
+     ════════════════════════════════════════════════════════════════ */
+  .rB-title {
+    font-size: 64px; font-weight: 600;
+    line-height: 1.06; letter-spacing: -2.4px;
+    margin: 0;
+    text-align: center;
+  }
+  .rB-slot {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+    color: var(--accent);
+    min-width: 1ch;
+  }
+  .rB-slot .rB-word {
+    display: inline-block;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .rB-slot .rB-word.out {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  .rB-slot .rB-word.in {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .rB-sub {
+    font-size: 18px; line-height: 26px;
+    color: var(--t2); max-width: 620px; margin: 0;
+    text-align: center;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     C — Static hero + live ticker
+     ════════════════════════════════════════════════════════════════ */
+  .rC-title {
+    font-size: 64px; font-weight: 600;
+    line-height: 68px; letter-spacing: -2.4px;
+    margin: 0;
+  }
+  .rC-sub {
+    font-size: 18px; line-height: 26px;
+    color: var(--t2); max-width: 620px; margin: 0;
+  }
+  .rC-ticker {
+    margin-top: 36px;
+    width: 100%;
+    max-width: 720px;
+    height: 44px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    font-family: var(--font-m);
+    font-size: 12px;
+    color: var(--t2);
+  }
+  .rC-ticker-head {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-right: 14px;
+    padding-right: 14px;
+    border-right: 1px solid var(--bd);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #00d089;
+    flex-shrink: 0;
+  }
+  .rC-ticker-head::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #00d089;
+    box-shadow: 0 0 8px #00d089;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .35; }
+  }
+  .rC-ticker-flow {
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  }
+  .rC-row {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    will-change: transform;
+  }
+  .rC-row .rC-amt { color: var(--t1); font-weight: 600; }
+  .rC-row .rC-bin { color: var(--t3); }
+  .rC-row .rC-verd { font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-left: 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px; }
+  .rC-verd.ok      { background: rgba(0,208,137,0.13); color: #00d089; }
+  .rC-verd.flagged { background: rgba(251,191,36,0.13); color: #fbbf24; }
+  .rC-verd.blocked { background: rgba(255,95,86,0.13); color: #ff5f56; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .rA-title, .rB-title, .rC-title { font-size: 42px; line-height: 46px; letter-spacing: -1.6px; }
+    .rA-sub, .rB-sub, .rC-sub { font-size: 15px; line-height: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="lab-nav" aria-label="Components navigation">
+  <div class="lab-nav-head">
+    <h1>Lab</h1>
+    <button id="themeBtn" aria-label="Toggle theme">
+      <svg id="iconMoon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg id="iconSun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+
+  <div class="lab-group">
+    <div class="lab-group-name">Hero rotation</div>
+    <a href="#rotA">Full states cross-fade <span>A</span></a>
+    <a href="#rotB">Rotating word <span>B</span></a>
+    <a href="#rotC">Live ticker <span>C</span></a>
+  </div>
+
+  <div class="lab-group">
+    <div class="lab-group-name">Archive</div>
+    <a href="hero-variants.html">5 hero concepts ↗</a>
+  </div>
+</aside>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     A — Rotating hero states (cross-fade)
+     ════════════════════════════════════════════════════════════════ -->
+<section class="variant hero-aurora" id="rotA">
+  <div class="variant-label"><strong>A</strong> — Full states cross-fade</div>
+  <div class="hero-dots" id="rA-dots-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="rA-stage" id="rA-stage">
+      <div class="rA-state active">
+        <span class="eyebrow">Real-time decisions</span>
+        <h1 class="rA-title">Pure traffic. No friction.</h1>
+        <p class="rA-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-dark">Book a demo →</a>
+          <a href="#" class="btn-ghost">Explore platform</a>
+        </div>
+      </div>
+      <div class="rA-state">
+        <span class="eyebrow">For high-risk merchants</span>
+        <h1 class="rA-title">Built where mainstream fraud vendors won't bid.</h1>
+        <p class="rA-sub">Pre-tested rule libraries for gambling, crypto, adult, regulated CBD, forex, and high-volume e-commerce. We don't decline merchants based on what they sell.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-dark">Book a demo →</a>
+          <a href="#" class="btn-ghost">See industries</a>
+        </div>
+      </div>
+      <div class="rA-state">
+        <span class="eyebrow">Fast go-to-market</span>
+        <h1 class="rA-title">From contract to live production in 3 days.</h1>
+        <p class="rA-sub">Migrate transaction history and rule sets from any vendor — no manual rewrites, no multi-month onboarding.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-dark">Book a demo →</a>
+          <a href="#" class="btn-ghost">Read migration guide</a>
+        </div>
+      </div>
+    </div>
+    <div class="rA-dots" id="rA-indicators" role="tablist" aria-label="Hero states">
+      <button class="rA-dot active" data-i="0" aria-label="State 1"></button>
+      <button class="rA-dot" data-i="1" aria-label="State 2"></button>
+      <button class="rA-dot" data-i="2" aria-label="State 3"></button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     B — Rotating word inside fixed headline
+     ════════════════════════════════════════════════════════════════ -->
+<section class="variant hero-aurora" id="rotB">
+  <div class="variant-label"><strong>B</strong> — Rotating word</div>
+  <div class="hero-dots" id="rB-dots-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">No industry exclusions</span>
+    <h1 class="rB-title">
+      Built for <span class="rB-slot" id="rB-slot"><span class="rB-word">gambling</span></span><br>merchants.
+    </h1>
+    <p class="rB-sub">Pre-tested rule libraries, no multi-month onboarding, no setup fees. Cancel any month.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">See your vertical</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     C — Static hero with live transaction ticker
+     ════════════════════════════════════════════════════════════════ -->
+<section class="variant hero-aurora" id="rotC">
+  <div class="variant-label"><strong>C</strong> — Live ticker</div>
+  <div class="hero-dots" id="rC-dots-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Real-time decisions</span>
+    <h1 class="rC-title">Pure traffic. No friction.</h1>
+    <p class="rC-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">Explore platform</a>
+    </div>
+    <div class="rC-ticker" aria-hidden="true">
+      <span class="rC-ticker-head">Live</span>
+      <div class="rC-ticker-flow" id="rC-flow"></div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  // ── Theme toggle ──
+  const btn = document.getElementById('themeBtn');
+  const moon = document.getElementById('iconMoon');
+  const sun = document.getElementById('iconSun');
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    moon.style.display = t === 'dark' ? '' : 'none';
+    sun.style.display = t === 'light' ? '' : 'none';
+    localStorage.setItem('sf-lab-theme', t);
+    window._labDots && window._labDots.forEach(d => d.setTheme(t));
+  }
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+  applyTheme(localStorage.getItem('sf-lab-theme') || 'dark');
+
+  // ── Three.js dots helper (reusable per container) ──
+  function makeDots(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container || !window.THREE) return null;
+    const w = () => container.clientWidth;
+    const h = () => container.clientHeight;
+    const scene = new THREE.Scene();
+    const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    renderer.setSize(w(), h());
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+    const N = 400;
+    const positions = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      positions[i*3]   = (Math.random() - 0.5) * 2;
+      positions[i*3+1] = (Math.random() - 0.5) * 2;
+      positions[i*3+2] = 0;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({ size: 0.004, color: 0xffffff, transparent: true, opacity: 0.55 });
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+    let t = 0;
+    function loop() {
+      t += 0.0008;
+      points.rotation.z = t;
+      renderer.render(scene, cam);
+      requestAnimationFrame(loop);
+    }
+    loop();
+    window.addEventListener('resize', () => { renderer.setSize(w(), h()); });
+    return {
+      setTheme(theme) {
+        mat.color.setHex(theme === 'light' ? 0x171717 : 0xffffff);
+        mat.opacity = theme === 'light' ? 0.30 : 0.55;
+      }
+    };
+  }
+  window._labDots = [];
+  ['rA-dots-bg','rB-dots-bg','rC-dots-bg'].forEach(id => {
+    const d = makeDots(id);
+    if (d) {
+      window._labDots.push(d);
+      d.setTheme(document.documentElement.getAttribute('data-theme'));
+    }
+  });
+
+
+  // ── A: Rotating hero states ──
+  (function() {
+    const stage = document.getElementById('rA-stage');
+    const states = stage ? stage.querySelectorAll('.rA-state') : [];
+    const dots = document.querySelectorAll('#rA-indicators .rA-dot');
+    if (!states.length) return;
+    let idx = 0;
+    let timer = null;
+    let paused = false;
+
+    function go(next) {
+      states[idx].classList.remove('active');
+      dots[idx].classList.remove('active');
+      idx = (next + states.length) % states.length;
+      states[idx].classList.add('active');
+      // restart progress bar
+      dots[idx].classList.remove('active');
+      void dots[idx].offsetWidth;
+      dots[idx].classList.add('active');
+    }
+    function tick() {
+      if (paused) return;
+      go(idx + 1);
+    }
+    function start() {
+      stop();
+      dots[idx].classList.add('active');
+      timer = setInterval(tick, 7000);
+    }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+
+    dots.forEach(d => {
+      d.addEventListener('click', () => {
+        const n = parseInt(d.dataset.i, 10);
+        go(n);
+        start();
+      });
+    });
+    stage.addEventListener('mouseenter', () => { paused = true; });
+    stage.addEventListener('mouseleave', () => { paused = false; });
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
+    }, { threshold: 0.3 });
+    io.observe(document.getElementById('rotA'));
+  })();
+
+
+  // ── B: Rotating word ──
+  (function() {
+    const slot = document.getElementById('rB-slot');
+    if (!slot) return;
+    const words = ['gambling','crypto','adult','forex','regulated CBD','high-volume e-commerce'];
+    let i = 0;
+    let timer = null;
+    const span = slot.querySelector('.rB-word');
+
+    function swap() {
+      i = (i + 1) % words.length;
+      span.classList.add('out');
+      setTimeout(() => {
+        span.textContent = words[i];
+        span.classList.remove('out');
+        span.classList.add('in');
+        // force reflow
+        void span.offsetWidth;
+        requestAnimationFrame(() => span.classList.remove('in'));
+      }, 350);
+    }
+    function start() { if (!timer) timer = setInterval(swap, 2200); }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
+    }, { threshold: 0.3 });
+    io.observe(document.getElementById('rotB'));
+  })();
+
+
+  // ── C: Live ticker ──
+  (function() {
+    const flow = document.getElementById('rC-flow');
+    if (!flow) return;
+    const corridors = ['MX → US','DE → DE','BR → ES','NG → GB','TR → DE','IN → AE','CO → US','PH → AU'];
+    const bins = ['5102','4521','5318','4012','5412','4111'];
+    const reasons = ['velocity_1h','MATCH list','bin_mismatch','device_fp','geo anomaly'];
+
+    function rand(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+    function fmtAmount() {
+      const v = Math.floor(Math.random() * 5000) + 25;
+      return '$' + v.toLocaleString('en-US');
+    }
+    function txId() { return 'tx_' + Math.random().toString(16).slice(2,7); }
+    function pickVerdict() {
+      const r = Math.random() * 100;
+      if (r < 70) return { label: 'approved', cls: 'ok' };
+      if (r < 88) return { label: 'flagged', cls: 'flagged' };
+      return { label: 'blocked', cls: 'blocked' };
+    }
+
+    function spawn() {
+      const verdict = pickVerdict();
+      const tail = verdict.cls === 'ok'
+        ? `<span class="rC-bin">${(Math.floor(Math.random()*20)+5)}ms</span>`
+        : `<span class="rC-bin">${rand(reasons)}</span>`;
+      const row = document.createElement('div');
+      row.className = 'rC-row';
+      row.innerHTML = `${txId()} · <span class="rC-amt">${fmtAmount()}</span> · <span class="rC-bin">BIN ${rand(bins)}</span> · ${rand(corridors)} · ${tail} <span class="rC-verd ${verdict.cls}">${verdict.label}</span>`;
+      flow.appendChild(row);
+      const flowWidth = flow.clientWidth;
+      const rowWidth = row.offsetWidth;
+      const dur = (flowWidth + rowWidth) / 80; // ~80px/sec
+      row.animate(
+        [{ transform: `translate(0, -50%)` }, { transform: `translate(${-flowWidth - rowWidth}px, -50%)` }],
+        { duration: dur * 1000, easing: 'linear', fill: 'forwards' }
+      ).onfinish = () => row.remove();
+    }
+
+    let timer = null;
+    function start() {
+      if (timer) return;
+      for (let k = 0; k < 2; k++) setTimeout(spawn, k * 1400);
+      timer = setInterval(spawn, 1500);
+    }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
+    }, { threshold: 0.3 });
+    io.observe(document.getElementById('rotC'));
+  })();
+</script>
+
+</body>
+</html>

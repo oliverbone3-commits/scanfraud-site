@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScanFraud Homepage — Counter-Proposal Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --page-bg: #eceff3;
+    --frame-bg: #ffffff;
+    --ink: #1a1d22;
+    --ink-2: #5a6068;
+    --ink-3: #8a909a;
+    --line: #cdd2d8;
+    --line-strong: #9aa0a8;
+    --line-dashed: #b8bdc4;
+    --fill-soft: #f4f6f9;
+    --fill-medium: #e6eaf0;
+    --fill-card: #fafbfc;
+    --accent: #1a56ff;
+    --accent-soft: rgba(26, 86, 255, 0.08);
+    --accent-strong: #0d3eb8;
+    --kept: #5a8f3b;
+    --kept-soft: rgba(90, 143, 59, 0.10);
+  }
+
+  html { background: var(--page-bg); }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--ink);
+    line-height: 1.45;
+    padding: 32px 24px 80px;
+    min-height: 100vh;
+  }
+
+  /* ── Top bar ───────────────────────────── */
+  .topbar {
+    max-width: 1280px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .topbar-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+  }
+  .topbar-title .meta {
+    font-weight: 500;
+    color: var(--ink-3);
+    margin-left: 10px;
+    font-size: 13px;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch {
+    width: 14px; height: 14px; border-radius: 3px;
+    display: inline-block;
+  }
+  .swatch.kept { background: var(--kept-soft); border: 1px solid var(--kept); }
+  .swatch.new { background: var(--accent-soft); border: 1px solid var(--accent); }
+  .swatch.placeholder { background: transparent; border: 1px dashed var(--line-dashed); }
+
+  /* ── Page card (browser frame) ─────────── */
+  .page-card {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--frame-bg);
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(20, 24, 32, 0.06);
+  }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--fill-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .browser-dots { display: flex; gap: 6px; }
+  .browser-dots span {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--line);
+  }
+  .browser-url {
+    flex: 1;
+    background: var(--frame-bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── Section wrapper with annotation ───── */
+  .sec {
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .sec:last-child { border-bottom: none; }
+
+  .sec-label {
+    position: absolute;
+    top: 10px;
+    left: 16px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .sec-num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--fill-medium);
+    color: var(--ink-2);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .badge.kept {
+    background: var(--kept-soft);
+    color: var(--kept);
+    border: 1px solid var(--kept);
+  }
+  .badge.new {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border: 1px solid var(--accent);
+  }
+
+  .sec-body {
+    padding: 44px 60px 36px;
+  }
+  .sec.highlight-new { background: var(--accent-soft); }
+  .sec.highlight-new .sec-body {
+    border-left: 3px solid var(--accent);
+    margin-left: -1px;
+  }
+
+  /* ── NAV ───────────────────────────────── */
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--line);
+    background: var(--fill-soft);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 14px;
+  }
+  .nav-brand-mark {
+    width: 22px; height: 22px;
+    background: var(--ink);
+    border-radius: 5px;
+  }
+  .nav-links {
+    display: flex; gap: 20px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .nav-actions { display: flex; gap: 10px; align-items: center; }
+  .ph-btn {
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--ink-2);
+    background: transparent;
+  }
+  .ph-btn.dark {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .nav-toggle {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--fill-medium);
+    border: 1px solid var(--line);
+  }
+
+  /* ── HERO ──────────────────────────────── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 40px;
+    align-items: center;
+    min-height: 360px;
+  }
+  .hero-text { display: flex; flex-direction: column; gap: 14px; }
+  .ph-eyebrow {
+    display: inline-block;
+    width: fit-content;
+    padding: 4px 8px;
+    background: var(--fill-medium);
+    border-radius: 3px;
+    font-size: 10px;
+    color: var(--ink-2);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .ph-h1 {
+    height: 92px;
+    background: var(--fill-medium);
+    border-radius: 6px;
+    position: relative;
+  }
+  .ph-h1::after {
+    content: 'H1 — Pure Traffic. No Friction.';
+    position: absolute;
+    bottom: 6px; left: 10px;
+    font-size: 11px;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ph-sub {
+    height: 50px;
+    background: var(--fill-soft);
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    position: relative;
+  }
+  .ph-sub::after {
+    content: 'Subtitle — 1-2 lines';
+    position: absolute;
+    bottom: 6px; left: 10px;
+    font-size: 11px;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-ctas { display: flex; gap: 10px; margin-top: 6px; }
+  .hero-visual {
+    aspect-ratio: 16 / 11;
+    background: var(--fill-soft);
+    border: 1px dashed var(--line-dashed);
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--ink-3);
+    font-size: 12px;
+    text-align: center;
+    padding: 20px;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background:
+      linear-gradient(transparent 23px, var(--line) 23px, var(--line) 24px, transparent 24px),
+      linear-gradient(transparent 95px, var(--line) 95px, var(--line) 96px, transparent 96px);
+    background-size: 100% 24px;
+    opacity: 0.5;
+  }
+  .hero-visual span {
+    position: relative;
+    z-index: 1;
+    background: var(--frame-bg);
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── Bar/strip section: proof carousel ── */
+  .strip {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 32px;
+    align-items: center;
+    min-height: 200px;
+  }
+  .strip-visual {
+    aspect-ratio: 4 / 3;
+    background: var(--fill-soft);
+    border: 1px dashed var(--line-dashed);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-3);
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .strip-text { display: flex; flex-direction: column; gap: 12px; }
+  .strip-title {
+    height: 28px; width: 80%;
+    background: var(--fill-medium);
+    border-radius: 4px;
+  }
+  .strip-line {
+    height: 12px;
+    background: var(--fill-medium);
+    border-radius: 3px;
+  }
+  .strip-line:nth-child(2) { width: 95%; }
+  .strip-line:nth-child(3) { width: 88%; }
+  .strip-line:nth-child(4) { width: 72%; }
+  .strip-arrows {
+    display: flex; gap: 8px; margin-top: 12px;
+  }
+  .strip-arrow {
+    width: 30px; height: 30px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-2);
+    font-size: 14px;
+  }
+
+  /* ── STATS / METRICS row ──────────────── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: var(--fill-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .stat-cell {
+    padding: 28px 24px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num {
+    height: 36px; width: 70%;
+    background: var(--ink);
+    border-radius: 4px;
+    opacity: 0.85;
+  }
+  .stat-label {
+    height: 28px;
+    background: var(--fill-medium);
+    border-radius: 3px;
+  }
+
+  /* ── Section headers (sec-hdr) ────────── */
+  .sec-hdr-block {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 50px;
+    align-items: start;
+    padding: 16px 0;
+  }
+  .sh-h2 {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -1.2px;
+    line-height: 1.18;
+    color: var(--ink);
+  }
+  .sh-h2 em {
+    font-style: normal;
+    color: var(--ink-3);
+  }
+  .sh-right {
+    display: flex; flex-direction: column; gap: 10px;
+    padding-top: 4px;
+  }
+  .sh-right .ph-sub { height: 64px; }
+  .sh-right .ph-sub::after { content: 'Subtitle paragraph — 2-3 lines'; }
+
+  /* ── 3-col features (f3) ──────────────── */
+  .f3-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--fill-card);
+  }
+  .f3-cell {
+    padding: 28px 22px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 12px;
+    min-height: 320px;
+  }
+  .f3-cell:last-child { border-right: none; }
+  .f3-eye {
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .f3-h {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.4px;
+  }
+  .f3-line {
+    height: 8px;
+    background: var(--fill-medium);
+    border-radius: 3px;
+  }
+  .f3-line.short { width: 70%; }
+  .f3-line.shorter { width: 50%; }
+  .f3-iso {
+    margin-top: auto;
+    aspect-ratio: 11 / 8;
+    background: var(--fill-soft);
+    border: 1px dashed var(--line-dashed);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-3);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /* ── Feature row (split 50/50) ────────── */
+  .feat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 260px;
+  }
+  .feat-content {
+    padding: 32px 28px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .feat-row.reversed .feat-content {
+    border-right: none;
+    border-left: 1px solid var(--line);
+    order: 2;
+  }
+  .feat-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .feat-h {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  .feat-line {
+    height: 9px;
+    background: var(--fill-medium);
+    border-radius: 3px;
+  }
+  .feat-line.s { width: 80%; }
+  .feat-list {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: 6px;
+  }
+  .feat-li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .feat-li::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .feat-visual {
+    background: var(--fill-soft);
+    border-left: 1px dashed var(--line-dashed);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-3);
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    padding: 20px;
+  }
+  .feat-row.reversed .feat-visual {
+    border-left: none;
+    border-right: 1px dashed var(--line-dashed);
+    order: 1;
+  }
+
+  /* ── 2-col cards ──────────────────────── */
+  .c2-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .c2-cell {
+    padding: 26px 26px 30px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 10px;
+    min-height: 200px;
+  }
+  .c2-cell:last-child { border-right: none; }
+  .c2-icon {
+    width: 32px; height: 32px;
+    background: var(--accent-soft);
+    border-radius: 7px;
+    margin-bottom: 4px;
+  }
+  .c2-eye {
+    font-size: 10px;
+    color: var(--ink-3);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .c2-h {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+  }
+  .c2-line {
+    height: 9px;
+    background: var(--fill-medium);
+    border-radius: 3px;
+  }
+  .c2-line.s { width: 80%; }
+  .c2-line.xs { width: 60%; }
+
+  /* ── FAQ (NEW) ────────────────────────── */
+  .faq-list {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--frame-bg);
+    margin-top: 6px;
+  }
+  .faq-q {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px;
+    background: var(--frame-bg);
+  }
+  .faq-q:last-child { border-bottom: none; }
+  .faq-q.open {
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--accent);
+  }
+  .faq-q-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .faq-q-text em {
+    font-style: normal;
+    color: var(--ink-3);
+    font-weight: 400;
+  }
+  .faq-chevron {
+    width: 18px; height: 18px;
+    color: var(--ink-2);
+    flex-shrink: 0;
+  }
+  .faq-q.open .faq-chevron { transform: rotate(180deg); color: var(--accent); }
+  .faq-answer {
+    padding: 0 22px 20px;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--accent);
+  }
+  .faq-answer-line {
+    height: 9px;
+    background: rgba(26, 86, 255, 0.18);
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+  .faq-answer-line.s { width: 90%; }
+  .faq-answer-line.xs { width: 65%; }
+
+  /* ── CTA ──────────────────────────────── */
+  .cta-block {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 56px 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    text-align: center;
+  }
+  .cta-block .ph-eyebrow {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.6);
+  }
+  .cta-block .ph-h1 {
+    background: rgba(255,255,255,0.10);
+    width: 65%;
+    height: 64px;
+  }
+  .cta-block .ph-h1::after {
+    content: 'CTA H2 — Stop fraud. Protect revenue. Launch in 3 days.';
+    color: rgba(255,255,255,0.5);
+  }
+  .cta-block .ph-sub {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.10);
+    width: 70%;
+    height: 36px;
+  }
+  .cta-block .ph-sub::after {
+    color: rgba(255,255,255,0.4);
+    content: 'CTA subtitle';
+  }
+  .cta-buttons { display: flex; gap: 10px; margin-top: 6px; }
+  .cta-block .ph-btn { background: #fff; color: var(--ink); border-color: #fff; }
+  .cta-block .ph-btn.ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Footer ───────────────────────────── */
+  .footer-block {
+    background: var(--ink);
+    color: rgba(255,255,255,0.7);
+    padding: 36px 40px 24px;
+  }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .footer-col { display: flex; flex-direction: column; gap: 10px; }
+  .footer-h {
+    height: 14px; width: 70%;
+    background: rgba(255,255,255,0.18);
+    border-radius: 3px;
+    margin-bottom: 4px;
+  }
+  .footer-li {
+    height: 9px; width: 80%;
+    background: rgba(255,255,255,0.10);
+    border-radius: 3px;
+  }
+  .footer-li.short { width: 60%; }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 18px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Side annotations ─────────────────── */
+  .annotation {
+    position: absolute;
+    right: -260px;
+    top: 36px;
+    width: 220px;
+    background: var(--frame-bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .annotation::before {
+    content: '';
+    position: absolute;
+    left: -8px; top: 16px;
+    width: 0; height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 8px solid var(--line);
+  }
+  .annotation.new::before { border-right-color: var(--accent); }
+  .annotation.new {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+  .annotation strong {
+    display: block;
+    color: var(--ink);
+    font-size: 11px;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .annotation.new strong { color: var(--accent-strong); }
+
+  @media (max-width: 1600px) {
+    .annotation { display: none; }
+  }
+
+  @media (max-width: 900px) {
+    .hero, .strip, .stats-row, .f3-row, .feat-row, .c2-row, .footer-cols, .sec-hdr-block {
+      grid-template-columns: 1fr;
+    }
+    .stat-cell, .f3-cell, .feat-content, .c2-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .stat-cell:last-child, .f3-cell:last-child, .c2-cell:last-child { border-bottom: none; }
+    .feat-row.reversed .feat-content { order: initial; border-left: none; }
+    .feat-row.reversed .feat-visual { order: initial; border-right: none; }
+    .sec-body { padding: 44px 24px 32px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-title">
+    ScanFraud Homepage — Counter-Proposal Wireframe
+    <span class="meta">v1 · 2026-05-07 · low-fidelity</span>
+  </div>
+  <div class="legend">
+    <span class="legend-item"><span class="swatch kept"></span>Existing section (kept)</span>
+    <span class="legend-item"><span class="swatch new"></span>New section</span>
+    <span class="legend-item"><span class="swatch placeholder"></span>Visual placeholder</span>
+  </div>
+</div>
+
+<div class="page-card">
+
+  <!-- Browser frame -->
+  <div class="browser-bar">
+    <div class="browser-dots"><span></span><span></span><span></span></div>
+    <div class="browser-url">https://scanfraud.com/</div>
+  </div>
+
+  <!-- 1. NAV -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">1</span> NAV (sticky) <span class="badge kept">KEPT</span></div>
+    <div class="nav-row" style="margin-top:24px">
+      <div class="nav-brand"><span class="nav-brand-mark"></span> ScanFraud</div>
+      <div class="nav-links">
+        <span>Products</span><span>Industries</span><span>Resources</span><span>Security</span><span>Docs</span>
+      </div>
+      <div class="nav-actions">
+        <span class="nav-toggle" title="Theme toggle"></span>
+        <button class="ph-btn">Sign in</button>
+        <button class="ph-btn dark">Book a demo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. HERO -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">2</span> HERO <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="hero">
+        <div class="hero-text">
+          <span class="ph-eyebrow">Fraud prevention &amp; payment management</span>
+          <div class="ph-h1"></div>
+          <div class="ph-sub"></div>
+          <div class="hero-ctas">
+            <button class="ph-btn dark">Book a demo →</button>
+            <button class="ph-btn">Explore platform</button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <span>Hero Monitoring Dashboard preview<br>(existing component)</span>
+        </div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Без формы в герое</strong>
+      У PM была форма с 5 полями (Title/First/Middle/Last/Suffix). Это форма создания аккаунта, не B2B-капча. Заменено на 2 CTA + dashboard preview справа.
+    </div>
+  </div>
+
+  <!-- 3. PROOF BAR / FEATURE CAROUSEL -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">3</span> PROOF BAR / Feature Carousel <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="strip">
+        <div class="strip-visual">Static visual<br>(left, fixed)</div>
+        <div class="strip-text">
+          <div class="strip-title"></div>
+          <div class="strip-line"></div>
+          <div class="strip-line"></div>
+          <div class="strip-line"></div>
+          <div class="strip-arrows">
+            <span class="strip-arrow">‹</span>
+            <span class="strip-arrow">›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. STATS -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">4</span> STATS — 4 columns <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="stats-row">
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Первый proof point</strong>
+      4 цифры сразу после hero — то, чего у PM нет совсем. У нас уже есть, оставляем.
+    </div>
+  </div>
+
+  <!-- 5. SECTION HEADER 1 -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">5</span> SECTION HEADER 1 <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="sec-hdr-block">
+        <h2 class="sh-h2"><em>Designed around</em> revenue protection, not just fraud blocking</h2>
+        <div class="sh-right">
+          <span class="ph-eyebrow">Core value</span>
+          <div class="ph-sub"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 3-COL FEATURES -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">6</span> 3-COL FEATURES (with isometric SVG) <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="f3-row">
+        <div class="f3-cell">
+          <div class="f3-eye">YOUR BUSINESS. YOUR LOGIC.</div>
+          <div class="f3-h">Intelligent Rule Constructor</div>
+          <div class="f3-line"></div>
+          <div class="f3-line short"></div>
+          <div class="f3-iso">Isometric stack SVG<br>(existing)</div>
+        </div>
+        <div class="f3-cell">
+          <div class="f3-eye">PROTECT REVENUE</div>
+          <div class="f3-h">Frictionless Traffic Flow</div>
+          <div class="f3-line"></div>
+          <div class="f3-line short"></div>
+          <div class="f3-iso">Isometric stack SVG<br>(existing)</div>
+        </div>
+        <div class="f3-cell">
+          <div class="f3-eye">CONNECT THE DOTS</div>
+          <div class="f3-h">Case Management</div>
+          <div class="f3-line"></div>
+          <div class="f3-line short"></div>
+          <div class="f3-iso">Isometric stack SVG<br>(existing)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. FEATURE ROW 01 -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">7</span> FEATURE ROW 01 — Rule Constructor <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="feat-row">
+        <div class="feat-content">
+          <span class="feat-num">01</span>
+          <div class="feat-h">Intelligent Rule Constructor</div>
+          <div class="feat-line"></div>
+          <div class="feat-line s"></div>
+          <div class="feat-list">
+            <span class="feat-li">Hybrid: no-code + custom</span>
+            <span class="feat-li">Velocity checks</span>
+            <span class="feat-li">Deploy in minutes</span>
+            <span class="feat-li">Geo &amp; customer rules</span>
+          </div>
+        </div>
+        <div class="feat-visual">Visual / illustration</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. FEATURE ROW 02 (reversed) -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">8</span> FEATURE ROW 02 — Traffic Flow (reversed) <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="feat-row reversed">
+        <div class="feat-content">
+          <span class="feat-num">02</span>
+          <div class="feat-h">Frictionless Traffic Flow</div>
+          <div class="feat-line"></div>
+          <div class="feat-line s"></div>
+          <div class="feat-list">
+            <span class="feat-li">Real-time risk scoring</span>
+            <span class="feat-li">BIN/currency routing</span>
+            <span class="feat-li">Auto cascade on failure</span>
+            <span class="feat-li">Provider analytics</span>
+          </div>
+        </div>
+        <div class="feat-visual">Visual / illustration</div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Замена «Uninterrupted Payment Flow» PM</strong>
+      У нас этот блок уже есть и сильнее. Reverse через одну для визуального ритма.
+    </div>
+  </div>
+
+  <!-- 9. FEATURE ROW 03 -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">9</span> FEATURE ROW 03 — Case Management <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="feat-row">
+        <div class="feat-content">
+          <span class="feat-num">03</span>
+          <div class="feat-h">Case Management</div>
+          <div class="feat-line"></div>
+          <div class="feat-line s"></div>
+          <div class="feat-list">
+            <span class="feat-li">Graph-based linkage</span>
+            <span class="feat-li">Device fingerprinting</span>
+            <span class="feat-li">Role-based access</span>
+            <span class="feat-li">Smart limits</span>
+          </div>
+        </div>
+        <div class="feat-visual">Visual / illustration</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. SECTION HEADER 2 -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">10</span> SECTION HEADER 2 <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="sec-hdr-block">
+        <h2 class="sh-h2"><em>One Platform.</em> Unlimited Risk Scenarios.</h2>
+        <div class="sh-right">
+          <span class="ph-eyebrow">Core value</span>
+          <div class="ph-sub"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. 2-COL CARDS row 1 -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">11</span> 2-COL CARDS row 1 <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="c2-row">
+        <div class="c2-cell">
+          <div class="c2-icon"></div>
+          <div class="c2-eye">ANY METHOD, ANY MARKET</div>
+          <div class="c2-h">Comprehensive Payment Support</div>
+          <div class="c2-line"></div>
+          <div class="c2-line s"></div>
+          <div class="c2-line xs"></div>
+        </div>
+        <div class="c2-cell">
+          <div class="c2-icon"></div>
+          <div class="c2-eye">ROLE-BASED MASTERY</div>
+          <div class="c2-h">Collaborative Risk Ops</div>
+          <div class="c2-line"></div>
+          <div class="c2-line s"></div>
+          <div class="c2-line xs"></div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Замена «Risk Ops Solution» PM</strong>
+      Уже есть как карточка в 2-col grid, в более сильном паттерне.
+    </div>
+  </div>
+
+  <!-- 12. 2-COL CARDS row 2 -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">12</span> 2-COL CARDS row 2 <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="c2-row">
+        <div class="c2-cell">
+          <div class="c2-icon"></div>
+          <div class="c2-eye">READY TO LAUNCH IN HOURS</div>
+          <div class="c2-h">Simple REST API Integration</div>
+          <div class="c2-line"></div>
+          <div class="c2-line s"></div>
+          <div class="c2-line xs"></div>
+        </div>
+        <div class="c2-cell">
+          <div class="c2-icon"></div>
+          <div class="c2-eye">DYNAMIC BLACKLISTS</div>
+          <div class="c2-h">Global Context</div>
+          <div class="c2-line"></div>
+          <div class="c2-line s"></div>
+          <div class="c2-line xs"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. METRICS -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">13</span> METRICS — animated counters <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="stats-row">
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+        <div class="stat-cell"><div class="stat-num"></div><div class="stat-label"></div></div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Второй proof point</strong>
+      +15% / 3 days / 100+ / 99.9% — закрепление перед FAQ и CTA.
+    </div>
+  </div>
+
+  <!-- 14. ★ FAQ — NEW -->
+  <div class="sec highlight-new">
+    <div class="sec-label"><span class="sec-num">14</span> FAQ <span class="badge new">★ NEW</span></div>
+    <div class="sec-body">
+      <div class="sec-hdr-block">
+        <h2 class="sh-h2"><em>Questions teams ask</em><br>before they integrate</h2>
+        <div class="sh-right">
+          <span class="ph-eyebrow">FAQ</span>
+          <div class="ph-sub"></div>
+        </div>
+      </div>
+      <div class="faq-list" style="margin-top:20px">
+        <div class="faq-q open">
+          <div class="faq-q-text">How long does integration take? <em>— 2-3 days from API keys to live</em></div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-line"></div>
+          <div class="faq-answer-line s"></div>
+          <div class="faq-answer-line xs"></div>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">Which compliance standards do you support out of the box?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">How is pricing structured?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">Can we use just one product, or is it all-or-nothing?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">Do you support our industry?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">How fast does the platform make decisions?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">Can we migrate historical data and existing rules?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="faq-q">
+          <div class="faq-q-text">Who manages fraud rules — your team or ours?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="annotation new">
+      <strong>★ Единственная новая секция</strong>
+      8 вопросов из 03_faq-content.md. Accordion с шевронами. Перед CTA — снимает возражения до запроса демо. + JSON-LD FAQPage для SEO rich snippets.
+    </div>
+  </div>
+
+  <!-- 15. CTA -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">15</span> CTA SECTION <span class="badge kept">KEPT</span></div>
+    <div class="sec-body">
+      <div class="cta-block">
+        <span class="ph-eyebrow">Get started today</span>
+        <div class="ph-h1"></div>
+        <div class="ph-sub"></div>
+        <div class="cta-buttons">
+          <button class="ph-btn">Book a demo →</button>
+          <button class="ph-btn ghost">Explore platform</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. FOOTER -->
+  <div class="sec">
+    <div class="sec-label"><span class="sec-num">16</span> FOOTER <span class="badge kept">KEPT</span></div>
+    <div class="footer-block">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-h" style="width:50%"></div>
+          <div class="footer-li short"></div>
+          <div class="footer-li short"></div>
+          <div class="footer-li" style="margin-top:12px"></div>
+          <div class="footer-li short"></div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-h"></div>
+          <div class="footer-li"></div>
+          <div class="footer-li"></div>
+          <div class="footer-li short"></div>
+          <div class="footer-li short"></div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-h"></div>
+          <div class="footer-li"></div>
+          <div class="footer-li short"></div>
+          <div class="footer-li short"></div>
+          <div class="footer-li short"></div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-h"></div>
+          <div class="footer-li"></div>
+          <div class="footer-li short"></div>
+          <div class="footer-li short"></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© SFC GROUP LTD · London, UK</span>
+        <span>Privacy · Terms · Cookies</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Click any FAQ question to toggle the "open" state for demo purposes
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const isOpen = q.classList.contains('open');
+      const next = q.nextElementSibling;
+      // Close all others
+      document.querySelectorAll('.faq-q.open').forEach(o => {
+        o.classList.remove('open');
+        const ans = o.nextElementSibling;
+        if (ans && ans.classList.contains('faq-answer')) ans.remove();
+      });
+      if (!isOpen) {
+        q.classList.add('open');
+        // Insert mock answer after if not already there
+        if (!next || !next.classList.contains('faq-answer')) {
+          const answer = document.createElement('div');
+          answer.className = 'faq-answer';
+          answer.innerHTML = '<div class="faq-answer-line"></div><div class="faq-answer-line s"></div><div class="faq-answer-line xs"></div>';
+          q.parentNode.insertBefore(answer, q.nextSibling);
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

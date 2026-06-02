@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScanFraud — Hero Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+  :root {
+    --col-width: 1160px;
+    --side-pad: 140px;
+    --cell-pad: 40px;
+    --accent: #1a56ff;
+    --font-g: 'Geist', system-ui, sans-serif;
+    --font-i: 'Inter', system-ui, sans-serif;
+    --font-m: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #08090a; --bg2: #141516; --bg3: #0d0f14;
+    --bd: #212223; --bdl: 1px solid #212223;
+    --t1: #ffffff; --t2: rgba(255,255,255,0.6); --t3: #8b909e; --tb: rgba(255,255,255,0.55);
+  }
+  [data-theme="light"] {
+    --bg: #ffffff; --bg2: #f7f8fa; --bg3: #f0f1f3;
+    --bd: #e4e7ed; --bdl: 1px solid #e4e7ed;
+    --t1: #171717; --t2: #4d4d4d; --t3: #8b909e; --tb: #86888b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--t1);
+    font-family: var(--font-g);
+    transition: background .3s, color .3s;
+  }
+
+  /* ── Page toolbar (variant nav + theme toggle) ── */
+  .toolbar {
+    position: fixed;
+    top: 16px; right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 999px;
+    padding: 6px;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .toolbar a {
+    text-decoration: none;
+    color: var(--t2);
+    font-family: var(--font-i);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    transition: background .15s, color .15s;
+  }
+  .toolbar a:hover { color: var(--t1); background: rgba(255,255,255,0.04); }
+  [data-theme="light"] .toolbar a:hover { background: rgba(0,0,0,0.04); }
+  .toolbar .sep { width: 1px; height: 18px; background: var(--bd); }
+  .toolbar button {
+    border: none;
+    background: transparent;
+    color: var(--t2);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
+  }
+  .toolbar button:hover { color: var(--t1); background: rgba(255,255,255,0.04); }
+  [data-theme="light"] .toolbar button:hover { background: rgba(0,0,0,0.04); }
+
+  /* ── Variant frame ── */
+  .variant {
+    position: relative;
+    min-height: 100vh;
+    border-bottom: 1px dashed var(--bd);
+    overflow: hidden;
+  }
+  .variant-label {
+    position: absolute;
+    top: 24px; left: 24px;
+    font-family: var(--font-m);
+    font-size: 10px;
+    color: var(--t3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 5;
+  }
+  .variant-label strong { color: var(--accent); font-weight: 600; }
+
+  /* Shared CTAs */
+  .btn-dark, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 21px;
+    border-radius: 10px;
+    font-family: var(--font-g);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s, background .15s, border-color .15s;
+  }
+  .btn-dark {
+    background: var(--t1);
+    color: var(--bg);
+    border: 1px solid var(--t1);
+  }
+  .btn-dark:hover { transform: translateY(-1px); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.06);
+    color: var(--t1);
+    border: 1px solid var(--bd);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
+  [data-theme="light"] .btn-ghost {
+    background: rgba(255,255,255,0.55);
+    border-color: rgba(13,15,20,0.12);
+  }
+
+  /* Shared eyebrow */
+  .eyebrow {
+    font-family: var(--font-i);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════
+     VARIANT 1 — Aurora Live + Three.js dots + processed-counter
+     ════════════════════════════════════════════════════════════════ */
+  .v1 {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #v1-dots { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  #v1-dots canvas { display: block; width: 100% !important; height: 100% !important; }
+  .v1::before {
+    content: '';
+    position: absolute;
+    inset: -15%;
+    pointer-events: none;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.30) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.22) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.18) 0%, transparent 65%);
+    filter: blur(40px);
+    animation: v1Flow 22s ease-in-out infinite;
+  }
+  [data-theme="light"] .v1::before {
+    background:
+      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.12) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.08) 0%, transparent 65%);
+  }
+  @keyframes v1Flow {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    50%      { transform: translate3d(2%, 1%, 0) scale(1.05); }
+  }
+  .v1-inner {
+    position: relative;
+    z-index: 3;
+    max-width: 920px;
+    padding: 100px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .v1-title {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 68px;
+    letter-spacing: -2.4px;
+    margin: 0;
+  }
+  .v1-sub {
+    font-size: 18px;
+    line-height: 26px;
+    color: var(--t2);
+    max-width: 620px;
+    margin: 0;
+  }
+  .v1-cta { display: flex; gap: 12px; margin-top: 12px; }
+  .v1-live {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 36px;
+    padding: 10px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 999px;
+    font-family: var(--font-m);
+    font-size: 12px;
+    color: var(--t2);
+  }
+  .v1-live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #00d089;
+    box-shadow: 0 0 10px #00d089;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  .v1-live-val { color: var(--t1); font-weight: 600; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .35; }
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════
+     VARIANT 2 — Split with live Rule Builder mockup
+     ════════════════════════════════════════════════════════════════ */
+  .v2 {
+    background: var(--bg);
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 80px 60px;
+  }
+  .v2-left {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .v2-title {
+    font-size: 56px; font-weight: 600;
+    line-height: 60px; letter-spacing: -2.2px;
+    margin: 0;
+  }
+  .v2-sub {
+    font-size: 17px; line-height: 26px;
+    color: var(--t2); margin: 0;
+  }
+  .v2-cta { display: flex; gap: 12px; margin-top: 8px; }
+  .v2-mockup {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 14px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .v2-mockup::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 28px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--bd);
+  }
+  .v2-mockup::after {
+    content: ''; position: absolute;
+    top: 10px; left: 14px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--bd);
+    box-shadow: 14px 0 0 var(--bd), 28px 0 0 var(--bd);
+  }
+  .v2-mockup-inner { position: relative; margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .v2-row {
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+    font-family: var(--font-i);
+    font-size: 12px; font-weight: 500;
+    line-height: 1;
+  }
+  .v2-chip {
+    padding: 7px 11px;
+    border: 1px solid var(--bd);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--t1);
+    white-space: nowrap;
+  }
+  .v2-chip.kw { color: var(--accent); border-color: rgba(26,86,255,0.3); background: rgba(26,86,255,0.07); }
+  .v2-chip.op { color: var(--t3); border: none; background: transparent; padding: 7px 2px; font-weight: 400; }
+  .v2-chip.val { font-family: var(--font-m); }
+  .v2-chip.action { border-color: rgba(26,86,255,0.4); background: var(--accent); color: #fff; }
+  .v2-then {
+    font-size: 10px; font-weight: 600;
+    color: var(--t3); letter-spacing: 1px; text-transform: uppercase;
+    margin: 6px 0 6px 4px;
+  }
+  .v2-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--bd);
+    font-family: var(--font-i); font-size: 10px;
+    color: var(--t3); letter-spacing: .5px;
+  }
+  .v2-deploy {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 6px;
+    background: rgba(0,208,137,0.12); color: #00d089;
+    font-weight: 600; text-transform: uppercase;
+  }
+  .v2-deploy::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #00d089;
+    box-shadow: 0 0 8px #00d089;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════
+     VARIANT 3 — Big-stat Hero with delta line
+     ════════════════════════════════════════════════════════════════ */
+  .v3 {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+  }
+  .v3-inner {
+    max-width: 1100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  .v3-stat {
+    position: relative;
+    display: flex; align-items: baseline;
+    gap: 8px;
+    margin: 20px 0;
+  }
+  .v3-stat-pre {
+    font-size: 90px; font-weight: 700;
+    color: var(--t3);
+    line-height: 1; letter-spacing: -4px;
+  }
+  .v3-stat-val {
+    font-family: var(--font-g);
+    font-size: 220px; font-weight: 700;
+    line-height: 0.95; letter-spacing: -10px;
+    color: var(--t1);
+    background: linear-gradient(180deg, var(--t1) 30%, rgba(255,255,255,0.55) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  [data-theme="light"] .v3-stat-val {
+    background: linear-gradient(180deg, var(--t1) 30%, rgba(23,23,23,0.5) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .v3-stat-unit {
+    font-size: 60px; font-weight: 700;
+    color: var(--t3);
+    letter-spacing: -2px;
+    margin-left: 6px;
+  }
+  .v3-bars {
+    display: flex; align-items: end;
+    gap: 8px;
+    margin: 4px 0;
+  }
+  .v3-bar {
+    width: 6px;
+    background: rgba(26,86,255, 0.5);
+    border-radius: 3px;
+    animation: v3Bar 2.8s ease-in-out infinite;
+  }
+  .v3-bar:nth-child(1) { height: 32px; animation-delay: 0s; }
+  .v3-bar:nth-child(2) { height: 18px; animation-delay: .12s; }
+  .v3-bar:nth-child(3) { height: 24px; animation-delay: .24s; }
+  .v3-bar:nth-child(4) { height: 12px; animation-delay: .36s; }
+  .v3-bar:nth-child(5) { height: 28px; animation-delay: .48s; background: var(--accent); }
+  .v3-bar:nth-child(6) { height: 16px; animation-delay: .60s; }
+  .v3-bar:nth-child(7) { height: 22px; animation-delay: .72s; }
+  .v3-bar:nth-child(8) { height: 14px; animation-delay: .84s; }
+  @keyframes v3Bar {
+    0%, 100% { transform: scaleY(1); opacity: .65; }
+    50%      { transform: scaleY(1.4); opacity: 1; }
+  }
+  .v3-headline {
+    font-size: 32px; font-weight: 600;
+    line-height: 38px; letter-spacing: -1.2px;
+    max-width: 720px;
+    margin: 0;
+  }
+  .v3-sub {
+    font-size: 16px; line-height: 24px;
+    color: var(--t2); margin: 0;
+    max-width: 540px;
+  }
+  .v3-cta { display: flex; gap: 12px; margin-top: 8px; }
+  .v3-compare {
+    margin-top: 10px;
+    font-family: var(--font-m); font-size: 12px;
+    color: var(--t3);
+  }
+  .v3-compare s { color: var(--t3); opacity: .6; }
+  .v3-compare strong { color: var(--accent); font-weight: 600; }
+
+
+  /* ════════════════════════════════════════════════════════════════
+     VARIANT 4 — Terminal-style Hero with typewriter deployment
+     ════════════════════════════════════════════════════════════════ */
+  .v4 {
+    background: var(--bg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 80px 60px;
+  }
+  .v4-left {
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .v4-title {
+    font-size: 56px; font-weight: 600;
+    line-height: 60px; letter-spacing: -2.2px;
+    margin: 0;
+  }
+  .v4-sub {
+    font-size: 17px; line-height: 26px;
+    color: var(--t2); margin: 0;
+  }
+  .v4-cta { display: flex; gap: 12px; }
+  .v4-term {
+    background: #0a0c10;
+    border: 1px solid var(--bd);
+    border-radius: 14px;
+    padding: 20px 24px 28px;
+    font-family: var(--font-m);
+    font-size: 13px;
+    line-height: 22px;
+    color: #d4d8e2;
+    position: relative;
+    min-height: 360px;
+    box-shadow: 0 30px 60px -30px rgba(26,86,255,0.25);
+  }
+  .v4-term-bar {
+    display: flex; align-items: center; gap: 6px;
+    margin: -4px -4px 18px;
+  }
+  .v4-term-bar span {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: #4a4e5c;
+  }
+  .v4-term-bar span:nth-child(1) { background: #ff5f56; }
+  .v4-term-bar span:nth-child(2) { background: #ffbd2e; }
+  .v4-term-bar span:nth-child(3) { background: #27c93f; }
+  .v4-term-bar em {
+    margin-left: auto;
+    font-style: normal;
+    font-size: 11px;
+    color: #6c7080;
+  }
+  .v4-line { margin: 6px 0; }
+  .v4-prompt { color: #1a56ff; font-weight: 600; }
+  .v4-cmd { color: #d4d8e2; }
+  .v4-ok { color: #00d089; }
+  .v4-warn { color: #fbbf24; }
+  .v4-dim { color: #6c7080; }
+  .v4-cursor {
+    display: inline-block;
+    width: 7px; height: 16px;
+    background: #d4d8e2;
+    vertical-align: -3px;
+    margin-left: 2px;
+    animation: blink 1s steps(2, end) infinite;
+  }
+  @keyframes blink { 50% { background: transparent; } }
+  .v4-stream { display: flex; flex-direction: column; gap: 5px; }
+  .v4-tx { display: grid; grid-template-columns: 74px 1fr auto; gap: 12px; align-items: baseline; font-size: 12.5px; opacity: 0; animation: v4Slide .35s ease forwards; }
+  .v4-time { color: #6c7080; font-size: 11px; }
+  .v4-payload { color: #d4d8e2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .v4-payload .v4-amt { color: #fff; font-weight: 600; }
+  .v4-payload .v4-bin { color: #8b909e; }
+  .v4-payload .v4-flag { color: #1a56ff; font-weight: 600; }
+  .v4-verdict { font-weight: 600; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; }
+  .v4-verdict.ok      { background: rgba(0,208,137,0.13); color: #00d089; }
+  .v4-verdict.flagged { background: rgba(251,191,36,0.13); color: #fbbf24; }
+  .v4-verdict.blocked { background: rgba(255,95,86,0.13); color: #ff5f56; }
+  @keyframes v4Slide {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .v4-summary {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #1f232c;
+    display: flex; gap: 20px;
+    font-size: 11px; color: #6c7080;
+    letter-spacing: .3px;
+  }
+  .v4-summary strong { color: #d4d8e2; font-weight: 600; }
+  .v4-summary .v4-pulse { color: #00d089; display: inline-flex; align-items: center; gap: 6px; }
+  .v4-summary .v4-pulse::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00d089; box-shadow: 0 0 8px #00d089; animation: pulse 1.5s ease-in-out infinite; }
+
+
+  /* ════════════════════════════════════════════════════════════════
+     VARIANT 5 — Animated network graph background
+     ════════════════════════════════════════════════════════════════ */
+  .v5 {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+  }
+  .v5-net {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .v5-net svg { width: 100%; height: 100%; display: block; }
+  .v5-net .node { fill: var(--bg2); stroke: var(--bd); stroke-width: 1; }
+  .v5-net .node.flagged { fill: rgba(26,86,255,0.15); stroke: var(--accent); }
+  .v5-net .node-pulse {
+    transform-origin: center;
+    animation: v5Pulse 3s ease-in-out infinite;
+  }
+  .v5-net .edge {
+    stroke: var(--bd); stroke-width: 1; fill: none;
+    stroke-dasharray: 3 4;
+    animation: v5Flow 8s linear infinite;
+  }
+  .v5-net .edge.flagged {
+    stroke: var(--accent); stroke-width: 1.5;
+    opacity: .7;
+  }
+  @keyframes v5Pulse {
+    0%, 100% { transform: scale(1); opacity: .9; }
+    50%      { transform: scale(1.4); opacity: .3; }
+  }
+  @keyframes v5Flow {
+    to { stroke-dashoffset: -28; }
+  }
+  .v5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(8,9,10,0.65) 0%, rgba(8,9,10,0.95) 100%);
+    pointer-events: none;
+  }
+  [data-theme="light"] .v5::before {
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.92) 100%);
+  }
+  .v5-inner {
+    position: relative;
+    z-index: 3;
+    max-width: 820px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .v5-title {
+    font-size: 62px; font-weight: 600;
+    line-height: 66px; letter-spacing: -2.4px;
+    margin: 0;
+  }
+  .v5-sub {
+    font-size: 18px; line-height: 26px;
+    color: var(--t2); margin: 0;
+    max-width: 600px;
+  }
+  .v5-cta { display: flex; gap: 12px; margin-top: 8px; }
+  .v5-metrics {
+    display: flex; gap: 32px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--bd);
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;
+  }
+  .v5-metric {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .v5-metric-val {
+    font-family: var(--font-g); font-size: 22px; font-weight: 700;
+    color: var(--t1); letter-spacing: -0.5px;
+  }
+  .v5-metric-val em { color: var(--accent); font-style: normal; }
+  .v5-metric-lbl {
+    font-family: var(--font-i); font-size: 10px;
+    color: var(--t3); letter-spacing: 1px; text-transform: uppercase;
+  }
+
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .v1-title { font-size: 42px; line-height: 46px; letter-spacing: -1.6px; }
+    .v2, .v4 { grid-template-columns: 1fr; padding: 60px 30px; }
+    .v2-title, .v4-title { font-size: 38px; line-height: 42px; letter-spacing: -1.4px; }
+    .v3-stat-val { font-size: 130px; letter-spacing: -6px; }
+    .v3-stat-pre { font-size: 56px; }
+    .v3-stat-unit { font-size: 38px; }
+    .v3-headline { font-size: 24px; line-height: 30px; letter-spacing: -0.8px; }
+    .v5-title { font-size: 38px; line-height: 42px; letter-spacing: -1.4px; }
+    .v5-metrics { gap: 20px; }
+    .toolbar { right: 8px; top: 8px; padding: 4px; }
+    .toolbar a { padding: 4px 8px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar" role="navigation" aria-label="Hero variants">
+  <a href="#v1">V1</a>
+  <a href="#v2">V2</a>
+  <a href="#v3">V3</a>
+  <a href="#v4">V4</a>
+  <a href="#v5">V5</a>
+  <span class="sep"></span>
+  <button id="themeBtn" aria-label="Toggle theme">
+    <svg id="iconMoon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    <svg id="iconSun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT 1 — Aurora Live
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="variant v1" id="v1">
+  <div class="variant-label"><strong>V1</strong> — Aurora Live</div>
+  <div id="v1-dots" aria-hidden="true"></div>
+  <div class="v1-inner">
+    <span class="eyebrow">Built for high-risk merchants</span>
+    <h1 class="v1-title">Pure traffic. No friction.</h1>
+    <p class="v1-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
+    <div class="v1-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">Explore platform</a>
+    </div>
+    <div class="v1-live" aria-live="polite">
+      <span class="v1-live-dot"></span>
+      <span>Live · <span class="v1-live-val" id="v1Counter">$12.4M</span> processed in last hour</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT 2 — Split + Rule Builder mockup
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="variant v2" id="v2">
+  <div class="variant-label"><strong>V2</strong> — Split + live rule builder</div>
+  <div class="v2-left">
+    <span class="eyebrow">No-code rule engine</span>
+    <h1 class="v2-title">Deploy fraud rules without waiting for engineering.</h1>
+    <p class="v2-sub">Visual builder for risk teams, custom SQL for edge cases. Push to production in seconds, rollback in one click.</p>
+    <div class="v2-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">See the docs</a>
+    </div>
+  </div>
+  <div class="v2-mockup" aria-hidden="true">
+    <div class="v2-mockup-inner">
+      <div class="v2-row">
+        <span class="v2-chip kw">IF</span>
+        <span class="v2-chip">amount</span>
+        <span class="v2-chip op">&gt;</span>
+        <span class="v2-chip val">$500</span>
+        <span class="v2-chip op">AND</span>
+        <span class="v2-chip">bin_country</span>
+        <span class="v2-chip op">≠</span>
+        <span class="v2-chip">ip_country</span>
+      </div>
+      <div class="v2-then">THEN</div>
+      <div class="v2-row">
+        <span class="v2-chip action">Flag for review</span>
+        <span class="v2-chip">notify_team</span>
+      </div>
+      <div class="v2-row" style="margin-top:14px;">
+        <span class="v2-chip kw">IF</span>
+        <span class="v2-chip">velocity_1h</span>
+        <span class="v2-chip op">&gt;</span>
+        <span class="v2-chip val">3</span>
+      </div>
+      <div class="v2-then">THEN</div>
+      <div class="v2-row">
+        <span class="v2-chip action">Decline</span>
+      </div>
+      <div class="v2-foot">
+        <span>rule_set / high_risk_v4</span>
+        <span class="v2-deploy">Live</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT 3 — Big-stat Hero
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="variant v3" id="v3">
+  <div class="variant-label"><strong>V3</strong> — Big stat</div>
+  <div class="v3-inner">
+    <span class="eyebrow">Decision speed</span>
+    <div class="v3-stat">
+      <span class="v3-stat-pre">&lt;</span>
+      <span class="v3-stat-val" id="v3StatVal">300</span>
+      <span class="v3-stat-unit">ms</span>
+    </div>
+    <div class="v3-bars" aria-hidden="true">
+      <span class="v3-bar"></span><span class="v3-bar"></span><span class="v3-bar"></span><span class="v3-bar"></span><span class="v3-bar"></span><span class="v3-bar"></span><span class="v3-bar"></span><span class="v3-bar"></span>
+    </div>
+    <h1 class="v3-headline">From request to decision before your customer blinks.</h1>
+    <p class="v3-sub">Every transaction scored by 200+ rules in real time. No queues. No retries.</p>
+    <div class="v3-compare"><s>Industry average 800 ms</s> &nbsp;·&nbsp; <strong>2.7× faster</strong></div>
+    <div class="v3-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">See benchmark</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT 4 — Terminal-style Hero
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="variant v4" id="v4">
+  <div class="variant-label"><strong>V4</strong> — Live decision stream</div>
+  <div class="v4-left">
+    <span class="eyebrow">Real-time decisions</span>
+    <h1 class="v4-title">Every transaction. Every signal. Decided in milliseconds.</h1>
+    <p class="v4-sub">200+ rules score amount, BIN, velocity, device, and geo for every payment your customers send. Approve, flag, or block — before the gateway responds.</p>
+    <div class="v4-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">See live demo</a>
+    </div>
+  </div>
+  <div class="v4-term" aria-hidden="true">
+    <div class="v4-term-bar">
+      <span></span><span></span><span></span>
+      <em>scanfraud · decision stream</em>
+    </div>
+    <div class="v4-line v4-dim">Watching transactions across <strong style="color:#d4d8e2;">14 merchants</strong> · 6 regions</div>
+    <div class="v4-stream" id="v4Stream" aria-live="polite"></div>
+    <div class="v4-summary">
+      <span class="v4-pulse">Live</span>
+      <span>processed <strong id="v4Proc">12,847</strong></span>
+      <span>blocked <strong id="v4Block">1,644</strong></span>
+      <span>p50 <strong>8.2ms</strong></span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT 5 — Animated network graph
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="variant v5" id="v5">
+  <div class="variant-label"><strong>V5</strong> — Network graph</div>
+  <div class="v5-net" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <g class="edges">
+        <line class="edge" x1="200" y1="120" x2="450" y2="280"/>
+        <line class="edge" x1="450" y1="280" x2="700" y2="180"/>
+        <line class="edge flagged" x1="450" y1="280" x2="600" y2="500"/>
+        <line class="edge flagged" x1="600" y1="500" x2="900" y2="430"/>
+        <line class="edge" x1="700" y1="180" x2="950" y2="280"/>
+        <line class="edge flagged" x1="900" y1="430" x2="1050" y2="180"/>
+        <line class="edge" x1="200" y1="120" x2="320" y2="450"/>
+        <line class="edge" x1="320" y1="450" x2="600" y2="500"/>
+        <line class="edge" x1="950" y1="280" x2="1050" y2="180"/>
+        <line class="edge" x1="320" y1="450" x2="120" y2="560"/>
+        <line class="edge flagged" x1="600" y1="500" x2="450" y2="620"/>
+        <line class="edge" x1="900" y1="430" x2="1080" y2="560"/>
+      </g>
+      <g class="nodes">
+        <circle class="node" cx="200" cy="120" r="9"/>
+        <circle class="node flagged node-pulse" cx="450" cy="280" r="11"/>
+        <circle class="node" cx="700" cy="180" r="9"/>
+        <circle class="node flagged node-pulse" cx="600" cy="500" r="12" style="animation-delay: .5s"/>
+        <circle class="node" cx="950" cy="280" r="9"/>
+        <circle class="node flagged node-pulse" cx="900" cy="430" r="10" style="animation-delay: 1s"/>
+        <circle class="node" cx="1050" cy="180" r="9"/>
+        <circle class="node" cx="320" cy="450" r="9"/>
+        <circle class="node" cx="120" cy="560" r="7"/>
+        <circle class="node" cx="450" cy="620" r="7"/>
+        <circle class="node" cx="1080" cy="560" r="7"/>
+      </g>
+    </svg>
+  </div>
+  <div class="v5-inner">
+    <span class="eyebrow">Cross-entity intelligence</span>
+    <h1 class="v5-title">Find fraud rings before they scale.</h1>
+    <p class="v5-sub">Graph-based linkage surfaces accounts sharing devices, IPs, BINs, and behavioural fingerprints — across regions and time windows.</p>
+    <div class="v5-cta">
+      <a href="#" class="btn-dark">Book a demo →</a>
+      <a href="#" class="btn-ghost">See case studies</a>
+    </div>
+    <div class="v5-metrics">
+      <div class="v5-metric">
+        <span class="v5-metric-val">2.4<em>B</em></span>
+        <span class="v5-metric-lbl">entities mapped</span>
+      </div>
+      <div class="v5-metric">
+        <span class="v5-metric-val">17<em>K</em></span>
+        <span class="v5-metric-lbl">rings detected · 90d</span>
+      </div>
+      <div class="v5-metric">
+        <span class="v5-metric-val">6<em>ms</em></span>
+        <span class="v5-metric-lbl">avg graph lookup</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  // ── Theme toggle ──
+  const btn = document.getElementById('themeBtn');
+  const moon = document.getElementById('iconMoon');
+  const sun = document.getElementById('iconSun');
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    moon.style.display = t === 'dark' ? '' : 'none';
+    sun.style.display = t === 'light' ? '' : 'none';
+    localStorage.setItem('sf-hv-theme', t);
+    if (window._v1Dots) window._v1Dots.setTheme(t);
+  }
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+  applyTheme(localStorage.getItem('sf-hv-theme') || 'dark');
+
+  // ── V1 Three.js dots ──
+  (function() {
+    const container = document.getElementById('v1-dots');
+    if (!container || !window.THREE) return;
+    const w = () => container.clientWidth;
+    const h = () => container.clientHeight;
+    const scene = new THREE.Scene();
+    const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    renderer.setSize(w(), h());
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+    const N = 400;
+    const positions = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      positions[i*3]   = (Math.random() - 0.5) * 2;
+      positions[i*3+1] = (Math.random() - 0.5) * 2;
+      positions[i*3+2] = 0;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({ size: 0.004, color: 0xffffff, transparent: true, opacity: 0.55 });
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+    let t = 0;
+    function animate() {
+      t += 0.0008;
+      points.rotation.z = t;
+      renderer.render(scene, cam);
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener('resize', () => { renderer.setSize(w(), h()); });
+    window._v1Dots = {
+      setTheme(theme) {
+        mat.color.setHex(theme === 'light' ? 0x171717 : 0xffffff);
+        mat.opacity = theme === 'light' ? 0.30 : 0.55;
+      }
+    };
+    window._v1Dots.setTheme(document.documentElement.getAttribute('data-theme'));
+  })();
+
+  // ── V1 live counter ──
+  (function() {
+    const el = document.getElementById('v1Counter');
+    if (!el) return;
+    let v = 12400000;
+    setInterval(() => {
+      v += Math.floor(Math.random() * 9000) + 1500;
+      const m = (v / 1000000).toFixed(2);
+      el.textContent = '$' + m + 'M';
+    }, 1200);
+  })();
+
+  // ── V3 stat counter (animates from 800 → 300 on scroll into view) ──
+  (function() {
+    const el = document.getElementById('v3StatVal');
+    if (!el) return;
+    let played = false;
+    function play() {
+      if (played) return;
+      played = true;
+      let v = 800;
+      const start = performance.now();
+      const dur = 1800;
+      function step(t) {
+        const p = Math.min(1, (t - start) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        v = Math.round(800 - 500 * e);
+        el.textContent = v;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { play(); io.disconnect(); } });
+    }, { threshold: 0.4 });
+    io.observe(el);
+  })();
+
+  // ── V4 live decision stream ──
+  (function() {
+    const stream = document.getElementById('v4Stream');
+    const procEl = document.getElementById('v4Proc');
+    const blockEl = document.getElementById('v4Block');
+    if (!stream) return;
+
+    const corridors = ['MX → US','DE → DE','BR → ES','NG → GB','TR → DE','IN → AE','RU → CY','VN → SG','CO → US','PH → AU'];
+    const bins = ['5102','4521','5318','4012','5412','4111','5555','4929'];
+    const verdicts = [
+      { label: 'approved', cls: 'ok',      weight: 70 },
+      { label: 'flagged',  cls: 'flagged', weight: 18 },
+      { label: 'blocked',  cls: 'blocked', weight: 12 },
+    ];
+    const reasons = ['velocity_1h','MATCH list','bin_mismatch','device_fp','chargeback ratio','geo anomaly','synthetic ID'];
+
+    function pad(n, w) { return ('00'+n).slice(-w); }
+    function now() {
+      const d = new Date();
+      return `${pad(d.getHours(),2)}:${pad(d.getMinutes(),2)}:${pad(d.getSeconds(),2)}`;
+    }
+    function rand(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+    function pickVerdict() {
+      const r = Math.random() * 100;
+      let acc = 0;
+      for (const v of verdicts) { acc += v.weight; if (r < acc) return v; }
+      return verdicts[0];
+    }
+    function fmtAmount() {
+      const v = Math.floor(Math.random() * 6000) + 25;
+      return '$' + v.toLocaleString('en-US');
+    }
+    function txId() {
+      return 'tx_' + Math.random().toString(16).slice(2,7);
+    }
+
+    let proc = 12847, blocked = 1644;
+    function addTx() {
+      const verdict = pickVerdict();
+      const row = document.createElement('div');
+      row.className = 'v4-tx';
+      const tail = (verdict.cls === 'ok')
+        ? `<span class="v4-bin">${(Math.floor(Math.random()*20)+5)}ms</span>`
+        : `<span class="v4-flag">${rand(reasons)}</span>`;
+      row.innerHTML = `
+        <span class="v4-time">${now()}</span>
+        <span class="v4-payload">${txId()} · <span class="v4-amt">${fmtAmount()}</span> · <span class="v4-bin">BIN ${rand(bins)}</span> · ${rand(corridors)} · ${tail}</span>
+        <span class="v4-verdict ${verdict.cls}">${verdict.label}</span>
+      `;
+      stream.appendChild(row);
+      while (stream.children.length > 7) stream.removeChild(stream.firstChild);
+
+      proc += 1;
+      if (verdict.cls !== 'ok') blocked += 1;
+      if (procEl) procEl.textContent = proc.toLocaleString('en-US');
+      if (blockEl) blockEl.textContent = blocked.toLocaleString('en-US');
+    }
+
+    let timer = null;
+    function start() {
+      if (timer) return;
+      // initial burst
+      for (let i = 0; i < 4; i++) setTimeout(addTx, i * 280);
+      // then steady stream
+      timer = setInterval(addTx, 1100);
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) start(); });
+    }, { threshold: 0.3 });
+    io.observe(document.getElementById('v4'));
+  })();
+
+  // ── Lucide ──
+  if (window.lucide) lucide.createIcons();
+</script>
+
+</body>
+</html>

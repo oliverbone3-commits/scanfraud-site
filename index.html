@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="shared.css"/>
-  <link rel="stylesheet" href="hero-monitor.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -117,14 +116,67 @@
 
     /* ── HERO ── */
     .hero { padding-top:var(--nav-h); }
-    .hero-sec { position:relative; border-bottom:var(--bdl); overflow:hidden; }
-    [data-theme="light"] .hero-sec { background:linear-gradient(180deg,#eef2ff 0%,#fff 100%); }
-    #dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+    .hero-sec { position:relative; border-bottom:var(--bdl); overflow:hidden; background:#08090a; }
+    [data-theme="light"] .hero-sec { background:#ffffff; }
+    #dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2; }
     #dots canvas { display:block; width:100%!important; height:100%!important; }
     [data-theme="light"] #dots { opacity:1; }
-    /* Light theme gets dark dots (near-black) — handled in JS via _sfDotTheme */
-    .hero-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,86,255,.18) 0%,transparent 60%); pointer-events:none; z-index:1; }
-    [data-theme="light"] .hero-sec::before { background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(26,86,255,.06) 0%,transparent 70%); }
+    /* Aurora gradient behind dots — animated flow */
+    .hero-sec::before {
+      content:'';
+      position:absolute;
+      inset:-15%;
+      pointer-events:none;
+      z-index:1;
+      background:
+        radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.32) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.22) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.20) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 90% 95%, rgba(0,180,200,.14) 0%, transparent 60%);
+      filter: blur(40px);
+      animation: auroraFlow 22s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+    [data-theme="light"] .hero-sec::before {
+      background:
+        radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.14) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 90% 95%, rgba(0,180,200,.08) 0%, transparent 60%);
+      filter: blur(40px);
+    }
+    /* Second aurora layer — counter-drift + slow pulse */
+    .hero-sec::after {
+      content:'';
+      position:absolute;
+      inset:-15%;
+      pointer-events:none;
+      z-index:1;
+      background:
+        radial-gradient(ellipse 45% 35% at 65% 30%, rgba(80,120,255,.22) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 25% 25%, rgba(180,90,255,.14) 0%, transparent 60%);
+      filter: blur(50px);
+      animation: auroraDrift 16s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+    [data-theme="light"] .hero-sec::after {
+      background:
+        radial-gradient(ellipse 45% 35% at 65% 30%, rgba(80,120,255,.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 25% 25%, rgba(180,90,255,.07) 0%, transparent 60%);
+    }
+    @keyframes auroraFlow {
+      0%, 100% { transform: translate3d(0,0,0) scale(1); opacity: 1; }
+      33%      { transform: translate3d(3%, -2%, 0) scale(1.06); opacity: .85; }
+      66%      { transform: translate3d(-3%, 2%, 0) scale(1.03); opacity: .95; }
+    }
+    @keyframes auroraDrift {
+      0%, 100% { transform: translate3d(0,0,0) scale(1.02); opacity: .9; }
+      50%      { transform: translate3d(-4%, 3%, 0) scale(1.1);  opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-sec::before,
+      .hero-sec::after { animation: none; }
+    }
 
     .hero-main { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:28px; padding:200px var(--cell-pad) 56px; }
     .h-title { font-family:var(--font-g); font-weight:600; font-size:64px; line-height:64px; letter-spacing:-2.4px; text-align:center; color:var(--t1); }
@@ -176,7 +228,7 @@
     .sl { font-family:var(--font-g); font-weight:400; font-size:12px; color:var(--t3); }
 
     /* ── FEATURE DETAIL ROWS ── */
-    .fdr { display:flex; align-items:stretch; border-bottom:var(--bdl); min-height:423px; }
+    .fdr { display:flex; align-items:stretch; border-bottom:var(--bdl); min-height:423px; position:relative; isolation:isolate; }
     .fdr .fc { flex:1; padding:var(--cell-pad); border-right:var(--bdl); display:flex; flex-direction:column; gap:24px; }
     .fdr .fi { flex:1; padding:var(--cell-pad); display:flex; align-items:center; justify-content:center; }
     .fdr.rev .fc { order:2; border-right:none; border-left:var(--bdl); }
@@ -280,6 +332,18 @@
       margin-top: -1px;
       position: relative;
       z-index: 1;
+    }
+    .section-divider::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--bg), 0 0 16px rgba(26,86,255,0.45);
     }
 
     /* ══ CTA SECTION ══ */
@@ -817,7 +881,7 @@
     }
     @media (max-width: 480px) {
       :root { --cell-pad:20px; }
-      
+
       .h-title { font-size:32px; line-height:36px; letter-spacing:-1px; }
       .mg { grid-template-columns:1fr; height:auto; }
       .mi { border-right:none; border-top:1px solid rgba(255,255,255,.08); }
@@ -826,6 +890,773 @@
       .ft-brand-col { grid-column:auto; }
       .sh-title { font-size:24px; line-height:28px; }
       .cta-title { font-size:26px; line-height:32px; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       ── HOMEPAGE v3 — new section styles (2026-06-01) ──
+       ════════════════════════════════════════════════════════════ */
+
+    /* HERO padding adjustment — preview frame removed, expand bottom space */
+    .hero-main { padding-bottom: 100px; }
+    @media (max-width: 768px) { .hero-main { padding-bottom: 60px; } }
+
+    /* Anchor-based CTAs (a.btn-dark, a.btn-ghost) need explicit block layout */
+    a.btn-dark, a.btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    /* ── Ghost button: frosted glass over hero/CTA dots ── */
+    .h-cta .btn-ghost,
+    .cta-btns .btn-ghost {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .h-cta .btn-ghost:hover,
+    .cta-btns .btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.28);
+    }
+    [data-theme="light"] .h-cta .btn-ghost,
+    [data-theme="light"] .cta-btns .btn-ghost {
+      background: rgba(255,255,255,0.55);
+      border-color: rgba(13,15,20,0.12);
+    }
+    [data-theme="light"] .h-cta .btn-ghost:hover,
+    [data-theme="light"] .cta-btns .btn-ghost:hover {
+      background: rgba(255,255,255,0.75);
+      border-color: rgba(13,15,20,0.2);
+    }
+
+    /* ── HERO bullets — small pill chips below CTA ── */
+    .h-bullets {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      max-width: 760px;
+      margin: 32px auto 0;
+      padding: 0;
+      list-style: none;
+    }
+    .h-bullets li {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border: 1px solid var(--bd);
+      border-radius: 999px;
+      background: var(--bg2);
+      font-family: var(--font-i);
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1;
+      color: var(--t1);
+      white-space: nowrap;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .h-bullets li:hover {
+      border-color: rgba(26,86,255,0.3);
+    }
+    .h-bullets .ic-sq {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .h-bullets .ic-sq i,
+    .h-bullets .ic-sq svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+      stroke: var(--accent);
+      stroke-width: 2;
+    }
+    @media (max-width: 600px) {
+      .h-bullets { gap: 5px; margin-top: 24px; }
+      .h-bullets li { font-size: 10px; padding: 4px 10px; gap: 5px; }
+      .h-bullets .ic-sq i,
+      .h-bullets .ic-sq svg { width: 12px; height: 12px; }
+    }
+
+    /* ── CLIENT TICKER ── */
+    .ticker-sec {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg2);
+      border-bottom: var(--bdl);
+    }
+    .ticker-sec::before,
+    .ticker-sec::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .ticker-sec::before { left: 0; background: linear-gradient(to right, var(--bg2), transparent); }
+    .ticker-sec::after  { right: 0; background: linear-gradient(to left,  var(--bg2), transparent); }
+    .ticker-wrap {
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      padding: 22px 0;
+    }
+    .ticker-track {
+      display: flex;
+      flex-shrink: 0;
+      gap: 12px;
+      padding-right: 12px;
+      animation: tickerScroll 38s linear infinite;
+      list-style: none;
+      margin: 0;
+    }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+    .ticker-track li {
+      flex-shrink: 0;
+      font-family: var(--font-i);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--t2);
+      padding: 6px 14px;
+      border: 1px solid var(--bd);
+      border-radius: 999px;
+      background: var(--bg2);
+      white-space: nowrap;
+    }
+    @keyframes tickerScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+    }
+
+    /* ── PRODUCTS — section header ── */
+    .prod-header {
+      padding: 64px var(--cell-pad) 48px;
+      border-bottom: var(--bdl);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 100%;
+    }
+    .prod-header-eye {
+      font-family: var(--font-i);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .prod-header-title {
+      font-family: var(--font-g);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 40px;
+      letter-spacing: -1.8px;
+      color: var(--t1);
+      max-width: 800px;
+    }
+    .prod-header-sub {
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 22px;
+      color: var(--tb);
+      max-width: 680px;
+    }
+    @media (max-width: 768px) {
+      .prod-header { padding: 40px var(--cell-pad); }
+      .prod-header-title { font-size: 28px; line-height: 32px; letter-spacing: -1.2px; }
+    }
+
+    /* ── PRODUCTS — feature rows visual mockups ── */
+    .fdr .fi-mockup {
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 16/11;
+      border: 1px solid var(--bd);
+      border-radius: 14px;
+      background: var(--bg2);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    [data-theme="light"] .fdr .fi-mockup { background: #fafbfd; }
+    .fdr .fi-mockup::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 28px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--bd);
+      z-index: 1;
+    }
+    .fdr .fi-mockup::after {
+      content: '';
+      position: absolute;
+      top: 10px; left: 14px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--bd);
+      box-shadow: 14px 0 0 var(--bd), 28px 0 0 var(--bd);
+      z-index: 2;
+    }
+    .fdr .fi-mockup > * { position: relative; z-index: 3; margin-top: 24px; }
+    .fdr .fi-mockup > *:not(:first-child) { margin-top: 0; }
+
+    /* Row 01 — Rule Builder */
+    .mk-rule-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-family: var(--font-i);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .mk-chip {
+      padding: 6px 10px;
+      border: 1px solid var(--bd);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--t1);
+      white-space: nowrap;
+    }
+    .mk-chip.op { color: var(--t3); border-color: transparent; background: transparent; padding: 6px 2px; font-weight: 400; }
+    .mk-chip.kw { color: var(--accent); border-color: rgba(26,86,255,0.25); background: rgba(26,86,255,0.06); }
+    .mk-chip.val { font-family: 'SFMono-Regular',Consolas,monospace; }
+    .mk-chip.action { border-color: rgba(26,86,255,0.4); background: var(--accent); color: #fff; }
+    .mk-then {
+      font-family: var(--font-i); font-size: 10px; font-weight: 600;
+      color: var(--t3); letter-spacing: 1px; text-transform: uppercase;
+      margin: 4px 0 4px 4px;
+    }
+    .mk-rule-divider {
+      height: 1px; background: var(--bd); margin: 4px 0;
+    }
+    .mk-foot {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-i);
+      font-size: 10px;
+      color: var(--t3);
+      letter-spacing: .5px;
+    }
+    .mk-foot .mk-deploy {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px; border-radius: 6px;
+      background: rgba(26,86,255,0.12); color: var(--accent);
+      font-weight: 600; text-transform: uppercase;
+    }
+    .mk-foot .mk-deploy::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: mkPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes mkPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .35; }
+    }
+
+    /* Row 02 — Routing tree */
+    .mk-route { width: 100%; height: 100%; }
+    .mk-route svg { width: 100%; height: 100%; display: block; }
+    .mk-route .rt-node-bg { fill: var(--bg); stroke: var(--bd); }
+    [data-theme="light"] .mk-route .rt-node-bg { fill: #fff; }
+    .mk-route .rt-node-bg.accent { stroke: var(--accent); }
+    .mk-route .rt-node-bg.success { fill: rgba(0,180,120,0.10); stroke: rgba(0,180,120,0.5); }
+    .mk-route .rt-node-bg.fail { fill: rgba(220,80,80,0.08); stroke: rgba(220,80,80,0.45); stroke-dasharray: 4 3; }
+    .mk-route .rt-label { font-family: var(--font-i); font-size: 10px; font-weight: 600; fill: var(--t1); letter-spacing: .3px; }
+    .mk-route .rt-sub { font-family: var(--font-i); font-size: 9px; fill: var(--t3); }
+    .mk-route .rt-edge { stroke: var(--bd); stroke-width: 1.5; fill: none; }
+    .mk-route .rt-edge.flow { stroke: var(--accent); stroke-width: 2; }
+    .mk-route .rt-pulse {
+      stroke-dasharray: 4 4;
+      animation: rtFlow 1.4s linear infinite;
+    }
+    @keyframes rtFlow {
+      to { stroke-dashoffset: -16; }
+    }
+
+    /* Row 03 — Entity graph */
+    .mk-graph { width: 100%; height: 100%; }
+    .mk-graph svg { width: 100%; height: 100%; display: block; }
+    .mk-graph .gn { fill: var(--bg); stroke: var(--bd); stroke-width: 1.2; }
+    [data-theme="light"] .mk-graph .gn { fill: #fff; }
+    .mk-graph .gn.flagged { fill: rgba(26,86,255,0.15); stroke: var(--accent); stroke-width: 2; }
+    .mk-graph .gn-label { font-family: var(--font-i); font-size: 8.5px; font-weight: 600; fill: var(--t1); text-anchor: middle; }
+    .mk-graph .gn-sub { font-family: var(--font-i); font-size: 7.5px; fill: var(--t3); text-anchor: middle; }
+    .mk-graph .gn-edge { stroke: var(--bd); stroke-width: 1; fill: none; }
+    .mk-graph .gn-edge.flagged { stroke: var(--accent); stroke-width: 1.6; }
+    .mk-graph .gn-ring {
+      fill: none; stroke: var(--accent); stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+      transform-origin: center;
+      animation: gnRotate 8s linear infinite;
+    }
+    @keyframes gnRotate { to { transform: rotate(360deg); } }
+    .mk-graph .gn-icon { fill: var(--t2); }
+    .mk-graph .gn.flagged .gn-icon { fill: var(--accent); }
+
+    /* Row 04 — Onboarding timeline */
+    .mk-timeline {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      height: 100%;
+    }
+    .mk-tl-step {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      background: var(--bg);
+      font-family: var(--font-i);
+      font-size: 11px;
+      line-height: 1.1;
+    }
+    .mk-tl-step.live { border-color: rgba(26,86,255,0.4); background: rgba(26,86,255,0.05); }
+    .mk-tl-day {
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--t3);
+      text-transform: uppercase;
+    }
+    .mk-tl-step.live .mk-tl-day { color: var(--accent); }
+    .mk-tl-title { font-weight: 500; color: var(--t1); font-size: 12px; }
+    .mk-tl-step.live .mk-tl-title { color: var(--accent); }
+    .mk-tl-check {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: rgba(0,180,120,0.18);
+      color: rgb(0,180,120);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .mk-tl-step.live .mk-tl-check {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(26,86,255,0.4);
+    }
+
+    /* Mobile: shrink mockups */
+    @media (max-width: 768px) {
+      .fdr .fi-mockup { padding: 18px; aspect-ratio: 16/12; }
+      .mk-tl-step { grid-template-columns: 48px 1fr auto; padding: 8px 10px; font-size: 10px; }
+      .mk-tl-title { font-size: 11px; }
+    }
+    /* Body paragraph under tagline */
+    .fdr .fbody {
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: var(--tb);
+      margin-top: 8px;
+    }
+
+    /* ── WHY SCANFRAUD ── */
+    .why-sec {
+      /* border-bottom handled by ::after below (full-width edge-to-edge) */
+    }
+    .why-header {
+      padding: 64px var(--cell-pad) 40px;
+      border-bottom: var(--bdl);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .why-header-eye {
+      font-family: var(--font-i);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .why-header-title {
+      font-family: var(--font-g);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 40px;
+      letter-spacing: -1.8px;
+      color: var(--t1);
+      max-width: 780px;
+    }
+    .why-header-sub {
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 22px;
+      color: var(--tb);
+      max-width: 720px;
+    }
+    /* Layout B: 1.5fr 1fr 1fr × 2 rows */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .why-card {
+      position: relative;
+      padding: var(--cell-pad);
+      border-right: var(--bdl);
+      border-bottom: var(--bdl);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow .4s ease;
+      isolation: isolate;
+    }
+    .why-card:hover {
+      box-shadow: inset 0 60px 120px -50px rgba(26,86,255,0.12);
+    }
+    /* Spark border — conic gradient revealed via mask (.why-card + .fdr + .st3) */
+    @property --spark-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: true;
+    }
+    .why-card::after,
+    .fdr::after,
+    .stats-v3 .st3::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--spark-angle, 0deg),
+        transparent 0deg,
+        transparent 240deg,
+        rgba(26,86,255,0) 270deg,
+        var(--accent) 320deg,
+        #7850ff 340deg,
+        var(--accent) 350deg,
+        transparent 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 1;
+    }
+    .why-card:hover::after {
+      opacity: 1;
+      animation: sparkRotate 2.2s linear infinite;
+    }
+    .fdr:hover::after {
+      opacity: 1;
+      animation: sparkRotate 3.6s linear infinite;
+    }
+    .stats-v3 .st3:hover::after {
+      opacity: 1;
+      animation: sparkRotate 2.6s linear infinite;
+    }
+    @keyframes sparkRotate {
+      to { --spark-angle: 360deg; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .why-card:hover::after,
+      .fdr:hover::after,
+      .stats-v3 .st3:hover::after { animation: none; }
+    }
+    /* Wide first-column gets extra breathing room */
+    .why-card.wide-col { gap: 18px; }
+    /* Industries variant — anchor reuses .why-card; grid is 3 equal cols + bottom divider */
+    .why-grid--ind { grid-template-columns: repeat(3, 1fr); border-bottom: var(--bdl); }
+    a.why-card { text-decoration: none; color: inherit; }
+    .why-link {
+      margin-top: auto;
+      padding-top: 4px;
+      font-family: var(--font-g);
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .why-link svg { width: 12px; height: 12px; stroke: var(--accent); stroke-width: 2; fill: none; }
+    /* Drop right border on the last column of each row (3rd, 6th) */
+    .why-card:nth-child(3n) { border-right: none; }
+    /* Drop bottom border on the last row (cards 4, 5, 6) */
+    .why-card:nth-last-child(-n+3) { border-bottom: none; }
+    .why-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(26,86,255,.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    [data-theme="light"] .why-icon { background: rgba(26,86,255,.07); }
+    .why-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .why-h {
+      font-family: var(--font-g);
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: -.4px;
+      color: var(--t1);
+    }
+    .why-b {
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 20px;
+      color: var(--tb);
+    }
+    /* Section-divider style at bottom, full-width */
+    .why-sec::after {
+      content: '';
+      display: block;
+      width: 100vw;
+      height: 1px;
+      background: var(--bd);
+      margin-left: calc(50% - 50vw);
+      margin-top: -1px;
+    }
+    /* WHY responsive */
+    @media (max-width: 1024px) {
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .why-card { border-right: var(--bdl) !important; border-bottom: var(--bdl) !important; }
+      .why-card:nth-child(2n) { border-right: none !important; }
+      .why-card:nth-last-child(-n+2) { border-bottom: none !important; }
+    }
+    @media (max-width: 768px) {
+      .why-header { padding: 40px var(--cell-pad); }
+      .why-header-title { font-size: 28px; line-height: 32px; letter-spacing: -1.2px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-card { border-right: none !important; border-bottom: var(--bdl) !important; }
+      .why-card:last-child { border-bottom: none !important; }
+    }
+
+    /* ── STATS v3 (3 counters) ── */
+    .stats-v3-header {
+      padding: 64px var(--cell-pad) 40px;
+      border-bottom: var(--bdl);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stats-v3-eye {
+      font-family: var(--font-i);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .stats-v3-title {
+      font-family: var(--font-g);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 40px;
+      letter-spacing: -1.8px;
+      color: var(--t1);
+      max-width: 720px;
+    }
+    .stats-v3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: var(--bdl);
+    }
+    .stats-v3 .st3 {
+      padding: 40px var(--cell-pad);
+      border-right: var(--bdl);
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background .3s;
+    }
+    .stats-v3 .st3:last-child { border-right: none; }
+    .stats-v3 .st3:hover { background: rgba(26,86,255,.03); }
+    .st3-num {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .st3-prefix {
+      font-family: var(--font-g);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 40px;
+      letter-spacing: -2px;
+      color: var(--t1);
+    }
+    .st3-val {
+      font-family: var(--font-g);
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 48px;
+      letter-spacing: -2px;
+      color: var(--t1);
+    }
+    .st3-suffix {
+      font-family: var(--font-g);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+      letter-spacing: -1px;
+      color: var(--t3);
+    }
+    .st3-label {
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--tb);
+    }
+    /* Industry-context sub-line */
+    .st3-context {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px dashed var(--bd);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .st3-context-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-i);
+      font-size: 11px;
+      color: var(--t3);
+      letter-spacing: .3px;
+    }
+    .st3-context-row strong {
+      font-weight: 600;
+      color: var(--t2);
+    }
+    .st3-bar {
+      position: relative;
+      height: 3px;
+      background: var(--bd);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .st3-bar-fill {
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform-origin: left center;
+      transform: scaleX(var(--bar, 0.5));
+      border-radius: 999px;
+      transition: transform 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    @media (max-width: 768px) {
+      .stats-v3-header { padding: 40px var(--cell-pad); }
+      .stats-v3-title { font-size: 28px; line-height: 32px; letter-spacing: -1.2px; }
+      .stats-v3 { grid-template-columns: 1fr; }
+      .stats-v3 .st3 { border-right: none; border-bottom: var(--bdl); }
+      .stats-v3 .st3:last-child { border-bottom: none; }
+      .st3-val { font-size: 40px; line-height: 44px; }
+      .st3-prefix { font-size: 32px; line-height: 36px; }
+    }
+
+    /* ── INDUSTRIES section header (uses .ind-grid + .industry-card from shared) ── */
+    .ind-header {
+      padding: 64px var(--cell-pad) 40px;
+      border-bottom: var(--bdl);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ind-header-eye {
+      font-family: var(--font-i);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .ind-header-title {
+      font-family: var(--font-g);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 40px;
+      letter-spacing: -1.8px;
+      color: var(--t1);
+      max-width: 800px;
+    }
+    .ind-header-sub {
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 22px;
+      color: var(--tb);
+      max-width: 720px;
+    }
+    .ind-footer-line {
+      padding: 28px var(--cell-pad);
+      border-bottom: var(--bdl);
+      font-family: var(--font-g);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--t2);
+      text-align: left;
+    }
+    .ind-footer-line a {
+      color: var(--accent);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .15s;
+    }
+    .ind-footer-line a:hover { border-bottom-color: var(--accent); }
+
+
+    @media (max-width: 768px) {
+      .ind-header { padding: 40px var(--cell-pad); }
+      .ind-header-title { font-size: 28px; line-height: 32px; letter-spacing: -1.2px; }
     }
 
   </style>
@@ -912,527 +1743,406 @@
         <h1 class="h-title">Pure Traffic. No Friction.</h1>
         <p class="h-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
         <div class="h-cta">
-          <button class="btn-dark">Book a demo &nbsp;→</button>
-          <button class="btn-ghost">Explore platform</button>
+          <a href="#cta-section" class="btn-dark">Book a demo &nbsp;→</a>
+          <a href="products.html" class="btn-ghost">Explore platform</a>
         </div>
+        <ul class="h-bullets" aria-label="Key capabilities">
+          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span>No-code Rule Engine</li>
+          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="shield-check"></i></span>Advanced Case Management</li>
+          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="code-2"></i></span>Fast REST API Integration</li>
+        </ul>
       </section>
-      <div class="h-preview">
-        <div class="h-fade" aria-hidden="true"></div>
-        <div class="h-frame">
-<!-- Hero Monitoring Dashboard Component -->
-<div class="hm">
-  <!-- Sidebar — icons match ❖ Core Menu component exactly -->
-  <div class="hm-side">
-    <div class="hm-logo"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#fff"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#fff" opacity=".4"/></svg></div>
-    <!-- Monitoring (bar-chart-2) — active -->
-    <div class="hm-side-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
-    <!-- Rules (grid-3x3) -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
-    <!-- Chargebacks (undo-2) -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></svg></div>
-    <!-- Data sources (database) -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
-    <!-- Entities (layout-grid) -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-    <!-- Statistics (pie-chart) -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
-    <!-- Reports (file-text) -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8"/><path d="M16 17H8"/><path d="M16 9H8"/></svg></div>
-    <!-- Users -->
-    <div class="hm-side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-  </div>
+    </div>
+    <!-- /HERO -->
 
-  <!-- Main content -->
-  <div class="hm-main">
-    <!-- Header — H3: Inter Bold 20/28 -0.5px -->
-    <div class="hm-header">
-      <div class="hm-header-title">Monitoring</div>
-      <div class="hm-header-right">
-        <button class="hm-hbtn">[Legal Entity Name] <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="m6 9 6 6 6-6"/></svg></button>
-        <button class="hm-hbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> UTC+02:00 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="m6 9 6 6 6-6"/></svg></button>
-        <div class="hm-hdiv"></div>
-        <div class="hm-hico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-        <div class="hm-hico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
-        <div class="hm-hico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    <!-- CLIENT TICKER -->
+    <section class="ticker-sec" aria-label="Customer categories">
+      <div class="ticker-wrap">
+        <ul class="ticker-track" aria-hidden="false">
+          <li>PSP</li>
+          <li>EMI</li>
+          <li>Crypto</li>
+          <li>High Risk</li>
+          <li>BIN Sponsors</li>
+          <li>Acquirer</li>
+          <li>PSP</li>
+          <li>EMI</li>
+          <li>Crypto</li>
+          <li>High Risk</li>
+          <li>BIN Sponsors</li>
+          <li>Acquirer</li>
+        </ul>
+        <ul class="ticker-track" aria-hidden="true">
+          <li>PSP</li>
+          <li>EMI</li>
+          <li>Crypto</li>
+          <li>High Risk</li>
+          <li>BIN Sponsors</li>
+          <li>Acquirer</li>
+          <li>PSP</li>
+          <li>EMI</li>
+          <li>Crypto</li>
+          <li>High Risk</li>
+          <li>BIN Sponsors</li>
+          <li>Acquirer</li>
+        </ul>
       </div>
-    </div>
+    </section>
+    <!-- /CLIENT TICKER -->
 
-    <!-- Tabs — Segmented Picker + Buttons/13 Medium -->
-    <div class="hm-tabs">
-      <button class="hm-tab hm-tab-active">All</button>
-      <button class="hm-tab hm-tab-default">For review <span class="hm-tab-count">1285</span></button>
-      <div class="hm-tab-sep"></div>
-      <button class="hm-tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> Filters</button>
-      <button class="hm-tab-btn">Last Hour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
-    </div>
+    <!-- PRODUCTS — section header -->
+    <section class="prod-header reveal">
+      <span class="prod-header-eye">THE SCANFRAUD PLATFORM</span>
+      <h2 class="prod-header-title">Build Your Defense. Protect Your Revenue.</h2>
+      <p class="prod-header-sub">Manage P2P, APM, and Ecom through one single API. Connect once to access our complete risk orchestration suite.</p>
+    </section>
 
-    <!-- Filter chips — Subtitle 12/16, 0px -->
-    <div class="hm-filters">
-      <div class="hm-chip">Event ID: <span class="hm-chip-val">1897651</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip hm-chip-hi">Event ID: <span class="hm-chip-val">1897651</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Merchant name: <span class="hm-chip-val">SFC GROUP LTD</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Reaction: <span class="hm-chip-val">Decline, Approved</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Email: <span class="hm-chip-val">blacklist@gmail.com</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">IP: <span class="hm-chip-val">2A84:4A00:5:1014:1080</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Marker: <span class="hm-chip-val">Fraud confirm, Fraud</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Marker: <span class="hm-chip-val">Fraud confirm, Fraud</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Marker: <span class="hm-chip-val">Fraud confirm, Fraud</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip">Created period: <span class="hm-chip-val">2022.12.30 13:30 — 2022.12.30 13:30</span> <span class="hm-chip-x">×</span></div>
-      <div class="hm-chip-reset">Reset All</div>
-    </div>
-
-    <!-- Table — headers: Subtitle 12/16, cells: Body 13/20, Event ID: JetBrains Mono 12/16 -->
-    <div class="hm-table-wrap">
-      <table class="hm-table">
-        <thead>
-          <tr>
-            <th><input type="checkbox" class="hm-cb"></th>
-            <th>ID <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
-            <th>Event ID <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
-            <th>Event type</th>
-            <th>Transaction type <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
-            <th>Payment method <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
-            <th>System</th>
-            <th>Merchant name <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></th>
-            <th>Service name</th>
-            <th>Terminal name</th>
-            <th>Provider name</th>
-          </tr>
-        </thead>
-        <tbody id="hm-tbody"></tbody>
-      </table>
-    </div>
-
-    <!-- Footer — pagination + download -->
-    <div class="hm-footer">
-      <div class="hm-pag">
-        <button class="hm-pag-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="m15 18-6-6 6-6"/></svg></button>
-        <button class="hm-pag-btn active">1</button>
-        <button class="hm-pag-btn">2</button>
-        <button class="hm-pag-btn">3</button>
-        <button class="hm-pag-btn">4</button>
-        <button class="hm-pag-btn">5</button>
-        <button class="hm-pag-btn">6</button>
-        <button class="hm-pag-btn">7</button>
-        <button class="hm-pag-btn">8</button>
-        <button class="hm-pag-btn">9</button>
-        <button class="hm-pag-btn">10</button>
-        <span class="hm-pag-dots">…</span>
-        <button class="hm-pag-btn">1285</button>
-        <button class="hm-pag-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="m9 18 6-6-6-6"/></svg></button>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="hm-hbtn">10 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
-        <span class="hm-pag-info">Shown<span>10 of 2,121,055</span></span>
-      </div>
-      <div class="hm-footer-right">
-        <button class="hm-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg> Download CSV</button>
-        <button class="hm-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Generate table rows matching Figma Monitoring screen
-(function(){
-  const rows = [
-    {id:'12789402012',eid:'7c66b56a7831',sys:'amex',etype:'TRANSACTION',type:'PAYMENT',merchant:'SFC GROUP LTD',service:'MB_Cards_EUR_Any_In',terminal:'2198_Cards_EUR_Any_InOut',provider:'promogator'},
-    {id:'12789402011',eid:'a3f19c82d045',sys:'mc',etype:'TRANSACTION',type:'PAYOUT',merchant:'SFC GROUP LTD',service:'MB_Cards_EUR_Any_In',terminal:'2198_Cards_EUR_Any_InOut',provider:'promogator'},
-    {id:'12789402010',eid:'e8d24f17b962',sys:'visa',etype:'TRANSACTION',type:'PAYMENT',merchant:'Betway Holdings',service:'BW_Cards_GBP_UK_In',terminal:'3301_Cards_GBP_UK_InOut',provider:'adyen'},
-    {id:'12789402009',eid:'1b7a03ec5d88',sys:'visa',etype:'TRANSACTION',type:'PAYOUT',merchant:'Betway Holdings',service:'BW_Cards_GBP_UK_In',terminal:'3301_Cards_GBP_UK_InOut',provider:'adyen'},
-    {id:'12789402008',eid:'f42c8e6a1907',sys:'visa',etype:'CHARGEBACK',type:'REFUND',merchant:'CoinFlow AG',service:'CF_Crypto_USD_Global',terminal:'5500_Crypto_USD_In',provider:'checkout'},
-    {id:'12789402007',eid:'5d91ba3f7c24',sys:'mc',etype:'TRANSACTION',type:'PAYMENT',merchant:'NovaPay Inc',service:'NP_Cards_USD_US_In',terminal:'4410_Cards_USD_US_InOut',provider:'stripe'},
-    {id:'12789402006',eid:'c0e47d28a5f3',sys:'visa',etype:'TRANSACTION',type:'PAYOUT',merchant:'NovaPay Inc',service:'NP_Cards_USD_US_In',terminal:'4410_Cards_USD_US_InOut',provider:'stripe'},
-    {id:'12789402005',eid:'89b36f1e0c72',sys:'mc',etype:'ALERT',type:'PAYMENT',merchant:'LuckyBet GmbH',service:'LB_Cards_EUR_DE_In',terminal:'6620_Cards_EUR_DE_InOut',provider:'worldpay'},
-    {id:'12789402004',eid:'d6a058c4e3b1',sys:'amex',etype:'TRANSACTION',type:'PAYOUT',merchant:'LuckyBet GmbH',service:'LB_Cards_EUR_DE_In',terminal:'6620_Cards_EUR_DE_InOut',provider:'worldpay'}
-  ];
-  // Card logos — exported directly from Figma ❖ Core (222:58625)
-  const cardSvg = {
-    visa:'<img src="img/Method=visa.svg" class="hm-card-logo" alt="Visa">',
-    mc:'<img src="img/Method=mastercard.svg" class="hm-card-logo" alt="Mastercard">',
-    amex:'<img src="img/Method=amex.svg" class="hm-card-logo" alt="Amex">'
-  };
-  const txBadge = {PAYMENT:'hm-b-green',PAYOUT:'hm-b-orange',REFUND:'hm-b-red'};
-  const etBadge = {TRANSACTION:'hm-b-blue',CHARGEBACK:'hm-b-red',ALERT:'hm-b-orange'};
-  const tbody = document.getElementById('hm-tbody');
-  if(!tbody) return;
-  rows.forEach(r => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td><input type="checkbox" class="hm-cb"></td><td class="hm-td-id">${r.id}</td><td class="hm-td-eid">${r.eid}…</td><td><span class="hm-badge ${etBadge[r.etype]}">${r.etype}</span></td><td><span class="hm-badge ${txBadge[r.type]}">${r.type}</span></td><td><span class="hm-badge hm-b-blue">CARD</span></td><td>${cardSvg[r.sys]}</td><td>${r.merchant}</td><td>${r.service}</td><td>${r.terminal}</td><td>${r.provider}</td>`;
-    tbody.appendChild(tr);
-  });
-})();
-</script>
-
-        
-        </div>
-      </div>
-    </div>
-
-    <!-- PROOF BAR -->
-    <div class="proof-bar">
-      <div class="proof-item sp"><i data-lucide="activity" class="proof-ico"></i><div class="pt">Intelligent Rule Constructor</div><div class="ps">Your Business. Your Logic.</div></div>
-      <div class="proof-item sp"><i data-lucide="git-branch" class="proof-ico"></i><div class="pt">Frictionless Traffic Flow</div><div class="ps">Protect revenue, not just transactions.</div></div>
-      <div class="proof-item sp"><i data-lucide="shield-check" class="proof-ico"></i><div class="pt">Advanced Case Management</div><div class="ps">Connect the dots.</div></div>
-    </div>
-
-
-      <div class="section-divider" aria-hidden="true"></div>
-
-    <!-- FEATURE CAROUSEL — static layout, only text swaps -->
-
-
-    <div class="car-wrap" id="carWrap">
-      <!-- LEFT: image stays fixed -->
-      <div class="car-img">
-        <div class="car-img-rows" id="carImgRows" style="height:100%;"></div>
-      </div>
-
-      <!-- RIGHT: text panel — only this changes -->
-      <div class="car-text">
-        <!-- Text content area — swapped by JS -->
-        <div class="car-content" id="carContent">
-          <div class="sc-num" id="carNum">01</div>
-          <div class="sc-head" id="carHead">Monitoring</div>
-          <p class="sc-body" id="carBody">Real-time transaction monitoring across all your payment channels. Detect anomalies instantly, flag suspicious patterns, and get full visibility into every event — without slowing down legitimate traffic.</p>
-        </div>
-        <!-- Arrows: fixed at bottom, never move -->
-        <div class="car-nav">
-          <button class="nc prev" id="carPrev" aria-label="Previous">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <button class="nc next" id="carNext" aria-label="Next">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- STATS -->
-    <div class="stats">
-      <div class="st sp"><div class="sn">3 days</div><div class="sl">Average integration</div></div>
-      <div class="st sp"><div class="sn">100+</div><div class="sl">Pre-built rules</div></div>
-      <div class="st sp"><div class="sn">99.9%</div><div class="sl">Uptime SLA</div></div>
-      <div class="st sp"><div class="sn">6</div><div class="sl">Industries served</div></div>
-    </div>
-
-
-      <div class="section-divider" aria-hidden="true"></div>
-
-    <!-- FEATURE ROW 01 — Rule Constructor -->
+    <!-- PRODUCTS Row 01 — No-code Rule Engine -->
     <div class="fdr reveal">
       <div class="fc reveal-left">
-        <div><div class="feat-icon"><i data-lucide="activity"></i></div><div class="fh">Intelligent Rule Constructor</div><div class="fs">Your Business. Your Logic.</div></div>
-        <div><div class="fsh">Hybrid Workflow</div><div class="fsb">Write custom code for complex logic or use our intuitive visual builder to deploy rules without involving developers.</div></div>
-        <div><div class="fsh">Multi-Level Precision</div><div class="fsb">Apply granular protection across geo-locations, velocity limits, specific services, or unique customer profiles.</div></div>
-        <div><div class="fsh">Rapid Speed-to-Market</div><div class="fsb">Adapt to new threats instantly. Deploy new security conditions in minutes, keeping your defense ahead of fraudsters.</div></div>
+        <div>
+          <div class="fe">01 — NO-CODE RULE ENGINE</div>
+          <div class="fh">Your business. Your logic.</div>
+          <p class="fbody">Deploy fraud rules without waiting for engineering. Visual builder for risk teams, custom code for edge cases — both in the same workflow.</p>
+        </div>
+        <div><div class="fsh">Hybrid workflow</div><div class="fsb">No-code builder paired with custom SQL for edge cases — both running in the same engine.</div></div>
+        <div><div class="fsh">Velocity &amp; geo precision</div><div class="fsb">Hyper-granular limits per customer, payment corridor, and BIN. Evaluated in milliseconds.</div></div>
+        <div><div class="fsh">Deploy in minutes</div><div class="fsb">Push rules without IT review and roll back with a single click. No deploy cycles.</div></div>
       </div>
       <div class="fi">
-        <div class="fif">
-          <div class="db-wrap" style="padding:14px;">
-            <div class="db-topbar"><div class="db-dot"></div><div class="db-dot"></div><div class="db-tab" style="width:40px;margin-left:6px;"></div></div>
-            <div class="db-rows">
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge g"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge r"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge y"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge g"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-            </div>
+        <div class="fi-mockup" aria-hidden="true">
+          <div class="mk-rule-row">
+            <span class="mk-chip kw">IF</span>
+            <span class="mk-chip">amount</span>
+            <span class="mk-chip op">&gt;</span>
+            <span class="mk-chip val">$500</span>
+            <span class="mk-chip op">AND</span>
+            <span class="mk-chip">country</span>
+            <span class="mk-chip op">in</span>
+            <span class="mk-chip val">HR list</span>
+          </div>
+          <div class="mk-then">THEN</div>
+          <div class="mk-rule-row">
+            <span class="mk-chip action">Flag for review</span>
+            <span class="mk-chip">notify_team</span>
+          </div>
+          <div class="mk-rule-divider"></div>
+          <div class="mk-rule-row">
+            <span class="mk-chip kw">IF</span>
+            <span class="mk-chip">bin_country</span>
+            <span class="mk-chip op">≠</span>
+            <span class="mk-chip">ip_country</span>
+            <span class="mk-chip op">AND</span>
+            <span class="mk-chip">velocity_1h</span>
+            <span class="mk-chip op">&gt;</span>
+            <span class="mk-chip val">3</span>
+          </div>
+          <div class="mk-then">THEN</div>
+          <div class="mk-rule-row">
+            <span class="mk-chip action">Decline</span>
+          </div>
+          <div class="mk-foot">
+            <span>rule_set / high_risk_v4</span>
+            <span class="mk-deploy">Live</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- FEATURE ROW 02 — Traffic Flow (reversed) -->
+    <!-- PRODUCTS Row 02 — Payment Routing (reversed) -->
     <div class="fdr rev reveal">
       <div class="fi reveal-right">
-        <div class="fif">
-          <div class="db-wrap" style="padding:14px;">
-            <div class="db-topbar"><div class="db-dot"></div><div class="db-dot"></div><div class="db-tab" style="width:40px;margin-left:6px;"></div></div>
-            <div class="db-rows">
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge g"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge g"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge y"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge g"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
+        <div class="fi-mockup mk-route" aria-hidden="true">
+          <svg viewBox="0 0 460 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Routing cascade diagram">
+            <g>
+              <rect class="rt-node-bg accent" x="170" y="40" width="120" height="44" rx="8"/>
+              <text class="rt-label" x="230" y="60" text-anchor="middle">Transaction</text>
+              <text class="rt-sub" x="230" y="75" text-anchor="middle">€420 · BIN 5102</text>
+            </g>
+            <path class="rt-edge flow rt-pulse" d="M230 88 V 110"/>
+            <g>
+              <rect class="rt-node-bg" x="160" y="110" width="140" height="36" rx="8"/>
+              <text class="rt-label" x="230" y="126" text-anchor="middle">Risk score</text>
+              <text class="rt-sub" x="230" y="139" text-anchor="middle">0.18 · low</text>
+            </g>
+            <path class="rt-edge flow" d="M230 148 V 168 M230 168 H 90 M230 168 H 370"/>
+            <path class="rt-edge flow" d="M90 168 V 188"/>
+            <path class="rt-edge flow rt-pulse" d="M370 168 V 188"/>
+            <g>
+              <rect class="rt-node-bg fail" x="20" y="188" width="140" height="58" rx="8"/>
+              <text class="rt-label" x="90" y="208" text-anchor="middle">Provider A</text>
+              <text class="rt-sub" x="90" y="222" text-anchor="middle">Declined · 51</text>
+              <text class="rt-sub" x="90" y="236" text-anchor="middle">Cascade →</text>
+            </g>
+            <path class="rt-edge flow rt-pulse" d="M160 217 H 220 V 215"/>
+            <g>
+              <rect class="rt-node-bg success" x="300" y="188" width="140" height="58" rx="8"/>
+              <text class="rt-label" x="370" y="208" text-anchor="middle">Provider B</text>
+              <text class="rt-sub" x="370" y="222" text-anchor="middle">Approved · 00</text>
+              <text class="rt-sub" x="370" y="236" text-anchor="middle">Latency 92ms</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="fc">
+        <div>
+          <div class="fe">02 — PAYMENT ROUTING</div>
+          <div class="fh">Frictionless Traffic Flow</div>
+          <p class="fbody">Route every transaction to the optimal provider by BIN, currency, risk score, and performance. Auto-cascade on decline.</p>
+        </div>
+        <div><div class="fsh">Real-time risk scoring</div><div class="fsb">Every transaction scored in under 300ms before routing decisions execute.</div></div>
+        <div><div class="fsh">Smart routing logic</div><div class="fsb">Route by BIN country, currency, payment method, customer tier, and time of day.</div></div>
+        <div><div class="fsh">Auto-cascade on failure</div><div class="fsb">Fallback to the next provider in the same session — no checkout interruption.</div></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS Row 03 — Advanced Case Management -->
+    <div class="fdr reveal">
+      <div class="fc reveal-left">
+        <div>
+          <div class="fe">03 — ADVANCED CASE MANAGEMENT</div>
+          <div class="fh">Cross-Entity Case Management</div>
+          <p class="fbody">Investigate linked accounts, cards, devices, and IPs from a single workspace. Detect fraud rings before they scale.</p>
+        </div>
+        <div><div class="fsh">Graph-based linkage</div><div class="fsb">Surface relationships between accounts, devices, cards, and IPs in one view.</div></div>
+        <div><div class="fsh">Role-based collaboration</div><div class="fsb">Analysts, reviewers, and senior risk leads work cases together with scoped permissions.</div></div>
+        <div><div class="fsh">Smart limits from connections</div><div class="fsb">Limits adjust automatically based on linked entities and historical case outcomes.</div></div>
+      </div>
+      <div class="fi">
+        <div class="fi-mockup mk-graph" aria-hidden="true">
+          <svg viewBox="0 0 460 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cross-entity fraud ring graph">
+            <g>
+              <line class="gn-edge flagged" x1="230" y1="140" x2="120" y2="80"/>
+              <line class="gn-edge flagged" x1="230" y1="140" x2="340" y2="80"/>
+              <line class="gn-edge flagged" x1="230" y1="140" x2="100" y2="210"/>
+              <line class="gn-edge flagged" x1="230" y1="140" x2="360" y2="210"/>
+              <line class="gn-edge" x1="120" y1="80" x2="340" y2="80"/>
+              <line class="gn-edge" x1="100" y1="210" x2="360" y2="210"/>
+            </g>
+            <g>
+              <circle class="gn-ring" cx="230" cy="140" r="38"/>
+              <circle class="gn flagged" cx="230" cy="140" r="26"/>
+              <text class="gn-icon" x="230" y="140" text-anchor="middle" font-size="14" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">★</text>
+              <text class="gn-label" x="230" y="184">Suspect ring</text>
+            </g>
+            <g>
+              <circle class="gn" cx="120" cy="80" r="18"/>
+              <text class="gn-icon" x="120" y="80" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">A</text>
+              <text class="gn-label" x="120" y="48">Account</text>
+              <text class="gn-sub" x="120" y="60">#4810</text>
+            </g>
+            <g>
+              <circle class="gn" cx="340" cy="80" r="18"/>
+              <text class="gn-icon" x="340" y="80" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">A</text>
+              <text class="gn-label" x="340" y="48">Account</text>
+              <text class="gn-sub" x="340" y="60">#5127</text>
+            </g>
+            <g>
+              <circle class="gn" cx="100" cy="210" r="18"/>
+              <text class="gn-icon" x="100" y="210" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">D</text>
+              <text class="gn-label" x="100" y="246">Device</text>
+              <text class="gn-sub" x="100" y="258">FP-8c3</text>
+            </g>
+            <g>
+              <circle class="gn" cx="360" cy="210" r="18"/>
+              <text class="gn-icon" x="360" y="210" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">IP</text>
+              <text class="gn-label" x="360" y="246">IP block</text>
+              <text class="gn-sub" x="360" y="258">/24 shared</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS Row 04 — Fast Go-To-Market (reversed) -->
+    <div class="fdr rev reveal">
+      <div class="fi reveal-right">
+        <div class="fi-mockup" aria-hidden="true">
+          <div class="mk-timeline">
+            <div class="mk-tl-step">
+              <span class="mk-tl-day">Day 0</span>
+              <span class="mk-tl-title">Contract signed · API key issued</span>
+              <span class="mk-tl-check">✓</span>
+            </div>
+            <div class="mk-tl-step">
+              <span class="mk-tl-day">Day 1</span>
+              <span class="mk-tl-title">Sandbox events · sample data</span>
+              <span class="mk-tl-check">✓</span>
+            </div>
+            <div class="mk-tl-step">
+              <span class="mk-tl-day">Day 2</span>
+              <span class="mk-tl-title">Migrate rules &amp; lists from vendor</span>
+              <span class="mk-tl-check">✓</span>
+            </div>
+            <div class="mk-tl-step live">
+              <span class="mk-tl-day">Day 3</span>
+              <span class="mk-tl-title">Production traffic live</span>
+              <span class="mk-tl-check">●</span>
             </div>
           </div>
         </div>
       </div>
       <div class="fc">
-        <div><div class="feat-icon"><i data-lucide="git-branch"></i></div><div class="fh">Frictionless Traffic Flow</div><div class="fs">Protect Revenue, Not Just Transactions.</div></div>
-        <div><div class="fsh">Ultra-Low Latency</div><div class="fsb">Transaction checks happen faster than a blink. Our engine is optimized for high-load, real-time environments with zero checkout delays.</div></div>
-        <div><div class="fsh">Adaptive Safeguards</div><div class="fsb">Use dynamic limits for new users. Score risk in real time and route clean traffic to top-performing providers.</div></div>
-        <div><div class="fsh">Smart Filtering</div><div class="fsb">Your conversion is our priority. Automatically reduce unnecessary declines and improve approval rates across all markets.</div></div>
+        <div>
+          <div class="fe">04 — FAST GO-TO-MARKET</div>
+          <div class="fh">Fast Go-To-Market</div>
+          <p class="fbody">Your data. Your transactions. Live in days. Migrate from any vendor without rebuilding rules from scratch.</p>
+        </div>
+        <div><div class="fsh">Rapid API Onboarding</div><div class="fsb">Production-ready REST endpoints, sandbox keys, and reference clients on day one.</div></div>
+        <div><div class="fsh">Legacy Data Portability</div><div class="fsb">Bring transaction history, lists, and entity data from any vendor without lock-in.</div></div>
+        <div><div class="fsh">Instant Configuration Import</div><div class="fsb">Translate existing rule libraries to ScanFraud format — no manual rewrite.</div></div>
       </div>
     </div>
 
-    <!-- FEATURE ROW 03 — Case Management -->
-    <div class="fdr reveal">
-      <div class="fc reveal-left">
-        <div><div class="feat-icon"><i data-lucide="shield-check"></i></div><div class="fh">Advanced Case Management &amp; Cross-Checks</div><div class="fs">Connect the Dots.</div></div>
-        <div><div class="fsh">Deep Cross-Entity Checks</div><div class="fsb">Uncover hidden fraud networks by monitoring links between key parameters. Detect if multiple accounts share the same card, device ID, or terminal.</div></div>
-        <div><div class="fsh">Contextual Monitoring</div><div class="fsb">Stop looking at transactions in isolation. Analyze events as part of a holistic user journey across your entire ecosystem.</div></div>
-        <div><div class="fsh">Streamlined Investigations</div><div class="fsb">Turn raw logs into actionable intelligence. Risk analysts perform instant cross-checks and make data-driven decisions faster.</div></div>
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- WHY SCANFRAUD -->
+    <section class="why-sec reveal">
+      <div class="why-header">
+        <span class="why-header-eye">WHY SCANFRAUD</span>
+        <h2 class="why-header-title">Built where mainstream fraud vendors won't bid</h2>
+        <p class="why-header-sub">High-risk merchants get the same risk infrastructure mainstream payments enjoy — without industry exclusions, multi-month onboarding, or hidden bundling.</p>
       </div>
-      <div class="fi">
-        <div class="fif">
-          <div class="db-wrap" style="padding:14px;">
-            <div class="db-topbar"><div class="db-dot"></div><div class="db-dot"></div><div class="db-tab" style="width:40px;margin-left:6px;"></div></div>
-            <div class="db-rows">
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge r"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge g"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge y"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-              <div class="db-row"><div class="db-cell"></div><div class="db-badge r"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div><div class="db-cell"></div></div>
-            </div>
-          </div>
+      <div class="why-grid">
+        <!-- Col 1 (wide, 1.5fr) — positioning + technical -->
+        <div class="why-card wide-col">
+          <div class="why-icon"><i data-lucide="shield-off"></i></div>
+          <div class="why-h">No industry exclusions</div>
+          <p class="why-b">Pre-tested rule libraries for gambling, crypto, adult, regulated CBD, forex, and high-volume e-commerce. We don't decline merchants based on what they sell.</p>
+        </div>
+        <!-- Col 2 — Card 1 (commercial boundary) -->
+        <div class="why-card">
+          <div class="why-icon"><i data-lucide="gauge"></i></div>
+          <div class="why-h">Stay below card-network thresholds</div>
+          <p class="why-b">Keep chargeback ratios within Visa and Mastercard limits. Avoid VFMP, MATCH, and excessive-chargeback fees.</p>
+        </div>
+        <!-- Col 3 — Card 4 (trust) -->
+        <div class="why-card">
+          <div class="why-icon"><i data-lucide="file-search"></i></div>
+          <div class="why-h">Every decision is auditable</div>
+          <p class="why-b">See exactly which rules fired, with what threshold, on which transaction. No black-box ML scores you can't explain.</p>
+        </div>
+        <!-- Row 2 -->
+        <!-- Col 1 (wide, 1.5fr) — technical -->
+        <div class="why-card wide-col">
+          <div class="why-icon"><i data-lucide="fingerprint"></i></div>
+          <div class="why-h">Fingerprint</div>
+          <p class="why-b">Device fingerprinting that survives cleared storage, rotated IPs, and anti-detect browsers. Identify returning actors across sessions and devices.</p>
+        </div>
+        <!-- Col 2 — Card 2 (speed) -->
+        <div class="why-card">
+          <div class="why-icon"><i data-lucide="zap"></i></div>
+          <div class="why-h">Live in 2-3 days, not a quarter</div>
+          <p class="why-b">From signed contract to live production traffic in 2-3 days. Migrate transaction history and data from any vendor.</p>
+        </div>
+        <!-- Col 3 — Card 3 (cost) -->
+        <div class="why-card">
+          <div class="why-icon"><i data-lucide="tag"></i></div>
+          <div class="why-h">Per-transaction pricing. No minimums.</div>
+          <p class="why-b">No setup fees, no annual minimums, no lock-in. Cancel any month.</p>
+        </div>
+      </div>
+    </section>
+    <!-- /WHY SCANFRAUD -->
+
+    <!-- STATS v3 — 3 animated counters -->
+    <section class="stats-v3-header reveal">
+      <span class="stats-v3-eye">BY THE NUMBERS</span>
+      <h2 class="stats-v3-title">Results teams actually care about</h2>
+    </section>
+    <div class="stats-v3 reveal">
+      <div class="st3">
+        <div class="st3-num">
+          <span class="st3-prefix">&lt;</span>
+          <span class="st3-val" data-count-target="300" data-count-suffix="">0</span>
+          <span class="st3-suffix">ms</span>
+        </div>
+        <p class="st3-label">Decision speed per transaction</p>
+        <div class="st3-context">
+          <div class="st3-context-row"><span>Industry average</span><span><strong>~800 ms</strong></span></div>
+          <div class="st3-bar" style="--bar:.375"><div class="st3-bar-fill"></div></div>
+        </div>
+      </div>
+      <div class="st3">
+        <div class="st3-num">
+          <span class="st3-val" data-count-target="3" data-count-suffix="">0</span>
+          <span class="st3-suffix">days</span>
+        </div>
+        <p class="st3-label">Median time from signed contract to live production</p>
+        <div class="st3-context">
+          <div class="st3-context-row"><span>Industry average</span><span><strong>6–12 weeks</strong></span></div>
+          <div class="st3-bar" style="--bar:.07"><div class="st3-bar-fill"></div></div>
+        </div>
+      </div>
+      <div class="st3">
+        <div class="st3-num">
+          <span class="st3-val" data-count-target="99.9" data-count-decimal="1" data-count-suffix="">0</span>
+          <span class="st3-suffix">%</span>
+        </div>
+        <p class="st3-label">Platform uptime SLA across all regions</p>
+        <div class="st3-context">
+          <div class="st3-context-row"><span>Last 12 months</span><span><strong>99.97 %</strong></span></div>
+          <div class="st3-bar" style="--bar:.9997"><div class="st3-bar-fill"></div></div>
         </div>
       </div>
     </div>
 
-
-      <div class="section-divider" aria-hidden="true"></div>
-
-    <!-- SECTION HEADER 1 -->
-    <div class="sec-hdr reveal">
-      <h2 class="sh-title"><span class="sh-bold">Designed around</span> revenue protection, not just fraud blocking</h2>
-      <div class="sh-right">
-        <div class="sh-eye">Core value</div>
-        <p class="sh-body">The platform moves from reactive detection to proactive investigation and optimization. Every tool is part of a unified system — device fingerprinting, rule constructor, smart routing, and case management working together, not as a loose feature list.</p>
+    <!-- INDUSTRIES -->
+    <section class="ind-header reveal">
+      <span class="ind-header-eye">INDUSTRIES</span>
+      <h2 class="ind-header-title">Built for the way your business actually loses money</h2>
+      <p class="ind-header-sub">Pre-built rule sets and risk profiles for the verticals where fraud, abuse, and regulatory pressure overlap.</p>
+    </section>
+    <div class="why-grid why-grid--ind">
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="dice-5"></i></div>
+        <div class="why-h">Gambling &amp; iGaming</div>
+        <p class="why-b">Stop bonus abuse, multi-accounting, and chargebacks without slowing legitimate players.</p>
+        <a class="why-link" href="gambling.html">Learn more <svg viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="bitcoin"></i></div>
+        <div class="why-h">Crypto</div>
+        <p class="why-b">Detect mule networks, smurfing patterns, and structuring across hot wallets and on-ramps.</p>
+        <a class="why-link" href="crypto.html">Learn more <svg viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="shopping-cart"></i></div>
+        <div class="why-h">High-volume E-commerce</div>
+        <p class="why-b">Reduce false declines and lift approval rates across regions, currencies, and payment methods.</p>
+        <a class="why-link" href="ecommerce.html">Learn more <svg viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="landmark"></i></div>
+        <div class="why-h">Fintech Solutions</div>
+        <p class="why-b">Onboard customers, monitor flows, meet PSD2/SCA requirements without custom infrastructure.</p>
+        <a class="why-link" href="fintech.html">Learn more <svg viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="credit-card"></i></div>
+        <div class="why-h">Payment Providers</div>
+        <p class="why-b">Risk infrastructure for PSPs, EMIs, and acquirers — modular, white-labellable, multi-tenant.</p>
+        <a class="why-link" href="payment-providers.html">Learn more <svg viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="trending-up"></i></div>
+        <div class="why-h">Trading &amp; Forex</div>
+        <p class="why-b">Detect wash trading, layering, and market manipulation in real time.</p>
+        <a class="why-link" href="trading.html">Learn more <svg viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
-
-    <!-- 3-COL FEATURES -->
-    <div class="f3">
-      <div class="f3c reveal reveal-d1">
-        <div><div class="f3e">Your Business. Your Logic.</div><div class="f3h">Intelligent Rule Constructor</div><p class="f3d">Deploy fraud rules without waiting for engineering cycles — visual builder or custom code.</p></div>
-        <ul class="f3l"><li>Hybrid workflow: no-code + custom logic</li><li>Velocity checks for high-speed attack blocking</li><li>Deploy in minutes, not days</li><li>Granular geo and customer-based rules</li></ul>
-        <div class="f3-iso"><svg viewBox="20 44 220 204" xmlns="http://www.w3.org/2000/svg" fill="none" style="width:100%;display:block;">
-  <!-- Connector line from card edge to icon -->
-  <line x1="20" y1="78" x2="240" y2="78" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <!-- Stack layers (bottom → top for correct z-order) -->
-  <g class="iso-l4">
-    <path d="M205 202 L230 230 L230 244 L205 216 Z" fill="#0b0d17" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M55 202 L30 230 L30 244 L55 216 Z"  fill="#0d0f16" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M30 230 L230 230 L230 244 L30 244 Z"   fill="#0d0f16" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M55 202 L205 202 L230 230 L30 230 Z"   fill="#0f1118" stroke="rgba(255,255,255,0.05)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l3">
-    <path d="M205 184 L230 212 L230 226 L205 198 Z" fill="#0d0f1a" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M55 184 L30 212 L30 226 L55 198 Z"  fill="#0f1119" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M30 212 L230 212 L230 226 L30 226 Z"   fill="#0f1119" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M55 184 L205 184 L230 212 L30 212 Z"   fill="#12141b" stroke="rgba(255,255,255,0.09)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l2">
-    <path d="M205 166 L230 194 L230 208 L205 180 Z" fill="#0f111d" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M55 166 L30 194 L30 208 L55 180 Z"  fill="#12141c" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M30 194 L230 194 L230 208 L30 208 Z"   fill="#12141c" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M55 166 L205 166 L230 194 L30 194 Z"   fill="#15171e" stroke="rgba(255,255,255,0.15)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l1">
-    <path d="M205 148 L230 176 L230 190 L205 162 Z" fill="#121420" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M55 148 L30 176 L30 190 L55 162 Z"  fill="#15171f" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M30 176 L230 176 L230 190 L30 190 Z"   fill="#15171f" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M55 148 L205 148 L230 176 L30 176 Z"   fill="#191b21" stroke="rgba(255,255,255,0.24)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l0">
-    <path d="M205 130 L230 158 L230 172 L205 144 Z" fill="#161820" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M55 130 L30 158 L30 172 L55 144 Z"  fill="#191b22" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M30 158 L230 158 L230 172 L30 172 Z"   fill="#191b22" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M55 130 L205 130 L230 158 L30 158 Z"   fill="#1e2028" stroke="rgba(255,255,255,0.40)" stroke-width="0.9"/>
-  </g>
-  <!-- Floating icon with ripple circles -->
-  <circle class="iso-ripple iso-ripple-d1" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.35)" stroke-width="1"/>
-  <circle class="iso-ripple iso-ripple-d2" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.25)" stroke-width="0.8"/>
-  <circle class="iso-ripple iso-ripple-d3" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.18)" stroke-width="0.6"/>
-  <circle class="iso-ring" cx="130" cy="78" r="32" fill="none" stroke="rgba(26,86,255,0.28)" stroke-width="1"/>
-  <circle cx="130" cy="78" r="22" fill="rgba(8,14,42,0.94)" stroke="rgba(26,86,255,0.55)" stroke-width="0.8"/>
-  <circle cx="130" cy="78" r="16" fill="#1a56ff"/>
-  <svg x="122" y="70" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>
-  </svg>
-</svg></div>
-      </div>
-      <div class="f3c reveal reveal-d2">
-        <div><div class="f3e">Protect revenue, not just transactions.</div><div class="f3h">Frictionless Traffic Flow</div><p class="f3d">Optimize routing and cascading to boost approval rates and reduce declines.</p></div>
-        <ul class="f3l"><li>Real-time risk scoring per transaction</li><li>Routing by BIN country, currency, risk profile</li><li>Automatic cascade on provider failure</li><li>Full provider performance analytics</li></ul>
-        <div class="f3-iso"><svg viewBox="20 44 220 204" xmlns="http://www.w3.org/2000/svg" fill="none" style="width:100%;display:block;">
-  <line x1="20" y1="78" x2="240" y2="78" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <g class="iso-l4">
-    <path d="M205 202 L230 230 L230 244 L205 216 Z" fill="#0b0d17" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M55 202 L30 230 L30 244 L55 216 Z"  fill="#0d0f16" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M30 230 L230 230 L230 244 L30 244 Z"   fill="#0d0f16" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M55 202 L205 202 L230 230 L30 230 Z"   fill="#0f1118" stroke="rgba(255,255,255,0.05)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l3">
-    <path d="M205 184 L230 212 L230 226 L205 198 Z" fill="#0d0f1a" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M55 184 L30 212 L30 226 L55 198 Z"  fill="#0f1119" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M30 212 L230 212 L230 226 L30 226 Z"   fill="#0f1119" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M55 184 L205 184 L230 212 L30 212 Z"   fill="#12141b" stroke="rgba(255,255,255,0.09)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l2">
-    <path d="M205 166 L230 194 L230 208 L205 180 Z" fill="#0f111d" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M55 166 L30 194 L30 208 L55 180 Z"  fill="#12141c" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M30 194 L230 194 L230 208 L30 208 Z"   fill="#12141c" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M55 166 L205 166 L230 194 L30 194 Z"   fill="#15171e" stroke="rgba(255,255,255,0.15)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l1">
-    <path d="M205 148 L230 176 L230 190 L205 162 Z" fill="#121420" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M55 148 L30 176 L30 190 L55 162 Z"  fill="#15171f" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M30 176 L230 176 L230 190 L30 190 Z"   fill="#15171f" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M55 148 L205 148 L230 176 L30 176 Z"   fill="#191b21" stroke="rgba(255,255,255,0.24)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l0">
-    <path d="M205 130 L230 158 L230 172 L205 144 Z" fill="#161820" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M55 130 L30 158 L30 172 L55 144 Z"  fill="#191b22" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M30 158 L230 158 L230 172 L30 172 Z"   fill="#191b22" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M55 130 L205 130 L230 158 L30 158 Z"   fill="#1e2028" stroke="rgba(255,255,255,0.40)" stroke-width="0.9"/>
-  </g>
-  <circle class="iso-ripple iso-ripple-d1" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.35)" stroke-width="1"/>
-  <circle class="iso-ripple iso-ripple-d2" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.25)" stroke-width="0.8"/>
-  <circle class="iso-ripple iso-ripple-d3" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.18)" stroke-width="0.6"/>
-  <circle class="iso-ring" cx="130" cy="78" r="32" fill="none" stroke="rgba(26,86,255,0.28)" stroke-width="1"/>
-  <circle cx="130" cy="78" r="22" fill="rgba(8,14,42,0.94)" stroke="rgba(26,86,255,0.55)" stroke-width="0.8"/>
-  <circle cx="130" cy="78" r="16" fill="#1a56ff"/>
-  <svg x="122" y="70" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 3v12"/><path d="M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M18 9a9 9 0 0 1-9 9"/>
-  </svg>
-</svg></div>
-      </div>
-      <div class="f3c reveal reveal-d3">
-        <div><div class="f3e">Connect the dots.</div><div class="f3h">Case Management</div><p class="f3d">Investigate linked accounts, cards, and devices from a single collaborative workspace.</p></div>
-        <ul class="f3l"><li>Graph-based transaction linkage</li><li>One device fingerprint — 5 accounts detected</li><li>Role-based access and team collaboration</li><li>Smart limits based on entity connections</li></ul>
-        <div class="f3-iso"><svg viewBox="20 44 220 204" xmlns="http://www.w3.org/2000/svg" fill="none" style="width:100%;display:block;">
-  <line x1="20" y1="78" x2="240" y2="78" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <g class="iso-l4">
-    <path d="M205 202 L230 230 L230 244 L205 216 Z" fill="#0b0d17" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M55 202 L30 230 L30 244 L55 216 Z"  fill="#0d0f16" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M30 230 L230 230 L230 244 L30 244 Z"   fill="#0d0f16" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>
-    <path d="M55 202 L205 202 L230 230 L30 230 Z"   fill="#0f1118" stroke="rgba(255,255,255,0.05)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l3">
-    <path d="M205 184 L230 212 L230 226 L205 198 Z" fill="#0d0f1a" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M55 184 L30 212 L30 226 L55 198 Z"  fill="#0f1119" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M30 212 L230 212 L230 226 L30 226 Z"   fill="#0f1119" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
-    <path d="M55 184 L205 184 L230 212 L30 212 Z"   fill="#12141b" stroke="rgba(255,255,255,0.09)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l2">
-    <path d="M205 166 L230 194 L230 208 L205 180 Z" fill="#0f111d" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M55 166 L30 194 L30 208 L55 180 Z"  fill="#12141c" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M30 194 L230 194 L230 208 L30 208 Z"   fill="#12141c" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
-    <path d="M55 166 L205 166 L230 194 L30 194 Z"   fill="#15171e" stroke="rgba(255,255,255,0.15)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l1">
-    <path d="M205 148 L230 176 L230 190 L205 162 Z" fill="#121420" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M55 148 L30 176 L30 190 L55 162 Z"  fill="#15171f" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M30 176 L230 176 L230 190 L30 190 Z"   fill="#15171f" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
-    <path d="M55 148 L205 148 L230 176 L30 176 Z"   fill="#191b21" stroke="rgba(255,255,255,0.24)" stroke-width="0.65"/>
-  </g>
-  <g class="iso-l0">
-    <path d="M205 130 L230 158 L230 172 L205 144 Z" fill="#161820" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M55 130 L30 158 L30 172 L55 144 Z"  fill="#191b22" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M30 158 L230 158 L230 172 L30 172 Z"   fill="#191b22" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-    <path d="M55 130 L205 130 L230 158 L30 158 Z"   fill="#1e2028" stroke="rgba(255,255,255,0.40)" stroke-width="0.9"/>
-  </g>
-  <circle class="iso-ripple iso-ripple-d1" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.35)" stroke-width="1"/>
-  <circle class="iso-ripple iso-ripple-d2" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.25)" stroke-width="0.8"/>
-  <circle class="iso-ripple iso-ripple-d3" cx="130" cy="78" r="24" fill="none" stroke="rgba(26,86,255,0.18)" stroke-width="0.6"/>
-  <circle class="iso-ring" cx="130" cy="78" r="32" fill="none" stroke="rgba(26,86,255,0.28)" stroke-width="1"/>
-  <circle cx="130" cy="78" r="22" fill="rgba(8,14,42,0.94)" stroke="rgba(26,86,255,0.55)" stroke-width="0.8"/>
-  <circle cx="130" cy="78" r="16" fill="#1a56ff"/>
-  <svg x="122" y="70" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 .5-.87l7-4a1 1 0 0 1 1 0l7 4A1 1 0 0 1 20 6z"/><path d="m9 12 2 2 4-4"/>
-  </svg>
-</svg></div>
-      </div>
-    </div>
-
-
-      <div class="section-divider" aria-hidden="true"></div>
-
-    <!-- SECTION HEADER 2 -->
-    <div class="sec-hdr reveal">
-      <h2 class="sh-title"><span class="sh-bold">One Platform.</span> Unlimited Risk Scenarios.</h2>
-      <div class="sh-right">
-        <div class="sh-eye">Core value</div>
-        <p class="sh-body">From seamless integration to collaborative risk operations, we provide the infrastructure to secure any payment flow.</p>
-      </div>
-    </div>
-
-    <!-- 2-COL CARDS row 1 -->
-    <div class="c2">
-      <div class="c2i sp reveal reveal-d1"><div class="c2-icon"><i data-lucide="credit-card"></i></div><div class="c2e">Any Method, Any Market.</div><div class="c2h">Comprehensive Payment Support</div><p class="c2b">Unified monitoring for E-commerce, P2P transfers, and Alternative Payment Methods. Our engine adapts to the specific data structures of each payment type, ensuring global coverage.</p></div>
-      <div class="c2i sp reveal reveal-d2"><div class="c2-icon"><i data-lucide="users"></i></div><div class="c2e">Role-Based Mastery.</div><div class="c2h">Collaborative Risk Ops</div><p class="c2b">Empower your team with a granular role model. From read-only analysts to senior rule-writers, manage permissions across teams and collaborate on case investigations without conflict.</p></div>
-    </div>
-
-    <!-- 2-COL CARDS row 2 -->
-    <div class="c2">
-      <div class="c2i sp reveal reveal-d3">
-        <div class="c2-icon"><i data-lucide="code"></i></div><div class="c2e">Ready to Launch in Hours.</div>
-        <div class="c2h">Simple REST API Integration</div>
-        <p class="c2b">Backed by comprehensive documentation. Clear contracts, sandbox environments, and predictable JSON structures make implementation straightforward.</p>
-        <a href="#" class="c2lnk">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;background:#111;">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          GitBook API Docs →
-        </a>
-      </div>
-      <div class="c2i sp reveal reveal-d4"><div class="c2-icon"><i data-lucide="ban"></i></div><div class="c2e">Dynamic Blacklists &amp; Global Context.</div><div class="c2h">Collaborative Risk Ops</div><p class="c2b">Manage custom black/white lists via UI or API. Enrich rules with built-in Geo-directories and IP intelligence to block high-risk regions or specific entities with surgical precision.</p></div>
-    </div>
-
-
-      <div class="section-divider" aria-hidden="true"></div>
-
-    <!-- METRICS — animated counters, style matches stats-bar -->
-    <div class="metrics">
-      <div class="mh">
-        <div class="mey">By the numbers</div>
-        <div class="mt">Results teams actually care about</div>
-      </div>
-      <div class="mg">
-        <div class="mi">
-          <div class="mn">
-            <span class="mb" data-count-prefix="+" data-count-target="15" data-count-suffix="">+15</span>
-            <span class="mx">%</span>
-          </div>
-          <p class="ml">Average approval rate lift after deploying smart routing</p>
-        </div>
-        <div class="mi">
-          <div class="mn">
-            <span class="mb" data-count-target="3" data-count-suffix="">3</span>
-            <span class="mx">days</span>
-          </div>
-          <p class="ml">Median time from API keys to live production traffic</p>
-        </div>
-        <div class="mi">
-          <div class="mn">
-            <span class="mb" data-count-target="100" data-count-suffix="">100</span>
-            <span class="mx">+</span>
-          </div>
-          <p class="ml">Pre-built fraud rules available on day one</p>
-        </div>
-        <div class="mi">
-          <div class="mn">
-            <span class="mb" data-count-target="99.9" data-count-decimal="1" data-count-suffix="">99.9</span>
-            <span class="mx">%</span>
-          </div>
-          <p class="ml">Platform uptime SLA across all regions</p>
-        </div>
-      </div>
-    </div>
-
-        <div class="section-divider" aria-hidden="true"></div>
+    <p class="ind-footer-line">If your industry isn't listed, <a href="#cta-section">contact us</a> — we adapt rule sets to specific business models.</p>
 
     <!-- CTA SECTION — inside grid-wrap for left/right border continuity -->
-      <div class="cta-sec" id="ctaSection">
+      <div class="cta-sec" id="cta-section">
         <div id="cta-dots" aria-hidden="true"></div>
         <div class="cta-inner">
-          <p class="cta-eyebrow">Get started today</p>
-          <h2 class="cta-title">Stop fraud. Protect revenue.<br>Launch in 3 days.</h2>
-          <p class="cta-sub">Join hundreds of high-growth businesses using ScanFraud to secure their payment flows without slowing down legitimate customers.</p>
+          <p class="cta-eyebrow">GET STARTED TODAY</p>
+          <h2 class="cta-title">Stop fraud. Protect revenue. Launch in 3 days.</h2>
+          <p class="cta-sub">Built and trusted by payment professionals operating in the verticals others won't touch. See how we handle your traffic in a 30-minute call.</p>
           <div class="cta-btns">
-            <button class="btn-dark">Book a demo &nbsp;→</button>
-            <button class="btn-ghost">Explore platform</button>
+            <a href="#" class="btn-dark">Book a demo &nbsp;→</a>
+            <a href="#" class="btn-ghost">Contact us</a>
           </div>
         </div>
       </div>
@@ -1757,238 +2467,6 @@
       el.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
     });
   });
-
-  /* ── Carousel — text + image swap simultaneously via fade ── */
-  (function() {
-
-    // Helper to build db-row HTML
-    function row(badges) {
-      return badges.map(b => {
-        const cls = b ? `db-badge ${b}` : 'db-cell';
-        // row: cell cell BADGE cell cell cell
-        return `<div class="db-row">
-          <div class="db-cell"></div>
-          <div class="db-cell"></div>
-          <div class="${cls}"></div>
-          <div class="db-cell"></div>
-          <div class="db-cell"></div>
-          <div class="db-cell"></div>
-        </div>`;
-      }).join('');
-    }
-
-    // Each slide has a unique image built from full db-row HTML (not just badges)
-    const imgSlide1 = `
-      <div class="mock-monitoring">
-        <div class="mock-topbar">
-          <span class="mock-title">Monitoring</span>
-          <span class="mock-badge blue">All</span>
-          <span class="mock-badge gray" style="margin-left:4px;">For review <b>1285</b></span>
-        </div>
-        <div class="mock-filters">
-          <span class="mock-filter-tag">Event ID: 1897651 ×</span>
-          <span class="mock-filter-tag">Merchant: SFC GROUP ×</span>
-          <span class="mock-filter-tag">Reaction: Decline ×</span>
-          <span class="mock-filter-tag">IP: 2A04:4A00 ×</span>
-        </div>
-        <div class="mock-thead mock-cols-monitor">
-          <span>ID</span><span>Event ID</span><span>Event type</span>
-          <span>Tx type</span><span>Method</span><span>Merchant</span><span>Service</span>
-        </div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge green">PAYMENT</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge blue">PAYOUT</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge green">PAYMENT</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge red">REFUND</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge green">PAYMENT</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge blue">PAYOUT</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-        <div class="mock-row mock-cols-monitor"><span class="mock-cell id">127894…</span><span class="mock-cell">7c66b56…</span><span class="mock-cell"><span class="mock-badge gray">TRANSACTION</span></span><span class="mock-cell"><span class="mock-badge green">PAYMENT</span></span><span class="mock-cell"><span class="mock-badge gray">CARD</span></span><span class="mock-cell">SFC GROUP</span><span class="mock-cell">MB_Cards_EUR</span></div>
-      </div>`;
-
-    // Slide 2: rule constructor — visual builder UI
-    const imgSlide2 = `
-      <div class="mock-rule">
-        <div class="mock-rule-header">
-          <span class="mock-rule-tab active">Function</span>
-          <span class="mock-rule-tab inactive">Parameter</span>
-        </div>
-        <div class="mock-rule-body">
-          <div>
-            <div class="mock-rule-label">Condition block</div>
-            <div class="mock-rule-row"><b>Aggregation Function :</b> <span style="color:var(--accent)">Select</span></div>
-            <div class="mock-rule-row" style="margin-top:4px;"><b>Parameter :</b> <span style="color:var(--accent)">Select</span></div>
-            <div class="mock-rule-row" style="margin-top:4px;"><b>Created at :</b> <span style="color:var(--accent)">Calendar 24 Hours</span></div>
-          </div>
-          <div class="mock-select"><span>Aggregation function</span><span class="mock-select-arrow">▾</span></div>
-          <div class="mock-select"><span>Parameter</span><span class="mock-select-arrow">▾</span></div>
-          <div>
-            <div class="mock-rule-label">Created at</div>
-            <div style="display:flex;gap:0;border-radius:6px;overflow:hidden;border:1px solid var(--bd);">
-              <div style="flex:1;padding:4px 8px;background:var(--bg);font-size:10px;font-weight:600;color:var(--t1);text-align:center;">Calendar</div>
-              <div style="flex:1;padding:4px 8px;font-size:10px;color:var(--t3);text-align:center;border-left:1px solid var(--bd);">Rolling</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;">
-            <div class="mock-select" style="flex:1;"><span>Period</span><span class="mock-select-arrow">▾</span></div>
-            <div class="mock-select" style="flex:1;"><span style="color:var(--t3)">Value</span></div>
-          </div>
-          <div class="mock-divider-line"></div>
-          <div class="mock-plus-btn"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
-          <div class="mock-then">THEN</div>
-          <div class="mock-action-box">
-            <div class="mock-rule-row"><b>Reaction :</b> <span style="color:var(--accent)">Select</span></div>
-            <div class="mock-rule-row"><b>Score :</b> <span style="color:var(--accent)">Select</span></div>
-            <div class="mock-rule-row"><b>Notification :</b> <span style="color:var(--accent)">Select</span></div>
-          </div>
-        </div>
-      </div>`;
-
-    // Slide 3: cross-check view
-    const imgSlide3 = `
-      <div class="mock-cross">
-        <div class="mock-cross-header">
-          <span class="mock-cross-back">← Back</span>
-          <div style="margin-left:8px;"><div class="mock-cross-title">Crosscheck</div><div style="font-size:9px;color:var(--t3);">Event ID: 1898254</div></div>
-        </div>
-        <div class="mock-stats-row">
-          <div class="mock-stat-cell"><div class="mock-stat-status approved">APPROVED</div><div class="mock-stat-label">Total Count</div><div class="mock-stat-val">1 239 218</div></div>
-          <div class="mock-stat-cell"><div class="mock-stat-status approved">APPROVED</div><div class="mock-stat-label">Total Amount</div><div class="mock-stat-val">984,241 EUR</div></div>
-          <div class="mock-stat-cell"><div class="mock-stat-status declined">DECLINED</div><div class="mock-stat-label">Total Count</div><div class="mock-stat-val">1 239 218</div></div>
-          <div class="mock-stat-cell"><div class="mock-stat-status declined">DECLINED</div><div class="mock-stat-label">Total Amount</div><div class="mock-stat-val">984,241 EUR</div></div>
-        </div>
-        <div class="mock-entity-row">
-          <div class="mock-entity"><div class="mock-entity-id">4273 •••• 5621</div><div class="mock-entity-sub">e97d3a7af764…</div><div class="mock-entity-match">Match: 1/10</div></div>
-          <div class="mock-entity"><div class="mock-entity-id">Customer ID</div><div class="mock-entity-sub">62871923</div><div class="mock-entity-match">Match: 1/721</div></div>
-          <div class="mock-entity highlight"><div class="mock-entity-id">Email</div><div class="mock-entity-sub">johndoe@ex…</div><div class="mock-entity-match">Match: 10/62</div></div>
-          <div class="mock-entity"><div class="mock-entity-id">Device IP</div><div class="mock-entity-sub">192.168.1.2</div><div class="mock-entity-match">Match: 1/10</div></div>
-        </div>
-        <div class="mock-thead mock-cols-cross" style="padding:6px 12px;">
-          <span>Event ID</span><span>Email</span><span>Customer</span><span>Device</span><span>IP</span><span>Amount</span><span>Result</span>
-        </div>
-        <div class="mock-row mock-cols-cross" style="padding:6px 12px;"><span class="mock-cell id">7c66b5…</span><span class="mock-cell">customer@…</span><span class="mock-cell">127894…</span><span class="mock-cell">43653734</span><span class="mock-cell">192.168.1</span><span class="mock-cell">122.98</span><span class="mock-cell"><span class="mock-badge green">APPROVED</span></span></div>
-        <div class="mock-row mock-cols-cross" style="padding:6px 12px;"><span class="mock-cell id">7c66b5…</span><span class="mock-cell">customer@…</span><span class="mock-cell">127894…</span><span class="mock-cell">43653734</span><span class="mock-cell">192.168.1</span><span class="mock-cell">122.98</span><span class="mock-cell"><span class="mock-badge red">DECLINED</span></span></div>
-        <div class="mock-row mock-cols-cross" style="padding:6px 12px;"><span class="mock-cell id">7c66b5…</span><span class="mock-cell">customer@…</span><span class="mock-cell">127894…</span><span class="mock-cell">43653734</span><span class="mock-cell">192.168.1</span><span class="mock-cell">122.98</span><span class="mock-cell"><span class="mock-badge green">APPROVED</span></span></div>
-        <div class="mock-row mock-cols-cross" style="padding:6px 12px;"><span class="mock-cell id">7c66b5…</span><span class="mock-cell">customer@…</span><span class="mock-cell">127894…</span><span class="mock-cell">43653734</span><span class="mock-cell">192.168.1</span><span class="mock-cell">122.98</span><span class="mock-cell"><span class="mock-badge green">APPROVED</span></span></div>
-      </div>`;
-
-    const slides = [
-      {
-        num:  '01',
-        head: 'Monitoring',
-        body: 'Real-time transaction monitoring across all your payment channels. Detect anomalies instantly, flag suspicious patterns, and get full visibility into every event — without slowing down legitimate traffic.',
-        img:  imgSlide1
-      },
-      {
-        num:  '02',
-        head: 'Intelligent Rule Constructor',
-        body: 'Build fraud rules visually or with custom code. Deploy new protection logic in minutes — no engineering cycles required. Velocity checks, geo rules, and customer-specific conditions in one interface.',
-        img:  imgSlide2
-      },
-      {
-        num:  '03',
-        head: 'Frictionless Traffic Flow',
-        body: 'Score risk in real time and route clean traffic to best-performing providers. Automatic cascading on provider failure. Full approval rate analytics by BIN, country, and currency.',
-        img:  imgSlide3
-      }
-    ];
-
-    let idx = 0;
-    const numEl   = document.getElementById('carNum');
-    const headEl  = document.getElementById('carHead');
-    const bodyEl  = document.getElementById('carBody');
-    const textEl  = document.getElementById('carContent');
-    const imgEl   = document.getElementById('carImgRows');
-    const btnPrev = document.getElementById('carPrev');
-    const btnNext = document.getElementById('carNext');
-    const wrap    = document.getElementById('carWrap');
-
-    if (!numEl || !btnNext) return;
-
-    function goTo(n) {
-      if (n === idx) return;
-      const next = (n + slides.length) % slides.length;
-
-      // Fade both out simultaneously
-      textEl.classList.add('fading');
-      imgEl.classList.add('fading');
-
-      setTimeout(() => {
-        idx = next;
-        // Swap content
-        numEl.textContent  = slides[idx].num;
-        headEl.textContent = slides[idx].head;
-        bodyEl.textContent = slides[idx].body;
-        imgEl.innerHTML    = slides[idx].img;
-        // Fade both in
-        textEl.classList.remove('fading');
-        imgEl.classList.remove('fading');
-      }, 250);
-    }
-
-    btnNext.addEventListener('click', () => goTo(idx + 1));
-    btnPrev.addEventListener('click', () => goTo(idx - 1));
-
-    // Measure height of each slide by temporarily injecting its content
-    function measureAllSlides() {
-      const wrap = document.getElementById('carWrap');
-      if (!wrap) return;
-      // Remove any existing locked height
-      wrap.style.height = '';
-      wrap.style.minHeight = '';
-
-      let maxH = 0;
-      const origIdx = idx;
-
-      // Render each slide silently and measure
-      for (let i = 0; i < slides.length; i++) {
-        numEl.textContent  = slides[i].num;
-        headEl.textContent = slides[i].head;
-        bodyEl.textContent = slides[i].body;
-        imgEl.innerHTML    = slides[i].img;
-        const h = wrap.offsetHeight;
-        if (h > maxH) maxH = h;
-      }
-
-      // Restore original slide
-      numEl.textContent  = slides[origIdx].num;
-      headEl.textContent = slides[origIdx].head;
-      bodyEl.textContent = slides[origIdx].body;
-      imgEl.innerHTML    = slides[origIdx].img;
-
-      // Lock to tallest
-      if (maxH > 0) {
-        wrap.style.height    = maxH + 'px';
-        wrap.style.minHeight = maxH + 'px';
-      }
-    }
-
-    // Run after DOM paint
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      measureAllSlides();
-    }));
-    // Re-measure on resize (debounced)
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const wrap = document.getElementById('carWrap');
-        if (wrap) { wrap.style.height = ''; wrap.style.minHeight = ''; }
-        measureAllSlides();
-      }, 150);
-    });
-
-    // Auto-advance every 5s
-    let timer = setInterval(() => goTo(idx + 1), 5000);
-    wrap.addEventListener('mouseenter', () => clearInterval(timer));
-    wrap.addEventListener('mouseleave', () => { timer = setInterval(() => goTo(idx + 1), 5000); });
-
-    // Touch swipe
-    let tx = 0;
-    wrap.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive: true});
-    wrap.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - tx;
-      if (Math.abs(dx) > 50) goTo(dx < 0 ? idx + 1 : idx - 1);
-    }, {passive: true});
-  })();
 
   /* ── Animated counters (scroll-triggered) ── */
   function animateCounter(el) {

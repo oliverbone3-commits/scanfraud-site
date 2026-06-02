@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>HERO bullets — варианты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --bg: #08090a; --bg2: #141516; --bd: #212223;
+    --t1: #fff; --t2: rgba(255,255,255,0.6); --t3: #8b909e;
+    --accent: #1a56ff;
+  }
+  [data-theme="light"] {
+    --bg: #fff; --bg2: #f7f8fa; --bd: #e4e7ed;
+    --t1: #171717; --t2: #4d4d4d; --t3: #8b909e;
+  }
+  body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--t1);
+    font-family: 'Geist', system-ui, sans-serif;
+    transition: background .3s, color .3s;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 60px 40px 80px; }
+  .toggle {
+    position: fixed; top: 20px; right: 20px;
+    display: flex; gap: 8px;
+    background: var(--bg2); border: 1px solid var(--bd);
+    border-radius: 999px; padding: 4px;
+    z-index: 10;
+  }
+  .toggle button {
+    border: none; background: transparent;
+    padding: 6px 14px; border-radius: 999px;
+    font-family: inherit; font-size: 13px;
+    color: var(--t2); cursor: pointer;
+  }
+  .toggle button.active { background: var(--accent); color: #fff; }
+  h1 { font-family: 'Geist'; font-size: 28px; font-weight: 600; letter-spacing: -1px; margin: 0 0 8px; }
+  .meta { color: var(--t3); font-size: 13px; margin-bottom: 48px; }
+  .label {
+    font-family: 'Inter'; font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    color: var(--accent); margin-bottom: 12px; text-transform: uppercase;
+  }
+  .row { padding: 24px 0; border-bottom: 1px solid var(--bd); }
+  .row:last-child { border-bottom: none; }
+  .desc { color: var(--t2); font-family: 'Inter'; font-size: 13px; margin-top: 14px; line-height: 18px; }
+
+  ul.bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+
+  /* CURRENT — dot bullets */
+  ul.cur { gap: 14px 22px; font-family: 'Inter'; font-size: 13px; color: var(--t2); }
+  ul.cur li { display: inline-flex; align-items: center; gap: 8px; }
+  ul.cur li::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+
+  /* A — Outlined pills */
+  ul.varA { gap: 8px; }
+  ul.varA li {
+    display: inline-flex; align-items: center;
+    padding: 6px 14px;
+    border: 1px solid var(--bd); border-radius: 999px;
+    font-family: 'Inter'; font-size: 12px; font-weight: 500;
+    color: var(--t1);
+    background: transparent;
+  }
+
+  /* B — Pills with icons */
+  ul.varB { gap: 8px; }
+  ul.varB li {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 14px 6px 12px;
+    border: 1px solid var(--bd); border-radius: 999px;
+    font-family: 'Inter'; font-size: 12px; font-weight: 500;
+    color: var(--t1);
+    background: var(--bg2);
+  }
+  ul.varB li i { width: 14px; height: 14px; color: var(--accent); stroke-width: 2; }
+
+  /* C — Check pills (filled accent) */
+  ul.varC { gap: 8px; }
+  ul.varC li {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid rgba(26,86,255,0.3);
+    border-radius: 999px;
+    font-family: 'Inter'; font-size: 12px; font-weight: 500;
+    color: var(--t1);
+    background: rgba(26,86,255,0.10);
+  }
+  ul.varC li i { width: 13px; height: 13px; color: var(--accent); stroke-width: 3; }
+
+  /* D — Square chips, project-style */
+  ul.varD { gap: 8px; }
+  ul.varD li {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px 8px 8px;
+    border: 1px solid var(--bd); border-radius: 8px;
+    font-family: 'Inter'; font-size: 12px; font-weight: 500;
+    color: var(--t1);
+    background: var(--bg2);
+  }
+  ul.varD li .ic-sq {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(26,86,255,0.1);
+  }
+  [data-theme="light"] ul.varD li .ic-sq { background: rgba(26,86,255,0.07); }
+  ul.varD li i { width: 13px; height: 13px; color: var(--accent); stroke-width: 2; }
+</style>
+</head>
+<body>
+  <div class="toggle">
+    <button class="active" data-theme-btn="dark">Dark</button>
+    <button data-theme-btn="light">Light</button>
+  </div>
+  <div class="wrap">
+    <h1>HERO bullets — 4 варианта</h1>
+    <p class="meta">No-code Rule Engine / Advanced Case Management / Fast REST API Integration</p>
+
+    <div class="row">
+      <div class="label">Current — dot bullets</div>
+      <ul class="bullets cur">
+        <li>No-code Rule Engine</li>
+        <li>Advanced Case Management</li>
+        <li>Fast REST API Integration</li>
+      </ul>
+      <p class="desc">Текущая реализация. Минималистично, но «голо» — bullets теряются на фоне subtitle.</p>
+    </div>
+
+    <div class="row">
+      <div class="label">Variant A — Outlined pills</div>
+      <ul class="bullets varA">
+        <li>No-code Rule Engine</li>
+        <li>Advanced Case Management</li>
+        <li>Fast REST API Integration</li>
+      </ul>
+      <p class="desc">Простые pills с тонким border. Без иконок, сдержанно. B2B-классика, не «крикливо».</p>
+    </div>
+
+    <div class="row">
+      <div class="label">Variant B — Pills with icons</div>
+      <ul class="bullets varB">
+        <li><i data-lucide="sliders-horizontal"></i>No-code Rule Engine</li>
+        <li><i data-lucide="shield-check"></i>Advanced Case Management</li>
+        <li><i data-lucide="code-2"></i>Fast REST API Integration</li>
+      </ul>
+      <p class="desc">Pills + lucide-иконка перед текстом. Чуть «теплее», читается как фичи.</p>
+    </div>
+
+    <div class="row">
+      <div class="label">Variant C — Check pills (filled accent)</div>
+      <ul class="bullets varC">
+        <li><i data-lucide="check"></i>No-code Rule Engine</li>
+        <li><i data-lucide="check"></i>Advanced Case Management</li>
+        <li><i data-lucide="check"></i>Fast REST API Integration</li>
+      </ul>
+      <p class="desc">Галочка + accent-фон + accent-border. Сильнее визуально, читается «есть/включено». Близко к status-чипу.</p>
+    </div>
+
+    <div class="row">
+      <div class="label">Variant D — Square chips, project-style</div>
+      <ul class="bullets varD">
+        <li><span class="ic-sq"><i data-lucide="sliders-horizontal"></i></span>No-code Rule Engine</li>
+        <li><span class="ic-sq"><i data-lucide="shield-check"></i></span>Advanced Case Management</li>
+        <li><span class="ic-sq"><i data-lucide="code-2"></i></span>Fast REST API Integration</li>
+      </ul>
+      <p class="desc"><b>Рекомендация.</b> Прямоугольные с radius 8, lucide-иконка в blue-accent квадратике 22×22 — точно тот же icon-pattern что в `.card-icon` (36×36) у PRODUCTS / WHY карточек. Визуальная связь с остальным сайтом.</p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    document.querySelectorAll('[data-theme-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const theme = btn.dataset.themeBtn;
+        document.documentElement.setAttribute('data-theme', theme);
+        document.querySelectorAll('[data-theme-btn]').forEach(b => b.classList.toggle('active', b === btn));
+      });
+    });
+  </script>
+</body>
+</html>

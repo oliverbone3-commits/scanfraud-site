@@ -189,6 +189,34 @@ Code Reviewer       → Quick review (theme check, no regressions)
 
 ---
 
+## Working with PM (Page Brief Process)
+
+Любой запрос на новую страницу или редизайн секции **начинается с заполненного брифа**, не с wireframe.
+
+### Процесс
+1. PM (или инициатор) копирует `templates/page-brief.md` → `projects/YYYY-MM-DD_short-name/00_brief.md`
+2. Заполняет все 10 секций брифа. Особенно критично:
+   - Секция 2 — ICP (high-risk vs mainstream — определяет позиционирование)
+   - Секция 4 — какие proof-ассеты есть с permission
+   - Секция 6 — выбор блоков из `system/block-catalog.md`
+3. Без заполненного брифа задача не принимается в работу — возвращаем PM с указанием на шаблон.
+
+### Зачем это нужно
+- **PM не должна изобретать структуру с нуля.** Block catalog даёт меню из 17 проверенных паттернов с примерами у конкурентов.
+- **Permission-блокеры всплывают сразу.** Если customer logos / quotes / certs нельзя публиковать — это видно из секции 4 брифа, а не после 3 итераций wireframe.
+- **ICP определяет тон.** Для high-risk audience compliance-bar контр-продуктивен; для mainstream — наоборот critical. Бриф фиксирует это решение в самом начале.
+- **Унифицированная вокабуляра.** Все говорят на одном языке (catalog terminology), не «information block» vs «feature row».
+
+### Если PM прислала wireframe без брифа
+Не обсуждать структуру по существу. Возвращать с запросом: «Заполни бриф по `templates/page-brief.md`, после этого посмотрим макет.»
+
+### Reference
+- `templates/page-brief.md` — форма-шаблон
+- `system/block-catalog.md` — словарь 17 стандартных блоков с антипаттернами
+- `projects/2026-05-07_homepage-competitor-analysis/` — research-источник для catalog (для самозащиты при споре «а почему так»)
+
+---
+
 ## How to Use
 
 ### Start a Session
@@ -205,6 +233,8 @@ Say "Возьми ANTF-XXX" or paste a Jira link. The system will:
 3. Select workflow based on task type (content change, new page, bug fix, etc.)
 4. Run the workflow
 5. On completion: update Jira status + add comment with summary
+
+**Если описание задачи неполное** (нет файла/селектора/AC, есть `file:///` или `blob:` ссылки) — сослаться на `templates/jira-task-template.md` и попросить PM переоформить задачу по шаблону. Не угадывать.
 
 ### Activate Agents
 Reference agents by role:
