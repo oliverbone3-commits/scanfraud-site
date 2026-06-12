@@ -939,12 +939,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">02</span><span class="ex-block-name">Payment Routing</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — таблица событий медленно прокручивается, края тают в градиенте.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Live-лента — события притекают сверху в реальном времени, счётчик Shown тикает.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — таблица событий медленно прокручивается, края тают в градиенте.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Live-лента — события притекают сверху в реальном времени, счётчик Shown тикает.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Очередь review — строки на проверке подсвечиваются по очереди, счётчик For review растёт.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Автоскролл — таблица событий медленно прокручивается, края тают в градиенте.</p>
+        <p class="ex-block-note">Live-лента — события притекают сверху в реальном времени, счётчик Shown тикает.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -960,7 +961,7 @@
           <div class="fi">
 
             <!-- v1 — auto-scroll table -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame wide" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Monitoring <span class="mut">· all events</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="mon-thead"><span>ID</span><span>Event</span><span>Type</span><span>System</span><span>Merchant</span></div>
@@ -970,7 +971,7 @@
             </div>
 
             <!-- v2 — live stream -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame wide" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Monitoring <span class="mut">· all events</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="mon-thead"><span>ID</span><span>Event</span><span>Type</span><span>System</span><span>Merchant</span></div>
@@ -998,12 +999,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">03</span><span class="ex-block-name">Case Management</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — связанные транзакции дела бесконечно прокручиваются.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Подсчёт связей — счётчики Approved/Declined и совпадения по сущностям считаются вверх.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — связанные транзакции дела бесконечно прокручиваются.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Подсчёт связей — счётчики Approved/Declined и совпадения по сущностям считаются вверх.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Подсветка связанных — строки одного дела подсвечиваются по очереди.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Автоскролл — связанные транзакции дела бесконечно прокручиваются.</p>
+        <p class="ex-block-note">Подсчёт связей — счётчики Approved/Declined и совпадения по сущностям считаются вверх.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1019,7 +1021,7 @@
           <div class="fi">
 
             <!-- v1 — scroll -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame case" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Crosscheck <span class="mut">· 2447…163111</span></span><span class="rbx-head-badge">Linked</span></div>
                 <div class="cc-stats">
@@ -1039,7 +1041,7 @@
             </div>
 
             <!-- v2 — count-up -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame case" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Crosscheck <span class="mut">· 2447…163111</span></span><span class="rbx-head-badge">Linked</span></div>
                 <div class="cc-counts">
@@ -1089,10 +1091,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">04</span><span class="ex-block-name">Fast Go-To-Market</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Прогресс — шаги онбординга закрываются по очереди, последний выходит в live, цикл повторяется.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Прогресс — шаги онбординга закрываются по очереди, последний выходит в live, цикл повторяется.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Бегущий фокус — все шаги выполнены, подсветка скользит по таймлайну.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — таймлайн пройден, пульсирует только активный шаг go-live.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Прогресс — шаги онбординга закрываются по очереди, последний выходит в live, цикл повторяется.</p>
 
@@ -1289,12 +1292,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">06</span><span class="ex-block-name">Merchant Fraud</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Появление — поля и кнопки формы проявляются по очереди.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Выбор сущностей — чекбоксы идентификаторов отмечаются по очереди, Confirm активируется.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Появление — поля и кнопки формы проявляются по очереди.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Выбор сущностей — чекбоксы идентификаторов отмечаются по очереди, Confirm активируется.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — форма заполнена, кнопка Confirm мягко пульсирует.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Появление — поля и кнопки формы проявляются по очереди.</p>
+        <p class="ex-block-note">Выбор сущностей — чекбоксы идентификаторов отмечаются по очереди, Confirm активируется.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1313,7 +1317,7 @@
           <div class="fi">
 
             <!-- v1 — appear -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame bl-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Blacklist <span class="mut">· new entry</span></span><span class="rbx-head-badge">Lists</span></div>
                 <div class="bl-form bl-form--appear" data-bl="appear">
@@ -1333,7 +1337,7 @@
             </div>
 
             <!-- v2 — select -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame bl-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Blacklist <span class="mut">· new entry</span></span><span class="rbx-head-badge">Lists</span></div>
                 <div class="bl-form" data-bl="select">
@@ -1381,12 +1385,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">07</span><span class="ex-block-name">Routing per merchant</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Распределение — список мерчантов прокручивается, у каждого свой сплит по провайдерам.">v1</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Распределение — список мерчантов прокручивается, у каждого свой сплит по провайдерам.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Ребаланс — доли провайдеров пересчитываются вживую, бары перетекают.">v2</button>
-            <button class="ver-btn" data-v="3" type="button" data-note="Каскад — основной провайдер падает, трафик уходит на бэкап.">v3</button>
+            <button class="ver-btn active chosen" data-v="3" type="button" data-note="Каскад — основной провайдер падает, трафик уходит на бэкап.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v3</span>
         </div>
-        <p class="ex-block-note">Распределение — список мерчантов прокручивается, у каждого свой сплит по провайдерам.</p>
+        <p class="ex-block-note">Каскад — основной провайдер падает, трафик уходит на бэкап.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1405,7 +1410,7 @@
           <div class="fi">
 
             <!-- v1 — scroll -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame rt-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Routing <span class="mut">· per merchant</span></span><span class="rbx-head-badge">Auto</span></div>
                 <div class="rbx-viewport rt-vp"><div class="rbx-track is-auto rt-track" data-rt="scroll"></div></div>
@@ -1421,7 +1426,7 @@
             </div>
 
             <!-- v3 — cascade -->
-            <div class="ver-pane" data-v="3">
+            <div class="ver-pane active" data-v="3">
               <div class="rbx-frame rt-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Routing <span class="mut">· per merchant</span></span><span class="rbx-head-badge">Auto</span></div>
                 <div class="rbx-viewport rt-vp"><div class="rbx-track rt-track" data-rt="cascade"></div></div>
@@ -1437,12 +1442,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">08</span><span class="ex-block-name">Transaction Monitoring</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — лента решений по транзакциям прокручивается.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Live — новые транзакции притекают сверху с реакцией и фрод-статусом.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — лента решений по транзакциям прокручивается.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Live — новые транзакции притекают сверху с реакцией и фрод-статусом.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Эскалация — фрод-статусы повышаются Not a Fraud → Suspected → Fraud → Confirmed.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Автоскролл — лента решений по транзакциям прокручивается.</p>
+        <p class="ex-block-note">Live — новые транзакции притекают сверху с реакцией и фрод-статусом.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1461,7 +1467,7 @@
           <div class="fi">
 
             <!-- v1 — scroll -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame tm-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Transaction feed <span class="mut">· live</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="tm-thead"><span>ID</span><span>Reaction</span><span>Result</span><span>Fraud status</span></div>
@@ -1470,7 +1476,7 @@
             </div>
 
             <!-- v2 — live stream -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame tm-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Transaction feed <span class="mut">· live</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="tm-thead"><span>ID</span><span>Reaction</span><span>Result</span><span>Fraud status</span></div>
@@ -1496,12 +1502,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">09</span><span class="ex-block-name">Routing &amp; Cascading</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Распределение — доли провайдеров заезжают, роли Primary / Secondary / Cascade.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Каскад — Provider A падает по таймауту, трафик уходит на B/C, срабатывает auto-cascade.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Распределение — доли провайдеров заезжают, роли Primary / Secondary / Cascade.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Каскад — Provider A падает по таймауту, трафик уходит на B/C, срабатывает auto-cascade.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Ребаланс — доли провайдеров перетекают вживую.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Распределение — доли провайдеров заезжают, роли Primary / Secondary / Cascade.</p>
+        <p class="ex-block-note">Каскад — Provider A падает по таймауту, трафик уходит на B/C, срабатывает auto-cascade.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1520,7 +1527,7 @@
           <div class="fi">
 
             <!-- v1 — distribute -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame rc-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Payment routing <span class="mut">· rules</span></span><span class="rbx-head-badge">Auto</span></div>
                 <div class="rc-card" data-rc="distribute">
@@ -1535,7 +1542,7 @@
             </div>
 
             <!-- v2 — cascade -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame rc-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Payment routing <span class="mut">· rules</span></span><span class="rbx-head-badge">Auto</span></div>
                 <div class="rc-card" data-rc="cascade">
@@ -1573,12 +1580,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">10</span><span class="ex-block-name">Dispute Resolution</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — активные кейсы споров прокручиваются.">v1</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — активные кейсы споров прокручиваются.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Прогресс — статусы кейсов идут по пайплайну Submitted → Evidence ready → In review → Won.">v2</button>
-            <button class="ver-btn" data-v="3" type="button" data-note="Счётчики — статистика месяца (кейсы, win rate, средний fee) считается вверх.">v3</button>
+            <button class="ver-btn active chosen" data-v="3" type="button" data-note="Счётчики — статистика месяца (кейсы, win rate, средний fee) считается вверх.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v3</span>
         </div>
-        <p class="ex-block-note">Автоскролл — активные кейсы споров прокручиваются.</p>
+        <p class="ex-block-note">Счётчики — статистика месяца (кейсы, win rate, средний fee) считается вверх.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1597,7 +1605,7 @@
           <div class="fi">
 
             <!-- v1 — scroll -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame dr-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Dispute cases <span class="mut">· active</span></span><span class="rbx-head-badge">24 open</span></div>
                 <div class="rbx-viewport dr-vp"><div class="rbx-track is-auto dr-track" data-dr="scroll"></div></div>
@@ -1623,7 +1631,7 @@
             </div>
 
             <!-- v3 — counters -->
-            <div class="ver-pane" data-v="3">
+            <div class="ver-pane active" data-v="3">
               <div class="rbx-frame dr-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Dispute cases <span class="mut">· active</span></span><span class="rbx-head-badge">24 open</span></div>
                 <div class="rbx-viewport dr-vp"><div class="rbx-track dr-track" data-dr="counters"></div></div>
@@ -1644,12 +1652,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">11</span><span class="ex-block-name">Payment Cascading</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Каскад — провайдеры пробуются по очереди: A падает по таймауту, B отклоняет, C одобряет — транзакция спасена.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Появление — шаги цепочки проявляются по очереди до финального состояния.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Каскад — провайдеры пробуются по очереди: A падает по таймауту, B отклоняет, C одобряет — транзакция спасена.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Появление — шаги цепочки проявляются по очереди до финального состояния.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — финальная цепочка статична, баннер rescued мягко пульсирует.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Каскад — провайдеры пробуются по очереди: A падает по таймауту, B отклоняет, C одобряет — транзакция спасена.</p>
+        <p class="ex-block-note">Появление — шаги цепочки проявляются по очереди до финального состояния.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1669,7 +1678,7 @@
           <div class="fi">
 
             <!-- v1 — cascade -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame pc-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Cascade chain <span class="mut">· TXN-9921</span></span><span class="rbx-head-badge">Cascade</span></div>
                 <div class="pc-body pc--seq" data-pc="cascade">
@@ -1684,7 +1693,7 @@
             </div>
 
             <!-- v2 — reveal -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame pc-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Cascade chain <span class="mut">· TXN-9921</span></span><span class="rbx-head-badge">Cascade</span></div>
                 <div class="pc-body pc--reveal" data-pc="reveal">
@@ -1722,12 +1731,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">12</span><span class="ex-block-name">Withdrawal Monitoring</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — очередь решений с фрод-статусом и статусом ревью прокручивается.">v1</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — очередь решений с фрод-статусом и статусом ревью прокручивается.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Live — новые решения притекают с фрод-статусом и статусом ревью.">v2</button>
-            <button class="ver-btn" data-v="3" type="button" data-note="Очередь ревью — фрод-статус эскалирует, View Status переходит No review → For Review → Viewed.">v3</button>
+            <button class="ver-btn active chosen" data-v="3" type="button" data-note="Очередь ревью — фрод-статус эскалирует, View Status переходит No review → For Review → Viewed.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v3</span>
         </div>
-        <p class="ex-block-note">Автоскролл — очередь решений с фрод-статусом и статусом ревью прокручивается.</p>
+        <p class="ex-block-note">Очередь ревью — фрод-статус эскалирует, View Status переходит No review → For Review → Viewed.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1746,7 +1756,7 @@
           <div class="fi">
 
             <!-- v1 — scroll -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame rv-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Review queue <span class="mut">· decisions</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="rv-thead"><span>ID</span><span>Reaction</span><span>Fraud status</span><span>View status</span></div>
@@ -1764,7 +1774,7 @@
             </div>
 
             <!-- v3 — review highlight -->
-            <div class="ver-pane" data-v="3">
+            <div class="ver-pane active" data-v="3">
               <div class="rbx-frame rv-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Review queue <span class="mut">· decisions</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="rv-thead"><span>ID</span><span>Reaction</span><span>Fraud status</span><span>View status</span></div>
@@ -1781,12 +1791,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">TM</span><span class="ex-block-name">Root Cause Analysis</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Печать — условия правила (RULE / IF / AND) печатаются по очереди, затем проявляется классификация.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Появление — строки правила проявляются по очереди.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Печать — условия правила (RULE / IF / AND) печатаются по очереди, затем проявляется классификация.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Появление — строки правила проявляются по очереди.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — карточка причины отказа статична.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Печать — условия правила (RULE / IF / AND) печатаются по очереди, затем проявляется классификация.</p>
+        <p class="ex-block-note">Появление — строки правила проявляются по очереди.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1803,7 +1814,7 @@
           <div class="fi">
 
             <!-- v1 — typewriter -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame av-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Decline reason <span class="mut">· TX-104755</span></span><span class="rbx-head-badge ok">Blocked</span></div>
                 <div class="av-body" data-av="type">
@@ -1824,7 +1835,7 @@
             </div>
 
             <!-- v2 — reveal -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame av-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Decline reason <span class="mut">· TX-104755</span></span><span class="rbx-head-badge ok">Blocked</span></div>
                 <div class="av-body av--reveal" data-av="reveal">
@@ -1874,12 +1885,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">DR</span><span class="ex-block-name">Evidence Preparation</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Сборка пакета — документы кейса собираются по очереди (лоадер → галочка), прогресс-бар растёт, в конце пакет уходит в банк-эквайер.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Этапы кейса — Create → Match &amp; compile → Prepare → Submit: шаги проходят по очереди, как процесс на странице DR.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Сборка пакета — документы кейса собираются по очереди (лоадер → галочка), прогресс-бар растёт, в конце пакет уходит в банк-эквайер.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Этапы кейса — Create → Match &amp; compile → Prepare → Submit: шаги проходят по очереди, как процесс на странице DR.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — собранный evidence-пакет статичен, все документы на месте.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Сборка пакета — документы кейса собираются по очереди (лоадер → галочка), прогресс-бар растёт, в конце пакет уходит в банк-эквайер.</p>
+        <p class="ex-block-note">Этапы кейса — Create → Match &amp; compile → Prepare → Submit: шаги проходят по очереди, как процесс на странице DR.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1896,7 +1908,7 @@
           <div class="fi">
 
             <!-- v1 — package build -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame ep-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Case CB-2291 <span class="mut">· Reason 10.4</span></span><span class="rbx-head-badge">Representment</span></div>
                 <div class="ep-prog"><i></i></div>
@@ -1917,7 +1929,7 @@
             </div>
 
             <!-- v2 — case stages -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame ep-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Case CB-2291 <span class="mut">· Reason 10.4</span></span><span class="rbx-head-badge">Representment</span></div>
                 <div class="ep-body" data-ep="stages">
@@ -1961,12 +1973,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">RM</span><span class="ex-block-name">Expert Team</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — журнал действий команды прокручивается бесконечно, наведение — пауза.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Live-лента — действия аналитиков прибывают сверху с подсветкой, бейдж Live пульсирует.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — журнал действий команды прокручивается бесконечно, наведение — пауза.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Live-лента — действия аналитиков прибывают сверху с подсветкой, бейдж Live пульсирует.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — журнал статичен, внизу итог недели.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Автоскролл — журнал действий команды прокручивается бесконечно, наведение — пауза.</p>
+        <p class="ex-block-note">Live-лента — действия аналитиков прибывают сверху с подсветкой, бейдж Live пульсирует.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -1984,7 +1997,7 @@
           <div class="fi">
 
             <!-- v1 — auto-scroll log -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame xt-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Risk operations <span class="mut">· managed by ScanFraud</span></span><span class="rbx-head-badge">Activity log</span></div>
                 <div class="rbx-viewport">
@@ -2003,7 +2016,7 @@
             </div>
 
             <!-- v2 — live stream -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame xt-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Risk operations <span class="mut">· managed by ScanFraud</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="rbx-viewport">
@@ -2035,10 +2048,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">GB</span><span class="ex-block-name">Bonus Abuse</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Сборка профиля — сигналы риска проявляются по очереди, затем risk score считает 0 → 87 и появляется вердикт Manual review.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Сборка профиля — сигналы риска проявляются по очереди, затем risk score считает 0 → 87 и появляется вердикт Manual review.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Кластер аккаунтов — связанные игроки подцепляются к главному (same device / IP / card), финал — заморозка выплат.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — профиль риска игрока статичен, score 87/100.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Сборка профиля — сигналы риска проявляются по очереди, затем risk score считает 0 → 87 и появляется вердикт Manual review.</p>
 
@@ -2122,10 +2136,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">CR</span><span class="ex-block-name">On-Ramp &amp; KYC</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Скоринг — сигналы риска появляются по очереди, каждый сдвигает score (+18 / +14 / +30 / −8), итог 54 и Enhanced KYC.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Скоринг — сигналы риска появляются по очереди, каждый сдвигает score (+18 / +14 / +30 / −8), итог 54 и Enhanced KYC.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Цикл вердикта — карточка перебирает Low → Medium → High: score, бейдж и действие перекрашиваются.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — карточка on-ramp транзакции статична, score 54/100.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Скоринг — сигналы риска появляются по очереди, каждый сдвигает score (+18 / +14 / +30 / −8), итог 54 и Enhanced KYC.</p>
 
@@ -2222,12 +2237,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">EC</span><span class="ex-block-name">Order Fraud</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Live-очередь — новые заказы прибывают сверху уже со скором и действием (Auto-approve / Review / Hold).">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Триаж — заказы оцениваются по очереди: появляется score, затем штампуется действие.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Live-очередь — новые заказы прибывают сверху уже со скором и действием (Auto-approve / Review / Hold).">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Триаж — заказы оцениваются по очереди: появляется score, затем штампуется действие.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — таблица очереди статична, 5 заказов.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Live-очередь — новые заказы прибывают сверху уже со скором и действием (Auto-approve / Review / Hold).</p>
+        <p class="ex-block-note">Триаж — заказы оцениваются по очереди: появляется score, затем штампуется действие.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -2245,7 +2261,7 @@
           <div class="fi">
 
             <!-- v1 — live queue -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame oq-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Order review queue <span class="mut">· 83 today</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="oq-cols"><span class="oq-col-head">Order</span><span class="oq-col-head">Amount</span><span class="oq-col-head">Country</span><span class="oq-col-head">Risk</span><span class="oq-col-head">Action</span></div>
@@ -2256,7 +2272,7 @@
             </div>
 
             <!-- v2 — triage -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame oq-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Order review queue <span class="mut">· 83 today</span></span><span class="rbx-head-badge">Scoring</span></div>
                 <div class="oq-cols"><span class="oq-col-head">Order</span><span class="oq-col-head">Amount</span><span class="oq-col-head">Country</span><span class="oq-col-head">Risk</span><span class="oq-col-head">Action</span></div>
@@ -2294,10 +2310,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">GB</span><span class="ex-block-name">Payment Fraud</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Автоскролл — лента депозитов со статусами Approved / Review / Blocked крутится бесконечно, наведение — пауза.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Автоскролл — лента депозитов со статусами Approved / Review / Blocked крутится бесконечно, наведение — пауза.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Card testing — серия микро-депозитов €1.00 с одного BIN прилетает очередью и блокируется, баннер фиксирует атаку.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — список депозитов статичен.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Автоскролл — лента депозитов со статусами Approved / Review / Blocked крутится бесконечно, наведение — пауза.</p>
 
@@ -2376,12 +2393,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">CR</span><span class="ex-block-name">Transaction Pattern</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Трассировка — цепочка строится сверху вниз: source → relay → split, в конце предупреждение о structuring.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Поток — стрелки подсвечиваются по цепочке, средства «текут» вниз, баннер пульсирует в конце цикла.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Трассировка — цепочка строится сверху вниз: source → relay → split, в конце предупреждение о structuring.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Поток — стрелки подсвечиваются по цепочке, средства «текут» вниз, баннер пульсирует в конце цикла.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — граф цепочки статичен.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Трассировка — цепочка строится сверху вниз: source → relay → split, в конце предупреждение о structuring.</p>
+        <p class="ex-block-note">Поток — стрелки подсвечиваются по цепочке, средства «текут» вниз, баннер пульсирует в конце цикла.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -2399,7 +2417,7 @@
           <div class="fi">
 
             <!-- v1 — trace build -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame cn-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Transaction chain <span class="mut">· 0x7f3...c8a2</span></span><span class="rbx-head-badge warn">Tracing</span></div>
                 <div class="cn-body cn--build" data-cn="build">
@@ -2424,7 +2442,7 @@
             </div>
 
             <!-- v2 — flow -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame cn-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Transaction chain <span class="mut">· 0x7f3...c8a2</span></span><span class="rbx-head-badge warn">Structuring</span></div>
                 <div class="cn-body" data-cn="flow">
@@ -2482,10 +2500,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">FT</span><span class="ex-block-name">Account Takeover</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Секвенция — события ATO появляются по таймлайну, вероятность растёт 22 → 94%, финал — Account frozen.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Секвенция — события ATO появляются по таймлайну, вероятность растёт 22 → 94%, финал — Account frozen.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — карточка собрана, по событиям циклично пробегает подсветка-перечитывание.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — алерт статичен, 94% и Account frozen.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Секвенция — события ATO появляются по таймлайну, вероятность растёт 22 → 94%, финал — Account frozen.</p>
 
@@ -2567,10 +2586,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">TR</span><span class="ex-block-name">Account Takeover</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Секвенция — события появляются по таймлайну, вероятность растёт 31 → 95%, вывод средств ставится на паузу.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Секвенция — события появляются по таймлайну, вероятность растёт 31 → 95%, вывод средств ставится на паузу.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — карточка собрана, по событиям циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — алерт статичен, 95% и Withdrawal paused.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Секвенция — события появляются по таймлайну, вероятность растёт 31 → 95%, вывод средств ставится на паузу.</p>
 
@@ -2645,10 +2665,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">DR</span><span class="ex-block-name">Case Management</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Сборка — кейсы появляются по очереди, в конце сводка по порогам Visa / MC.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Сборка — кейсы появляются по очереди, в конце сводка по порогам Visa / MC.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по кейсам циклично пробегает подсветка-перечитывание.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — список кейсов статичен.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Сборка — кейсы появляются по очереди, в конце сводка по порогам Visa / MC.</p>
 
@@ -2726,10 +2747,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">EC</span><span class="ex-block-name">Chargeback Mgmt</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Тренд — месяцы появляются по очереди, win rate считает до 76%, ставка падает 0.8 → 0.4%.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Тренд — месяцы появляются по очереди, win rate считает до 76%, ставка падает 0.8 → 0.4%.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по строкам таблицы циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — таблица тренда статична.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Тренд — месяцы появляются по очереди, win rate считает до 76%, ставка падает 0.8 → 0.4%.</p>
 
@@ -2795,10 +2817,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">TM</span><span class="ex-block-name">Data Enrichment</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Обогащение — поля транзакции заполняются по очереди, в конце чип «15+ data points».">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Обогащение — поля транзакции заполняются по очереди, в конце чип «15+ data points».">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по полям циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — обогащённая карточка статична.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Обогащение — поля транзакции заполняются по очереди, в конце чип «15+ data points».</p>
 
@@ -2879,10 +2902,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">TM</span><span class="ex-block-name">For Review Pipeline</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Очередь — флагнутые транзакции появляются по очереди, финал — Crosscheck находит 3 связанных аккаунта.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Очередь — флагнутые транзакции появляются по очереди, финал — Crosscheck находит 3 связанных аккаунта.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по очереди ревью циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — очередь статична.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Очередь — флагнутые транзакции появляются по очереди, финал — Crosscheck находит 3 связанных аккаунта.</p>
 
@@ -2959,10 +2983,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">TM</span><span class="ex-block-name">Notifications</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Лента — уведомления появляются по очереди: пороги, правила, провайдеры, дайджест.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Лента — уведомления появляются по очереди: пороги, правила, провайдеры, дайджест.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по уведомлениям циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — список уведомлений статичен.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Лента — уведомления появляются по очереди: пороги, правила, провайдеры, дайджест.</p>
 
@@ -3040,12 +3065,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">RC</span><span class="ex-block-name">Payment Routing</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Решение — параметры и провайдеры появляются по очереди, финал — маршрут на Provider B (lowest fee).">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Волна — подсветка перебирает кандидатов-провайдеров.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Решение — параметры и провайдеры появляются по очереди, финал — маршрут на Provider B (lowest fee).">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Волна — подсветка перебирает кандидатов-провайдеров.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — карточка решения статична, выбран Provider B.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Решение — параметры и провайдеры появляются по очереди, финал — маршрут на Provider B (lowest fee).</p>
+        <p class="ex-block-note">Волна — подсветка перебирает кандидатов-провайдеров.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -3062,7 +3088,7 @@
           </div>
           <div class="fi">
             <!-- v1 — decision reveal -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame ep-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Routing decision <span class="mut">· TX-104901</span></span><span class="rbx-head-badge">Routing</span></div>
                 <div class="gen-body gen--anim" data-gen="reveal">
@@ -3081,7 +3107,7 @@
               </div>
             </div>
             <!-- v2 — wave -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame ep-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Routing decision <span class="mut">· TX-104901</span></span><span class="rbx-head-badge">Routing</span></div>
                 <div class="gen-body" data-gen="wave">
@@ -3127,10 +3153,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">RC</span><span class="ex-block-name">Provider Analytics</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Таблица — провайдеры появляются по очереди, финал — алерт о деградации Provider C.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Таблица — провайдеры появляются по очереди, финал — алерт о деградации Provider C.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по строкам провайдеров циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — таблица провайдеров статична.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Таблица — провайдеры появляются по очереди, финал — алерт о деградации Provider C.</p>
 
@@ -3205,10 +3232,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">IN</span><span class="ex-block-name">How It Works</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Шаблоны — выбран Gambling, пакеты правил подключаются по очереди, финал — live in days.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Шаблоны — выбран Gambling, пакеты правил подключаются по очереди, финал — live in days.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — подсветка циклично пробегает по пакетам правил.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — селектор и пакеты статичны.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Шаблоны — выбран Gambling, пакеты правил подключаются по очереди, финал — live in days.</p>
 
@@ -3292,10 +3320,11 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">RM</span><span class="ex-block-name">Rule Management</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active" data-v="1" type="button" data-note="Портфель — правила появляются по очереди (Live / Backtest / Retired), финал — false positives −18% за квартал.">v1</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Портфель — правила появляются по очереди (Live / Backtest / Retired), финал — false positives −18% за квартал.">v1</button>
             <button class="ver-btn" data-v="2" type="button" data-note="Волна — по правилам циклично пробегает подсветка.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — портфель правил статичен.">v3</button>
           </div>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
         <p class="ex-block-note">Портфель — правила появляются по очереди (Live / Backtest / Retired), финал — false positives −18% за квартал.</p>
 
