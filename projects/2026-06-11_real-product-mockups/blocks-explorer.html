@@ -939,13 +939,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">02</span><span class="ex-block-name">Payment Routing</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Автоскролл — таблица событий медленно прокручивается, края тают в градиенте.">v1</button>
-            <button class="ver-btn" data-v="2" type="button" data-note="Live-лента — события притекают сверху в реальном времени, счётчик Shown тикает.">v2</button>
+            <button class="ver-btn" data-v="1" type="button" data-note="Автоскролл — таблица событий медленно прокручивается, края тают в градиенте.">v1</button>
+            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Live-лента — события притекают сверху в реальном времени, счётчик Shown тикает.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Очередь review — строки на проверке подсвечиваются по очереди, счётчик For review растёт.">v3</button>
           </div>
-          <span class="ver-chosen">✓ выбран: v1</span>
+          <span class="ver-chosen">✓ выбран: v2</span>
         </div>
-        <p class="ex-block-note">Автоскролл — таблица событий медленно прокручивается, края тают в градиенте.</p>
+        <p class="ex-block-note">Live-лента — события притекают сверху в реальном времени, счётчик Shown тикает.</p>
 
         <div class="fdr">
           <div class="fc">
@@ -961,7 +961,7 @@
           <div class="fi">
 
             <!-- v1 — auto-scroll table -->
-            <div class="ver-pane active" data-v="1">
+            <div class="ver-pane" data-v="1">
               <div class="rbx-frame wide" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Monitoring <span class="mut">· all events</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="mon-thead"><span>ID</span><span>Event</span><span>Type</span><span>System</span><span>Merchant</span></div>
@@ -971,7 +971,7 @@
             </div>
 
             <!-- v2 — live stream -->
-            <div class="ver-pane" data-v="2">
+            <div class="ver-pane active" data-v="2">
               <div class="rbx-frame wide" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Monitoring <span class="mut">· all events</span></span><span class="rbx-head-badge live">Live</span></div>
                 <div class="mon-thead"><span>ID</span><span>Event</span><span>Type</span><span>System</span><span>Merchant</span></div>
@@ -3065,13 +3065,13 @@
         <div class="ex-block-head">
           <div class="ex-block-meta"><span class="ex-block-num">RC</span><span class="ex-block-name">Payment Routing</span></div>
           <div class="ver-switch" role="tablist">
-            <button class="ver-btn" data-v="1" type="button" data-note="Решение — параметры и провайдеры появляются по очереди, финал — маршрут на Provider B (lowest fee).">v1</button>
-            <button class="ver-btn active chosen" data-v="2" type="button" data-note="Волна — подсветка перебирает кандидатов-провайдеров.">v2</button>
+            <button class="ver-btn active chosen" data-v="1" type="button" data-note="Решение — параметры и провайдеры появляются по очереди, финал — маршрут на Provider B (lowest fee).">v1</button>
+            <button class="ver-btn" data-v="2" type="button" data-note="Волна — подсветка перебирает кандидатов-провайдеров.">v2</button>
             <button class="ver-btn" data-v="3" type="button" data-note="Спокойный — карточка решения статична, выбран Provider B.">v3</button>
           </div>
-          <span class="ver-chosen">✓ выбран: v2</span>
+          <span class="ver-chosen">✓ выбран: v1</span>
         </div>
-        <p class="ex-block-note">Волна — подсветка перебирает кандидатов-провайдеров.</p>
+        <p class="ex-block-note">Решение — параметры и провайдеры появляются по очереди, финал — маршрут на Provider B (lowest fee).</p>
 
         <div class="fdr">
           <div class="fc">
@@ -3088,7 +3088,7 @@
           </div>
           <div class="fi">
             <!-- v1 — decision reveal -->
-            <div class="ver-pane" data-v="1">
+            <div class="ver-pane active" data-v="1">
               <div class="rbx-frame ep-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Routing decision <span class="mut">· TX-104901</span></span><span class="rbx-head-badge">Routing</span></div>
                 <div class="gen-body gen--anim" data-gen="reveal">
@@ -3107,7 +3107,7 @@
               </div>
             </div>
             <!-- v2 — wave -->
-            <div class="ver-pane active" data-v="2">
+            <div class="ver-pane" data-v="2">
               <div class="rbx-frame ep-frame" aria-hidden="true">
                 <div class="rbx-head"><span class="rbx-head-title">Routing decision <span class="mut">· TX-104901</span></span><span class="rbx-head-badge">Routing</span></div>
                 <div class="gen-body" data-gen="wave">

@@ -42,14 +42,15 @@ projects/2026-06-11_real-product-mockups/
 ## Решения по блокам
 
 **Выбор версий — финализирован 2026-06-12 (решение Дмитрия, с правками), все 31 блок помечены `.chosen` + чип:**
-01 Rule Engine v2 · 02 Payment Routing v1 · 03 Case Management v2 · 04 Go-To-Market v1 · 05 Velocity & AML v2 ·
+01 Rule Engine v2 · 02 Payment Routing v2 · 03 Case Management v2 · 04 Go-To-Market v1 · 05 Velocity & AML v2 ·
 06 Merchant Fraud v2 · 07 Routing per merchant v3 · 08 Transaction Monitoring v2 · 09 Routing & Cascading v2 ·
 10 Dispute Resolution v3 · 11 Payment Cascading v2 · 12 Deposit & Withdrawal v3 · 13 Root Cause Analysis v1 ·
 14 Evidence Preparation v1 · 15 Expert Team v2 · 16 Bonus Abuse v1 · 17 On-Ramp & KYC v1 · 18 Order Fraud v2 ·
 19 Payment Fraud v2 · 20 Transaction Pattern v1 · 21 ATO Fintech v1 · 22 ATO Trading v1 · 23 Case Mgmt DR v1 ·
-24 Chargeback Ecom v1 · 25 Data Enrichment v1 · 26 For Review v1 · 27 Notifications v1 · 28 Payment Routing RC v2 ·
+24 Chargeback Ecom v1 · 25 Data Enrichment v1 · 26 For Review v1 · 27 Notifications v1 · 28 Payment Routing RC v1 ·
 29 Provider Analytics v1 · 30 How It Works v1 · 31 Rule Management v1.
-Правки 2-й итерации: 02→v1, 13→v1 («поинтереснее»), 14→v1 (анимация и композиция), 19→v2 (последовательность), 20→v1 («бодрее»).
+Правки 2-й итерации: 13→v1 («поинтереснее»), 14→v1 (анимация и композиция), 19→v2 (последовательность), 20→v1 («бодрее»),
+28→v1 (уточнено скрином: «Payment Routing - 1» относился к RC-блоку, хоумпейджный 02 остаётся v2).
 Упоминания «Версия не выбрана» в записях ниже устарели — источник истины: сводка выше + чипы в explorer.
 
 - **01 Rule Engine → выбрана v2** (печать значений / «сборка правила»). 2026-06-11.
