@@ -285,6 +285,82 @@ footer { background: #08090a; }
   box-shadow: 100vw 0 0 0 var(--bd), -100vw 0 0 0 var(--bd);
 }
 
+/* ── SPARK BORDER HOVER (site-wide for cards/feature rows) ──
+   conic-gradient revealed via mask-composite, angle animated via @property.
+   Note: ::before chosen because .feature-row::after is already used for the full-width divider.
+   :not(a) on .industry-card filters out anchor-based cards (browser repaint issue with anchor pseudos). */
+@property --spark-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: true;
+}
+.card,
+.other-card:not(a),
+.prod-card:not(a),
+.industry-card:not(a) {
+  position: relative;
+  isolation: isolate;
+}
+.feature-row {
+  isolation: isolate;
+}
+.card::before,
+.other-card:not(a)::before,
+.prod-card:not(a)::before,
+.feature-row::before,
+.industry-card:not(a)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--spark-angle, 0deg),
+    transparent 0deg,
+    transparent 240deg,
+    rgba(26,86,255,0) 270deg,
+    var(--accent) 320deg,
+    #7850ff 340deg,
+    var(--accent) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 1;
+}
+.card:hover::before,
+.other-card:not(a):hover::before,
+.prod-card:not(a):hover::before,
+.industry-card:not(a):hover::before {
+  opacity: 1;
+  animation: sparkRotate 2.2s linear infinite;
+}
+.feature-row:hover::before {
+  opacity: 1;
+  animation: sparkRotate 3.6s linear infinite;
+}
+@keyframes sparkRotate {
+  to { --spark-angle: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card:hover::before,
+  .other-card:not(a):hover::before,
+  .prod-card:not(a):hover::before,
+  .feature-row:hover::before,
+  .industry-card:not(a):hover::before { animation: none; }
+}
+/* Inner Learn-more links (after anchor → div conversion of cards) */
+.other-link, .prod-card-link {
+  text-decoration: none;
+}
+.other-link:hover, .prod-card-link:hover {
+  text-decoration: underline;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1280px) {
   :root { --col-width: 100%; --side-pad: 40px; }

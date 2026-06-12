@@ -60,6 +60,13 @@ scanfraud-site/
 | Document Generator | `agents/specialized-document-generator.md` | PDF, reports, client-facing materials |
 | Legal Compliance | `agents/support-legal-compliance-checker.md` | GDPR, PCI DSS, PSD2, legal pages review |
 
+### Craft & Taste (финальные гейты качества)
+| Agent | File | Role |
+|-------|------|------|
+| Emil Kowalski Craft | `agents/design-emil-kowalski-craft.md` | Микро-взаимодействия, motion, hover/focus/active, easing |
+| Impeccable Detail | `agents/design-impeccable-detail.md` | Пиксель-аудит, spacing, alignment, 5bp × 2 темы |
+| Taste Editor | `agents/design-taste-editor.md` | Редакторские сокращения, restraint, борьба с buzzwords |
+
 ---
 
 ## Workflows

@@ -51,7 +51,31 @@
     z-index: 100;
     backdrop-filter: blur(10px);
     font-family: var(--font-i);
+    transition: transform .28s cubic-bezier(.4,0,.2,1), opacity .2s ease;
   }
+  .lab-nav.collapsed {
+    transform: translateX(calc(-100% - 24px));
+    opacity: 0;
+    pointer-events: none;
+  }
+  .lab-show {
+    position: fixed;
+    top: 16px; left: 16px;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    color: var(--t1);
+    cursor: pointer;
+    z-index: 101;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(.85); pointer-events: none;
+    transition: opacity .2s ease .15s, transform .2s cubic-bezier(.4,0,.2,1) .15s, background .15s;
+    backdrop-filter: blur(10px);
+  }
+  .lab-show.visible { opacity: 1; transform: scale(1); pointer-events: auto; }
+  .lab-show:hover { background: var(--bg3); }
+  .lab-show svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
   .lab-nav-head {
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 12px;
@@ -185,214 +209,105 @@
     color: var(--accent);
   }
 
-  /* Aurora background — shared for all rotation variants */
-  .hero-aurora::before {
-    content: '';
-    position: absolute;
-    inset: -15%;
-    pointer-events: none;
-    z-index: 1;
+
+  /* ════════════════════════════════════════════════════════════════
+     PRODUCT-PAGE HEROES — shared split layout
+     ════════════════════════════════════════════════════════════════ */
+  .ph { background: var(--bg); position: relative; overflow: hidden; }
+  .ph::before {
+    content: ''; position: absolute; inset: -15%; pointer-events: none; z-index: 1;
     background:
-      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.28) 0%, transparent 60%),
-      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.20) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.16) 0%, transparent 65%);
-    filter: blur(40px);
-    animation: auroraFlow 22s ease-in-out infinite;
+      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.20) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.14) 0%, transparent 60%);
+    filter: blur(40px); animation: auroraFlow 22s ease-in-out infinite;
   }
-  [data-theme="light"] .hero-aurora::before {
+  [data-theme="light"] .ph::before {
     background:
-      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.10) 0%, transparent 60%),
-      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 35% at 50% 15%, rgba(26,86,255,.07) 0%, transparent 65%);
+      radial-gradient(ellipse 50% 40% at 20% 75%, rgba(26,86,255,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 65%, rgba(120,80,255,.06) 0%, transparent 60%);
   }
-  @keyframes auroraFlow {
-    0%, 100% { transform: translate3d(0,0,0) scale(1); }
-    50%      { transform: translate3d(2%, 1%, 0) scale(1.05); }
-  }
-  .hero-dots { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-  .hero-dots canvas { display: block; width: 100% !important; height: 100% !important; }
-  .hero-inner {
-    position: relative;
-    z-index: 3;
-    max-width: 920px;
-    padding: 100px 40px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-  .hero-cta { display: flex; gap: 12px; margin-top: 12px; }
+  .ph-grid { position: relative; z-index: 3; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding: 80px 60px; max-width: 1240px; margin: 0 auto; }
+  .ph-left { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .ph-eye { font-family: var(--font-i); font-weight: 700; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); }
+  .ph-title { font-family: var(--font-g); font-weight: 600; font-size: 52px; line-height: 56px; letter-spacing: -2.2px; color: var(--t1); margin: 0; }
+  .ph-sub { font-family: var(--font-g); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--t2); max-width: 540px; margin: 0; }
+  .ph-cta { display: flex; gap: 12px; margin-top: 4px; }
 
-  /* ════════════════════════════════════════════════════════════════
-     A — Rotating hero states (cross-fade between full states)
-     ════════════════════════════════════════════════════════════════ */
-  .rA-stage {
-    position: relative;
-    width: 100%;
-    max-width: 920px;
-    min-height: 280px;
-    display: grid;
-  }
-  .rA-state {
-    grid-column: 1; grid-row: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity .55s ease, transform .55s ease;
-    pointer-events: none;
-  }
-  .rA-state.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  .rA-title {
-    font-size: 64px; font-weight: 600;
-    line-height: 68px; letter-spacing: -2.4px;
-    margin: 0;
-  }
-  .rA-sub {
-    font-size: 18px; line-height: 26px;
-    color: var(--t2); max-width: 620px; margin: 0;
-  }
-  .rA-dots {
-    display: flex; gap: 8px;
-    margin-top: 36px;
-  }
-  .rA-dot {
-    width: 24px; height: 4px; border-radius: 2px;
-    background: var(--bd);
-    border: none; padding: 0; cursor: pointer;
-    transition: background .25s;
-    position: relative;
-    overflow: hidden;
-  }
-  .rA-dot::after {
-    content: ''; position: absolute; inset: 0;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-  .rA-dot.active::after {
-    transform: scaleX(1);
-    transition: transform 7s linear;
-  }
+  /* Common mockup window (frame) */
+  .pm { background: #0a0c10; border: 1px solid var(--bd); border-radius: 14px; padding: 20px 24px 24px; font-family: var(--font-m); font-size: 13px; line-height: 22px; color: #d4d8e2; position: relative; min-height: 440px; box-shadow: 0 30px 60px -30px rgba(26,86,255,0.25); display: flex; flex-direction: column; }
+  .pm-bar { display: flex; align-items: center; gap: 6px; margin: -4px -4px 16px; }
+  .pm-bar span { width: 11px; height: 11px; border-radius: 50%; background: #4a4e5c; }
+  .pm-bar span:nth-child(1) { background: #ff5f56; }
+  .pm-bar span:nth-child(2) { background: #ffbd2e; }
+  .pm-bar span:nth-child(3) { background: #27c93f; }
+  .pm-bar em { margin-left: auto; font-style: normal; font-size: 11px; color: #6c7080; }
+  .pm-dim { color: #6c7080; }
+  .pm-line { margin: 6px 0 14px; }
+  .pm-foot { margin-top: auto; padding-top: 14px; border-top: 1px solid #1f232c; display: flex; gap: 18px; font-size: 11px; color: #6c7080; letter-spacing: .3px; }
+  .pm-foot strong { color: #d4d8e2; font-weight: 600; }
+  .pm-pulse { color: #00d089; display: inline-flex; align-items: center; gap: 6px; }
+  .pm-pulse::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00d089; box-shadow: 0 0 8px #00d089; animation: pulse 1.5s ease-in-out infinite; }
 
-  /* ════════════════════════════════════════════════════════════════
-     B — Rotating word in fixed headline
-     ════════════════════════════════════════════════════════════════ */
-  .rB-title {
-    font-size: 64px; font-weight: 600;
-    line-height: 1.06; letter-spacing: -2.4px;
-    margin: 0;
-    text-align: center;
-  }
-  .rB-slot {
-    display: inline-block;
-    position: relative;
-    vertical-align: baseline;
-    color: var(--accent);
-    min-width: 1ch;
-  }
-  .rB-slot .rB-word {
-    display: inline-block;
-    transition: opacity .35s ease, transform .35s ease;
-  }
-  .rB-slot .rB-word.out {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  .rB-slot .rB-word.in {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  .rB-sub {
-    font-size: 18px; line-height: 26px;
-    color: var(--t2); max-width: 620px; margin: 0;
-    text-align: center;
-  }
+  /* ── DR: Dispute case builder ── */
+  .dr-case-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #d4d8e2; }
+  .dr-case-id { font-weight: 600; color: #fff; }
+  .dr-case-tpl { color: #1a56ff; }
+  .dr-steps { display: flex; flex-direction: column; gap: 8px; }
+  .dr-step { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid #1f232c; border-radius: 8px; background: rgba(255,255,255,0.015); font-size: 12px; }
+  .dr-step .dr-stat { width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+  .dr-step.done { color: #d4d8e2; border-color: rgba(0,208,137,0.25); }
+  .dr-step.done .dr-stat { background: rgba(0,208,137,0.18); color: #00d089; }
+  .dr-step.now { color: #fff; border-color: rgba(26,86,255,0.4); background: rgba(26,86,255,0.06); }
+  .dr-step.now .dr-stat { background: var(--accent); color: #fff; animation: pulse 1.5s ease-in-out infinite; }
+  .dr-step.todo { color: #6c7080; }
+  .dr-step.todo .dr-stat { background: transparent; border: 1px dashed #4a4e5c; }
+  .dr-step .dr-meta { color: #6c7080; font-size: 10.5px; }
 
-  /* ════════════════════════════════════════════════════════════════
-     C — Static hero + live ticker
-     ════════════════════════════════════════════════════════════════ */
-  .rC-title {
-    font-size: 64px; font-weight: 600;
-    line-height: 68px; letter-spacing: -2.4px;
-    margin: 0;
-  }
-  .rC-sub {
-    font-size: 18px; line-height: 26px;
-    color: var(--t2); max-width: 620px; margin: 0;
-  }
-  .rC-ticker {
-    margin-top: 36px;
-    width: 100%;
-    max-width: 720px;
-    height: 44px;
-    background: var(--bg2);
-    border: 1px solid var(--bd);
-    border-radius: 999px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 0 18px;
-    font-family: var(--font-m);
-    font-size: 12px;
-    color: var(--t2);
-  }
-  .rC-ticker-head {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-right: 14px;
-    padding-right: 14px;
-    border-right: 1px solid var(--bd);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #00d089;
-    flex-shrink: 0;
-  }
-  .rC-ticker-head::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: #00d089;
-    box-shadow: 0 0 8px #00d089;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .35; }
-  }
-  .rC-ticker-flow {
-    flex: 1;
-    overflow: hidden;
-    height: 100%;
-    position: relative;
-    mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-  }
-  .rC-row {
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
-    white-space: nowrap;
-    will-change: transform;
-  }
-  .rC-row .rC-amt { color: var(--t1); font-weight: 600; }
-  .rC-row .rC-bin { color: var(--t3); }
-  .rC-row .rC-verd { font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-left: 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px; }
-  .rC-verd.ok      { background: rgba(0,208,137,0.13); color: #00d089; }
-  .rC-verd.flagged { background: rgba(251,191,36,0.13); color: #fbbf24; }
-  .rC-verd.blocked { background: rgba(255,95,86,0.13); color: #ff5f56; }
+  /* ── RM: Ops command center ── */
+  .rm-feed { display: flex; flex-direction: column; gap: 7px; }
+  .rm-evt { display: grid; grid-template-columns: 48px 18px 1fr; gap: 10px; align-items: baseline; font-size: 12.5px; opacity: 0; animation: tmSlide .35s ease forwards; }
+  .rm-evt .rm-t { color: #6c7080; font-size: 11px; }
+  .rm-evt .rm-i { width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--accent); }
+  .rm-evt .rm-i svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .rm-evt .rm-i.ok { color: #00d089; }
+  .rm-evt .rm-i.warn { color: #fbbf24; }
+  .rm-evt .rm-i.info { color: var(--accent); }
+  .rm-evt .rm-body { color: #d4d8e2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rm-evt .rm-who { color: var(--accent); font-weight: 600; }
+  .rm-evt .rm-tag { color: #fbbf24; }
+  .rm-evt .rm-ok { color: #00d089; }
+  @keyframes tmSlide { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
+
+  /* ── RC: Provider performance panel ── */
+  .rc-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-size: 11px; color: #6c7080; letter-spacing: .3px; }
+  .rc-head strong { color: #d4d8e2; font-weight: 600; }
+  .rc-list { display: flex; flex-direction: column; gap: 8px; }
+  .rc-prov { display: grid; grid-template-columns: 1fr auto auto 96px auto; gap: 12px; align-items: center; padding: 9px 12px; border: 1px solid #1f232c; border-radius: 8px; background: rgba(255,255,255,0.015); font-size: 12px; transition: background .25s, border-color .25s; }
+  .rc-prov.pref { border-color: rgba(26,86,255,0.35); background: rgba(26,86,255,0.05); }
+  .rc-prov.deg { border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.04); }
+  .rc-name { color: #d4d8e2; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+  .rc-name .rc-pref-tag { font-size: 9px; font-weight: 600; letter-spacing: .8px; color: var(--accent); padding: 2px 6px; border-radius: 4px; background: rgba(26,86,255,0.12); }
+  .rc-name .rc-deg-tag { font-size: 9px; font-weight: 600; letter-spacing: .8px; color: #fbbf24; padding: 2px 6px; border-radius: 4px; background: rgba(251,191,36,0.12); }
+  .rc-rate { color: #d4d8e2; font-weight: 500; min-width: 48px; text-align: right; }
+  .rc-lat { color: #6c7080; font-size: 11px; min-width: 60px; }
+  .rc-bar { position: relative; height: 4px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
+  .rc-bar-fill { position: absolute; inset: 0; background: var(--accent); transform-origin: left center; transition: transform .6s cubic-bezier(.4,0,.2,1); }
+  .rc-prov.deg .rc-bar-fill { background: #fbbf24; }
+  .rc-state { font-size: 10px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px; min-width: 70px; justify-content: flex-end; }
+  .rc-state.up { color: #00d089; }
+  .rc-state.up::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00d089; box-shadow: 0 0 6px #00d089; }
+  .rc-state.deg { color: #fbbf24; }
+  .rc-state.deg::before { content: '⚠'; font-size: 11px; }
+  .rc-event { margin-top: 12px; padding: 10px 12px; border: 1px solid #1f232c; border-radius: 8px; background: rgba(255,255,255,0.015); font-size: 11.5px; color: #6c7080; display: flex; align-items: center; gap: 10px; min-height: 36px; }
+  .rc-event .rc-evt-time { color: #6c7080; font-size: 10.5px; }
+  .rc-event .rc-evt-text { color: #d4d8e2; }
+  .rc-event .rc-evt-route { color: var(--accent); font-weight: 600; }
+  .rc-event.fading { opacity: 0; transition: opacity .3s; }
 
   /* Responsive */
   @media (max-width: 900px) {
-    .rA-title, .rB-title, .rC-title { font-size: 42px; line-height: 46px; letter-spacing: -1.6px; }
-    .rA-sub, .rB-sub, .rC-sub { font-size: 15px; line-height: 22px; }
+    .ph-grid { grid-template-columns: 1fr; padding: 60px 30px; }
+    .ph-title { font-size: 38px; line-height: 42px; letter-spacing: -1.4px; }
   }
 </style>
 </head>
@@ -401,17 +316,21 @@
 <aside class="lab-nav" aria-label="Components navigation">
   <div class="lab-nav-head">
     <h1>Lab</h1>
-    <button id="themeBtn" aria-label="Toggle theme">
+    <div style="display:flex;gap:4px;">
+      <button id="themeBtn" aria-label="Toggle theme">
       <svg id="iconMoon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
       <svg id="iconSun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
+      </button>
+      <button id="hideBtn" aria-label="Hide navigation" title="Hide (⌘\)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </div>
   </div>
-
   <div class="lab-group">
-    <div class="lab-group-name">Hero rotation</div>
-    <a href="#rotA">Full states cross-fade <span>A</span></a>
-    <a href="#rotB">Rotating word <span>B</span></a>
-    <a href="#rotC">Live ticker <span>C</span></a>
+    <div class="lab-group-name">Product heroes</div>
+    <a href="#phDR">Dispute Resolution <span>DR</span></a>
+    <a href="#phRM">Risk Outsourcing <span>RM</span></a>
+    <a href="#phRC">Routing &amp; Cascading <span>RC</span></a>
   </div>
 
   <div class="lab-group">
@@ -420,95 +339,180 @@
   </div>
 </aside>
 
+<button class="lab-show" id="showBtn" aria-label="Show navigation" title="Show (⌘\)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
 
 <!-- ════════════════════════════════════════════════════════════════
-     A — Rotating hero states (cross-fade)
+     DR — Dispute Resolution hero
      ════════════════════════════════════════════════════════════════ -->
-<section class="variant hero-aurora" id="rotA">
-  <div class="variant-label"><strong>A</strong> — Full states cross-fade</div>
-  <div class="hero-dots" id="rA-dots-bg" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <div class="rA-stage" id="rA-stage">
-      <div class="rA-state active">
-        <span class="eyebrow">Real-time decisions</span>
-        <h1 class="rA-title">Pure traffic. No friction.</h1>
-        <p class="rA-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
-        <div class="hero-cta">
-          <a href="#" class="btn-dark">Book a demo →</a>
-          <a href="#" class="btn-ghost">Explore platform</a>
-        </div>
-      </div>
-      <div class="rA-state">
-        <span class="eyebrow">For high-risk merchants</span>
-        <h1 class="rA-title">Built where mainstream fraud vendors won't bid.</h1>
-        <p class="rA-sub">Pre-tested rule libraries for gambling, crypto, adult, regulated CBD, forex, and high-volume e-commerce. We don't decline merchants based on what they sell.</p>
-        <div class="hero-cta">
-          <a href="#" class="btn-dark">Book a demo →</a>
-          <a href="#" class="btn-ghost">See industries</a>
-        </div>
-      </div>
-      <div class="rA-state">
-        <span class="eyebrow">Fast go-to-market</span>
-        <h1 class="rA-title">From contract to live production in 3 days.</h1>
-        <p class="rA-sub">Migrate transaction history and rule sets from any vendor — no manual rewrites, no multi-month onboarding.</p>
-        <div class="hero-cta">
-          <a href="#" class="btn-dark">Book a demo →</a>
-          <a href="#" class="btn-ghost">Read migration guide</a>
-        </div>
+<section class="variant ph" id="phDR">
+  <div class="variant-label"><strong>DR</strong> — Dispute Resolution</div>
+  <div class="ph-grid">
+    <div class="ph-left">
+      <span class="ph-eye">Products / Dispute Resolution</span>
+      <h1 class="ph-title">From dispute to evidence pack in minutes, not days.</h1>
+      <p class="ph-sub">Generate evidence packages aligned with Visa and Mastercard requirements. Device fingerprint analysis.</p>
+      <div class="ph-cta">
+        <a href="#" class="btn-dark">Book a demo →</a>
+        <a href="#" class="btn-ghost">See sample case</a>
       </div>
     </div>
-    <div class="rA-dots" id="rA-indicators" role="tablist" aria-label="Hero states">
-      <button class="rA-dot active" data-i="0" aria-label="State 1"></button>
-      <button class="rA-dot" data-i="1" aria-label="State 2"></button>
-      <button class="rA-dot" data-i="2" aria-label="State 3"></button>
+    <div class="pm" aria-hidden="true">
+      <div class="pm-bar">
+        <span></span><span></span><span></span>
+        <em>scanfraud · dispute builder</em>
+      </div>
+      <div class="dr-case-head">
+        <span class="dr-case-id">case_8842</span>
+        <span class="pm-dim">·</span>
+        <span class="dr-case-tpl">Visa CE 3.0 template</span>
+      </div>
+      <div class="dr-steps">
+        <div class="dr-step done"><span class="dr-stat">✓</span><span>Transaction snapshot</span><span class="dr-meta">auto · 0.4s</span></div>
+        <div class="dr-step done"><span class="dr-stat">✓</span><span>Device fingerprint match</span><span class="dr-meta">auto · 0.6s</span></div>
+        <div class="dr-step done"><span class="dr-stat">✓</span><span>IP geolocation log</span><span class="dr-meta">auto · 0.3s</span></div>
+        <div class="dr-step done"><span class="dr-stat">✓</span><span>Customer email thread</span><span class="dr-meta">Zendesk · 1.2s</span></div>
+        <div class="dr-step now"><span class="dr-stat">⟳</span><span>Compiling template…</span><span class="dr-meta">~3s remaining</span></div>
+        <div class="dr-step todo"><span class="dr-stat">▢</span><span>Submit to acquirer</span><span class="dr-meta">queued</span></div>
+      </div>
+      <div class="pm-foot">
+        <span class="pm-pulse">Live</span>
+        <span>won this month <strong id="drWon">247</strong></span>
+        <span>recovered <strong id="drRec">$89,432</strong></span>
+      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ════════════════════════════════════════════════════════════════
-     B — Rotating word inside fixed headline
+     RM — Risk Management Outsourcing hero
      ════════════════════════════════════════════════════════════════ -->
-<section class="variant hero-aurora" id="rotB">
-  <div class="variant-label"><strong>B</strong> — Rotating word</div>
-  <div class="hero-dots" id="rB-dots-bg" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <span class="eyebrow">No industry exclusions</span>
-    <h1 class="rB-title">
-      Built for <span class="rB-slot" id="rB-slot"><span class="rB-word">gambling</span></span><br>merchants.
-    </h1>
-    <p class="rB-sub">Pre-tested rule libraries, no multi-month onboarding, no setup fees. Cancel any month.</p>
-    <div class="hero-cta">
-      <a href="#" class="btn-dark">Book a demo →</a>
-      <a href="#" class="btn-ghost">See your vertical</a>
+<section class="variant ph" id="phRM">
+  <div class="variant-label"><strong>RM</strong> — Risk Outsourcing</div>
+  <div class="ph-grid">
+    <div class="ph-left">
+      <span class="ph-eye">Products / Risk Management Outsourcing</span>
+      <h1 class="ph-title">Your fraud team — without hiring one.</h1>
+      <p class="ph-sub">Senior analysts on duty 24/7 across 6 time zones. Triage alerts, deploy rules, investigate cases — fully white-box, all decisions auditable.</p>
+      <div class="ph-cta">
+        <a href="#" class="btn-dark">Book a demo →</a>
+        <a href="#" class="btn-ghost">Meet the team</a>
+      </div>
+    </div>
+    <div class="pm" aria-hidden="true">
+      <div class="pm-bar">
+        <span></span><span></span><span></span>
+        <em>scanfraud · ops center</em>
+      </div>
+      <div class="pm-line pm-dim">Active operators: <strong style="color:#d4d8e2;">12 analysts</strong> · 6 time zones</div>
+      <div class="rm-feed" id="rmFeed"></div>
+      <div class="pm-foot">
+        <span class="pm-pulse">Live</span>
+        <span>ack p50 <strong>4min</strong></span>
+        <span>escalations 24h <strong>0</strong></span>
+        <span>rules deployed <strong id="rmRules">18</strong></span>
+      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ════════════════════════════════════════════════════════════════
-     C — Static hero with live transaction ticker
+     RC — Payment Routing & Cascading hero
      ════════════════════════════════════════════════════════════════ -->
-<section class="variant hero-aurora" id="rotC">
-  <div class="variant-label"><strong>C</strong> — Live ticker</div>
-  <div class="hero-dots" id="rC-dots-bg" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <span class="eyebrow">Real-time decisions</span>
-    <h1 class="rC-title">Pure traffic. No friction.</h1>
-    <p class="rC-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
-    <div class="hero-cta">
-      <a href="#" class="btn-dark">Book a demo →</a>
-      <a href="#" class="btn-ghost">Explore platform</a>
+<section class="variant ph" id="phRC">
+  <div class="variant-label"><strong>RC</strong> — Routing &amp; Cascading</div>
+  <div class="ph-grid">
+    <div class="ph-left">
+      <span class="ph-eye">Products / Payment Routing &amp; Cascading</span>
+      <h1 class="ph-title">Don't lose a customer to a bad provider day.</h1>
+      <p class="ph-sub">Route every transaction to the best provider by BIN, currency, and live performance. When one fails, auto-cascade to the next — in the same session, no checkout interruption.</p>
+      <div class="ph-cta">
+        <a href="#" class="btn-dark">Book a demo →</a>
+        <a href="#" class="btn-ghost">See cascade logic</a>
+      </div>
     </div>
-    <div class="rC-ticker" aria-hidden="true">
-      <span class="rC-ticker-head">Live</span>
-      <div class="rC-ticker-flow" id="rC-flow"></div>
+    <div class="pm" aria-hidden="true">
+      <div class="pm-bar">
+        <span></span><span></span><span></span>
+        <em>scanfraud · routing engine</em>
+      </div>
+      <div class="rc-head">
+        <span>Active providers · live routing weights</span>
+        <span><strong>6</strong> online · <strong>1</strong> degraded</span>
+      </div>
+      <div class="rc-list" id="rcList">
+        <div class="rc-prov pref" data-prov="A" data-rate="97.2">
+          <span class="rc-name">Provider A <span class="rc-pref-tag">PREF</span></span>
+          <span class="rc-rate">97.2%</span>
+          <span class="rc-lat">p50 8ms</span>
+          <div class="rc-bar"><div class="rc-bar-fill" style="transform:scaleX(0.972)"></div></div>
+          <span class="rc-state up">online</span>
+        </div>
+        <div class="rc-prov" data-prov="B" data-rate="94.8">
+          <span class="rc-name">Provider B</span>
+          <span class="rc-rate">94.8%</span>
+          <span class="rc-lat">p50 14ms</span>
+          <div class="rc-bar"><div class="rc-bar-fill" style="transform:scaleX(0.948)"></div></div>
+          <span class="rc-state up">online</span>
+        </div>
+        <div class="rc-prov" data-prov="C" data-rate="89.3">
+          <span class="rc-name">Provider C</span>
+          <span class="rc-rate">89.3%</span>
+          <span class="rc-lat">p50 18ms</span>
+          <div class="rc-bar"><div class="rc-bar-fill" style="transform:scaleX(0.893)"></div></div>
+          <span class="rc-state up">online</span>
+        </div>
+        <div class="rc-prov deg" data-prov="D" data-rate="62.1">
+          <span class="rc-name">Provider D <span class="rc-deg-tag">DEG</span></span>
+          <span class="rc-rate">62.1%</span>
+          <span class="rc-lat">p50 28ms</span>
+          <div class="rc-bar"><div class="rc-bar-fill" style="transform:scaleX(0.621)"></div></div>
+          <span class="rc-state deg">degraded</span>
+        </div>
+      </div>
+      <div class="rc-event" id="rcEvent">
+        <span class="rc-evt-time">13:24</span>
+        <span class="rc-evt-text"><span class="rc-evt-route">D → A</span> rerouting · degradation detected</span>
+      </div>
+      <div class="pm-foot">
+        <span class="pm-pulse">Live</span>
+        <span>routed <strong id="rcRouted">12,847</strong></span>
+        <span>cascade-recovered <strong id="rcCasc">1.2%</strong></span>
+        <span>saved <strong id="rcSaved">$284K</strong></span>
+      </div>
     </div>
   </div>
 </section>
 
 
 <script>
+  // ── Sidebar collapse / expand ──
+  (function() {
+    const nav = document.querySelector('.lab-nav');
+    const hideBtn = document.getElementById('hideBtn');
+    const showBtn = document.getElementById('showBtn');
+    if (!nav || !hideBtn || !showBtn) return;
+    const KEY = 'sf-lab-nav-collapsed';
+    function setState(collapsed) {
+      nav.classList.toggle('collapsed', collapsed);
+      showBtn.classList.toggle('visible', collapsed);
+      localStorage.setItem(KEY, collapsed ? '1' : '0');
+    }
+    hideBtn.addEventListener('click', () => setState(true));
+    showBtn.addEventListener('click', () => setState(false));
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === '\\') {
+        e.preventDefault();
+        setState(!nav.classList.contains('collapsed'));
+      }
+    });
+    setState(localStorage.getItem(KEY) === '1');
+  })();
+
   // ── Theme toggle ──
   const btn = document.getElementById('themeBtn');
   const moon = document.getElementById('iconMoon');
@@ -518,7 +522,6 @@
     moon.style.display = t === 'dark' ? '' : 'none';
     sun.style.display = t === 'light' ? '' : 'none';
     localStorage.setItem('sf-lab-theme', t);
-    window._labDots && window._labDots.forEach(d => d.setTheme(t));
   }
   btn.addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-theme');
@@ -526,187 +529,140 @@
   });
   applyTheme(localStorage.getItem('sf-lab-theme') || 'dark');
 
-  // ── Three.js dots helper (reusable per container) ──
-  function makeDots(containerId) {
-    const container = document.getElementById(containerId);
-    if (!container || !window.THREE) return null;
-    const w = () => container.clientWidth;
-    const h = () => container.clientHeight;
-    const scene = new THREE.Scene();
-    const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-    renderer.setSize(w(), h());
-    renderer.setClearColor(0x000000, 0);
-    container.appendChild(renderer.domElement);
-    const N = 400;
-    const positions = new Float32Array(N * 3);
-    for (let i = 0; i < N; i++) {
-      positions[i*3]   = (Math.random() - 0.5) * 2;
-      positions[i*3+1] = (Math.random() - 0.5) * 2;
-      positions[i*3+2] = 0;
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const mat = new THREE.PointsMaterial({ size: 0.004, color: 0xffffff, transparent: true, opacity: 0.55 });
-    const points = new THREE.Points(geo, mat);
-    scene.add(points);
-    let t = 0;
-    function loop() {
-      t += 0.0008;
-      points.rotation.z = t;
-      renderer.render(scene, cam);
-      requestAnimationFrame(loop);
-    }
-    loop();
-    window.addEventListener('resize', () => { renderer.setSize(w(), h()); });
-    return {
-      setTheme(theme) {
-        mat.color.setHex(theme === 'light' ? 0x171717 : 0xffffff);
-        mat.opacity = theme === 'light' ? 0.30 : 0.55;
-      }
-    };
-  }
-  window._labDots = [];
-  ['rA-dots-bg','rB-dots-bg','rC-dots-bg'].forEach(id => {
-    const d = makeDots(id);
-    if (d) {
-      window._labDots.push(d);
-      d.setTheme(document.documentElement.getAttribute('data-theme'));
-    }
-  });
 
-
-  // ── A: Rotating hero states ──
+  // ── DR: dispute counters tick ──
   (function() {
-    const stage = document.getElementById('rA-stage');
-    const states = stage ? stage.querySelectorAll('.rA-state') : [];
-    const dots = document.querySelectorAll('#rA-indicators .rA-dot');
-    if (!states.length) return;
-    let idx = 0;
-    let timer = null;
-    let paused = false;
-
-    function go(next) {
-      states[idx].classList.remove('active');
-      dots[idx].classList.remove('active');
-      idx = (next + states.length) % states.length;
-      states[idx].classList.add('active');
-      // restart progress bar
-      dots[idx].classList.remove('active');
-      void dots[idx].offsetWidth;
-      dots[idx].classList.add('active');
-    }
-    function tick() {
-      if (paused) return;
-      go(idx + 1);
-    }
+    const won = document.getElementById('drWon');
+    const rec = document.getElementById('drRec');
+    if (!won) return;
+    let w = 247, r = 89432;
     function start() {
-      stop();
-      dots[idx].classList.add('active');
-      timer = setInterval(tick, 7000);
+      setInterval(() => {
+        if (Math.random() < 0.5) { w += 1; rec.textContent = '$' + (r += Math.floor(Math.random()*900)+200).toLocaleString('en-US'); won.textContent = w; }
+      }, 2200);
     }
-    function stop() { if (timer) clearInterval(timer); timer = null; }
-
-    dots.forEach(d => {
-      d.addEventListener('click', () => {
-        const n = parseInt(d.dataset.i, 10);
-        go(n);
-        start();
-      });
-    });
-    stage.addEventListener('mouseenter', () => { paused = true; });
-    stage.addEventListener('mouseleave', () => { paused = false; });
-
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
-    }, { threshold: 0.3 });
-    io.observe(document.getElementById('rotA'));
+    const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { start(); io.disconnect(); } }); }, { threshold: 0.3 });
+    io.observe(document.getElementById('phDR'));
   })();
 
-
-  // ── B: Rotating word ──
+  // ── RM: ops feed ──
   (function() {
-    const slot = document.getElementById('rB-slot');
-    if (!slot) return;
-    const words = ['gambling','crypto','adult','forex','regulated CBD','high-volume e-commerce'];
-    let i = 0;
-    let timer = null;
-    const span = slot.querySelector('.rB-word');
-
-    function swap() {
-      i = (i + 1) % words.length;
-      span.classList.add('out');
-      setTimeout(() => {
-        span.textContent = words[i];
-        span.classList.remove('out');
-        span.classList.add('in');
-        // force reflow
-        void span.offsetWidth;
-        requestAnimationFrame(() => span.classList.remove('in'));
-      }, 350);
-    }
-    function start() { if (!timer) timer = setInterval(swap, 2200); }
-    function stop() { if (timer) clearInterval(timer); timer = null; }
-
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
-    }, { threshold: 0.3 });
-    io.observe(document.getElementById('rotB'));
-  })();
-
-
-  // ── C: Live ticker ──
-  (function() {
-    const flow = document.getElementById('rC-flow');
-    if (!flow) return;
-    const corridors = ['MX → US','DE → DE','BR → ES','NG → GB','TR → DE','IN → AE','CO → US','PH → AU'];
-    const bins = ['5102','4521','5318','4012','5412','4111'];
-    const reasons = ['velocity_1h','MATCH list','bin_mismatch','device_fp','geo anomaly'];
-
-    function rand(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
-    function fmtAmount() {
-      const v = Math.floor(Math.random() * 5000) + 25;
-      return '$' + v.toLocaleString('en-US');
-    }
-    function txId() { return 'tx_' + Math.random().toString(16).slice(2,7); }
-    function pickVerdict() {
-      const r = Math.random() * 100;
-      if (r < 70) return { label: 'approved', cls: 'ok' };
-      if (r < 88) return { label: 'flagged', cls: 'flagged' };
-      return { label: 'blocked', cls: 'blocked' };
-    }
-
-    function spawn() {
-      const verdict = pickVerdict();
-      const tail = verdict.cls === 'ok'
-        ? `<span class="rC-bin">${(Math.floor(Math.random()*20)+5)}ms</span>`
-        : `<span class="rC-bin">${rand(reasons)}</span>`;
+    const feed = document.getElementById('rmFeed');
+    const rulesEl = document.getElementById('rmRules');
+    if (!feed) return;
+    const ops = ['maria.k','j.alvarez','senior_oncall','t.nakamura','s.becker','r.osei','d.cohen'];
+    const ICON = {
+      eye:    '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+      check:  '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+      zap:    '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+      alert:  '<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+      search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+      user:   '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+      rotate: '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>',
+    };
+    const events = [
+      { i: ICON.eye,    c: 'info', tpl: '<span class="rm-who">@{who}</span> claimed case #{id} · velocity spike' },
+      { i: ICON.zap,    c: 'ok',   tpl: '<span class="rm-ok">rule deployed:</span> bin_{bin}_velocity_cap (by <span class="rm-who">@{who}</span>)' },
+      { i: ICON.check,  c: 'ok',   tpl: '<span class="rm-ok">investigation closed:</span> false positive · client notified' },
+      { i: ICON.alert,  c: 'warn', tpl: '<span class="rm-tag">chargeback ratio 0.{cb}%</span> → escalating to senior' },
+      { i: ICON.search, c: 'info', tpl: '<span class="rm-who">@{who}</span> reviewing card cluster · 23 entities linked' },
+      { i: ICON.check,  c: 'ok',   tpl: '<span class="rm-ok">whitelist updated:</span> 4 BINs added (gambling vertical)' },
+      { i: ICON.rotate, c: 'ok',   tpl: '<span class="rm-ok">decline rule rolled back</span> · revenue impact <span class="rm-tag">−1.2%</span>' },
+      { i: ICON.user,   c: 'info', tpl: '<span class="rm-who">@{who}</span> joined ops · taking 5 open cases' },
+    ];
+    let rules = 18;
+    function pad(n){ return ('00'+n).slice(-2); }
+    function nowStr(){ const d=new Date(); return pad(d.getHours())+':'+pad(d.getMinutes()); }
+    function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+    function addEvent() {
+      const e = rand(events);
       const row = document.createElement('div');
-      row.className = 'rC-row';
-      row.innerHTML = `${txId()} · <span class="rC-amt">${fmtAmount()}</span> · <span class="rC-bin">BIN ${rand(bins)}</span> · ${rand(corridors)} · ${tail} <span class="rC-verd ${verdict.cls}">${verdict.label}</span>`;
-      flow.appendChild(row);
-      const flowWidth = flow.clientWidth;
-      const rowWidth = row.offsetWidth;
-      const dur = (flowWidth + rowWidth) / 80; // ~80px/sec
-      row.animate(
-        [{ transform: `translate(0, -50%)` }, { transform: `translate(${-flowWidth - rowWidth}px, -50%)` }],
-        { duration: dur * 1000, easing: 'linear', fill: 'forwards' }
-      ).onfinish = () => row.remove();
+      row.className = 'rm-evt';
+      const body = e.tpl
+        .replace('{who}', rand(ops))
+        .replace('{id}', Math.floor(Math.random()*9000)+1000)
+        .replace('{bin}', rand(['5102','4521','5318','4012']))
+        .replace('{cb}', Math.floor(Math.random()*99)+10);
+      row.innerHTML = `<span class="rm-t">${nowStr()}</span><span class="rm-i ${e.c}">${e.i}</span><span class="rm-body">${body}</span>`;
+      feed.appendChild(row);
+      while (feed.children.length > 6) feed.removeChild(feed.firstChild);
+      if (e.tpl.includes('rule deployed') || e.tpl.includes('rolled back')) {
+        rules += 1;
+        if (rulesEl) rulesEl.textContent = rules;
+      }
     }
-
     let timer = null;
     function start() {
       if (timer) return;
-      for (let k = 0; k < 2; k++) setTimeout(spawn, k * 1400);
-      timer = setInterval(spawn, 1500);
+      for (let i = 0; i < 4; i++) setTimeout(addEvent, i * 280);
+      timer = setInterval(addEvent, 1600);
     }
-    function stop() { if (timer) clearInterval(timer); timer = null; }
+    const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) start(); }); }, { threshold: 0.3 });
+    io.observe(document.getElementById('phRM'));
+  })();
 
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
-    }, { threshold: 0.3 });
-    io.observe(document.getElementById('rotC'));
+  // ── RC: provider panel live updates ──
+  (function() {
+    const routedEl = document.getElementById('rcRouted');
+    const savedEl = document.getElementById('rcSaved');
+    const evtEl = document.getElementById('rcEvent');
+    const listEl = document.getElementById('rcList');
+    if (!routedEl || !evtEl || !listEl) return;
+
+    const provs = Array.from(listEl.querySelectorAll('.rc-prov'));
+    const eventTemplates = [
+      (a,b)=>`<span class="rc-evt-route">${a} → ${b}</span> rerouting · degradation detected`,
+      (a,b)=>`<span class="rc-evt-route">${a} → ${b}</span> traffic shift · success +${(Math.random()*3+1).toFixed(1)}%`,
+      (a,b)=>`<span class="rc-evt-route">${a} → ${b}</span> cascade-recovered · ${Math.floor(Math.random()*40)+8}ms`,
+      (a)=>`<span class="rc-evt-route">${a}</span> health check ok · weights restored`,
+    ];
+    function pad(n){return ('00'+n).slice(-2);}
+    function nowStr(){const d=new Date(); return pad(d.getHours())+':'+pad(d.getMinutes());}
+    function rand(a){return a[Math.floor(Math.random()*a.length)];}
+
+    let r=12847, sv=284000;
+    function tickCounters(){
+      r += Math.floor(Math.random()*6)+1;
+      if (Math.random() < 0.18) sv += Math.floor(Math.random()*1200)+200;
+      routedEl.textContent = r.toLocaleString('en-US');
+      savedEl.textContent = '$' + Math.round(sv/1000) + 'K';
+    }
+
+    function jitterRates(){
+      provs.forEach(p => {
+        let rate = parseFloat(p.dataset.rate);
+        // small jitter; degraded fluctuates more
+        const isDeg = p.classList.contains('deg');
+        rate += (Math.random()-0.5) * (isDeg ? 2.5 : 0.6);
+        rate = Math.max(40, Math.min(99.9, rate));
+        p.dataset.rate = rate.toFixed(1);
+        p.querySelector('.rc-rate').textContent = rate.toFixed(1) + '%';
+        p.querySelector('.rc-bar-fill').style.transform = 'scaleX(' + (rate/100).toFixed(3) + ')';
+      });
+    }
+
+    function pushEvent(){
+      const tpl = rand(eventTemplates);
+      const names = ['A','B','C','D'];
+      const a = rand(names);
+      let b = rand(names); while (b===a) b = rand(names);
+      const html = tpl.length===1 ? tpl(a) : tpl(a, b);
+      evtEl.classList.add('fading');
+      setTimeout(() => {
+        evtEl.innerHTML = `<span class="rc-evt-time">${nowStr()}</span><span class="rc-evt-text">${html}</span>`;
+        evtEl.classList.remove('fading');
+      }, 200);
+    }
+
+    let t1=null, t2=null, t3=null;
+    function start(){
+      if (t1) return;
+      t1 = setInterval(tickCounters, 900);
+      t2 = setInterval(jitterRates, 1600);
+      t3 = setInterval(pushEvent, 2800);
+    }
+    const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) start(); }); }, { threshold: 0.3 });
+    io.observe(document.getElementById('phRC'));
   })();
 </script>
 

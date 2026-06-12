@@ -389,6 +389,21 @@ Agent personality files are stored in `agents/` directory. Use them as sub-agent
 - GDPR, PCI DSS, PSD2 compliance checks
 - Validates legal pages on documentation.html
 
+### Emil Kowalski Craft (`agents/design-emil-kowalski-craft.md`)
+- Micro-interactions, motion, hover/focus/active states, easing curves
+- Inspired by Emil Kowalski (Sonner, Vaul, animations.dev)
+- Tunes timing, enforces `prefers-reduced-motion`, polishes the "feel"
+
+### Impeccable Detail (`agents/design-impeccable-detail.md`)
+- Pixel-perfect audit: spacing, optical balance, border seams, icon centering
+- 5 breakpoints × 2 themes systematic walkthrough
+- Catches magic numbers, divider doubling, half-pixel drift
+
+### Taste Editor (`agents/design-taste-editor.md`)
+- Editorial cuts, restraint, redundancy elimination
+- Removes filler eyebrows, decorative icons, duplicate CTAs
+- Enforces banned-buzzword list from `system/content-voice.md`
+
 ### How to Use Agents
 
 When delegating work, reference the agent file in the sub-agent prompt:
