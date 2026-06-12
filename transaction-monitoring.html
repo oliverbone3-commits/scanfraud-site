@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -69,6 +69,49 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--nav
 .h-sub { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--t2); text-align:center; max-width:600px; }
 .h-cta { display:flex; gap:12px; align-items:center; margin-top:8px; }
 .page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); }
+/* ── Split hero with live decision stream terminal ── */
+.hero-main--split { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding: calc(var(--nav-h) + 80px) var(--cell-pad) 80px; text-align: left; }
+.hero-main--split .hero-left { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.hero-main--split .h-title { text-align: left; max-width: none; font-size: 56px; line-height: 60px; letter-spacing: -2.2px; }
+.hero-main--split .h-sub { text-align: left; max-width: 540px; font-size: 16px; line-height: 24px; }
+.hero-main--split .h-cta { margin-top: 4px; }
+.tm-term { background:#0a0c10; border:1px solid var(--bd); border-radius:14px; padding:20px 24px 24px; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:13px; line-height:22px; color:#d4d8e2; position:relative; min-height:380px; box-shadow:0 30px 60px -30px rgba(26,86,255,0.25); }
+.tm-term-bar { display:flex; align-items:center; gap:6px; margin:-4px -4px 16px; }
+.tm-term-bar span { width:11px; height:11px; border-radius:50%; background:#4a4e5c; }
+.tm-term-bar span:nth-child(1) { background:#ff5f56; }
+.tm-term-bar span:nth-child(2) { background:#ffbd2e; }
+.tm-term-bar span:nth-child(3) { background:#27c93f; }
+.tm-term-bar em { margin-left:auto; font-style:normal; font-size:11px; color:#6c7080; }
+.tm-line { margin:6px 0 14px; }
+.tm-dim { color:#6c7080; }
+.tm-stream { display:flex; flex-direction:column; gap:5px; }
+.tm-tx { display:grid; grid-template-columns:70px 1fr auto; gap:10px; align-items:baseline; font-size:12.5px; opacity:0; animation:tmSlide .35s ease forwards; }
+.tm-time { color:#6c7080; font-size:11px; }
+.tm-payload { color:#d4d8e2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tm-payload .tm-amt { color:#fff; font-weight:600; }
+.tm-payload .tm-bin { color:#8b909e; }
+.tm-payload .tm-flag { color:var(--accent); font-weight:600; }
+.tm-verdict { font-weight:600; font-size:11px; letter-spacing:.5px; text-transform:uppercase; padding:2px 8px; border-radius:4px; }
+.tm-verdict.ok      { background:rgba(0,208,137,0.13); color:#00d089; }
+.tm-verdict.flagged { background:rgba(251,191,36,0.13); color:#fbbf24; }
+.tm-verdict.blocked { background:rgba(255,95,86,0.13); color:#ff5f56; }
+@keyframes tmSlide { from { opacity:0; transform:translateX(-6px); } to { opacity:1; transform:translateX(0); } }
+.tm-summary { margin-top:14px; padding-top:14px; border-top:1px solid #1f232c; display:flex; gap:20px; font-size:11px; color:#6c7080; letter-spacing:.3px; }
+.tm-summary strong { color:#d4d8e2; font-weight:600; }
+.tm-summary .tm-pulse { color:#00d089; display:inline-flex; align-items:center; gap:6px; }
+.tm-summary .tm-pulse::before { content:''; width:6px; height:6px; border-radius:50%; background:#00d089; box-shadow:0 0 8px #00d089; animation:tmPulse 1.5s ease-in-out infinite; }
+@keyframes tmPulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+@media (max-width:1024px) {
+  .hero-main--split { grid-template-columns: 1fr; gap: 48px; padding-top: calc(var(--nav-h) + 60px); }
+  .hero-main--split .h-title { font-size: 42px; line-height: 48px; }
+}
+@media (max-width:600px) {
+  .hero-main--split { padding: calc(var(--nav-h) + 40px) var(--cell-pad) 56px; }
+  .hero-main--split .h-title { font-size: 32px; line-height: 38px; letter-spacing:-1.2px; }
+  .tm-term { padding: 16px 18px 20px; min-height: 320px; }
+  .tm-tx { grid-template-columns: 60px 1fr auto; font-size: 11px; }
+  .tm-summary { flex-wrap: wrap; gap: 12px; }
+}
 /* SECTION */
 .page-section{padding:60px 0}
 .page-section-inner{padding:0 var(--cell-pad)}
@@ -152,57 +195,83 @@ footer{background:#08090a}
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.revealed{opacity:1;transform:translateY(0)}
-/* MOCK UI */
-.mock-wrap{width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg);font-family:var(--font-i)}
-.mock-header{padding:8px 12px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:6px;background:var(--bg2)}
-.mock-dot{width:6px;height:6px;border-radius:50%;background:var(--bd)}
-.mock-title{font-size:11px;color:var(--t3);margin-left:4px}
-.mock-row{display:grid;padding:9px 12px;border-bottom:1px solid var(--bd);align-items:center}
-.mock-row:last-child{border-bottom:none}
-.mock-cell{font-size:12px;color:var(--t2)}
-.mock-cell.mono{font-family:monospace;color:var(--t1);font-size:11px}
-.mock-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px}
-.mock-badge.allow{background:rgba(34,197,94,.15);color:#22c55e}
-.mock-badge.block{background:rgba(239,68,68,.15);color:#ef4444}
-.mock-badge.review{background:rgba(234,179,8,.15);color:#eab308}
-[data-theme="light"] .mock-badge.allow{background:rgba(22,163,74,.1);color:#16a34a}
-[data-theme="light"] .mock-badge.block{background:rgba(220,38,38,.1);color:#dc2626}
-[data-theme="light"] .mock-badge.review{background:rgba(202,138,4,.1);color:#ca8a04}
-/* ALERT MOCK */
-.alert-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd)}
-.alert-item:last-child{border-bottom:none}
-.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.alert-dot.critical{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.5)}
-.alert-dot.warning{background:#eab308;box-shadow:0 0 6px rgba(234,179,8,.4)}
-.alert-dot.info{background:#8b909e}
-.alert-title{font-family:var(--font-i);font-size:12px;font-weight:500;color:var(--t1);line-height:1.4}
-.alert-sub{font-family:var(--font-i);font-size:11px;color:var(--t3);margin-top:2px}
-.alert-time{font-family:monospace;font-size:10px;color:var(--t3);flex-shrink:0;margin-top:2px}
-/* LINK GRAPH MOCK */
-.graph-wrap{width:100%;display:flex;flex-direction:column;gap:8px}
-.graph-node{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg)}
-.graph-node.root{border-color:rgba(26,86,255,.4);background:rgba(26,86,255,.05)}
-.graph-node-icon{font-size:13px;flex-shrink:0;width:20px;text-align:center}
-.graph-node-label{font-family:var(--font-i);font-size:11px;font-weight:500;color:var(--t1);flex:1}
-.graph-node-val{font-family:monospace;font-size:10px;color:var(--t3)}
-.graph-connector{display:flex;align-items:center;gap:6px;padding:0 0 0 20px}
-.graph-line{width:1px;height:16px;background:var(--bd);margin-left:9px;margin-bottom:-4px}
-/* RULE MOCK */
-.rule-card{border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg);font-family:var(--font-i);max-width:380px;width:100%}
-.rule-header{padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;justify-content:space-between}
-.rule-name{font-size:12px;font-weight:600;color:var(--t1)}
-.rule-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;background:rgba(34,197,94,.15);color:#22c55e}
-[data-theme="light"] .rule-status{background:rgba(22,163,74,.1);color:#16a34a}
-.rule-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
-.rule-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:4px}
-.rule-cond{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:5px;background:var(--bg2);border:1px solid var(--bd)}
-.rule-cond-text{font-family:monospace;font-size:11px;color:var(--t1)}
-.rule-op{font-size:10px;font-weight:600;color:var(--accent);background:rgba(26,86,255,.1);padding:1px 5px;border-radius:3px;flex-shrink:0}
-.rule-action-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:6px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.2)}
-.rule-action-label{font-size:11px;color:var(--t2)}
-.rule-action-val{font-size:11px;font-weight:600;color:#eab308}
-[data-theme="light"] .rule-action-row{background:rgba(202,138,4,.06);border-color:rgba(202,138,4,.15)}
-[data-theme="light"] .rule-action-val{color:#ca8a04}
+/* ── Animated product mockups (rows 01–04, from blocks-explorer, 2026-06-12) ── */
+.feature-row-visual .rbx-frame{width:100%;max-width:460px;border:1px solid var(--bd);border-radius:14px;background:var(--bg2);overflow:hidden;font-family:var(--font-i)}
+[data-theme="light"] .feature-row-visual .rbx-frame{background:#fafbfd}
+.feature-row-visual .rbx-frame.ep-frame{max-width:400px}
+.feature-row-visual .rbx-frame.xt-frame{max-width:420px}
+.rbx-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--bg)}
+.rbx-head-title{font-family:var(--font-g);font-weight:600;font-size:12.5px;letter-spacing:-.2px;color:var(--t1)}
+.rbx-head-title .mut{color:var(--t3);font-weight:500}
+.rbx-head-badge{font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 8px;border-radius:6px;background:rgba(26,86,255,.14);color:var(--accent);white-space:nowrap}
+.rbx-head-badge.ok{background:rgba(34,197,94,.14);color:#16a34a}
+[data-theme="dark"] .rbx-head-badge.ok{color:#22c55e}
+/* Root cause card (row 02) — av- */
+.av-body{padding:16px;--av-amber:#b45309}
+[data-theme="dark"] .av-body{--av-amber:#f59e0b}
+.av-label{font-family:var(--font-i);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:11px}
+.av-rows{display:flex;flex-direction:column;gap:8px}
+.av-row{display:flex;align-items:center;gap:10px;min-height:40px;padding:9px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:12px;color:var(--t1)}
+.av-tok{font-weight:700;font-size:11px;padding:2px 7px;border-radius:5px;background:rgba(26,86,255,.12);color:var(--accent);flex-shrink:0}
+.av-code{white-space:nowrap;overflow:hidden}
+.av-cur{display:none;width:7px;height:14px;background:var(--accent);border-radius:1px}
+.av-row.typing .av-cur{display:inline-block;animation:twBlink 1s step-end infinite}
+@keyframes twBlink{50%{opacity:0}}
+.av-divider{height:1px;background:var(--bd);margin:16px 0 14px}
+.av-after{opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.av-after.show{opacity:1;transform:none}
+.av-type-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid rgba(245,158,11,.4);border-radius:8px;background:rgba(245,158,11,.08)}
+.av-type-k{font-family:var(--font-i);font-size:13px;color:var(--t3)}
+.av-type-v{font-family:var(--font-g);font-weight:600;font-size:13px;color:var(--av-amber)}
+.av-foot{display:flex;align-items:center;justify-content:space-between;margin-top:13px;font-family:var(--font-i);font-size:12px;color:var(--t3)}
+/* Generic reveal engine (rows 01/03/04) */
+.gen-body{padding:14px 16px 16px}
+.gen--anim .g-step{opacity:0;transform:translateY(6px)}
+.gen--anim .g-step.shown{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
+.g-final{margin-top:12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.g-final.show{opacity:1;transform:none}
+.ep-sub{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:8px;background:rgba(26,86,255,.08)}
+.ep-sub-t{font-family:var(--font-i);font-size:11.5px;font-weight:600;color:var(--accent)}
+.ep-sub-m{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:10px;color:var(--t3)}
+/* Enrichment fields (row 01) — gp- */
+.gp-rows{display:flex;flex-direction:column;gap:7px}
+.gp-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+.gp-label{font-family:var(--font-i);font-size:11.5px;color:var(--t3)}
+.gp-val{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11.5px;color:var(--t1);display:flex;align-items:center;gap:6px}
+/* Review queue (row 03) — cs- */
+.cs-list{display:flex;flex-direction:column;gap:7px}
+.cs-row{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+.cs-id{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11px;font-weight:700;color:var(--t1);flex-shrink:0}
+.cs-type{font-family:var(--font-i);font-size:11.5px;color:var(--t1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-amt{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11px;color:var(--t2);flex-shrink:0}
+.dp-st{font-size:8.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.dp-st.review{background:rgba(245,158,11,.16);color:#b45309}
+.dp-st.blocked{background:rgba(239,68,68,.16);color:#dc2626}
+.dp-st.info{background:rgba(26,86,255,.14);color:var(--accent)}
+[data-theme="dark"] .dp-st.review{color:#f59e0b}
+[data-theme="dark"] .dp-st.blocked{color:#ef4444}
+/* Notification feed (row 04) — xt- */
+.xt-list{display:flex;flex-direction:column;gap:7px;padding:16px}
+.xt-list--flush{padding:0}
+.xt-row{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);flex-shrink:0}
+.xt-time{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:9.5px;color:var(--t3);min-width:34px}
+.xt-text{flex:1;font-family:var(--font-i);font-size:11.5px;color:var(--t1);line-height:15px}
+.xt-text .mut{color:var(--t3)}
+.xt-tag{font-size:8.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.xt-t-rule{background:rgba(26,86,255,.14);color:var(--accent)}
+.xt-t-tuning{background:rgba(245,158,11,.16);color:#b45309}
+.xt-t-rollback{background:rgba(239,68,68,.16);color:#dc2626}
+.xt-t-report{background:var(--bg3);color:var(--t3)}
+[data-theme="dark"] .xt-t-tuning{color:#f59e0b}
+[data-theme="dark"] .xt-t-rollback{color:#ef4444}
+@media (prefers-reduced-motion: reduce){
+  .av-cur{display:none!important}
+  .av-after{opacity:1;transform:none}
+  .gen--anim .g-step{opacity:1;transform:none}
+  .g-final{opacity:1;transform:none}
+  .tm-tx{animation:none;opacity:1}
+  .tm-summary .tm-pulse::before{animation:none}
+}
 
 /* Full-width dividers */
 .stats-row, .feature-row, .prod-grid { border-bottom: var(--bdl); position:relative; }
@@ -292,13 +361,29 @@ footer{background:#08090a}
 <div class="grid-wrap">
 <div class="hero-sec" id="heroWrap">
   <div id="dots" aria-hidden="true"></div>
-  <section class="hero-main reveal">
-    <p class="page-eyebrow">Products / Transaction Monitoring</p>
-    <h1 class="h-title">Transaction Monitoring: Full Spectrum Control.</h1>
-    <p class="h-sub">Every transaction enriched, every decline explained, and every critical event surfaced in real time — decisions in under 300ms.</p>
-    <div class="h-cta">
-      <button class="btn-dark">Book a demo</button>
-      <button class="btn-ghost">Contact sales</button>
+  <section class="hero-main hero-main--split reveal">
+    <div class="hero-left">
+      <p class="page-eyebrow">Products / Transaction Monitoring</p>
+      <h1 class="h-title">Every transaction. Every signal. Decided in milliseconds.</h1>
+      <p class="h-sub">200+ rules score amount, BIN, velocity, device, and geo for every payment your customers send. Approve, flag, or block — before the gateway responds.</p>
+      <div class="h-cta">
+        <button class="btn-dark">Book a demo</button>
+        <button class="btn-ghost">See live demo</button>
+      </div>
+    </div>
+    <div class="tm-term" aria-hidden="true">
+      <div class="tm-term-bar">
+        <span></span><span></span><span></span>
+        <em>scanfraud · decision stream</em>
+      </div>
+      <div class="tm-line tm-dim">Watching transactions across <strong style="color:#d4d8e2;">14 merchants</strong> · 6 regions</div>
+      <div class="tm-stream" id="tmStream" aria-live="polite"></div>
+      <div class="tm-summary">
+        <span class="tm-pulse">Live</span>
+        <span>processed <strong id="tmProc">12,847</strong></span>
+        <span>blocked <strong id="tmBlock">1,644</strong></span>
+        <span>p50 <strong>8.2ms</strong></span>
+      </div>
     </div>
   </section>
 </div>
@@ -316,20 +401,19 @@ footer{background:#08090a}
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div style="max-width:380px;width:100%;border:1px solid var(--bd);border-radius:10px;background:var(--bg);overflow:hidden">
-        <div style="padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;justify-content:space-between;align-items:center">
-          <span style="font-family:var(--font-i);font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">TX-104832 · Enriched</span>
-          <span style="padding:2px 8px;border-radius:3px;background:rgba(34,197,94,.15);color:#22c55e;font-family:var(--font-i);font-size:10px;font-weight:600">+15 fields</span>
-        </div>
-        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-family:var(--font-i);font-size:12px">
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">BIN</span><span style="color:var(--t1);font-weight:500">411111 · Chase (US)</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Network</span><span style="color:var(--t1);font-weight:500">Visa · Credit</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Device ID</span><span style="color:var(--t1);font-weight:500">a3f8b2···c41a</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">IP geo</span><span style="color:var(--t1);font-weight:500">US · 192.0.2.44</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Email FP</span><span style="color:var(--t1);font-weight:500">verified · 2y old</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Base currency</span><span style="color:var(--t1);font-weight:500">€238.40 (EUR)</span></div>
-          <div style="margin-top:4px;padding-top:8px;border-top:1px solid var(--bd);display:flex;justify-content:space-between"><span style="color:var(--t3)">Merchant sent</span><span style="color:#22c55e;font-weight:600">3 / 15 fields</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Auto-filled</span><span style="color:var(--accent);font-weight:600">12 / 15 fields</span></div>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">TX-104832 <span class="mut">· enrichment</span></span><span class="rbx-head-badge ok">Enriched</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="gp-rows">
+            <div class="gp-row g-step"><span class="gp-label">BIN</span><span class="gp-val">414720 · Visa credit</span></div>
+            <div class="gp-row g-step"><span class="gp-label">Issuing bank</span><span class="gp-val">Chase · US</span></div>
+            <div class="gp-row g-step"><span class="gp-label">Technical profile</span><span class="gp-val">IP · Device ID · Email</span></div>
+            <div class="gp-row g-step"><span class="gp-label">Email age</span><span class="gp-val">8 yrs · clean</span></div>
+            <div class="gp-row g-step"><span class="gp-label">Base currency</span><span class="gp-val">$129 → €119.40</span></div>
+          </div>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">15+ data points</span><span class="ep-sub-m">gaps filled automatically</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -338,34 +422,20 @@ footer{background:#08090a}
   <!-- FEATURE ROW 2: Root cause analysis -->
   <div class="feature-row reversed reveal">
     <div class="feature-row-visual">
-      <div class="rule-card">
-        <div class="rule-header">
-          <span class="rule-name">Decline reason · TX-104755</span>
-          <span class="rule-status">Blocked</span>
-        </div>
-        <div class="rule-body">
-          <div class="rule-label">Triggered by</div>
-          <div class="rule-cond">
-            <span class="rule-op">RULE</span>
-            <span class="rule-cond-text">R-218 · High-risk country + large amount</span>
+      <div class="rbx-frame av-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Decline reason <span class="mut">· TX-104755</span></span><span class="rbx-head-badge ok">Blocked</span></div>
+        <div class="av-body" data-av="type">
+          <div class="av-label">Triggered by</div>
+          <div class="av-rows">
+            <div class="av-row"><span class="av-tok">RULE</span><span class="av-code" data-text="R-218 · High-risk country + large amount"></span><span class="av-cur"></span></div>
+            <div class="av-row"><span class="av-tok">IF</span><span class="av-code" data-text="country IN [KZ, VN, ID, UA]"></span><span class="av-cur"></span></div>
+            <div class="av-row"><span class="av-tok">AND</span><span class="av-code" data-text="amount > $500.00"></span><span class="av-cur"></span></div>
           </div>
-          <div class="rule-cond">
-            <span class="rule-op">IF</span>
-            <span class="rule-cond-text">country IN [KZ, VN, ID, UA]</span>
-          </div>
-          <div class="rule-cond">
-            <span class="rule-op">AND</span>
-            <span class="rule-cond-text">amount &gt; $500.00</span>
-          </div>
-          <div style="height:1px;background:var(--bd);margin:4px 0"></div>
-          <div class="rule-label">Classification</div>
-          <div class="rule-action-row">
-            <span class="rule-action-label">Type</span>
-            <span class="rule-action-val">Risk-based decline</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:4px">
-            <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Not a provider error</span>
-            <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Score: +45</span>
+          <div class="av-after">
+            <div class="av-divider"></div>
+            <div class="av-label">Classification</div>
+            <div class="av-type-row"><span class="av-type-k">Type</span><span class="av-type-v">Risk-based decline</span></div>
+            <div class="av-foot"><span>Not a provider error</span><span>Score: +45</span></div>
           </div>
         </div>
       </div>
@@ -393,43 +463,17 @@ footer{background:#08090a}
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div style="max-width:360px;width:100%">
-        <div class="graph-wrap">
-          <div style="font-family:var(--font-i);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px">Crosscheck · For Review queue</div>
-          <div class="graph-node root">
-            <span class="graph-node-icon">💳</span>
-            <span class="graph-node-label">Card ···4421</span>
-            <span class="graph-node-val">Flagged</span>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">For Review <span class="mut">· today</span></span><span class="rbx-head-badge">Queue · 7</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="cs-list">
+            <div class="cs-row g-step"><span class="cs-id">TX-104761</span><span class="cs-type">Suspected fraud · velocity</span><span class="cs-amt">€890</span><span class="dp-st review">For Review</span></div>
+            <div class="cs-row g-step"><span class="cs-id">TX-104755</span><span class="cs-type">High-risk geo + amount</span><span class="cs-amt">€1,200</span><span class="dp-st review">For Review</span></div>
+            <div class="cs-row g-step"><span class="cs-id">TX-104749</span><span class="cs-type">BIN mismatch</span><span class="cs-amt">€340</span><span class="dp-st info">Crosscheck</span></div>
+            <div class="cs-row g-step"><span class="cs-id">TX-104738</span><span class="cs-type">Device reuse · 4 accounts</span><span class="cs-amt">€65</span><span class="dp-st blocked">Blacklisted</span></div>
           </div>
-          <div class="graph-line" style="margin-left:29px;margin-top:0;margin-bottom:0"></div>
-          <div style="display:flex;flex-direction:column;gap:6px;padding-left:20px">
-            <div class="graph-node">
-              <span class="graph-node-icon">📱</span>
-              <span class="graph-node-label">Device FP: a3f8b2...</span>
-              <span class="graph-node-val">3 cards</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:4px;padding-left:20px">
-              <div class="graph-node" style="border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)">
-                <span class="graph-node-icon">💳</span>
-                <span class="graph-node-label">Card ···8831</span>
-                <span style="font-family:var(--font-i);font-size:10px;font-weight:600;color:#ef4444">Blocked</span>
-              </div>
-              <div class="graph-node" style="border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)">
-                <span class="graph-node-icon">💳</span>
-                <span class="graph-node-label">Card ···2209</span>
-                <span style="font-family:var(--font-i);font-size:10px;font-weight:600;color:#ef4444">Blocked</span>
-              </div>
-            </div>
-            <div class="graph-node">
-              <span class="graph-node-icon">🌐</span>
-              <span class="graph-node-label">IP 185.220.101.44</span>
-              <span class="graph-node-val">7 users</span>
-            </div>
-            <div class="graph-node">
-              <span class="graph-node-icon">✉️</span>
-              <span class="graph-node-label">user@temp-mail.org</span>
-              <span class="graph-node-val">Disposable</span>
-            </div>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">Crosscheck → 3 linked accounts found</span><span class="ep-sub-m">one click</span></div>
           </div>
         </div>
       </div>
@@ -439,43 +483,18 @@ footer{background:#08090a}
   <!-- FEATURE ROW 4: Notifications -->
   <div class="feature-row reversed reveal">
     <div class="feature-row-visual">
-      <div class="mock-wrap" style="max-width:380px">
-        <div class="mock-header">
-          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
-          <span class="mock-title">In-Platform Bell · live</span>
-          <span style="margin-left:auto;font-size:10px;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,.15);color:#ef4444;font-weight:600">3 critical</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot critical"></div>
-          <div style="flex:1">
-            <div class="alert-title">12 blocked transactions from same IP in 2 min</div>
-            <div class="alert-sub">IP 185.220.101.x · Rule: Brute-force protection</div>
+      <div class="rbx-frame xt-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Notifications <span class="mut">· in-platform</span></span><span class="rbx-head-badge">Bell · 4</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="xt-list xt-list--flush">
+            <div class="xt-row g-step"><span class="xt-time">09:41</span><span class="xt-text">Visa CB ratio 0.58% <span class="mut">· approaching 0.65 limit</span></span><span class="xt-tag xt-t-tuning">Threshold</span></div>
+            <div class="xt-row g-step"><span class="xt-time">10:12</span><span class="xt-text">R-218 hit rate +340% <span class="mut">· last hour</span></span><span class="xt-tag xt-t-rule">Rule</span></div>
+            <div class="xt-row g-step"><span class="xt-time">11:03</span><span class="xt-text">Provider C latency 580ms <span class="mut">· SLA risk</span></span><span class="xt-tag xt-t-rollback">Alert</span></div>
+            <div class="xt-row g-step"><span class="xt-time">12:00</span><span class="xt-text">Daily digest sent <span class="mut">· Slack · Telegram</span></span><span class="xt-tag xt-t-report">Digest</span></div>
           </div>
-          <span class="alert-time">0:43</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot critical"></div>
-          <div style="flex:1">
-            <div class="alert-title">Chargeback rate approaching threshold — 0.87%</div>
-            <div class="alert-sub">Visa · Limit: 1.0% · 38 disputes this month</div>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">Delivered where you work</span><span class="ep-sub-m">bell · Slack · webhook</span></div>
           </div>
-          <span class="alert-time">1:15</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot warning"></div>
-          <div style="flex:1">
-            <div class="alert-title">Velocity limit 85% reached — Card ···4242</div>
-            <div class="alert-sub">5 attempts · 3 countries · 8 min window</div>
-          </div>
-          <span class="alert-time">3:02</span>
-        </div>
-        <div class="alert-item">
-          <div class="alert-dot info"></div>
-          <div style="flex:1">
-            <div class="alert-title">Slack delivery · #risk-ops (scheduled May)</div>
-            <div class="alert-sub">Webhook + messenger integration enabled</div>
-          </div>
-          <span class="alert-time">5:47</span>
         </div>
       </div>
     </div>
@@ -510,24 +529,24 @@ footer{background:#08090a}
     </div>
   </section>
   <div class="other-grid reveal">
-    <a href="routing-cascading.html" class="other-card">
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="4" cy="10" r="2"/><circle cx="16" cy="5" r="2"/><circle cx="16" cy="15" r="2"/><path d="M6 10h4m0 0l4-3m-4 3l4 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="other-title">Payment Routing &amp; Cascading</div>
       <div class="other-desc">Route transactions to the optimal provider. Automatic cascading rescues failed payments.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="dispute-resolution.html" class="other-card">
+      <a class="other-link" href="routing-cascading.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 10l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="other-title">Dispute Resolution</div>
       <div class="other-desc">Manage chargebacks from one interface. Evidence prep, case tracking, threshold monitoring.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="risk-management.html" class="other-card">
+      <a class="other-link" href="dispute-resolution.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke-linecap="round"/></svg></div>
       <div class="other-title">Risk Management Outsourcing</div>
       <div class="other-desc">Delegate fraud operations to our expert team. White-box rules, full reporting transparency.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
+      <a class="other-link" href="risk-management.html">Learn more →</a>
+    </div>
   </div>
 
 <!-- CTA -->
@@ -618,6 +637,140 @@ footer{background:#08090a}
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  // ── Live decision stream (hero terminal) ──
+  (function() {
+    const stream = document.getElementById('tmStream');
+    if (!stream) return;
+    const procEl = document.getElementById('tmProc');
+    const blockEl = document.getElementById('tmBlock');
+    const corridors = ['MX → US','DE → DE','BR → ES','NG → GB','TR → DE','IN → AE','CO → US','PH → AU'];
+    const bins = ['5102','4521','5318','4012','5412','4111'];
+    const reasons = ['velocity_1h','MATCH list','bin_mismatch','device_fp','geo anomaly','chargeback ratio'];
+    function pad(n){ return ('00'+n).slice(-2); }
+    function nowStr(){ const d=new Date(); return pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds()); }
+    function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+    function pickVerdict(){
+      const r=Math.random()*100;
+      if (r<70) return {label:'approved',cls:'ok'};
+      if (r<88) return {label:'flagged',cls:'flagged'};
+      return {label:'blocked',cls:'blocked'};
+    }
+    function fmtAmt(){ return '$'+(Math.floor(Math.random()*6000)+25).toLocaleString('en-US'); }
+    function txId(){ return 'tx_'+Math.random().toString(16).slice(2,7); }
+    let proc=12847, blocked=1644;
+    function addTx(){
+      const v=pickVerdict();
+      const tail=v.cls==='ok'
+        ? '<span class="tm-bin">'+(Math.floor(Math.random()*20)+5)+'ms</span>'
+        : '<span class="tm-flag">'+rand(reasons)+'</span>';
+      const row=document.createElement('div');
+      row.className='tm-tx';
+      row.innerHTML='<span class="tm-time">'+nowStr()+'</span><span class="tm-payload">'+txId()+' · <span class="tm-amt">'+fmtAmt()+'</span> · <span class="tm-bin">BIN '+rand(bins)+'</span> · '+rand(corridors)+' · '+tail+'</span><span class="tm-verdict '+v.cls+'">'+v.label+'</span>';
+      stream.appendChild(row);
+      while (stream.children.length>7) stream.removeChild(stream.firstChild);
+      proc++; if (v.cls!=='ok') blocked++;
+      if (procEl) procEl.textContent=proc.toLocaleString('en-US');
+      if (blockEl) blockEl.textContent=blocked.toLocaleString('en-US');
+    }
+    let timer=null;
+    const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function start(){
+      if (timer) return;
+      if (REDUCE) { timer=1; for (let i=0;i<6;i++) addTx(); return; }
+      for (let i=0;i<4;i++) setTimeout(addTx, i*280);
+      timer=setInterval(addTx, 1100);
+    }
+    const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting) start(); }); }, {threshold:0.2});
+    io.observe(document.getElementById('heroWrap'));
+  })();
+
+  /* ── Animated product mockups (rows 01–04, from blocks-explorer) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.feature-row')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.feature-row'); return !r || r.classList.contains('in-view'); };
+
+    /* Row 02 — root cause card: rule conditions typed line by line, classification reveals */
+    function startAv(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const codes = [...scope.querySelectorAll('.av-code')];
+      const avRows = [...scope.querySelectorAll('.av-row')];
+      const after = scope.querySelector('.av-after');
+      if (REDUCE) { codes.forEach(c => c.textContent = c.dataset.text); if (after) after.classList.add('show'); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        avRows.forEach(r => r.classList.remove('typing'));
+        codes.forEach(c => c.textContent = '');
+        if (after) after.classList.remove('show');
+        let i = 0;
+        (function line() {
+          if (i >= codes.length) { if (after) after.classList.add('show'); setTimeout(run, 3200); return; }
+          const el = codes[i], r = avRows[i], full = el.dataset.text; let j = 0; r.classList.add('typing');
+          const iv = setInterval(() => {
+            el.textContent = full.slice(0, ++j);
+            if (j >= full.length) { clearInterval(iv); r.classList.remove('typing'); i++; setTimeout(line, 380); }
+          }, 28);
+        })();
+      })();
+    }
+
+    /* Rows 01/03/04 — generic reveal engine: .g-step items appear in order, .g-final shows, loop */
+    function startGen(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const steps = [...scope.querySelectorAll('.g-step')];
+      const fin = scope.querySelector('.g-final');
+      const count = scope.querySelector('.g-count');
+      const finish = () => {
+        steps.forEach(s => s.classList.add('shown'));
+        if (fin) fin.classList.add('show');
+        if (count) count.textContent = count.dataset.to;
+      };
+      if (REDUCE || scope.dataset.gen !== 'reveal') { finish(); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        steps.forEach(s => s.classList.remove('shown'));
+        if (fin) fin.classList.remove('show');
+        if (count) count.textContent = '0';
+        let i = 0;
+        (function step() {
+          if (i >= steps.length) {
+            if (fin) fin.classList.add('show');
+            if (count) {
+              const to = +count.dataset.to, t0 = performance.now();
+              (function tick(now) {
+                const t = Math.min((now - t0) / 700, 1);
+                count.textContent = Math.round(to * (1 - Math.pow(1 - t, 3)));
+                if (t < 1) requestAnimationFrame(tick);
+              })(t0);
+            }
+            setTimeout(run, 3600); return;
+          }
+          steps[i].classList.add('shown'); i++; setTimeout(step, 360);
+        })();
+      })();
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('.av-body[data-av]').forEach(startAv);
+        row.querySelectorAll('[data-gen]').forEach(startGen);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
   })();
 </script>
 </body>

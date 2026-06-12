@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -134,32 +134,78 @@ footer{background:#08090a}
 .ft-legal a:hover{color:#fff}[data-theme="light"] .ft-legal a{color:#8b909e}[data-theme="light"] .ft-legal a:hover{color:#171717}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.revealed{opacity:1;transform:translateY(0)}
-/* ROUTE MOCK */
-.route-label{font-family:var(--font-i);font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
-.route-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg)}
-.route-row.active-route{border-color:rgba(26,86,255,.4);background:rgba(26,86,255,.05)}
-.route-row.cascade{border-style:dashed;opacity:.7}
-.route-name{font-family:var(--font-i);font-size:12px;font-weight:500;color:var(--t1);flex:1}
-.route-pct{font-family:var(--font-i);font-size:11px;font-weight:600;color:var(--accent)}
-.route-bar-wrap{flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
-.route-bar{height:100%;border-radius:2px;background:var(--accent)}
-.route-tag{font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;background:rgba(26,86,255,.15);color:var(--accent)}
-.route-tag.fallback{background:rgba(139,144,158,.12);color:var(--t3)}
-.route-tag.success{background:rgba(34,197,94,.15);color:#22c55e}
-.route-tag.failed{background:rgba(239,68,68,.15);color:#ef4444}
-[data-theme="light"] .route-tag.success{background:rgba(22,163,74,.1);color:#16a34a}
-[data-theme="light"] .route-tag.failed{background:rgba(220,38,38,.1);color:#dc2626}
-/* PROVIDER TABLE */
-.prov-table{width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg);font-family:var(--font-i)}
-.prov-thead{display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2)}
-.prov-th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)}
-.prov-row{display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;padding:10px 12px;border-bottom:1px solid var(--bd);align-items:center}
-.prov-row:last-child{border-bottom:none}
-.prov-name{font-size:12px;font-weight:500;color:var(--t1)}
-.prov-val{font-size:12px;color:var(--t2)}
-.prov-val.good{color:#22c55e;font-weight:500}
-.prov-val.warn{color:#eab308;font-weight:500}
-[data-theme="light"] .prov-val.good{color:#16a34a}[data-theme="light"] .prov-val.warn{color:#ca8a04}
+/* ── Animated product mockups (blocks-explorer prod integration, 2026-06-12) ── */
+.feature-row-visual .rbx-frame{width:100%;max-width:460px;border:1px solid var(--bd);border-radius:14px;background:var(--bg2);overflow:hidden;font-family:var(--font-i)}
+[data-theme="light"] .feature-row-visual .rbx-frame{background:#fafbfd}
+.feature-row-visual .rbx-frame.ep-frame{max-width:400px}
+.rbx-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--bg)}
+.rbx-head-title{font-family:var(--font-g);font-weight:600;font-size:12.5px;letter-spacing:-.2px;color:var(--t1)}
+.rbx-head-title .mut{color:var(--t3);font-weight:500}
+.rbx-head-badge{font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 8px;border-radius:6px;background:rgba(26,86,255,.14);color:var(--accent);white-space:nowrap}
+.rbx-head-badge.live{background:rgba(34,197,94,.14);color:#16a34a;display:inline-flex;align-items:center;gap:6px}
+[data-theme="dark"] .rbx-head-badge.live{color:#22c55e}
+.rbx-head-badge.live::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;animation:monPulse 1.4s ease-in-out infinite}
+@keyframes monPulse{50%{opacity:.25}}
+/* generic reveal/wave engine (rows 01/03) — g-/gen- */
+.gen-body{padding:14px 16px 16px}
+.gen--anim .g-step{opacity:0;transform:translateY(6px)}
+.gen--anim .g-step.shown{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
+.g-step.wave{background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.45)}
+.g-final{margin-top:12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.g-final.show{opacity:1;transform:none}
+.g-final--pad{margin:12px 14px 14px}
+.ep-sub{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:8px;background:rgba(26,86,255,.08)}
+.ep-sub-t{font-family:var(--font-i);font-size:11.5px;font-weight:600;color:var(--accent)}
+.ep-sub-m{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:10px;color:var(--t3)}
+.ep-sub.warn{background:rgba(245,158,11,.12)}
+.ep-sub.warn .ep-sub-t{color:#b45309}
+[data-theme="dark"] .ep-sub.warn .ep-sub-t{color:#f59e0b}
+/* row 01 — routing decision (pr- chips + gp- provider rows) */
+.pr-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.pr-chip{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:10px;color:var(--t2);padding:4px 8px;border:1px solid var(--bd);border-radius:6px;background:var(--bg)}
+.pr-pick{border-color:rgba(26,86,255,.5);background:rgba(26,86,255,.05)}
+.gp-rows{display:flex;flex-direction:column;gap:7px}
+.gp-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+.gp-label{font-family:var(--font-i);font-size:11.5px;color:var(--t3)}
+.gp-val{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11.5px;color:var(--t1);display:flex;align-items:center;gap:6px}
+/* row 02 — cascade chain (pc-) */
+.pc-body{padding:14px 16px;display:flex;flex-direction:column}
+.pc-step{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);transition:border-color .4s ease,background .4s ease}
+.pc-step.fail,.pc-step.decline{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.05)}
+.pc-step.approve{border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.05)}
+.pc-name{font-family:var(--font-i);font-size:13px;font-weight:600;color:var(--t1)}
+.pc-sub{font-family:var(--font-i);font-size:11px;color:var(--t3);margin-top:2px}
+.pc-badge{font-family:var(--font-i);font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.pc-b-pending{background:rgba(128,128,128,.14);color:var(--t3)}
+.pc-b-fail,.pc-b-decline{background:rgba(239,68,68,.16);color:#dc2626}
+.pc-b-approve{background:rgba(34,197,94,.16);color:#16a34a}
+[data-theme="dark"] .pc-b-fail,[data-theme="dark"] .pc-b-decline{color:#ef4444}
+[data-theme="dark"] .pc-b-approve{color:#22c55e}
+.pc-conn{padding:5px 0 5px 15px;margin:1px 0 1px 7px;border-left:1px dashed var(--bd);font-family:var(--font-i);font-size:11px;color:var(--t3)}
+.pc-rescue{margin-top:9px;padding:11px 13px;border:1px solid var(--accent);border-radius:10px;background:rgba(26,86,255,.06);font-family:var(--font-i);font-size:12px;color:var(--t2)}
+.pc--seq .pc-conn,.pc--seq .pc-rescue{opacity:0;transition:opacity .35s ease}
+.pc--seq .pc-conn.show,.pc--seq .pc-rescue.show{opacity:1}
+.pc--reveal .pc-step,.pc--reveal .pc-conn,.pc--reveal .pc-rescue{opacity:0;transform:translateY(6px)}
+.pc--reveal .shown{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
+.pc-rescue.pulse{animation:blPulse 2s ease-in-out infinite}
+@keyframes blPulse{0%,100%{box-shadow:0 0 0 0 rgba(26,86,255,.45)}50%{box-shadow:0 0 0 5px rgba(26,86,255,0)}}
+/* row 03 — provider analytics table (pa-) */
+.pa-cols,.pa-row{display:grid;grid-template-columns:1.1fr .8fr .6fr .8fr;gap:8px;align-items:center;padding:9px 14px}
+.pa-cols{padding:8px 14px;border-bottom:1px solid var(--bd)}
+.pa-row{border-bottom:1px solid var(--bd);transition:background .3s ease}
+.pa-row:last-child{border-bottom:none}
+.pa-name{font-family:var(--font-i);font-size:12px;font-weight:500;color:var(--t1)}
+.pa-val{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11px;color:var(--t2)}
+.pa-val.good{color:#16a34a}.pa-val.warn{color:#b45309}
+[data-theme="dark"] .pa-val.good{color:#22c55e}[data-theme="dark"] .pa-val.warn{color:#f59e0b}
+.ec-h{font-size:8.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--t3)}
+@media (prefers-reduced-motion: reduce){
+  .rbx-head-badge.live::before{animation:none}
+  .pc--seq .pc-conn,.pc--seq .pc-rescue,.pc--reveal .pc-step,.pc--reveal .pc-conn,.pc--reveal .pc-rescue{opacity:1;transform:none}
+  .pc-rescue.pulse{animation:none}
+  .gen--anim .g-step{opacity:1;transform:none}
+  .g-final{opacity:1;transform:none}
+}
 @media(max-width:1280px){:root{--col-width:100%;--cell-pad:32px}.nav-inner,.grid-wrap{width:100%;border-left:none;border-right:none}.footer-inner-wrap{max-width:100%}}
 @media(max-width:1024px){:root{--cell-pad:28px}.h-title{font-size:38px;line-height:44px}}
 @media(max-width:768px){:root{--cell-pad:24px;--nav-h:56px}.nav-links,
@@ -264,36 +310,19 @@ footer{background:#08090a}
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div style="max-width:380px;width:100%;display:flex;flex-direction:column;gap:10px">
-        <p class="route-label">Routing rules — EU traffic</p>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div class="route-row active-route">
-            <span class="route-name">Provider A · Visa/MC · EU</span>
-            <div class="route-bar-wrap"><div class="route-bar" style="width:68%"></div></div>
-            <span class="route-pct">68%</span>
-            <span class="route-tag">Primary</span>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Routing decision <span class="mut">· TX-104901</span></span><span class="rbx-head-badge">Routing</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="pr-chips">
+            <span class="pr-chip g-step">DE</span><span class="pr-chip g-step">€240</span><span class="pr-chip g-step">Visa</span><span class="pr-chip g-step">EUR</span><span class="pr-chip g-step">3DS</span>
           </div>
-          <div class="route-row">
-            <span class="route-name">Provider B · Global</span>
-            <div class="route-bar-wrap"><div class="route-bar" style="width:22%;opacity:.5"></div></div>
-            <span class="route-pct" style="opacity:.6">22%</span>
-            <span class="route-tag">Secondary</span>
+          <div class="gp-rows">
+            <div class="gp-row g-step pr-pick"><span class="gp-label">Provider A</span><span class="gp-val">fee 1.4% · 94.2%</span></div>
+            <div class="gp-row g-step"><span class="gp-label">Provider B</span><span class="gp-val">fee 1.7% · 91.8%</span></div>
+            <div class="gp-row g-step"><span class="gp-label">Provider C</span><span class="gp-val">fee 2.1% · 87.1%</span></div>
           </div>
-          <div class="route-row cascade">
-            <span class="route-name">Provider C · High-risk</span>
-            <div class="route-bar-wrap"><div class="route-bar" style="width:10%;opacity:.3"></div></div>
-            <span class="route-pct" style="opacity:.4">10%</span>
-            <span class="route-tag fallback">Cascade</span>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
-          <div style="padding:10px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);display:flex;flex-direction:column;gap:3px">
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">Today's volume</span>
-            <span style="font-family:var(--font-g);font-weight:600;font-size:16px;color:var(--t1)">14,832 txn</span>
-          </div>
-          <div style="padding:10px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);display:flex;flex-direction:column;gap:3px">
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">Approval rate</span>
-            <span style="font-family:var(--font-g);font-weight:600;font-size:16px;color:#22c55e">94.2%</span>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">Routed to Provider A</span><span class="ep-sub-m">lowest fee · 94.2% approval</span></div>
           </div>
         </div>
       </div>
@@ -303,41 +332,15 @@ footer{background:#08090a}
   <!-- ROW 2: Cascading -->
   <div class="feature-row reversed reveal">
     <div class="feature-row-visual">
-      <div style="max-width:380px;width:100%;display:flex;flex-direction:column;gap:10px">
-        <p class="route-label">Cascade chain — TXN-9921</p>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div class="route-row" style="border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)">
-            <div style="display:flex;flex-direction:column;flex:1;gap:2px">
-              <span class="route-name">Provider A</span>
-              <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Timeout — no response in 8s</span>
-            </div>
-            <span class="route-tag failed">Failed</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;padding:0 14px">
-            <div style="width:1px;height:14px;background:var(--bd);margin-left:9px"></div>
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">Auto-cascade triggered</span>
-          </div>
-          <div class="route-row" style="border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)">
-            <div style="display:flex;flex-direction:column;flex:1;gap:2px">
-              <span class="route-name">Provider B</span>
-              <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Decline code 51 — insufficient funds</span>
-            </div>
-            <span class="route-tag failed">Declined</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;padding:0 14px">
-            <div style="width:1px;height:14px;background:var(--bd);margin-left:9px"></div>
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">Retry with next provider</span>
-          </div>
-          <div class="route-row" style="border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.04)">
-            <div style="display:flex;flex-direction:column;flex:1;gap:2px">
-              <span class="route-name">Provider C</span>
-              <span style="font-family:var(--font-i);font-size:11px;color:var(--t3)">Approved in 280ms</span>
-            </div>
-            <span class="route-tag success">Approved</span>
-          </div>
-        </div>
-        <div style="padding:8px 12px;border-radius:6px;background:rgba(26,86,255,.06);border:1px solid rgba(26,86,255,.2);font-family:var(--font-i);font-size:11px;color:var(--t2)">
-          Transaction rescued. Customer never saw a failure.
+      <div class="rbx-frame pc-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Cascade chain <span class="mut">· TXN-9921</span></span><span class="rbx-head-badge">Cascade</span></div>
+        <div class="pc-body pc--reveal" data-pc="reveal">
+          <div class="pc-step"><div><div class="pc-name">Provider A</div><div class="pc-sub">Timeout — no response in 8s</div></div><span class="pc-badge pc-b-fail">Failed</span></div>
+          <div class="pc-conn">Auto-cascade triggered</div>
+          <div class="pc-step"><div><div class="pc-name">Provider B</div><div class="pc-sub">Decline code 51 — insufficient funds</div></div><span class="pc-badge pc-b-decline">Declined</span></div>
+          <div class="pc-conn">Retry with next provider</div>
+          <div class="pc-step"><div><div class="pc-name">Provider C</div><div class="pc-sub">Approved in 280ms</div></div><span class="pc-badge pc-b-approve">Approved</span></div>
+          <div class="pc-rescue">Transaction rescued. Customer never saw a failure.</div>
         </div>
       </div>
     </div>
@@ -370,42 +373,17 @@ footer{background:#08090a}
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="prov-table" style="max-width:400px;width:100%">
-        <div style="padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;gap:6px">
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <span style="font-family:var(--font-i);font-size:11px;color:var(--t3);margin-left:4px">Provider analytics — live</span>
-        </div>
-        <div class="prov-thead">
-          <span class="prov-th">Provider</span>
-          <span class="prov-th">Approval</span>
-          <span class="prov-th">Avg fee</span>
-          <span class="prov-th">Latency</span>
-        </div>
-        <div class="prov-row">
-          <span class="prov-name">Provider A</span>
-          <span class="prov-val good">94.2%</span>
-          <span class="prov-val">1.4%</span>
-          <span class="prov-val good">210ms</span>
-        </div>
-        <div class="prov-row">
-          <span class="prov-name">Provider B</span>
-          <span class="prov-val good">91.8%</span>
-          <span class="prov-val">1.7%</span>
-          <span class="prov-val">340ms</span>
-        </div>
-        <div class="prov-row">
-          <span class="prov-name">Provider C</span>
-          <span class="prov-val warn">87.1%</span>
-          <span class="prov-val">2.1%</span>
-          <span class="prov-val warn">580ms</span>
-        </div>
-        <div class="prov-row">
-          <span class="prov-name">Provider D</span>
-          <span class="prov-val">89.4%</span>
-          <span class="prov-val">1.9%</span>
-          <span class="prov-val">410ms</span>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Provider analytics <span class="mut">· real time</span></span><span class="rbx-head-badge live">Live</span></div>
+        <div class="gen--anim" data-gen="reveal">
+          <div class="pa-cols"><span class="ec-h">Provider</span><span class="ec-h">Approval</span><span class="ec-h">Fee</span><span class="ec-h">Latency</span></div>
+          <div class="pa-row g-step"><span class="pa-name">Provider A</span><span class="pa-val good">94.2%</span><span class="pa-val">1.4%</span><span class="pa-val good">210ms</span></div>
+          <div class="pa-row g-step"><span class="pa-name">Provider B</span><span class="pa-val good">91.8%</span><span class="pa-val">1.7%</span><span class="pa-val">340ms</span></div>
+          <div class="pa-row g-step"><span class="pa-name">Provider C</span><span class="pa-val warn">87.1%</span><span class="pa-val">2.1%</span><span class="pa-val warn">580ms</span></div>
+          <div class="pa-row g-step"><span class="pa-name">Provider D</span><span class="pa-val">89.4%</span><span class="pa-val">1.9%</span><span class="pa-val">410ms</span></div>
+          <div class="g-final g-final--pad">
+            <div class="ep-sub warn"><span class="ep-sub-t">Provider C degrading</span><span class="ep-sub-m">traffic shifted to A / B</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -432,24 +410,24 @@ footer{background:#08090a}
     </div>
   </section>
   <div class="other-grid reveal">
-    <a href="transaction-monitoring.html" class="other-card">
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><path d="M10 2L3 5.5v7L10 16l7-3.5v-7L10 2z"/><path d="M10 7l-3 1.5v3L10 13l3-1.5v-3L10 7z" opacity=".4"/></svg></div>
       <div class="other-title">Transaction Monitoring</div>
       <div class="other-desc">Real-time fraud detection with rules engine, alerts, and cross-entity analysis.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="dispute-resolution.html" class="other-card">
+      <a class="other-link" href="transaction-monitoring.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 10l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="other-title">Dispute Resolution</div>
       <div class="other-desc">Manage chargebacks from one interface. Evidence prep, case tracking, threshold monitoring.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="risk-management.html" class="other-card">
+      <a class="other-link" href="dispute-resolution.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke-linecap="round"/></svg></div>
       <div class="other-title">Risk Management Outsourcing</div>
       <div class="other-desc">Delegate fraud operations to our expert team. White-box rules, full reporting.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
+      <a class="other-link" href="risk-management.html">Learn more →</a>
+    </div>
   </div>
 </div>
 
@@ -538,6 +516,119 @@ footer{background:#08090a}
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (rows 01–03, from blocks-explorer) ── */
+  (function(){
+    const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows=[...document.querySelectorAll('.feature-row')].filter(r=>r.querySelector('.rbx-frame'));
+    if(!rows.length)return;
+
+    /* Row 02 — cascade chain: modes cascade / reveal / calm */
+    const PC_ST={pending:['pending','Trying…'],fail:['fail','Failed'],decline:['decline','Declined'],approve:['approve','Approved']};
+    function pcSet(s,st){const L=PC_ST[st];s.className='pc-step'+(st==='pending'?'':' '+L[0]);const b=s.querySelector('.pc-badge');b.className='pc-badge pc-b-'+L[0];b.textContent=L[1];}
+    function startPc(scope){
+      if(scope.dataset.started)return;scope.dataset.started='1';
+      const mode=scope.dataset.pc;
+      const block=scope.closest('.feature-row');
+      const live=()=>!block||block.classList.contains('in-view');
+      const steps=[...scope.querySelectorAll('.pc-step')];
+      const conns=[...scope.querySelectorAll('.pc-conn')];
+      const rescue=scope.querySelector('.pc-rescue');
+      const finals=['fail','decline','approve'];
+      const showAll=()=>{steps.forEach((s,i)=>pcSet(s,finals[i]));conns.forEach(c=>c.classList.add('show'));rescue.classList.add('show');};
+      if(REDUCE||mode==='calm'){showAll();if(mode==='calm'&&!REDUCE)rescue.classList.add('pulse');return;}
+      if(mode==='reveal'){
+        steps.forEach((s,i)=>pcSet(s,finals[i]));
+        const items=[steps[0],conns[0],steps[1],conns[1],steps[2],rescue];
+        (function run(){
+          if(!live()){setTimeout(run,900);return;}
+          items.forEach(el=>el.classList.remove('shown'));
+          let i=0;
+          (function step(){if(i>=items.length){setTimeout(run,2800);return;}items[i].classList.add('shown');i++;setTimeout(step,260);})();
+        })();
+        return;
+      }
+      /* cascade */
+      (function run(){
+        if(!live()){setTimeout(run,900);return;}
+        steps.forEach(s=>pcSet(s,'pending'));conns.forEach(c=>c.classList.remove('show'));rescue.classList.remove('show');
+        setTimeout(()=>pcSet(steps[0],'fail'),700);
+        setTimeout(()=>conns[0].classList.add('show'),950);
+        setTimeout(()=>pcSet(steps[1],'decline'),1700);
+        setTimeout(()=>conns[1].classList.add('show'),1950);
+        setTimeout(()=>{pcSet(steps[2],'approve');rescue.classList.add('show');},2700);
+        setTimeout(run,4900);
+      })();
+    }
+
+    /* Rows 01/03 — generic reveal/wave engine: modes reveal / wave / calm */
+    function startGen(scope){
+      if(scope.dataset.started)return;scope.dataset.started='1';
+      const mode=scope.dataset.gen;
+      const block=scope.closest('.feature-row');
+      const live=()=>!block||block.classList.contains('in-view');
+      const steps=[...scope.querySelectorAll('.g-step')];
+      const fin=scope.querySelector('.g-final');
+      const count=scope.querySelector('.g-count');
+      const finish=()=>{
+        steps.forEach(s=>s.classList.add('shown'));
+        if(fin)fin.classList.add('show');
+        if(count)count.textContent=count.dataset.to;
+      };
+      if(REDUCE||mode==='calm'){finish();return;}
+      if(mode==='wave'){
+        finish();
+        let i=-1;
+        setInterval(()=>{if(!live())return;
+          steps.forEach(s=>s.classList.remove('wave'));
+          i=(i+1)%(steps.length+2);
+          if(i<steps.length)steps[i].classList.add('wave');
+        },700);
+        return;
+      }
+      /* reveal */
+      (function run(){
+        if(!live()){setTimeout(run,900);return;}
+        steps.forEach(s=>s.classList.remove('shown'));
+        if(fin)fin.classList.remove('show');
+        if(count)count.textContent='0';
+        let i=0;
+        (function step(){
+          if(i>=steps.length){
+            if(fin)fin.classList.add('show');
+            if(count){
+              const to=+count.dataset.to,t0=performance.now();
+              (function tick(now){
+                const t=Math.min((now-t0)/700,1);
+                count.textContent=Math.round(to*(1-Math.pow(1-t,3)));
+                if(t<1)requestAnimationFrame(tick);
+              })(t0);
+            }
+            setTimeout(run,3600);return;
+          }
+          steps[i].classList.add('shown');i++;setTimeout(step,360);
+        })();
+      })();
+    }
+
+    function activateRow(row){
+      requestAnimationFrame(()=>{
+        row.querySelectorAll('.pc-body').forEach(startPc);
+        row.querySelectorAll('[data-gen]').forEach(startGen);
+      });
+    }
+    if(!('IntersectionObserver' in window)){
+      rows.forEach(r=>{r.classList.add('in-view');activateRow(r);});
+      return;
+    }
+    const mio=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('in-view');activateRow(e.target);}
+        else e.target.classList.remove('in-view');
+      });
+    },{threshold:0.3});
+    rows.forEach(r=>mio.observe(r));
   })();
 </script>
 </body>

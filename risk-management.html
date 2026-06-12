@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -142,30 +142,65 @@ footer{background:#08090a}
 .ft-legal a:hover{color:#fff}[data-theme="light"] .ft-legal a{color:#8b909e}[data-theme="light"] .ft-legal a:hover{color:#171717}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.revealed{opacity:1;transform:translateY(0)}
-/* REPORT MOCK */
-.report-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd)}
-.report-item:last-child{border-bottom:none}
-.report-icon{width:28px;height:28px;border-radius:6px;background:rgba(26,86,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.report-icon svg{width:14px;height:14px;stroke:var(--accent);stroke-width:1.5;fill:none}
-[data-theme="light"] .report-icon{background:rgba(26,86,255,.07)}
-.report-title{font-family:var(--font-i);font-size:12px;font-weight:500;color:var(--t1);line-height:1.4}
-.report-sub{font-family:var(--font-i);font-size:11px;color:var(--t3);margin-top:2px}
-.report-time{font-family:var(--font-i);font-size:10px;color:var(--t3);flex-shrink:0;margin-top:2px;white-space:nowrap}
-/* RULE PERF TABLE */
-.rule-table{width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg);font-family:var(--font-i)}
-.rule-thead{display:grid;grid-template-columns:1.5fr .7fr .7fr .7fr;padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2)}
-.rule-th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)}
-.rule-trow{display:grid;grid-template-columns:1.5fr .7fr .7fr .7fr;padding:9px 12px;border-bottom:1px solid var(--bd);align-items:center}
-.rule-trow:last-child{border-bottom:none}
-.rule-tname{font-size:12px;font-weight:500;color:var(--t1)}
-.rule-tval{font-size:12px;color:var(--t2)}
-.rule-tval.good{color:#22c55e;font-weight:500}
-.rule-tval.warn{color:#eab308;font-weight:500}
-[data-theme="light"] .rule-tval.good{color:#16a34a}[data-theme="light"] .rule-tval.warn{color:#ca8a04}
-.rule-tbadge{font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:rgba(34,197,94,.15);color:#22c55e;width:fit-content}
-.rule-tbadge.review{background:rgba(234,179,8,.15);color:#eab308}
-[data-theme="light"] .rule-tbadge{background:rgba(22,163,74,.1);color:#16a34a}
-[data-theme="light"] .rule-tbadge.review{background:rgba(202,138,4,.1);color:#ca8a04}
+/* ── Animated product mockups (rows 01–02, from blocks-explorer, 2026-06-12) ── */
+.feature-row-visual .rbx-frame{width:100%;max-width:460px;border:1px solid var(--bd);border-radius:14px;background:var(--bg2);overflow:hidden;font-family:var(--font-i)}
+[data-theme="light"] .feature-row-visual .rbx-frame{background:#fafbfd}
+.feature-row-visual .rbx-frame.xt-frame{max-width:420px}
+.feature-row-visual .rbx-frame.ep-frame{max-width:400px}
+.rbx-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--bg)}
+.rbx-head-title{font-family:var(--font-g);font-weight:600;font-size:12.5px;letter-spacing:-.2px;color:var(--t1)}
+.rbx-head-title .mut{color:var(--t3);font-weight:500}
+.rbx-head-badge{font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 8px;border-radius:6px;background:rgba(26,86,255,.14);color:var(--accent);white-space:nowrap}
+.rbx-head-badge.live{background:rgba(34,197,94,.14);color:#16a34a;display:inline-flex;align-items:center;gap:6px}
+[data-theme="dark"] .rbx-head-badge.live{color:#22c55e}
+.rbx-head-badge.live::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;animation:monPulse 1.4s ease-in-out infinite}
+@keyframes monPulse{50%{opacity:.25}}
+.rbx-viewport{position:relative;height:300px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%)}
+/* Expert team live feed (row 01) — xt- */
+.xt-track{position:relative;display:flex;flex-direction:column;gap:7px;padding:16px}
+.xt-row{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);flex-shrink:0}
+.xt-time{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:9.5px;color:var(--t3);min-width:34px}
+.xt-av{width:20px;height:20px;border-radius:50%;background:rgba(26,86,255,.12);color:var(--accent);font-family:var(--font-i);font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.xt-av.sys{background:var(--bg3);color:var(--t3)}
+.xt-text{flex:1;font-family:var(--font-i);font-size:11.5px;color:var(--t1);line-height:15px}
+.xt-text .mut{color:var(--t3)}
+.xt-tag{font-size:8.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.xt-t-rule{background:rgba(26,86,255,.14);color:var(--accent)}
+.xt-t-tuning{background:rgba(245,158,11,.16);color:#b45309}
+.xt-t-review{background:rgba(34,197,94,.14);color:#16a34a}
+.xt-t-rollback{background:rgba(239,68,68,.16);color:#dc2626}
+.xt-t-report{background:var(--bg3);color:var(--t3)}
+[data-theme="dark"] .xt-t-tuning{color:#f59e0b}
+[data-theme="dark"] .xt-t-review{color:#22c55e}
+[data-theme="dark"] .xt-t-rollback{color:#ef4444}
+.xt-row.fresh{animation:xtIn .5s ease}
+@keyframes xtIn{0%{opacity:0;transform:translateY(-8px)}60%{background:rgba(26,86,255,.10)}100%{opacity:1;transform:none}}
+/* Rule portfolio reveal (row 02) — gen/cs */
+.gen-body{padding:14px 16px 16px}
+.gen--anim .g-step{opacity:0;transform:translateY(6px)}
+.gen--anim .g-step.shown{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
+.g-final{margin-top:12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.g-final.show{opacity:1;transform:none}
+.ep-sub{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:8px;background:rgba(26,86,255,.08)}
+.ep-sub-t{font-family:var(--font-i);font-size:11.5px;font-weight:600;color:var(--accent)}
+.ep-sub-m{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:10px;color:var(--t3)}
+.cs-list{display:flex;flex-direction:column;gap:7px}
+.cs-row{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+.cs-id{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11px;font-weight:700;color:var(--t1);flex-shrink:0}
+.cs-type{font-family:var(--font-i);font-size:11.5px;color:var(--t1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dp-st{font-size:8.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.dp-st.ok{background:rgba(34,197,94,.14);color:#16a34a}
+.dp-st.review{background:rgba(245,158,11,.16);color:#b45309}
+.dp-st.off{background:var(--bg3);color:var(--t3)}
+[data-theme="dark"] .dp-st.ok{color:#22c55e}
+[data-theme="dark"] .dp-st.review{color:#f59e0b}
+@media (prefers-reduced-motion: reduce){
+  .rbx-viewport{height:auto;-webkit-mask-image:none;mask-image:none}
+  .rbx-head-badge.live::before{animation:none}
+  .xt-row.fresh{animation:none}
+  .gen--anim .g-step{opacity:1;transform:none}
+  .g-final{opacity:1;transform:none}
+}
 @media(max-width:1280px){:root{--col-width:100%;--cell-pad:32px}.nav-inner,.grid-wrap{width:100%;border-left:none;border-right:none}.footer-inner-wrap{max-width:100%}}
 @media(max-width:1024px){:root{--cell-pad:28px}.h-title{font-size:38px;line-height:44px}.process-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){:root{--cell-pad:24px;--nav-h:56px}.nav-links,
@@ -270,32 +305,10 @@ footer{background:#08090a}
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div style="max-width:380px;width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg)">
-        <div style="padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;gap:6px">
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <span style="font-family:var(--font-i);font-size:11px;color:var(--t3);margin-left:4px">Risk team activity — today</span>
-        </div>
-        <div class="report-item">
-          <div class="report-icon"><svg viewBox="0 0 14 14"><path d="M7 1L2 3.5v5L7 11l5-2.5v-5L7 1z"/></svg></div>
-          <div style="flex:1"><div class="report-title">3 new rules deployed to production</div><div class="report-sub">High-risk velocity + device mismatch rules</div></div>
-          <span class="report-time">09:14</span>
-        </div>
-        <div class="report-item">
-          <div class="report-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5"/><path d="M7 4v3l2 2" stroke-linecap="round"/></svg></div>
-          <div style="flex:1"><div class="report-title">Weekly performance review completed</div><div class="report-sub">Fraud rate ↓ 0.3% · False positives ↓ 12%</div></div>
-          <span class="report-time">11:30</span>
-        </div>
-        <div class="report-item">
-          <div class="report-icon"><svg viewBox="0 0 14 14"><path d="M2 10L7 4l5 6M5 7l2-3 2 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div style="flex:1"><div class="report-title">Suspicious cluster identified — 14 accounts</div><div class="report-sub">Same device, 6 different cards · Blocked</div></div>
-          <span class="report-time">13:55</span>
-        </div>
-        <div class="report-item">
-          <div class="report-icon"><svg viewBox="0 0 14 14"><rect x="2" y="3" width="10" height="8" rx="1"/><path d="M5 7h4M5 9h2" stroke-linecap="round"/></svg></div>
-          <div style="flex:1"><div class="report-title">Monthly report sent to stakeholders</div><div class="report-sub">KPIs, rule changes, recommendations included</div></div>
-          <span class="report-time">17:00</span>
+      <div class="rbx-frame xt-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Risk operations <span class="mut">· managed by ScanFraud</span></span><span class="rbx-head-badge live">Live</span></div>
+        <div class="rbx-viewport">
+          <div class="xt-track"></div>
         </div>
       </div>
     </div>
@@ -304,48 +317,18 @@ footer{background:#08090a}
   <!-- ROW 2: Rule management -->
   <div class="feature-row reversed reveal">
     <div class="feature-row-visual">
-      <div class="rule-table" style="max-width:400px;width:100%">
-        <div style="padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;gap:6px">
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <span style="font-family:var(--font-i);font-size:11px;color:var(--t3);margin-left:4px">Active rules — performance</span>
-        </div>
-        <div class="rule-thead">
-          <span class="rule-th">Rule</span>
-          <span class="rule-th">Hits/day</span>
-          <span class="rule-th">Accuracy</span>
-          <span class="rule-th">Status</span>
-        </div>
-        <div class="rule-trow">
-          <span class="rule-tname">Velocity 1h limit</span>
-          <span class="rule-tval">1,243</span>
-          <span class="rule-tval good">98.2%</span>
-          <span class="rule-tbadge">Active</span>
-        </div>
-        <div class="rule-trow">
-          <span class="rule-tname">High-risk country</span>
-          <span class="rule-tval">847</span>
-          <span class="rule-tval good">96.8%</span>
-          <span class="rule-tbadge">Active</span>
-        </div>
-        <div class="rule-trow">
-          <span class="rule-tname">Device mismatch</span>
-          <span class="rule-tval">312</span>
-          <span class="rule-tval warn">89.4%</span>
-          <span class="rule-tbadge review">Tuning</span>
-        </div>
-        <div class="rule-trow">
-          <span class="rule-tname">BIN geo mismatch</span>
-          <span class="rule-tval">528</span>
-          <span class="rule-tval good">97.1%</span>
-          <span class="rule-tbadge">Active</span>
-        </div>
-        <div class="rule-trow">
-          <span class="rule-tname">Brute-force guard</span>
-          <span class="rule-tval">94</span>
-          <span class="rule-tval good">99.6%</span>
-          <span class="rule-tbadge">Active</span>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Rule portfolio <span class="mut">· managed</span></span><span class="rbx-head-badge">Rules · 41</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="cs-list">
+            <div class="cs-row g-step"><span class="cs-id">R-218</span><span class="cs-type">Velocity · card testing</span><span class="dp-st ok">Live</span></div>
+            <div class="cs-row g-step"><span class="cs-id">R-304</span><span class="cs-type">Geo block · high-risk corridors</span><span class="dp-st review">Backtest</span></div>
+            <div class="cs-row g-step"><span class="cs-id">R-311</span><span class="cs-type">BIN velocity &gt; 3 / 10 min</span><span class="dp-st ok">Live</span></div>
+            <div class="cs-row g-step"><span class="cs-id">R-122</span><span class="cs-type">Amount cap · legacy</span><span class="dp-st off">Retired</span></div>
+          </div>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">False positives −18% this quarter</span><span class="ep-sub-m">weekly report sent</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -416,24 +399,24 @@ footer{background:#08090a}
     </div>
   </section>
   <div class="other-grid reveal">
-    <a href="transaction-monitoring.html" class="other-card">
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><path d="M10 2L3 5.5v7L10 16l7-3.5v-7L10 2z"/><path d="M10 7l-3 1.5v3L10 13l3-1.5v-3L10 7z" opacity=".4"/></svg></div>
       <div class="other-title">Transaction Monitoring</div>
       <div class="other-desc">Real-time fraud detection with rules engine, alerts, and cross-entity analysis.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="routing-cascading.html" class="other-card">
+      <a class="other-link" href="transaction-monitoring.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="4" cy="10" r="2"/><circle cx="16" cy="5" r="2"/><circle cx="16" cy="15" r="2"/><path d="M6 10h4m0 0l4-3m-4 3l4 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="other-title">Payment Routing &amp; Cascading</div>
       <div class="other-desc">Route transactions to the optimal provider. Automatic cascading rescues failed payments.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="dispute-resolution.html" class="other-card">
+      <a class="other-link" href="routing-cascading.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 10l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="other-title">Dispute Resolution</div>
       <div class="other-desc">Manage chargebacks from one interface. Evidence prep, case tracking, threshold monitoring.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
+      <a class="other-link" href="dispute-resolution.html">Learn more →</a>
+    </div>
   </div>
 </div>
 
@@ -522,6 +505,99 @@ footer{background:#08090a}
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (rows 01–02, from blocks-explorer) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.feature-row')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.feature-row'); return !r || r.classList.contains('in-view'); };
+
+    /* Row 01 — expert team live feed: analyst actions arrive on top, capped at N+2 */
+    const XT_POOL = [
+      ['09:12','MK','Deployed preset <span class="mut">Velocity · card testing</span>','rule','Rule'],
+      ['10:47','AS','Tuned R-218 threshold <span class="mut">$500 → $420</span>','tuning','Tuning'],
+      ['12:03','MK','False-positive review <span class="mut">14 cases cleared</span>','review','Review'],
+      ['13:36',null,'Weekly performance report sent','report','Report'],
+      ['15:21','AS','Rolled back R-304 <span class="mut">approval-rate dip</span>','rollback','Rollback'],
+      ['16:05','MK','New rule R-311 <span class="mut">BIN velocity &gt; 3 / 10 min</span>','rule','Rule'],
+      ['17:42','AS','Chargeback ratio check <span class="mut">0.61% · below limit</span>','review','Review'],
+      ['18:15',null,'Daily digest sent','report','Report']
+    ];
+    function xtRowEl(d, fresh) {
+      const el = document.createElement('div');
+      el.className = 'xt-row' + (fresh ? ' fresh' : '');
+      el.innerHTML = `<span class="xt-time">${d[0]}</span><span class="xt-av${d[1] ? '' : ' sys'}">${d[1] || 'SF'}</span>`
+        + `<span class="xt-text">${d[2]}</span><span class="xt-tag xt-t-${d[3]}">${d[4]}</span>`;
+      return el;
+    }
+    function startXt(track) {
+      if (track.dataset.started) return; track.dataset.started = '1';
+      const N = 7, L = XT_POOL.length;
+      for (let i = 0; i < N; i++) track.appendChild(xtRowEl(XT_POOL[(L + N - 1 - i) % L], false));
+      if (REDUCE) return;
+      let k = N;
+      setInterval(() => { if (!live(track)) return;
+        track.insertBefore(xtRowEl(XT_POOL[k++ % L], true), track.firstChild);
+        while (track.children.length > N + 2) track.removeChild(track.lastChild);
+      }, 1900);
+    }
+
+    /* Row 02 — generic reveal engine: .g-step items appear in order, .g-final shows, loop */
+    function startGen(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const steps = [...scope.querySelectorAll('.g-step')];
+      const fin = scope.querySelector('.g-final');
+      const count = scope.querySelector('.g-count');
+      const finish = () => {
+        steps.forEach(s => s.classList.add('shown'));
+        if (fin) fin.classList.add('show');
+        if (count) count.textContent = count.dataset.to;
+      };
+      if (REDUCE || scope.dataset.gen !== 'reveal') { finish(); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        steps.forEach(s => s.classList.remove('shown'));
+        if (fin) fin.classList.remove('show');
+        if (count) count.textContent = '0';
+        let i = 0;
+        (function step() {
+          if (i >= steps.length) {
+            if (fin) fin.classList.add('show');
+            if (count) {
+              const to = +count.dataset.to, t0 = performance.now();
+              (function tick(now) {
+                const t = Math.min((now - t0) / 700, 1);
+                count.textContent = Math.round(to * (1 - Math.pow(1 - t, 3)));
+                if (t < 1) requestAnimationFrame(tick);
+              })(t0);
+            }
+            setTimeout(run, 3600); return;
+          }
+          steps[i].classList.add('shown'); i++; setTimeout(step, 360);
+        })();
+      })();
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('.xt-track').forEach(startXt);
+        row.querySelectorAll('[data-gen]').forEach(startGen);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
   })();
 </script>
 </body>

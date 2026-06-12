@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -146,41 +146,69 @@ footer { background: #08090a; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-/* Order queue mockup */
-.order-queue { width: 100%; max-width: 420px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.oq-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center; }
-.oq-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.oq-meta { font-size: 11px; color: var(--t3); }
-.oq-cols { display: grid; grid-template-columns: 0.9fr 0.7fr 0.6fr 0.6fr 0.9fr; gap: 6px; padding: 6px 16px; }
-.oq-col-head { font-size: 10px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--t3); }
-.oq-row { display: grid; grid-template-columns: 0.9fr 0.7fr 0.6fr 0.6fr 0.9fr; gap: 6px; padding: 8px 16px; border-top: 1px solid var(--bd); align-items: center; }
-.oq-id { font-size: 12px; font-weight: 600; color: var(--t1); }
-.oq-amount { font-size: 12px; color: var(--t2); }
-.oq-country { font-size: 12px; color: var(--t3); }
-.oq-risk-low { font-size: 12px; font-weight: 700; color: #22c55e; }
-.oq-risk-mid { font-size: 12px; font-weight: 700; color: #f59e0b; }
-.oq-risk-high { font-size: 12px; font-weight: 700; color: #ef4444; }
-.oq-action { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-align: center; }
-.oq-action.auto { background: rgba(34,197,94,.1); color: #22c55e; }
-.oq-action.hold { background: rgba(245,158,11,.1); color: #f59e0b; }
-.oq-action.review { background: rgba(239,68,68,.1); color: #ef4444; }
+/* ── Animated product mockups (blocks 18 + 24, blocks-explorer prod integration, 2026-06-12) ── */
+.feature-row-visual .rbx-frame { width:100%; max-width:460px; border:1px solid var(--bd); border-radius:14px; background:var(--bg2); overflow:hidden; font-family:var(--font-i); }
+[data-theme="light"] .feature-row-visual .rbx-frame { background:#fafbfd; }
+.rbx-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid var(--bd); background:var(--bg); }
+.rbx-head-title { font-family:var(--font-g); font-weight:600; font-size:12.5px; letter-spacing:-.2px; color:var(--t1); }
+.rbx-head-title .mut { color:var(--t3); font-weight:500; }
+.rbx-head-badge { font-size:10px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:6px; background:rgba(26,86,255,.14); color:var(--accent); white-space:nowrap; }
+.rbx-head-badge.ok { background:rgba(34,197,94,.14); color:#16a34a; }
+[data-theme="dark"] .rbx-head-badge.ok { color:#22c55e; }
 
-/* Chargeback trend mockup */
-.cb-trend { width: 100%; max-width: 380px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.cb-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); }
-.cb-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.cb-table-cols { display: grid; grid-template-columns: 1fr 0.8fr 0.5fr 0.7fr; gap: 8px; padding: 7px 16px; }
-.cb-col-head { font-size: 10px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--t3); }
-.cb-row { display: grid; grid-template-columns: 1fr 0.8fr 0.5fr 0.7fr; gap: 8px; padding: 9px 16px; border-top: 1px solid var(--bd); align-items: center; }
-.cb-month { font-size: 12px; font-weight: 600; color: var(--t1); }
-.cb-disputes { font-size: 12px; color: var(--t2); }
-.cb-won { font-size: 12px; color: #22c55e; font-weight: 600; }
-.cb-rate { font-size: 12px; font-weight: 700; }
-.cb-rate.down { color: #22c55e; }
-.cb-rate.flat { color: var(--t2); }
-.cb-footer { padding: 10px 16px; border-top: 1px solid var(--bd); display: flex; gap: 20px; }
-.cb-stat { font-size: 11px; color: var(--t3); }
-.cb-stat span { font-weight: 700; color: var(--t1); margin-right: 4px; }
+/* Block 18 — order triage (oqx-, renamed from explorer oq- to avoid clash with this page's legacy oq-* classes) */
+.feature-row-visual .rbx-frame.oqx-frame { max-width:440px; }
+.oqx-cols { display:grid; grid-template-columns:56px 62px 1fr 32px 92px; gap:8px; align-items:center; padding:8px 14px; border-bottom:1px solid var(--bd); }
+.oqx-col-head { font-size:8.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--t3); }
+.oqx-col-head:last-child { text-align:right; }
+.oqx-rows { position:relative; display:flex; flex-direction:column; }
+.oqx-row { display:grid; grid-template-columns:56px 62px 1fr 32px 92px; gap:8px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--bd); }
+.oqx-row:last-child { border-bottom:none; }
+.oqx-id { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; font-weight:700; color:var(--t1); }
+.oqx-amt, .oqx-cty { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; color:var(--t2); }
+.oqx-risk { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; font-weight:700; }
+.oqx-risk.low { color:#16a34a; } .oqx-risk.mid { color:#b45309; } .oqx-risk.high { color:#dc2626; }
+[data-theme="dark"] .oqx-risk.low { color:#22c55e; } [data-theme="dark"] .oqx-risk.mid { color:#f59e0b; } [data-theme="dark"] .oqx-risk.high { color:#ef4444; }
+.oqx-act { justify-self:end; font-size:8.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; padding:3px 7px; border-radius:5px; white-space:nowrap; }
+.oqx-act.auto { background:rgba(34,197,94,.14); color:#16a34a; }
+.oqx-act.review { background:rgba(245,158,11,.16); color:#b45309; }
+.oqx-act.hold { background:rgba(239,68,68,.16); color:#dc2626; }
+[data-theme="dark"] .oqx-act.auto { color:#22c55e; }
+[data-theme="dark"] .oqx-act.review { color:#f59e0b; }
+[data-theme="dark"] .oqx-act.hold { color:#ef4444; }
+.oqx--triage .oqx-risk, .oqx--triage .oqx-act { opacity:0; }
+.oqx--triage .oqx-risk.scored, .oqx--triage .oqx-act.stamped { opacity:1; }
+.oqx--triage .oqx-risk.scored { transition:opacity .25s ease; }
+.oqx--triage .oqx-act.stamped { animation:oqStamp .4s ease; }
+@keyframes oqStamp { 0% { opacity:0; transform:scale(.6); } 60% { opacity:1; transform:scale(1.12); } 100% { opacity:1; transform:scale(1); } }
+
+/* Block 24 — chargeback trend (ec- table + generic g- reveal) */
+.feature-row-visual .rbx-frame.ep-frame { max-width:400px; }
+.ec-cols, .ec-row { display:grid; grid-template-columns:1fr .7fr .5fr .8fr; gap:8px; align-items:center; padding:9px 14px; }
+.ec-cols { padding:8px 14px; border-bottom:1px solid var(--bd); }
+.ec-row { border-bottom:1px solid var(--bd); }
+.ec-row:last-child { border-bottom:none; }
+.ec-h { font-size:8.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--t3); }
+.ec-m { font-family:var(--font-i); font-size:12px; font-weight:600; color:var(--t1); }
+.ec-d { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; color:var(--t2); }
+.ec-w { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; color:#16a34a; }
+.ec-r { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; font-weight:700; }
+.ec-r.down { color:#16a34a; } .ec-r.flat { color:var(--t2); }
+[data-theme="dark"] .ec-w, [data-theme="dark"] .ec-r.down { color:#22c55e; }
+.ec-foot { display:flex; gap:18px; padding:10px 14px; border-top:1px solid var(--bd); font-family:var(--font-i); font-size:11px; color:var(--t3); }
+.ec-foot b { color:var(--t1); font-weight:700; margin-right:4px; }
+.gen--anim .g-step { opacity:0; transform:translateY(6px); }
+.gen--anim .g-step.shown { opacity:1; transform:none; transition:opacity .3s ease, transform .3s ease; }
+
+@media (max-width: 480px) {
+  .oqx-cols, .oqx-row { grid-template-columns:44px 50px 1fr 26px 78px; gap:6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oqx--triage .oqx-risk, .oqx--triage .oqx-act { opacity:1; animation:none; }
+  .oqx--triage .oqx-risk.scored { transition:none; }
+  .oqx--triage .oqx-act.stamped { animation:none; }
+  .gen--anim .g-step { opacity:1; transform:none; }
+}
 
 
 /* Full-width dividers */
@@ -311,23 +339,16 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="order-queue">
-        <div class="oq-header">
-          <span class="oq-title">Order Review Queue</span>
-          <span class="oq-meta">5 of 83 orders</span>
+      <div class="rbx-frame oqx-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Order review queue <span class="mut">· 83 today</span></span><span class="rbx-head-badge">Scoring</span></div>
+        <div class="oqx-cols"><span class="oqx-col-head">Order</span><span class="oqx-col-head">Amount</span><span class="oqx-col-head">Country</span><span class="oqx-col-head">Risk</span><span class="oqx-col-head">Action</span></div>
+        <div class="oqx-rows oqx--triage" data-oqx="triage">
+          <div class="oqx-row"><span class="oqx-id">#10482</span><span class="oqx-amt">€249</span><span class="oqx-cty">GB</span><span class="oqx-risk low">18</span><span class="oqx-act auto">Auto-approve</span></div>
+          <div class="oqx-row"><span class="oqx-id">#10483</span><span class="oqx-amt">€890</span><span class="oqx-cty">NG</span><span class="oqx-risk high">84</span><span class="oqx-act hold">Hold</span></div>
+          <div class="oqx-row"><span class="oqx-id">#10484</span><span class="oqx-amt">€129</span><span class="oqx-cty">DE</span><span class="oqx-risk low">22</span><span class="oqx-act auto">Auto-approve</span></div>
+          <div class="oqx-row"><span class="oqx-id">#10485</span><span class="oqx-amt">€1,200</span><span class="oqx-cty">RO</span><span class="oqx-risk mid">71</span><span class="oqx-act review">Review</span></div>
+          <div class="oqx-row"><span class="oqx-id">#10486</span><span class="oqx-amt">€65</span><span class="oqx-cty">FR</span><span class="oqx-risk low">15</span><span class="oqx-act auto">Auto-approve</span></div>
         </div>
-        <div class="oq-cols">
-          <span class="oq-col-head">Order</span>
-          <span class="oq-col-head">Amount</span>
-          <span class="oq-col-head">Country</span>
-          <span class="oq-col-head">Risk</span>
-          <span class="oq-col-head">Action</span>
-        </div>
-        <div class="oq-row"><span class="oq-id">#10482</span><span class="oq-amount">€249</span><span class="oq-country">GB</span><span class="oq-risk-low">18</span><span class="oq-action auto">Auto-approve</span></div>
-        <div class="oq-row"><span class="oq-id">#10483</span><span class="oq-amount">€890</span><span class="oq-country">NG</span><span class="oq-risk-high">84</span><span class="oq-action hold">Hold</span></div>
-        <div class="oq-row"><span class="oq-id">#10484</span><span class="oq-amount">€129</span><span class="oq-country">DE</span><span class="oq-risk-low">22</span><span class="oq-action auto">Auto-approve</span></div>
-        <div class="oq-row"><span class="oq-id">#10485</span><span class="oq-amount">€1,200</span><span class="oq-country">RO</span><span class="oq-risk-mid">71</span><span class="oq-action review">Review</span></div>
-        <div class="oq-row"><span class="oq-id">#10486</span><span class="oq-amount">€65</span><span class="oq-country">FR</span><span class="oq-risk-low">15</span><span class="oq-action auto">Auto-approve</span></div>
       </div>
     </div>
   </div>
@@ -345,20 +366,14 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="cb-trend">
-        <div class="cb-header"><span class="cb-title">Chargeback Rate — Last 90 Days</span></div>
-        <div class="cb-table-cols">
-          <span class="cb-col-head">Month</span>
-          <span class="cb-col-head">Disputes</span>
-          <span class="cb-col-head">Won</span>
-          <span class="cb-col-head">CB Rate</span>
-        </div>
-        <div class="cb-row"><span class="cb-month">January</span><span class="cb-disputes">38</span><span class="cb-won">31</span><span class="cb-rate flat">0.8%</span></div>
-        <div class="cb-row"><span class="cb-month">February</span><span class="cb-disputes">29</span><span class="cb-won">25</span><span class="cb-rate down">0.6% ↓</span></div>
-        <div class="cb-row"><span class="cb-month">March</span><span class="cb-disputes">17</span><span class="cb-won">16</span><span class="cb-rate down">0.4% ↓</span></div>
-        <div class="cb-footer">
-          <div class="cb-stat"><span>Fraud 48%</span>top reason</div>
-          <div class="cb-stat"><span>76%</span>win rate</div>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Chargeback rate <span class="mut">· last 90 days</span></span><span class="rbx-head-badge ok">Falling</span></div>
+        <div class="gen--anim" data-gen="reveal">
+          <div class="ec-cols"><span class="ec-h">Month</span><span class="ec-h">Disputes</span><span class="ec-h">Won</span><span class="ec-h">Rate</span></div>
+          <div class="ec-row g-step"><span class="ec-m">January</span><span class="ec-d">38</span><span class="ec-w">31</span><span class="ec-r flat">0.8%</span></div>
+          <div class="ec-row g-step"><span class="ec-m">February</span><span class="ec-d">29</span><span class="ec-w">25</span><span class="ec-r down">0.6% ↓</span></div>
+          <div class="ec-row g-step"><span class="ec-m">March</span><span class="ec-d">17</span><span class="ec-w">16</span><span class="ec-r down">0.4% ↓</span></div>
+          <div class="ec-foot"><span><b>Fraud 48%</b>top reason</span><span><b><span class="g-count" data-to="76">0</span>%</b>win rate</span></div>
         </div>
       </div>
     </div>
@@ -380,24 +395,24 @@ footer { background: #08090a; }
     <h2 class="sec-title">Products used in e-commerce</h2>
   </div>
   <div class="prod-cards reveal">
-      <a href="transaction-monitoring.html" class="prod-card">
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div class="prod-card-title">Transaction Monitoring</div>
         <div class="prod-card-desc">Real-time order scoring with card-testing detection and automatic review routing.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="dispute-resolution.html" class="prod-card">
+        <a class="prod-card-link" href="transaction-monitoring.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div class="prod-card-title">Dispute Resolution</div>
         <div class="prod-card-desc">Automated chargeback evidence compilation and submission for Visa and Mastercard.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="routing-cascading.html" class="prod-card">
+        <a class="prod-card-link" href="dispute-resolution.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h8M8 11l6-4M8 13l6 4"/></svg></div>
         <div class="prod-card-title">Routing &amp; Cascading</div>
         <div class="prod-card-desc">Reduce decline rates by routing to the right provider — and cascading on failure.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
+        <a class="prod-card-link" href="routing-cascading.html">Learn more →</a>
+      </div>
   </div>
 
 <div class="cta-sec" id="ctaSection">
@@ -483,6 +498,87 @@ footer { background: #08090a; }
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (blocks 18 + 24, from blocks-explorer) ── */
+  (function(){
+    const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows=[...document.querySelectorAll('.feature-row')].filter(r=>r.querySelector('.rbx-frame'));
+    if(!rows.length)return;
+    const live=el=>{const r=el.closest('.feature-row');return !r||r.classList.contains('in-view');};
+
+    /* Block 18 — order triage: score appears, then the action stamps */
+    function startOqx(scope){
+      if(scope.dataset.started)return;scope.dataset.started='1';
+      const rws=[...scope.querySelectorAll('.oqx-row')];
+      const finish=()=>rws.forEach(r=>{
+        r.querySelector('.oqx-risk').classList.add('scored');
+        r.querySelector('.oqx-act').classList.add('stamped');
+      });
+      if(REDUCE||scope.dataset.oqx!=='triage'){finish();return;}
+      (function run(){
+        if(!live(scope)){setTimeout(run,900);return;}
+        rws.forEach(r=>{
+          r.querySelector('.oqx-risk').classList.remove('scored');
+          r.querySelector('.oqx-act').classList.remove('stamped');
+        });
+        let i=0;
+        (function step(){
+          if(i>=rws.length){setTimeout(run,3400);return;}
+          const r=rws[i];
+          r.querySelector('.oqx-risk').classList.add('scored');
+          setTimeout(()=>{r.querySelector('.oqx-act').classList.add('stamped');},280);
+          i++;setTimeout(step,650);
+        })();
+      })();
+    }
+
+    /* Block 24 — chargeback trend: months reveal in order, win rate counts up to 76% */
+    function startGen(scope){
+      if(scope.dataset.started)return;scope.dataset.started='1';
+      const steps=[...scope.querySelectorAll('.g-step')];
+      const count=scope.querySelector('.g-count');
+      const finish=()=>{
+        steps.forEach(s=>s.classList.add('shown'));
+        if(count)count.textContent=count.dataset.to;
+      };
+      if(REDUCE||scope.dataset.gen!=='reveal'){finish();return;}
+      (function run(){
+        if(!live(scope)){setTimeout(run,900);return;}
+        steps.forEach(s=>s.classList.remove('shown'));
+        if(count)count.textContent='0';
+        let i=0;
+        (function step(){
+          if(i>=steps.length){
+            if(count){
+              const to=+count.dataset.to,t0=performance.now();
+              (function tick(now){
+                const t=Math.min((now-t0)/700,1);
+                count.textContent=Math.round(to*(1-Math.pow(1-t,3)));
+                if(t<1)requestAnimationFrame(tick);
+              })(t0);
+            }
+            setTimeout(run,3600);return;
+          }
+          steps[i].classList.add('shown');i++;setTimeout(step,360);
+        })();
+      })();
+    }
+
+    function activateRow(row){
+      requestAnimationFrame(()=>{
+        row.querySelectorAll('[data-oqx]').forEach(startOqx);
+        row.querySelectorAll('[data-gen]').forEach(startGen);
+      });
+    }
+    if(!('IntersectionObserver' in window)){rows.forEach(r=>{r.classList.add('in-view');activateRow(r);});return;}
+    const mio=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('in-view');activateRow(e.target);}
+        else e.target.classList.remove('in-view');
+      });
+    },{threshold:0.3});
+    rows.forEach(r=>mio.observe(r));
   })();
 </script>
 </body>

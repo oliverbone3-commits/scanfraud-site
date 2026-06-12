@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -143,28 +143,60 @@ footer{background:#08090a}
 .ft-legal a:hover{color:#fff}[data-theme="light"] .ft-legal a{color:#8b909e}[data-theme="light"] .ft-legal a:hover{color:#171717}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.revealed{opacity:1;transform:translateY(0)}
-/* CASE MOCK */
-.case-wrap{width:100%;display:flex;flex-direction:column;gap:6px}
-.case-item{padding:10px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);display:flex;align-items:center;gap:12px}
-.case-id{font-family:monospace;font-size:11px;color:var(--t3);flex-shrink:0;width:56px}
-.case-type{font-family:var(--font-i);font-size:12px;color:var(--t1);flex:1}
-.case-amount{font-family:var(--font-i);font-size:11px;font-weight:500;color:var(--t2);flex-shrink:0}
-.case-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;flex-shrink:0}
-.case-status.submitted{background:rgba(34,197,94,.15);color:#22c55e}
-.case-status.evidence{background:rgba(234,179,8,.15);color:#eab308}
-.case-status.open{background:rgba(139,144,158,.12);color:var(--t3)}
-[data-theme="light"] .case-status.submitted{background:rgba(22,163,74,.1);color:#16a34a}
-[data-theme="light"] .case-status.evidence{background:rgba(202,138,4,.1);color:#ca8a04}
-/* EVIDENCE MOCK */
-.evid-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;border:1px solid var(--bd);background:var(--bg)}
-.evid-check{width:16px;height:16px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.evid-check.done{background:rgba(34,197,94,.2)}
-.evid-check.pending{background:var(--bg2);border:1px solid var(--bd)}
-.evid-check svg{width:10px;height:10px;stroke:#22c55e;stroke-width:2;fill:none}
-[data-theme="light"] .evid-check.done{background:rgba(22,163,74,.1)}
-[data-theme="light"] .evid-check svg{stroke:#16a34a}
-.evid-label{font-family:var(--font-i);font-size:12px;color:var(--t1);flex:1}
-.evid-source{font-family:var(--font-i);font-size:10px;color:var(--t3)}
+/* ── ANIMATED PRODUCT MOCKUPS (blocks 14, 23 from blocks-explorer, 2026-06-12) ── */
+.feature-row-visual .rbx-frame{width:100%;max-width:460px;border:1px solid var(--bd);border-radius:14px;background:var(--bg2);overflow:hidden;font-family:var(--font-i)}
+[data-theme="light"] .feature-row-visual .rbx-frame{background:#fafbfd}
+.rbx-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--bg)}
+.rbx-head-title{font-family:var(--font-g);font-weight:600;font-size:12.5px;letter-spacing:-.2px;color:var(--t1)}
+.rbx-head-title .mut{color:var(--t3);font-weight:500}
+.rbx-head-badge{font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 8px;border-radius:6px;background:rgba(26,86,255,.14);color:var(--accent);white-space:nowrap}
+.feature-row-visual .rbx-frame.ep-frame{max-width:400px}
+/* Evidence package build (block 14) */
+.ep-prog{height:3px;background:var(--bd);overflow:hidden}
+.ep-prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .45s ease}
+.ep-body{padding:14px 16px 16px}
+.ep-label{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.ep-list{display:flex;flex-direction:column;gap:7px}
+.ep-item{display:flex;align-items:center;gap:10px;padding:8px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+.ep-ico{width:18px;height:18px;border-radius:50%;border:1.5px dashed var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:transparent;transition:background .3s ease,color .3s ease}
+.ep-ico svg{width:10px;height:10px}
+.ep-item.working .ep-ico{border-color:var(--accent);animation:epSpin .9s linear infinite}
+.ep-item.done .ep-ico{border-color:transparent;border-style:solid;background:rgba(34,197,94,.16);color:#16a34a;animation:none}
+[data-theme="dark"] .ep-item.done .ep-ico{color:#22c55e}
+@keyframes epSpin{to{transform:rotate(360deg)}}
+.ep-name{font-family:var(--font-i);font-size:12px;font-weight:500;color:var(--t3);transition:color .3s ease}
+.ep-item.done .ep-name{color:var(--t1)}
+.ep-size{margin-left:auto;font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:10px;color:var(--t3);opacity:0;transition:opacity .3s ease}
+.ep-item.done .ep-size{opacity:1}
+.ep-after{margin-top:12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.ep-after.show{opacity:1;transform:none}
+.ep-sub{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:8px;background:rgba(26,86,255,.08)}
+.ep-sub-t{font-family:var(--font-i);font-size:11.5px;font-weight:600;color:var(--accent)}
+.ep-sub-m{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:10px;color:var(--t3)}
+/* Case list reveal (block 23) */
+.gen-body{padding:14px 16px 16px}
+.gen--anim .g-step{opacity:0;transform:translateY(6px)}
+.gen--anim .g-step.shown{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
+.g-final{margin-top:12px;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.g-final.show{opacity:1;transform:none}
+.cs-list{display:flex;flex-direction:column;gap:7px}
+.cs-row{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+.cs-id{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11px;font-weight:700;color:var(--t1);flex-shrink:0}
+.cs-type{font-family:var(--font-i);font-size:11.5px;color:var(--t1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-amt{font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:11px;color:var(--t2);flex-shrink:0}
+.dp-st{font-size:8.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.dp-st.ok{background:rgba(34,197,94,.14);color:#16a34a}
+.dp-st.review{background:rgba(245,158,11,.16);color:#b45309}
+.dp-st.info{background:rgba(26,86,255,.14);color:var(--accent)}
+[data-theme="dark"] .dp-st.ok{color:#22c55e}
+[data-theme="dark"] .dp-st.review{color:#f59e0b}
+@media (prefers-reduced-motion: reduce){
+  .ep-item.working .ep-ico{animation:none}
+  .ep-after{opacity:1;transform:none}
+  .ep-prog i{transition:none}
+  .gen--anim .g-step{opacity:1;transform:none}
+  .g-final{opacity:1;transform:none}
+}
 @media(max-width:1280px){:root{--col-width:100%;--cell-pad:32px}.nav-inner,.grid-wrap{width:100%;border-left:none;border-right:none}.footer-inner-wrap{max-width:100%}}
 @media(max-width:1024px){:root{--cell-pad:28px}.h-title{font-size:38px;line-height:44px}.process-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){:root{--cell-pad:24px;--nav-h:56px}.nav-links,
@@ -268,21 +300,21 @@ footer{background:#08090a}
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div style="max-width:380px;width:100%;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:var(--bg)">
-        <div style="padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--bg2);display:flex;align-items:center;gap:6px">
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div>
-          <span style="font-family:var(--font-i);font-size:11px;color:var(--t3);margin-left:4px">Case #4821 · Friendly fraud · Visa</span>
-        </div>
-        <div style="padding:12px;display:flex;flex-direction:column;gap:6px">
-          <div style="font-family:var(--font-i);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:4px">Evidence package</div>
-          <div class="evid-item"><div class="evid-check done"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div><span class="evid-label">Transaction receipt</span><span class="evid-source">Auto</span></div>
-          <div class="evid-item"><div class="evid-check done"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div><span class="evid-label">IP geolocation match</span><span class="evid-source">Auto</span></div>
-          <div class="evid-item"><div class="evid-check done"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div><span class="evid-label">Device fingerprint record</span><span class="evid-source">Auto</span></div>
-          <div class="evid-item"><div class="evid-check done"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div><span class="evid-label">Customer communication log</span><span class="evid-source">Auto</span></div>
-          <div class="evid-item"><div class="evid-check pending"></div><span class="evid-label">Delivery confirmation</span><span class="evid-source" style="color:var(--accent)">Pending</span></div>
-          <div style="margin-top:6px;padding:8px 10px;border-radius:6px;background:rgba(26,86,255,.06);border:1px solid rgba(26,86,255,.2);font-family:var(--font-i);font-size:11px;color:var(--t2)">4 of 5 documents ready · Estimated win probability: <strong style="color:#22c55e">High</strong></div>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Case CB-2291 <span class="mut">· Reason 10.4</span></span><span class="rbx-head-badge">Representment</span></div>
+        <div class="ep-prog"><i></i></div>
+        <div class="ep-body" data-ep="build">
+          <div class="ep-label">Evidence package</div>
+          <div class="ep-list">
+            <div class="ep-item"><span class="ep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="ep-name">Order &amp; payment details</span><span class="ep-size">214 KB</span></div>
+            <div class="ep-item"><span class="ep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="ep-name">3-D Secure authentication log</span><span class="ep-size">56 KB</span></div>
+            <div class="ep-item"><span class="ep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="ep-name">Delivery confirmation</span><span class="ep-size">182 KB</span></div>
+            <div class="ep-item"><span class="ep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="ep-name">Customer communication</span><span class="ep-size">97 KB</span></div>
+            <div class="ep-item"><span class="ep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="ep-name">IP &amp; device match report</span><span class="ep-size">44 KB</span></div>
+          </div>
+          <div class="ep-after">
+            <div class="ep-sub"><span class="ep-sub-t">Submitted to acquiring bank</span><span class="ep-sub-m">5 docs · 0.6 MB</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -291,46 +323,17 @@ footer{background:#08090a}
   <!-- ROW 2: Case management -->
   <div class="feature-row reversed reveal">
     <div class="feature-row-visual">
-      <div style="max-width:380px;width:100%;display:flex;flex-direction:column;gap:10px">
-        <div style="font-family:var(--font-i);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)">Active dispute cases</div>
-        <div class="case-wrap">
-          <div class="case-item">
-            <span class="case-id">#4821</span>
-            <span class="case-type">Friendly fraud · Visa</span>
-            <span class="case-amount">$340</span>
-            <span class="case-status submitted">Submitted</span>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Active disputes <span class="mut">· 4 open</span></span><span class="rbx-head-badge">Cases</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="cs-list">
+            <div class="cs-row g-step"><span class="cs-id">#4821</span><span class="cs-type">Friendly fraud · Visa</span><span class="cs-amt">$340</span><span class="dp-st ok">Submitted</span></div>
+            <div class="cs-row g-step"><span class="cs-id">#4820</span><span class="cs-type">Stolen card · Mastercard</span><span class="cs-amt">$1,205</span><span class="dp-st info">Evidence ready</span></div>
+            <div class="cs-row g-step"><span class="cs-id">#4819</span><span class="cs-type">System error · Visa</span><span class="cs-amt">$88</span><span class="dp-st review">Open</span></div>
+            <div class="cs-row g-step"><span class="cs-id">#4818</span><span class="cs-type">Friendly fraud · Amex</span><span class="cs-amt">$560</span><span class="dp-st ok">Submitted</span></div>
           </div>
-          <div class="case-item">
-            <span class="case-id">#4820</span>
-            <span class="case-type">Stolen card · Mastercard</span>
-            <span class="case-amount">$1,205</span>
-            <span class="case-status evidence">Evidence ready</span>
-          </div>
-          <div class="case-item">
-            <span class="case-id">#4819</span>
-            <span class="case-type">System error · Visa</span>
-            <span class="case-amount">$88</span>
-            <span class="case-status open">Open</span>
-          </div>
-          <div class="case-item">
-            <span class="case-id">#4818</span>
-            <span class="case-type">Friendly fraud · Amex</span>
-            <span class="case-amount">$560</span>
-            <span class="case-status submitted">Submitted</span>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <div style="padding:10px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);display:flex;flex-direction:column;gap:3px">
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">This month</span>
-            <span style="font-family:var(--font-g);font-weight:600;font-size:16px;color:var(--t1)">24</span>
-          </div>
-          <div style="padding:10px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);display:flex;flex-direction:column;gap:3px">
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">Win rate</span>
-            <span style="font-family:var(--font-g);font-weight:600;font-size:16px;color:#22c55e">78%</span>
-          </div>
-          <div style="padding:10px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg2);display:flex;flex-direction:column;gap:3px">
-            <span style="font-family:var(--font-i);font-size:10px;color:var(--t3)">Avg fee</span>
-            <span style="font-family:var(--font-g);font-weight:600;font-size:16px;color:var(--t1)">€42</span>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">Thresholds below limits</span><span class="ep-sub-m">Visa 0.61% · MC 0.43%</span></div>
           </div>
         </div>
       </div>
@@ -402,24 +405,24 @@ footer{background:#08090a}
     </div>
   </section>
   <div class="other-grid reveal">
-    <a href="transaction-monitoring.html" class="other-card">
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><path d="M10 2L3 5.5v7L10 16l7-3.5v-7L10 2z"/><path d="M10 7l-3 1.5v3L10 13l3-1.5v-3L10 7z" opacity=".4"/></svg></div>
       <div class="other-title">Transaction Monitoring</div>
       <div class="other-desc">Real-time fraud detection with rules engine, alerts, and cross-entity analysis.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="routing-cascading.html" class="other-card">
+      <a class="other-link" href="transaction-monitoring.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="4" cy="10" r="2"/><circle cx="16" cy="5" r="2"/><circle cx="16" cy="15" r="2"/><path d="M6 10h4m0 0l4-3m-4 3l4 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="other-title">Payment Routing &amp; Cascading</div>
       <div class="other-desc">Route transactions to the optimal provider. Automatic cascading rescues failed payments.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
-    <a href="risk-management.html" class="other-card">
+      <a class="other-link" href="routing-cascading.html">Learn more →</a>
+    </div>
+    <div class="other-card">
       <div class="other-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke-linecap="round"/></svg></div>
       <div class="other-title">Risk Management Outsourcing</div>
       <div class="other-desc">Delegate fraud operations to our expert team. White-box rules, full reporting.</div>
-      <span class="other-link">Learn more →</span>
-    </a>
+      <a class="other-link" href="risk-management.html">Learn more →</a>
+    </div>
   </div>
 </div>
 
@@ -508,6 +511,100 @@ footer{background:#08090a}
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (rows 01–02, from blocks-explorer) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.feature-row')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.feature-row'); return !r || r.classList.contains('in-view'); };
+
+    /* Row 01 — evidence package build: docs check off in order, progress bar fills, package submits */
+    function startEp(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const after = scope.querySelector('.ep-after');
+      const frame = scope.closest('.rbx-frame');
+      const prog = frame ? frame.querySelector('.ep-prog i') : null;
+      const items = [...scope.querySelectorAll('.ep-item')];
+      const finishAll = () => {
+        items.forEach(it => it.classList.add('done'));
+        if (after) after.classList.add('show');
+        if (prog) prog.style.width = '100%';
+      };
+      if (REDUCE || scope.dataset.ep !== 'build') { finishAll(); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        items.forEach(it => it.classList.remove('done','working'));
+        if (after) after.classList.remove('show');
+        if (prog) prog.style.width = '0';
+        let i = 0;
+        (function step() {
+          if (i >= items.length) { if (after) after.classList.add('show'); setTimeout(run, 3600); return; }
+          const it = items[i]; it.classList.add('working');
+          setTimeout(() => {
+            it.classList.remove('working'); it.classList.add('done');
+            if (prog) prog.style.width = ((i + 1) / items.length * 100) + '%';
+            i++; setTimeout(step, 260);
+          }, 780);
+        })();
+      })();
+    }
+
+    /* Row 02 — generic reveal engine: .g-step rows appear in order, .g-final shows, loop */
+    function startGen(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const steps = [...scope.querySelectorAll('.g-step')];
+      const fin = scope.querySelector('.g-final');
+      const count = scope.querySelector('.g-count');
+      const finish = () => {
+        steps.forEach(s => s.classList.add('shown'));
+        if (fin) fin.classList.add('show');
+        if (count) count.textContent = count.dataset.to;
+      };
+      if (REDUCE || scope.dataset.gen !== 'reveal') { finish(); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        steps.forEach(s => s.classList.remove('shown'));
+        if (fin) fin.classList.remove('show');
+        if (count) count.textContent = '0';
+        let i = 0;
+        (function step() {
+          if (i >= steps.length) {
+            if (fin) fin.classList.add('show');
+            if (count) {
+              const to = +count.dataset.to, t0 = performance.now();
+              (function tick(now) {
+                const t = Math.min((now - t0) / 700, 1);
+                count.textContent = Math.round(to * (1 - Math.pow(1 - t, 3)));
+                if (t < 1) requestAnimationFrame(tick);
+              })(t0);
+            }
+            setTimeout(run, 3600); return;
+          }
+          steps[i].classList.add('shown'); i++; setTimeout(step, 360);
+        })();
+      })();
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('.ep-body[data-ep]').forEach(startEp);
+        row.querySelectorAll('[data-gen]').forEach(startGen);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
   })();
 </script>
 </body>

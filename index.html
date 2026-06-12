@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -1080,197 +1080,139 @@
       .prod-header-title { font-size: 28px; line-height: 32px; letter-spacing: -1.2px; }
     }
 
-    /* ── PRODUCTS — feature rows visual mockups ── */
-    .fdr .fi-mockup {
-      width: 100%;
-      max-width: 500px;
-      aspect-ratio: 16/11;
-      border: 1px solid var(--bd);
-      border-radius: 14px;
-      background: var(--bg2);
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    [data-theme="light"] .fdr .fi-mockup { background: #fafbfd; }
-    .fdr .fi-mockup::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 28px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--bd);
-      z-index: 1;
-    }
-    .fdr .fi-mockup::after {
-      content: '';
-      position: absolute;
-      top: 10px; left: 14px;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--bd);
-      box-shadow: 14px 0 0 var(--bd), 28px 0 0 var(--bd);
-      z-index: 2;
-    }
-    .fdr .fi-mockup > * { position: relative; z-index: 3; margin-top: 24px; }
-    .fdr .fi-mockup > *:not(:first-child) { margin-top: 0; }
+    /* ── PRODUCTS — animated product mockups (blocks-explorer prod integration, 2026-06-12) ── */
+    .fdr .fi .rbx-frame { width:100%; max-width:460px; border:1px solid var(--bd); border-radius:14px;
+      background:var(--bg2); overflow:hidden; font-family:var(--font-i); }
+    [data-theme="light"] .fdr .fi .rbx-frame { background:#fafbfd; }
+    .rbx-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid var(--bd); background:var(--bg); }
+    .rbx-head-title { font-family:var(--font-g); font-weight:600; font-size:12.5px; letter-spacing:-.2px; color:var(--t1); }
+    .rbx-head-title .mut { color:var(--t3); font-weight:500; }
+    .rbx-head-badge { font-size:10px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:6px; background:rgba(26,86,255,.14); color:var(--accent); white-space:nowrap; }
+    .rbx-head-badge.live { background:rgba(34,197,94,.14); color:#16a34a; display:inline-flex; align-items:center; gap:6px; }
+    [data-theme="dark"] .rbx-head-badge.live { color:#22c55e; }
+    .rbx-head-badge.live::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; animation:monPulse 1.4s ease-in-out infinite; }
+    @keyframes monPulse { 50% { opacity:.25; } }
+    .rbx-viewport { position:relative; height:300px; overflow:hidden;
+      -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+              mask-image:linear-gradient(180deg, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%); }
+    .rbx-track { position:relative; display:flex; flex-direction:column; padding:16px; will-change:transform; }
+    .rbx-track.is-auto { animation:rbxLoop var(--rbx-dur,14s) linear infinite; }
+    .rbx-viewport:hover .rbx-track.is-auto { animation-play-state:paused; }
+    .fdr:not(.in-view) .rbx-track.is-auto { animation-play-state:paused; }
+    .rbx-track.is-build { transition:transform .55s cubic-bezier(.4,0,.2,1); }
+    @keyframes rbxLoop { from { transform:translateY(0); } to { transform:translateY(var(--rbx-dist, -260px)); } }
 
-    /* Row 01 — Rule Builder */
-    .mk-rule-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      font-family: var(--font-i);
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 1;
-    }
-    .mk-chip {
-      padding: 6px 10px;
-      border: 1px solid var(--bd);
-      border-radius: 6px;
-      background: var(--bg);
-      color: var(--t1);
-      white-space: nowrap;
-    }
-    .mk-chip.op { color: var(--t3); border-color: transparent; background: transparent; padding: 6px 2px; font-weight: 400; }
-    .mk-chip.kw { color: var(--accent); border-color: rgba(26,86,255,0.25); background: rgba(26,86,255,0.06); }
-    .mk-chip.val { font-family: 'SFMono-Regular',Consolas,monospace; }
-    .mk-chip.action { border-color: rgba(26,86,255,0.4); background: var(--accent); color: #fff; }
-    .mk-then {
-      font-family: var(--font-i); font-size: 10px; font-weight: 600;
-      color: var(--t3); letter-spacing: 1px; text-transform: uppercase;
-      margin: 4px 0 4px 4px;
-    }
-    .mk-rule-divider {
-      height: 1px; background: var(--bd); margin: 4px 0;
-    }
-    .mk-foot {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--font-i);
-      font-size: 10px;
-      color: var(--t3);
-      letter-spacing: .5px;
-    }
-    .mk-foot .mk-deploy {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 10px; border-radius: 6px;
-      background: rgba(26,86,255,0.12); color: var(--accent);
-      font-weight: 600; text-transform: uppercase;
-    }
-    .mk-foot .mk-deploy::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 8px var(--accent);
-      animation: mkPulse 1.6s ease-in-out infinite;
-    }
-    @keyframes mkPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: .35; }
-    }
+    /* Row 01 — rule builder */
+    .rbx-card { border:1px solid var(--bd); border-radius:12px; background:var(--bg); padding:14px; display:flex; flex-direction:column; gap:11px; }
+    .rbx-tabs { display:flex; border:1px solid var(--bd); border-radius:8px; overflow:hidden; }
+    .rbx-tab { flex:1; height:30px; font-size:12px; font-weight:500; background:transparent; border:none; color:var(--t3); font-family:inherit; }
+    .rbx-tab.active { background:var(--accent); color:#fff; }
+    .rbx-fields { display:flex; flex-direction:column; gap:8px; }
+    .rbx-field { display:flex; align-items:center; gap:6px; font-size:12px; }
+    .rbx-k { color:var(--t3); }
+    .rbx-sep { color:var(--t3); }
+    .rbx-v { color:var(--t1); font-weight:600; }
+    .rbx-v.mono { font-family:'JetBrains Mono','SFMono-Regular',Consolas,monospace; font-weight:500; font-size:11px; }
+    .rbx-v.strong { font-weight:700; }
+    .rbx-where { align-self:flex-start; font-size:10px; font-weight:700; letter-spacing:.5px; color:#fff; background:var(--accent); padding:3px 9px; border-radius:6px; }
+    .rbx-add { font-size:12px; font-weight:600; color:var(--accent); }
+    .rbx-ops { display:flex; gap:4px; padding:10px 0; justify-content:center; }
+    .rbx-op { min-width:30px; height:28px; display:flex; align-items:center; justify-content:center; border:1px solid var(--bd);
+      border-radius:6px; font-size:11px; font-weight:600; color:var(--t3); font-family:'JetBrains Mono','SFMono-Regular',monospace; }
+    .rbx-op.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .rbx-valtabs { display:flex; border:1px solid var(--bd); border-radius:8px; overflow:hidden; width:100%; }
+    .rbx-vt { flex:1; height:30px; padding:0 16px; font-size:12px; font-weight:500; background:transparent; border:none; color:var(--t3); font-family:inherit; }
+    .rbx-vt.active { background:var(--bg3); color:var(--t1); }
+    .rbx-conn { display:flex; justify-content:center; padding:10px 0; }
+    .rbx-plus { width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff;
+      display:flex; align-items:center; justify-content:center; font-size:20px; line-height:1; font-weight:400; }
+    .tw-cur { display:none; width:7px; height:13px; background:var(--accent); border-radius:1px; vertical-align:-1px; margin-left:1px; }
+    .tw-cur.on { display:inline-block; animation:twCurBlink 1s step-end infinite; }
+    @keyframes twCurBlink { 50% { opacity:0; } }
 
-    /* Row 02 — Routing tree */
-    .mk-route { width: 100%; height: 100%; }
-    .mk-route svg { width: 100%; height: 100%; display: block; }
-    .mk-route .rt-node-bg { fill: var(--bg); stroke: var(--bd); }
-    [data-theme="light"] .mk-route .rt-node-bg { fill: #fff; }
-    .mk-route .rt-node-bg.accent { stroke: var(--accent); }
-    .mk-route .rt-node-bg.success { fill: rgba(0,180,120,0.10); stroke: rgba(0,180,120,0.5); }
-    .mk-route .rt-node-bg.fail { fill: rgba(220,80,80,0.08); stroke: rgba(220,80,80,0.45); stroke-dasharray: 4 3; }
-    .mk-route .rt-label { font-family: var(--font-i); font-size: 10px; font-weight: 600; fill: var(--t1); letter-spacing: .3px; }
-    .mk-route .rt-sub { font-family: var(--font-i); font-size: 9px; fill: var(--t3); }
-    .mk-route .rt-edge { stroke: var(--bd); stroke-width: 1.5; fill: none; }
-    .mk-route .rt-edge.flow { stroke: var(--accent); stroke-width: 2; }
-    .mk-route .rt-pulse {
-      stroke-dasharray: 4 4;
-      animation: rtFlow 1.4s linear infinite;
-    }
-    @keyframes rtFlow {
-      to { stroke-dashoffset: -16; }
-    }
+    /* Row 02 — monitoring table (reused by row 03 crosscheck) */
+    .rbx-viewport.mon-vp { height:232px; }
+    .mon-thead, .mon-row { display:grid; grid-template-columns:88px 84px 58px 74px minmax(0,1fr); gap:8px; align-items:center; }
+    .mon-thead { padding:8px 16px; border-bottom:1px solid var(--bd); background:var(--bg);
+      font-family:var(--font-i); font-size:9px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--t3); }
+    .mon-track { padding:0 !important; }
+    .mon-row { padding:7px 16px; font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; color:var(--t2);
+      border-bottom:1px solid var(--bd); white-space:nowrap; }
+    .mon-row .id { color:var(--t1); overflow:hidden; text-overflow:ellipsis; }
+    .mon-row .sys { color:var(--t2); min-width:0; overflow:hidden; text-overflow:ellipsis; }
+    .mon-row .mer { color:var(--t3); overflow:hidden; text-overflow:ellipsis; }
+    .mon-chip { justify-self:start; font-size:9px; font-weight:700; letter-spacing:.3px; padding:2px 6px; border-radius:4px; white-space:nowrap; }
+    .mon-b-blue { background:rgba(26,86,255,.14); color:var(--accent); }
+    .mon-b-green { background:rgba(34,197,94,.14); color:#16a34a; }
+    .mon-b-amber { background:rgba(245,158,11,.16); color:#b45309; }
+    .mon-b-red { background:rgba(239,68,68,.16); color:#dc2626; }
+    [data-theme="dark"] .mon-b-green { color:#22c55e; }
+    [data-theme="dark"] .mon-b-amber { color:#f59e0b; }
+    [data-theme="dark"] .mon-b-red { color:#ef4444; }
+    .mon-row.fresh { animation:monIn .45s ease; }
+    @keyframes monIn { from { opacity:0; transform:translateY(-7px); } to { opacity:1; transform:none; } }
+    .mon-foot { display:flex; align-items:center; gap:6px; padding:9px 16px; border-top:1px solid var(--bd);
+      font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; color:var(--t3); }
+    .mon-foot b { color:var(--t1); font-weight:700; }
 
-    /* Row 03 — Entity graph */
-    .mk-graph { width: 100%; height: 100%; }
-    .mk-graph svg { width: 100%; height: 100%; display: block; }
-    .mk-graph .gn { fill: var(--bg); stroke: var(--bd); stroke-width: 1.2; }
-    [data-theme="light"] .mk-graph .gn { fill: #fff; }
-    .mk-graph .gn.flagged { fill: rgba(26,86,255,0.15); stroke: var(--accent); stroke-width: 2; }
-    .mk-graph .gn-label { font-family: var(--font-i); font-size: 8.5px; font-weight: 600; fill: var(--t1); text-anchor: middle; }
-    .mk-graph .gn-sub { font-family: var(--font-i); font-size: 7.5px; fill: var(--t3); text-anchor: middle; }
-    .mk-graph .gn-edge { stroke: var(--bd); stroke-width: 1; fill: none; }
-    .mk-graph .gn-edge.flagged { stroke: var(--accent); stroke-width: 1.6; }
-    .mk-graph .gn-ring {
-      fill: none; stroke: var(--accent); stroke-width: 1.5;
-      stroke-dasharray: 4 4;
-      transform-origin: center;
-      animation: gnRotate 8s linear infinite;
-    }
-    @keyframes gnRotate { to { transform: rotate(360deg); } }
-    .mk-graph .gn-icon { fill: var(--t2); }
-    .mk-graph .gn.flagged .gn-icon { fill: var(--accent); }
+    /* Row 03 — crosscheck stats */
+    .rbx-viewport.cc-vp { height:184px; }
+    .cc-stats { display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid var(--bd); }
+    .cc-stat { padding:9px 12px; border-right:1px solid var(--bd); display:flex; flex-direction:column; gap:2px; }
+    .cc-stat:last-child { border-right:none; }
+    .cc-stat-l { font-size:8.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+    .cc-stat-l.ok { color:#16a34a; } .cc-stat-l.no { color:#dc2626; }
+    [data-theme="dark"] .cc-stat-l.ok { color:#22c55e; } [data-theme="dark"] .cc-stat-l.no { color:#ef4444; }
+    .cc-stat-v { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:13px; font-weight:700; color:var(--t1); }
+    .cc-stat-s { font-family:var(--font-i); font-size:9px; color:var(--t3); }
+    .cc-match { display:flex; flex-wrap:wrap; gap:6px; padding:10px 12px; border-bottom:1px solid var(--bd); }
+    .cc-mchip { display:inline-flex; align-items:center; gap:5px; font-family:var(--font-i); font-size:10px; color:var(--t2);
+      border:1px solid var(--bd); border-radius:6px; padding:3px 8px; white-space:nowrap; }
+    .cc-mchip b { color:var(--accent); font-weight:700; font-family:'JetBrains Mono','SFMono-Regular',monospace; }
 
-    /* Row 04 — Onboarding timeline */
-    .mk-timeline {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 14px;
-      height: 100%;
-    }
-    .mk-tl-step {
-      display: grid;
-      grid-template-columns: 56px 1fr auto;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border: 1px solid var(--bd);
-      border-radius: 8px;
-      background: var(--bg);
-      font-family: var(--font-i);
-      font-size: 11px;
-      line-height: 1.1;
-    }
-    .mk-tl-step.live { border-color: rgba(26,86,255,0.4); background: rgba(26,86,255,0.05); }
-    .mk-tl-day {
-      font-weight: 700;
-      font-size: 10px;
-      letter-spacing: 1px;
-      color: var(--t3);
-      text-transform: uppercase;
-    }
-    .mk-tl-step.live .mk-tl-day { color: var(--accent); }
-    .mk-tl-title { font-weight: 500; color: var(--t1); font-size: 12px; }
-    .mk-tl-step.live .mk-tl-title { color: var(--accent); }
-    .mk-tl-check {
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: rgba(0,180,120,0.18);
-      color: rgb(0,180,120);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      font-weight: 700;
-    }
-    .mk-tl-step.live .mk-tl-check {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(26,86,255,0.4);
+    /* Row 04 — go-to-market timeline */
+    .gtm { padding:16px; display:flex; flex-direction:column; gap:10px; }
+    .gtm-step { display:flex; align-items:center; gap:12px; padding:12px 14px; border:1px solid var(--bd); border-radius:10px;
+      background:var(--bg); transition:border-color .35s ease, background .35s ease; }
+    .gtm-day { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:10px; font-weight:700; letter-spacing:.5px;
+      text-transform:uppercase; color:var(--t3); width:42px; flex-shrink:0; transition:color .35s ease; }
+    .gtm-title { flex:1; font-family:var(--font-i); font-size:12.5px; font-weight:500; color:var(--t1); transition:color .35s ease; }
+    .gtm-ico { position:relative; width:22px; height:22px; border-radius:50%; flex-shrink:0; display:flex; align-items:center;
+      justify-content:center; border:1px solid var(--bd); background:var(--bg2); color:var(--t3); transition:background .35s ease, border-color .35s ease, color .35s ease; }
+    .gtm-ico svg { width:12px; height:12px; opacity:0; transition:opacity .3s ease; }
+    .gtm-step.todo .gtm-title { color:var(--t3); }
+    .gtm-step.done .gtm-ico { background:rgba(34,197,94,.16); border-color:transparent; color:#16a34a; }
+    [data-theme="dark"] .gtm-step.done .gtm-ico { color:#22c55e; }
+    .gtm-step.done .gtm-ico svg { opacity:1; }
+    .gtm-step.live { border-color:var(--accent); background:rgba(26,86,255,.06); }
+    .gtm-step.live .gtm-day, .gtm-step.live .gtm-title { color:var(--accent); }
+    .gtm-step.live .gtm-ico { background:var(--accent); border-color:transparent; }
+    .gtm-step.live .gtm-ico svg { display:none; }
+    .gtm-step.live .gtm-ico::before { content:''; width:7px; height:7px; border-radius:50%; background:#fff; }
+    .gtm-step.live .gtm-ico::after { content:''; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--accent); animation:gtmPing 1.6s ease-out infinite; }
+    @keyframes gtmPing { 0% { transform:scale(.75); opacity:.6; } 100% { transform:scale(1.5); opacity:0; } }
+    .gtm-step.pop { animation:gtmPop .45s ease; }
+    @keyframes gtmPop { 0% { transform:scale(1); } 40% { transform:scale(1.035); } 100% { transform:scale(1); } }
+    .gtm-step.pop .gtm-ico { animation:gtmIcoPop .45s ease; }
+    @keyframes gtmIcoPop { 0% { transform:scale(.55); } 55% { transform:scale(1.15); } 100% { transform:scale(1); } }
+
+    @media (max-width: 480px) {
+      .mon-thead, .mon-row { grid-template-columns:60px 72px 56px 46px minmax(0,1fr); gap:6px; }
+      .mon-thead { padding:8px 10px; }
+      .mon-row { padding:7px 10px; font-size:10px; }
+      .cc-stats { grid-template-columns:repeat(2,1fr); }
+      .cc-stat:nth-child(2) { border-right:none; }
+      .cc-stat:nth-child(n+3) { border-top:1px solid var(--bd); }
     }
 
-    /* Mobile: shrink mockups */
-    @media (max-width: 768px) {
-      .fdr .fi-mockup { padding: 18px; aspect-ratio: 16/12; }
-      .mk-tl-step { grid-template-columns: 48px 1fr auto; padding: 8px 10px; font-size: 10px; }
-      .mk-tl-title { font-size: 11px; }
+    @media (prefers-reduced-motion: reduce) {
+      .rbx-track.is-auto,
+      .rbx-head-badge.live::before,
+      .mon-row.fresh,
+      .gtm-step.live .gtm-ico::after,
+      .gtm-step.pop, .gtm-step.pop .gtm-ico { animation:none; }
     }
+
     /* Body paragraph under tagline */
     .fdr .fbody {
       font-family: var(--font-g);
@@ -1320,7 +1262,7 @@
     /* Layout B: 1.5fr 1fr 1fr × 2 rows */
     .why-grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto auto;
     }
     .why-card {
@@ -1548,20 +1490,25 @@
     .st3-label {
       font-family: var(--font-g);
       font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 13px;
+      line-height: 18px;
       color: var(--tb);
+      white-space: nowrap;
     }
-    /* Industry-context sub-line */
+    /* Industry-context sub-line — full-bleed grey panel inside card */
     .st3-context {
-      margin-top: auto;
-      padding-top: 18px;
-      border-top: 1px dashed var(--bd);
+      margin-top: 40px;
+      margin-right: calc(-1 * var(--cell-pad));
+      margin-bottom: calc(-1 * var(--cell-pad));
+      margin-left: calc(-1 * var(--cell-pad));
+      padding: 20px var(--cell-pad) 24px;
+      border-top: var(--bdl);
+      background: var(--bg2);
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      width: 100%;
+      gap: 18px;
     }
+    [data-theme="light"] .st3-context { background: var(--bg3); }
     .st3-context-row {
       display: flex;
       align-items: center;
@@ -1577,11 +1524,13 @@
     }
     .st3-bar {
       position: relative;
-      height: 3px;
-      background: var(--bd);
+      height: 4px;
+      width: 100%;
+      background: rgba(255,255,255,0.10);
       border-radius: 999px;
       overflow: hidden;
     }
+    [data-theme="light"] .st3-bar { background: rgba(0,0,0,0.08); }
     .st3-bar-fill {
       position: absolute;
       inset: 0;
@@ -1797,7 +1746,7 @@
       <p class="prod-header-sub">Manage P2P, APM, and Ecom through one single API. Connect once to access our complete risk orchestration suite.</p>
     </section>
 
-    <!-- PRODUCTS Row 01 — No-code Rule Engine -->
+    <!-- PRODUCTS Row 01 — No-code Rule Engine (animated mockup: rule build, v2) -->
     <div class="fdr reveal">
       <div class="fc reveal-left">
         <div>
@@ -1810,78 +1759,46 @@
         <div><div class="fsh">Deploy in minutes</div><div class="fsb">Push rules without IT review and roll back with a single click. No deploy cycles.</div></div>
       </div>
       <div class="fi">
-        <div class="fi-mockup" aria-hidden="true">
-          <div class="mk-rule-row">
-            <span class="mk-chip kw">IF</span>
-            <span class="mk-chip">amount</span>
-            <span class="mk-chip op">&gt;</span>
-            <span class="mk-chip val">$500</span>
-            <span class="mk-chip op">AND</span>
-            <span class="mk-chip">country</span>
-            <span class="mk-chip op">in</span>
-            <span class="mk-chip val">HR list</span>
-          </div>
-          <div class="mk-then">THEN</div>
-          <div class="mk-rule-row">
-            <span class="mk-chip action">Flag for review</span>
-            <span class="mk-chip">notify_team</span>
-          </div>
-          <div class="mk-rule-divider"></div>
-          <div class="mk-rule-row">
-            <span class="mk-chip kw">IF</span>
-            <span class="mk-chip">bin_country</span>
-            <span class="mk-chip op">≠</span>
-            <span class="mk-chip">ip_country</span>
-            <span class="mk-chip op">AND</span>
-            <span class="mk-chip">velocity_1h</span>
-            <span class="mk-chip op">&gt;</span>
-            <span class="mk-chip val">3</span>
-          </div>
-          <div class="mk-then">THEN</div>
-          <div class="mk-rule-row">
-            <span class="mk-chip action">Decline</span>
-          </div>
-          <div class="mk-foot">
-            <span>rule_set / high_risk_v4</span>
-            <span class="mk-deploy">Live</span>
+        <div class="rbx-frame" aria-hidden="true">
+          <div class="rbx-head"><span class="rbx-head-title">Create a new rule <span class="mut">· Step 1</span></span><span class="rbx-head-badge">Visual</span></div>
+          <div class="rbx-viewport">
+            <div class="rbx-track is-build">
+              <div class="rbx-card">
+                <div class="rbx-tabs"><span class="rbx-tab">Parameter</span><span class="rbx-tab active">Function</span></div>
+                <div class="rbx-fields">
+                  <div class="rbx-field"><span class="rbx-k">Aggregation function</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="uniqueCount"></span><span class="tw-cur"></span></div>
+                  <div class="rbx-field"><span class="rbx-k">Parameter</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="service_id"></span><span class="tw-cur"></span></div>
+                  <div class="rbx-field"><span class="rbx-k">Created at</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="Calendar 24 Hours"></span><span class="tw-cur"></span></div>
+                </div>
+                <div class="rbx-where">WHERE</div>
+                <div class="rbx-field"><span class="rbx-k">Parameter</span><span class="rbx-sep">:</span><span class="rbx-v mono tw" data-text="card_hash == tx.card_hash"></span><span class="tw-cur"></span></div>
+                <div class="rbx-add">+ Add Parameter</div>
+              </div>
+              <div class="rbx-ops"><span class="rbx-op">==</span><span class="rbx-op">!=</span><span class="rbx-op active">&gt;</span><span class="rbx-op">&lt;</span><span class="rbx-op">&gt;=</span><span class="rbx-op">&lt;=</span></div>
+              <div class="rbx-card">
+                <div class="rbx-valtabs"><span class="rbx-vt active">Value</span><span class="rbx-vt">Function</span></div>
+                <div class="rbx-field"><span class="rbx-k">Value</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="2"></span><span class="tw-cur"></span></div>
+              </div>
+              <div class="rbx-conn"><div class="rbx-plus">+</div></div>
+              <div class="rbx-card">
+                <div class="rbx-field"><span class="rbx-k">Reaction</span><span class="rbx-sep">:</span><span class="rbx-v strong tw" data-text="Decline"></span><span class="tw-cur"></span></div>
+                <div class="rbx-field"><span class="rbx-k">Score</span><span class="rbx-sep">:</span><span class="rbx-v strong tw" data-text="0"></span><span class="tw-cur"></span></div>
+                <div class="rbx-field"><span class="rbx-k">Notification</span><span class="rbx-sep">:</span><span class="rbx-v strong tw" data-text="false"></span><span class="tw-cur"></span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PRODUCTS Row 02 — Payment Routing (reversed) -->
+    <!-- PRODUCTS Row 02 — Payment Routing (reversed; animated mockup: live monitoring stream, v2) -->
     <div class="fdr rev reveal">
       <div class="fi reveal-right">
-        <div class="fi-mockup mk-route" aria-hidden="true">
-          <svg viewBox="0 0 460 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Routing cascade diagram">
-            <g>
-              <rect class="rt-node-bg accent" x="170" y="40" width="120" height="44" rx="8"/>
-              <text class="rt-label" x="230" y="60" text-anchor="middle">Transaction</text>
-              <text class="rt-sub" x="230" y="75" text-anchor="middle">€420 · BIN 5102</text>
-            </g>
-            <path class="rt-edge flow rt-pulse" d="M230 88 V 110"/>
-            <g>
-              <rect class="rt-node-bg" x="160" y="110" width="140" height="36" rx="8"/>
-              <text class="rt-label" x="230" y="126" text-anchor="middle">Risk score</text>
-              <text class="rt-sub" x="230" y="139" text-anchor="middle">0.18 · low</text>
-            </g>
-            <path class="rt-edge flow" d="M230 148 V 168 M230 168 H 90 M230 168 H 370"/>
-            <path class="rt-edge flow" d="M90 168 V 188"/>
-            <path class="rt-edge flow rt-pulse" d="M370 168 V 188"/>
-            <g>
-              <rect class="rt-node-bg fail" x="20" y="188" width="140" height="58" rx="8"/>
-              <text class="rt-label" x="90" y="208" text-anchor="middle">Provider A</text>
-              <text class="rt-sub" x="90" y="222" text-anchor="middle">Declined · 51</text>
-              <text class="rt-sub" x="90" y="236" text-anchor="middle">Cascade →</text>
-            </g>
-            <path class="rt-edge flow rt-pulse" d="M160 217 H 220 V 215"/>
-            <g>
-              <rect class="rt-node-bg success" x="300" y="188" width="140" height="58" rx="8"/>
-              <text class="rt-label" x="370" y="208" text-anchor="middle">Provider B</text>
-              <text class="rt-sub" x="370" y="222" text-anchor="middle">Approved · 00</text>
-              <text class="rt-sub" x="370" y="236" text-anchor="middle">Latency 92ms</text>
-            </g>
-          </svg>
+        <div class="rbx-frame" aria-hidden="true">
+          <div class="rbx-head"><span class="rbx-head-title">Monitoring <span class="mut">· all events</span></span><span class="rbx-head-badge live">Live</span></div>
+          <div class="mon-thead"><span>ID</span><span>Event</span><span>Type</span><span>System</span><span>Merchant</span></div>
+          <div class="rbx-viewport mon-vp"><div class="rbx-track mon-track" data-mon="stream"></div></div>
+          <div class="mon-foot">Shown <b data-counter>10</b> of <b data-total>2,121,055</b></div>
         </div>
       </div>
       <div class="fc">
@@ -1896,7 +1813,7 @@
       </div>
     </div>
 
-    <!-- PRODUCTS Row 03 — Advanced Case Management -->
+    <!-- PRODUCTS Row 03 — Advanced Case Management (animated mockup: crosscheck count-up, v2) -->
     <div class="fdr reveal">
       <div class="fc reveal-left">
         <div>
@@ -1909,76 +1826,37 @@
         <div><div class="fsh">Smart limits from connections</div><div class="fsb">Limits adjust automatically based on linked entities and historical case outcomes.</div></div>
       </div>
       <div class="fi">
-        <div class="fi-mockup mk-graph" aria-hidden="true">
-          <svg viewBox="0 0 460 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cross-entity fraud ring graph">
-            <g>
-              <line class="gn-edge flagged" x1="230" y1="140" x2="120" y2="80"/>
-              <line class="gn-edge flagged" x1="230" y1="140" x2="340" y2="80"/>
-              <line class="gn-edge flagged" x1="230" y1="140" x2="100" y2="210"/>
-              <line class="gn-edge flagged" x1="230" y1="140" x2="360" y2="210"/>
-              <line class="gn-edge" x1="120" y1="80" x2="340" y2="80"/>
-              <line class="gn-edge" x1="100" y1="210" x2="360" y2="210"/>
-            </g>
-            <g>
-              <circle class="gn-ring" cx="230" cy="140" r="38"/>
-              <circle class="gn flagged" cx="230" cy="140" r="26"/>
-              <text class="gn-icon" x="230" y="140" text-anchor="middle" font-size="14" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">★</text>
-              <text class="gn-label" x="230" y="184">Suspect ring</text>
-            </g>
-            <g>
-              <circle class="gn" cx="120" cy="80" r="18"/>
-              <text class="gn-icon" x="120" y="80" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">A</text>
-              <text class="gn-label" x="120" y="48">Account</text>
-              <text class="gn-sub" x="120" y="60">#4810</text>
-            </g>
-            <g>
-              <circle class="gn" cx="340" cy="80" r="18"/>
-              <text class="gn-icon" x="340" y="80" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">A</text>
-              <text class="gn-label" x="340" y="48">Account</text>
-              <text class="gn-sub" x="340" y="60">#5127</text>
-            </g>
-            <g>
-              <circle class="gn" cx="100" cy="210" r="18"/>
-              <text class="gn-icon" x="100" y="210" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">D</text>
-              <text class="gn-label" x="100" y="246">Device</text>
-              <text class="gn-sub" x="100" y="258">FP-8c3</text>
-            </g>
-            <g>
-              <circle class="gn" cx="360" cy="210" r="18"/>
-              <text class="gn-icon" x="360" y="210" text-anchor="middle" font-size="10" font-weight="700" font-family="Inter,sans-serif" dominant-baseline="central">IP</text>
-              <text class="gn-label" x="360" y="246">IP block</text>
-              <text class="gn-sub" x="360" y="258">/24 shared</text>
-            </g>
-          </svg>
+        <div class="rbx-frame" aria-hidden="true">
+          <div class="rbx-head"><span class="rbx-head-title">Crosscheck <span class="mut">· 2447…163111</span></span><span class="rbx-head-badge">Linked</span></div>
+          <div class="cc-counts">
+            <div class="cc-stats">
+              <div class="cc-stat"><span class="cc-stat-l ok">Approved</span><span class="cc-stat-v"><span class="cc-count" data-to="145">145</span></span><span class="cc-stat-s">Total count</span></div>
+              <div class="cc-stat"><span class="cc-stat-l ok">Approved</span><span class="cc-stat-v">85,697.81</span><span class="cc-stat-s">Amount, USD</span></div>
+              <div class="cc-stat"><span class="cc-stat-l no">Declined</span><span class="cc-stat-v"><span class="cc-count" data-to="59">59</span></span><span class="cc-stat-s">Total count</span></div>
+              <div class="cc-stat"><span class="cc-stat-l no">Declined</span><span class="cc-stat-v">31,673.65</span><span class="cc-stat-s">Amount, USD</span></div>
+            </div>
+            <div class="cc-match">
+              <span class="cc-mchip">Customer ID <b class="cc-count" data-to="209">209</b></span><span class="cc-mchip">Cardholder <b class="cc-count" data-to="3">3</b></span><span class="cc-mchip">Card <b class="cc-count" data-to="1">1</b></span>
+              <span class="cc-mchip">Email <b class="cc-count" data-to="1">1</b></span><span class="cc-mchip">Device <b class="cc-count" data-to="1">1</b></span><span class="cc-mchip">IP <b class="cc-count" data-to="1">1</b></span>
+            </div>
+          </div>
+          <div class="mon-thead"><span>ID</span><span>Event</span><span>Type</span><span>System</span><span>Merchant</span></div>
+          <div class="rbx-viewport cc-vp"><div class="rbx-track is-auto mon-track" data-mon="static" data-total="211" data-shown="10"></div></div>
+          <div class="mon-foot">Shown <b data-counter>10</b> of <b data-total>211</b></div>
         </div>
       </div>
     </div>
 
-    <!-- PRODUCTS Row 04 — Fast Go-To-Market (reversed) -->
+    <!-- PRODUCTS Row 04 — Fast Go-To-Market (reversed; animated mockup: onboarding progress, v1) -->
     <div class="fdr rev reveal">
       <div class="fi reveal-right">
-        <div class="fi-mockup" aria-hidden="true">
-          <div class="mk-timeline">
-            <div class="mk-tl-step">
-              <span class="mk-tl-day">Day 0</span>
-              <span class="mk-tl-title">Contract signed · API key issued</span>
-              <span class="mk-tl-check">✓</span>
-            </div>
-            <div class="mk-tl-step">
-              <span class="mk-tl-day">Day 1</span>
-              <span class="mk-tl-title">Sandbox events · sample data</span>
-              <span class="mk-tl-check">✓</span>
-            </div>
-            <div class="mk-tl-step">
-              <span class="mk-tl-day">Day 2</span>
-              <span class="mk-tl-title">Migrate rules &amp; lists from vendor</span>
-              <span class="mk-tl-check">✓</span>
-            </div>
-            <div class="mk-tl-step live">
-              <span class="mk-tl-day">Day 3</span>
-              <span class="mk-tl-title">Production traffic live</span>
-              <span class="mk-tl-check">●</span>
-            </div>
+        <div class="rbx-frame" aria-hidden="true">
+          <div class="rbx-head"><span class="rbx-head-title">Onboarding <span class="mut">· go-live</span></span><span class="rbx-head-badge live">Live</span></div>
+          <div class="gtm">
+            <div class="gtm-step"><span class="gtm-day">Day 0</span><span class="gtm-title">Contract signed · API key issued</span><span class="gtm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="gtm-step"><span class="gtm-day">Day 1</span><span class="gtm-title">Sandbox events · sample data</span><span class="gtm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="gtm-step"><span class="gtm-day">Day 2</span><span class="gtm-title">Migrate rules &amp; lists from vendor</span><span class="gtm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="gtm-step"><span class="gtm-day">Day 3</span><span class="gtm-title">Production traffic live</span><span class="gtm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
           </div>
         </div>
       </div>
@@ -2004,42 +1882,43 @@
         <p class="why-header-sub">High-risk merchants get the same risk infrastructure mainstream payments enjoy — without industry exclusions, multi-month onboarding, or hidden bundling.</p>
       </div>
       <div class="why-grid">
-        <!-- Col 1 (wide, 1.5fr) — positioning + technical -->
-        <div class="why-card wide-col">
-          <div class="why-icon"><i data-lucide="shield-off"></i></div>
-          <div class="why-h">No industry exclusions</div>
-          <p class="why-b">Pre-tested rule libraries for gambling, crypto, adult, regulated CBD, forex, and high-volume e-commerce. We don't decline merchants based on what they sell.</p>
-        </div>
-        <!-- Col 2 — Card 1 (commercial boundary) -->
+        <!-- Row 1 -->
+        <!-- Card 1 — Stay below card-network thresholds -->
         <div class="why-card">
           <div class="why-icon"><i data-lucide="gauge"></i></div>
           <div class="why-h">Stay below card-network thresholds</div>
           <p class="why-b">Keep chargeback ratios within Visa and Mastercard limits. Avoid VFMP, MATCH, and excessive-chargeback fees.</p>
         </div>
-        <!-- Col 3 — Card 4 (trust) -->
+        <!-- Card 2 — Live in 2-3 days, not a quarter -->
+        <div class="why-card">
+          <div class="why-icon"><i data-lucide="zap"></i></div>
+          <div class="why-h">Live in 2-3 days, not a quarter</div>
+          <p class="why-b">From signed contract to live production traffic in 2-3 days. Migrate transaction history and data from any vendor — and go live in 2–3 days, not a quarter.</p>
+        </div>
+        <!-- Card 3 — Per-transaction pricing. No minimums. -->
+        <div class="why-card">
+          <div class="why-icon"><i data-lucide="tag"></i></div>
+          <div class="why-h">Per-transaction pricing. No minimums.</div>
+          <p class="why-b">No setup fees, no annual minimums, no lock-in. Cancel any month.</p>
+        </div>
+        <!-- Row 2 -->
+        <!-- Card 4 — Every decision is auditable -->
         <div class="why-card">
           <div class="why-icon"><i data-lucide="file-search"></i></div>
           <div class="why-h">Every decision is auditable</div>
           <p class="why-b">See exactly which rules fired, with what threshold, on which transaction. No black-box ML scores you can't explain.</p>
         </div>
-        <!-- Row 2 -->
-        <!-- Col 1 (wide, 1.5fr) — technical -->
-        <div class="why-card wide-col">
+        <!-- Card 5 — Fingerprint -->
+        <div class="why-card">
           <div class="why-icon"><i data-lucide="fingerprint"></i></div>
           <div class="why-h">Fingerprint</div>
-          <p class="why-b">Device fingerprinting that survives cleared storage, rotated IPs, and anti-detect browsers. Identify returning actors across sessions and devices.</p>
+          <p class="why-b">Device fingerprinting that survives cleared storage, rotated IPs, and anti-detect browsers.</p>
         </div>
-        <!-- Col 2 — Card 2 (speed) -->
+        <!-- Card 6 — Roles -->
         <div class="why-card">
-          <div class="why-icon"><i data-lucide="zap"></i></div>
-          <div class="why-h">Live in 2-3 days, not a quarter</div>
-          <p class="why-b">From signed contract to live production traffic in 2-3 days. Migrate transaction history and data from any vendor.</p>
-        </div>
-        <!-- Col 3 — Card 3 (cost) -->
-        <div class="why-card">
-          <div class="why-icon"><i data-lucide="tag"></i></div>
-          <div class="why-h">Per-transaction pricing. No minimums.</div>
-          <p class="why-b">No setup fees, no annual minimums, no lock-in. Cancel any month.</p>
+          <div class="why-icon"><i data-lucide="users-round"></i></div>
+          <div class="why-h">Roles</div>
+          <p class="why-b">Pre-configured roles with scope-level permissions across events, rules, lists, and entities.</p>
         </div>
       </div>
     </section>
@@ -2499,6 +2378,148 @@
     }, { threshold: 0.5 });
     counterEls.forEach(el => cObs.observe(el));
   }
+
+  /* ── Animated product mockups (PRODUCTS rows 01–04, from blocks-explorer) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.fdr')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.fdr'); return !r || r.classList.contains('in-view'); };
+
+    /* seamless infinite scroll: clone content once, loop linearly */
+    function makeInfinite(tr) {
+      if (!tr || tr.dataset.inf || REDUCE) return;
+      tr.dataset.inf = '1';
+      [...tr.children].forEach(k => tr.appendChild(k.cloneNode(true)));
+      const half = tr.scrollHeight / 2;
+      tr.style.setProperty('--rbx-dist', '-' + half + 'px');
+      tr.style.setProperty('--rbx-dur', (half / 22) + 's');
+    }
+
+    /* Row 01 — rule build: values typed line by line, viewport follows the active line */
+    function startBuild(tr) {
+      if (!tr || tr.dataset.started) return; tr.dataset.started = '1';
+      const vp = tr.parentElement;
+      const vals = [...tr.querySelectorAll('.tw')];
+      const carets = vals.map(v => v.nextElementSibling);
+      if (REDUCE) { vals.forEach(v => v.textContent = v.dataset.text); return; }
+      function followTo(el) {
+        const maxd = Math.max(0, tr.scrollHeight - vp.clientHeight);
+        const target = Math.min(maxd, Math.max(0, el.offsetTop - vp.clientHeight * 0.55));
+        tr.style.transform = 'translateY(' + (-target) + 'px)';
+      }
+      (function run() {
+        if (!live(tr)) { setTimeout(run, 900); return; } /* idle off-screen */
+        vals.forEach(v => v.textContent = ''); carets.forEach(c => c.classList.remove('on'));
+        tr.style.transform = 'translateY(0)';
+        let i = 0;
+        (function line() {
+          if (i >= vals.length) { setTimeout(run, 2600); return; }
+          const v = vals[i], c = carets[i], full = v.dataset.text; let j = 0;
+          c.classList.add('on'); followTo(v);
+          const iv = setInterval(() => {
+            v.textContent = full.slice(0, ++j);
+            if (j >= full.length) { clearInterval(iv); c.classList.remove('on'); i++; setTimeout(line, 320); }
+          }, 26);
+        })();
+      })();
+    }
+
+    /* Rows 02–03 — monitoring table: modes static / stream */
+    const _pick = a => a[Math.random() * a.length | 0];
+    const MON_SYS = ['Visa','Mastercard','Amex','JCB','HUMO','Discover'];
+    const MON_MER = ['SFC GROUP LTD','Betway Holdings','CoinFlow AG','NovaPay Inc','LuckyBet GmbH','Aurora Pay','Helix Markets'];
+    const MON_EV  = [['TRANSACTION','mon-b-blue'],['TRANSACTION','mon-b-blue'],['TRANSACTION','mon-b-blue'],['CHARGEBACK','mon-b-red'],['ALERT','mon-b-amber']];
+    const MON_TY  = [['PAYMENT','mon-b-green'],['PAYMENT','mon-b-green'],['PAYOUT','mon-b-amber'],['REFUND','mon-b-red']];
+    let MON_ID = 12789402012;
+    function monRow(fresh) {
+      const ev = _pick(MON_EV), ty = _pick(MON_TY);
+      const d = document.createElement('div');
+      d.className = 'mon-row' + (fresh ? ' fresh' : '');
+      d.innerHTML = `<span class="id">${MON_ID--}</span><span class="mon-chip ${ev[1]}">${ev[0]}</span>`
+        + `<span class="mon-chip ${ty[1]}">${ty[0]}</span><span class="sys">${_pick(MON_SYS)}</span><span class="mer">${_pick(MON_MER)}</span>`;
+      return d;
+    }
+    function startMon(track) {
+      if (track.dataset.started) return; track.dataset.started = '1';
+      const mode = track.dataset.mon;
+      const frame = track.closest('.rbx-frame');
+      const N = mode === 'stream' ? 9 : 11;
+      for (let i = 0; i < N; i++) track.appendChild(monRow(false));
+      const cEl = frame.querySelector('.mon-foot [data-counter]'), tEl = frame.querySelector('.mon-foot [data-total]');
+      let total = track.dataset.total ? +track.dataset.total : 2121055;
+      const shown = track.dataset.shown ? +track.dataset.shown : 10;
+      function foot() { if (cEl) cEl.textContent = shown.toLocaleString('en-US'); if (tEl) tEl.textContent = total.toLocaleString('en-US'); }
+      foot();
+      if (mode !== 'stream') makeInfinite(track);
+      if (REDUCE || mode !== 'stream') return;
+      setInterval(() => { if (!live(track)) return;
+        track.insertBefore(monRow(true), track.firstChild);
+        while (track.children.length > N) track.removeChild(track.lastChild);
+        total += 1 + (Math.random() * 4 | 0); foot();
+      }, 1500);
+    }
+
+    /* Row 03 — count-up: animate .cc-count[data-to] from 0, loop */
+    function startCount(scope) {
+      if (scope.dataset.cstarted) return; scope.dataset.cstarted = '1';
+      const els = [...scope.querySelectorAll('.cc-count')];
+      if (!els.length) return;
+      if (REDUCE) { els.forEach(e => e.textContent = (+e.dataset.to).toLocaleString('en-US')); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        const t0 = performance.now(), dur = 1200;
+        els.forEach(e => e.textContent = '0');
+        (function frame(now) {
+          const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+          els.forEach(el => el.textContent = Math.round(e * (+el.dataset.to)).toLocaleString('en-US'));
+          if (p < 1) requestAnimationFrame(frame); else setTimeout(run, 4200);
+        })(t0);
+      })();
+    }
+
+    /* Row 04 — onboarding progress: steps close in order, last goes live, loop */
+    function startGtm(el) {
+      if (el.dataset.started) return; el.dataset.started = '1';
+      const steps = [...el.querySelectorAll('.gtm-step')];
+      const setFinal = () => steps.forEach((s, i) => { s.className = 'gtm-step ' + (i === steps.length - 1 ? 'live' : 'done'); });
+      if (REDUCE) { setFinal(); return; }
+      const pop = s => { s.classList.add('pop'); setTimeout(() => s.classList.remove('pop'), 480); };
+      (function run() {
+        if (!live(el)) { setTimeout(run, 900); return; }
+        steps.forEach(s => s.className = 'gtm-step todo');
+        let i = 0;
+        (function step() {
+          if (i >= steps.length) { setTimeout(run, 2600); return; }
+          const s = steps[i];
+          s.className = 'gtm-step ' + (i === steps.length - 1 ? 'live' : 'done');
+          pop(s);
+          i++; setTimeout(step, 680);
+        })();
+      })();
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('.is-build').forEach(startBuild);
+        row.querySelectorAll('.mon-track').forEach(startMon);
+        row.querySelectorAll('.cc-counts').forEach(startCount);
+        row.querySelectorAll('.gtm').forEach(startGtm);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
+  })();
 
   /* ── CTA Three.js (mini version of hero dots) ── */
   (function() {

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -146,42 +146,64 @@ footer { background: #08090a; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-/* Merchant table mockup */
-.merchant-table { width: 100%; max-width: 440px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.mt-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center; }
-.mt-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.mt-meta { font-size: 11px; color: var(--t3); }
-.mt-cols { display: grid; grid-template-columns: 1.6fr 1fr 0.8fr 1fr; gap: 8px; padding: 6px 16px 6px; }
-.mt-col-head { font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--t3); }
-.mt-row { display: grid; grid-template-columns: 1.6fr 1fr 0.8fr 1fr; gap: 8px; padding: 9px 16px; border-top: 1px solid var(--bd); align-items: center; }
-.mt-name { font-size: 12px; font-weight: 600; color: var(--t1); }
-.mt-txn { font-size: 12px; color: var(--t2); }
-.mt-fraud { font-size: 12px; font-weight: 600; }
-.mt-fraud.ok { color: #22c55e; }
-.mt-fraud.warn { color: #f59e0b; }
-.mt-fraud.alert { color: #ef4444; }
-.mt-status { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-align: center; }
-.mt-status.ok { background: rgba(34,197,94,.1); color: #22c55e; }
-.mt-status.watch { background: rgba(245,158,11,.1); color: #f59e0b; }
-.mt-status.alert { background: rgba(239,68,68,.1); color: #ef4444; }
+/* ── Animated product mockups (blocks-explorer 06 v2 / 07 v3, 2026-06-12) ── */
+.feature-row-visual .rbx-frame { width:100%; max-width:460px; border:1px solid var(--bd); border-radius:14px;
+  background:var(--bg2); overflow:hidden; font-family:var(--font-i); }
+[data-theme="light"] .feature-row-visual .rbx-frame { background:#fafbfd; }
+.rbx-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid var(--bd); background:var(--bg); }
+.rbx-head-title { font-family:var(--font-g); font-weight:600; font-size:12.5px; letter-spacing:-.2px; color:var(--t1); }
+.rbx-head-title .mut { color:var(--t3); font-weight:500; }
+.rbx-head-badge { font-size:10px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:6px; background:rgba(26,86,255,.14); color:var(--accent); white-space:nowrap; }
+.rbx-viewport { position:relative; height:300px; overflow:hidden;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+          mask-image:linear-gradient(180deg, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%); }
+.rbx-track { position:relative; display:flex; flex-direction:column; padding:16px; will-change:transform; }
+/* perf: pause auto-scroll for rows outside viewport */
+.feature-row:not(.in-view) .rbx-track.is-auto { animation-play-state:paused; }
 
-/* Routing dashboard mockup */
-.routing-dash { width: 100%; max-width: 400px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.rd-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); }
-.rd-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.rd-merchants { display: flex; flex-direction: column; }
-.rd-merchant { border-bottom: 1px solid var(--bd); padding: 10px 16px; }
-.rd-merchant:last-child { border-bottom: none; }
-.rd-mname { font-size: 12px; font-weight: 600; color: var(--t1); margin-bottom: 7px; }
-.rd-providers { display: flex; gap: 6px; }
-.rd-prov { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.rd-prov-name { font-size: 10px; color: var(--t3); }
-.rd-prov-bar-wrap { width: 36px; height: 6px; background: var(--bd); border-radius: 3px; overflow: hidden; }
-.rd-prov-bar { height: 100%; border-radius: 3px; }
-.rd-prov-bar.primary { background: var(--accent); }
-.rd-prov-bar.secondary { background: rgba(26,86,255,.4); }
-.rd-prov-bar.fallback { background: var(--bd); }
-.rd-prov-pct { font-size: 10px; font-weight: 700; color: var(--t2); }
+/* Row 01 — blacklist form (merchant fraud action) */
+.feature-row-visual .rbx-frame.bl-frame { max-width:404px; }
+.bl-body { padding:10px 18px 16px; }
+.bl-row { display:flex; align-items:center; gap:9px; padding:8px 0; }
+.bl-lbl { display:flex; align-items:center; gap:5px; font-family:var(--font-i); font-size:12px; color:var(--t2); white-space:nowrap; }
+.bl-err { color:#ef4444; font-size:12px; line-height:1; }
+.bl-lead { flex:1; height:0; border-bottom:1px dotted var(--bd); }
+.bl-val { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11.5px; color:var(--t1); white-space:nowrap; max-width:168px; overflow:hidden; text-overflow:ellipsis; }
+.bl-check { width:18px; height:18px; border-radius:5px; border:1px solid var(--bd); background:var(--bg2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:background .2s ease, border-color .2s ease; }
+.bl-check svg { width:11px; height:11px; color:#fff; opacity:0; transition:opacity .2s ease; }
+.bl-check.on { background:var(--accent); border-color:var(--accent); }
+.bl-check.on svg { opacity:1; }
+.bl-field { margin-top:8px; height:40px; border:1px solid var(--bd); border-radius:8px; padding:0 12px; display:flex; align-items:center; justify-content:space-between; }
+.bl-field span { font-family:var(--font-i); font-size:12px; color:var(--t3); }
+.bl-field svg { width:14px; height:14px; color:var(--t3); }
+.bl-comment { margin-top:9px; height:58px; border:1px solid var(--bd); border-radius:8px; padding:10px 12px; font-family:var(--font-i); font-size:12px; color:var(--t3); }
+.bl-req { color:#ef4444; }
+.bl-actions { display:flex; gap:10px; margin-top:12px; }
+.bl-btn { flex:1; height:40px; border-radius:8px; font-family:var(--font-i); font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+.bl-btn.cancel { border:1px solid var(--bd); color:var(--t2); background:transparent; }
+.bl-btn.confirm { background:var(--accent); color:#fff; opacity:.45; transition:opacity .3s ease; }
+.bl-btn.confirm.on { opacity:1; }
+
+/* Row 02 — routing per merchant (failover cascade) */
+.feature-row-visual .rbx-frame.rt-frame { max-width:380px; }
+.rbx-viewport.rt-vp { height:300px; }
+.rt-track { padding:0 !important; }
+.rt-merch { padding:14px 16px; border-bottom:1px solid var(--bd); }
+.rt-name { font-family:var(--font-i); font-size:13px; font-weight:600; color:var(--t1); margin-bottom:11px; }
+.rt-provs { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.rt-plabel { font-family:var(--font-i); font-size:10px; color:var(--t3); margin-bottom:7px; }
+.rt-bar { height:5px; border-radius:3px; background:var(--bg3); overflow:hidden; }
+.rt-fill { height:100%; border-radius:3px; background:var(--accent); width:0; transition:width .6s cubic-bezier(.4,0,.2,1), background .4s ease; }
+.rt-fill.fail { background:#dc2626; }
+[data-theme="dark"] .rt-fill.fail { background:#ef4444; }
+.rt-pval { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11px; font-weight:700; color:var(--t1); margin-top:7px; }
+.rt-pval.muted { color:var(--t3); font-weight:400; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rbx-viewport { height:auto; -webkit-mask-image:none; mask-image:none; }
+  .bl-check, .bl-check svg, .bl-btn.confirm { transition:none; }
+  .rt-fill { transition:none; }
+}
 
 
 /* Full-width dividers */
@@ -311,21 +333,21 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="merchant-table">
-        <div class="mt-header">
-          <span class="mt-title">Merchant Portfolio</span>
-          <span class="mt-meta">4 of 28 shown</span>
+      <div class="rbx-frame bl-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Blacklist <span class="mut">· new entry</span></span><span class="rbx-head-badge">Lists</span></div>
+        <div class="bl-form" data-bl="select">
+          <div class="bl-body">
+            <div class="bl-row"><span class="bl-lbl">Customer ID</span><span class="bl-lead"></span><span class="bl-val">92c3aa09…46332f</span><span class="bl-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="bl-row"><span class="bl-lbl">Device ID</span><span class="bl-lead"></span><span class="bl-val">e06103eb…56d6</span><span class="bl-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="bl-row"><span class="bl-lbl">IP</span><span class="bl-lead"></span><span class="bl-val">32.4.85.162</span><span class="bl-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="bl-row"><span class="bl-lbl">Email</span><span class="bl-lead"></span><span class="bl-val">sandra@outlook.com</span><span class="bl-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="bl-row"><span class="bl-lbl">Phone</span><span class="bl-lead"></span><span class="bl-val">+557309752096</span><span class="bl-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="bl-row"><span class="bl-lbl"><span class="bl-err">✕</span> Card</span><span class="bl-lead"></span><span class="bl-val">411111******1111</span><span class="bl-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+            <div class="bl-field"><span>Blacklist name <span class="bl-req">*</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
+            <div class="bl-comment">Comment <span class="bl-req">*</span></div>
+            <div class="bl-actions"><div class="bl-btn cancel">Cancel</div><div class="bl-btn confirm">Confirm</div></div>
+          </div>
         </div>
-        <div class="mt-cols">
-          <span class="mt-col-head">Merchant</span>
-          <span class="mt-col-head">Txn/day</span>
-          <span class="mt-col-head">Fraud%</span>
-          <span class="mt-col-head">Status</span>
-        </div>
-        <div class="mt-row"><span class="mt-name">Shop Alpha</span><span class="mt-txn">1,240</span><span class="mt-fraud ok">0.4%</span><span class="mt-status ok">OK</span></div>
-        <div class="mt-row"><span class="mt-name">BrandX Store</span><span class="mt-txn">890</span><span class="mt-fraud warn">2.1%</span><span class="mt-status watch">Watch</span></div>
-        <div class="mt-row"><span class="mt-name">Gaming Hub</span><span class="mt-txn">2,100</span><span class="mt-fraud ok">0.2%</span><span class="mt-status ok">OK</span></div>
-        <div class="mt-row"><span class="mt-name">Fashion Co</span><span class="mt-txn">340</span><span class="mt-fraud alert">6.8%</span><span class="mt-status alert">Alert</span></div>
       </div>
     </div>
   </div>
@@ -343,34 +365,9 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="routing-dash">
-        <div class="rd-header"><span class="rd-title">Routing — Per Merchant</span></div>
-        <div class="rd-merchants">
-          <div class="rd-merchant">
-            <div class="rd-mname">Shop Alpha</div>
-            <div class="rd-providers">
-              <div class="rd-prov"><span class="rd-prov-name">Prov A</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar primary" style="width:80%"></div></div><span class="rd-prov-pct">80%</span></div>
-              <div class="rd-prov"><span class="rd-prov-name">Prov B</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar secondary" style="width:50%"></div></div><span class="rd-prov-pct">20%</span></div>
-              <div class="rd-prov"><span class="rd-prov-name">Prov C</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar fallback" style="width:0%"></div></div><span class="rd-prov-pct">—</span></div>
-            </div>
-          </div>
-          <div class="rd-merchant">
-            <div class="rd-mname">BrandX Store</div>
-            <div class="rd-providers">
-              <div class="rd-prov"><span class="rd-prov-name">Prov A</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar primary" style="width:50%"></div></div><span class="rd-prov-pct">50%</span></div>
-              <div class="rd-prov"><span class="rd-prov-name">Prov B</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar secondary" style="width:70%"></div></div><span class="rd-prov-pct">35%</span></div>
-              <div class="rd-prov"><span class="rd-prov-name">Prov C</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar secondary" style="width:30%"></div></div><span class="rd-prov-pct">15%</span></div>
-            </div>
-          </div>
-          <div class="rd-merchant">
-            <div class="rd-mname">Gaming Hub</div>
-            <div class="rd-providers">
-              <div class="rd-prov"><span class="rd-prov-name">Prov A</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar primary" style="width:100%"></div></div><span class="rd-prov-pct">100%</span></div>
-              <div class="rd-prov"><span class="rd-prov-name">Prov B</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar fallback" style="width:0%"></div></div><span class="rd-prov-pct">—</span></div>
-              <div class="rd-prov"><span class="rd-prov-name">Prov C</span><div class="rd-prov-bar-wrap"><div class="rd-prov-bar fallback" style="width:0%"></div></div><span class="rd-prov-pct">—</span></div>
-            </div>
-          </div>
-        </div>
+      <div class="rbx-frame rt-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Routing <span class="mut">· per merchant</span></span><span class="rbx-head-badge">Auto</span></div>
+        <div class="rbx-viewport rt-vp"><div class="rbx-track rt-track" data-rt="cascade"></div></div>
       </div>
     </div>
   </div>
@@ -391,24 +388,24 @@ footer { background: #08090a; }
     <h2 class="sec-title">Products for payment providers</h2>
   </div>
   <div class="prod-cards reveal">
-      <a href="routing-cascading.html" class="prod-card">
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h8M8 11l6-4M8 13l6 4"/></svg></div>
         <div class="prod-card-title">Routing &amp; Cascading</div>
         <div class="prod-card-desc">Merchant-level routing rules with automatic failover across your provider network.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="transaction-monitoring.html" class="prod-card">
+        <a class="prod-card-link" href="routing-cascading.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div class="prod-card-title">Transaction Monitoring</div>
         <div class="prod-card-desc">Per-merchant fraud screening with configurable rules and real-time alerts.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="dispute-resolution.html" class="prod-card">
+        <a class="prod-card-link" href="transaction-monitoring.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div class="prod-card-title">Dispute Resolution</div>
         <div class="prod-card-desc">Handle chargebacks at scale across your merchant base with automated evidence preparation.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
+        <a class="prod-card-link" href="dispute-resolution.html">Learn more →</a>
+      </div>
   </div>
 
 <div class="cta-sec" id="ctaSection">
@@ -494,6 +491,84 @@ footer { background: #08090a; }
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (blocks-explorer 06 v2 / 07 v3) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.feature-row')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.feature-row'); return !r || r.classList.contains('in-view'); };
+
+    /* Row 01 — blacklist form: identifiers get checked in sequence, Confirm activates */
+    function startBl(form) {
+      if (form.dataset.started) return; form.dataset.started = '1';
+      const checks = [...form.querySelectorAll('.bl-check')];
+      const confirm = form.querySelector('.bl-btn.confirm');
+      const finalChecks = () => { checks.forEach(c => c.classList.remove('on')); checks[4] && checks[4].classList.add('on'); checks[5] && checks[5].classList.add('on'); };
+      if (REDUCE) { finalChecks(); confirm && confirm.classList.add('on'); return; }
+      const order = [0, 1, 4, 5];
+      (function run() {
+        if (!live(form)) { setTimeout(run, 900); return; }
+        checks.forEach(c => c.classList.remove('on')); confirm && confirm.classList.remove('on');
+        let i = 0;
+        (function step() {
+          if (i >= order.length) { setTimeout(run, 2400); return; }
+          checks[order[i]] && checks[order[i]].classList.add('on');
+          if (i === 0) confirm && confirm.classList.add('on');
+          i++; setTimeout(step, 620);
+        })();
+      })();
+    }
+
+    /* Row 02 — routing per merchant: primary provider fails, traffic cascades to backup */
+    function rtFill(el, split, failIdx) {
+      const fills = el.querySelectorAll('.rt-fill'), vals = el.querySelectorAll('.rt-pval');
+      split.forEach((v, j) => {
+        fills[j].style.width = v + '%';
+        fills[j].classList.toggle('fail', failIdx === j);
+        vals[j].textContent = v === 0 ? '—' : v + '%';
+        vals[j].classList.toggle('muted', v === 0);
+      });
+    }
+    function startRt(track) {
+      if (track.dataset.started) return; track.dataset.started = '1';
+      const seed = [['Shop Alpha',[80,20,0]], ['BrandX Store',[50,35,15]], ['Gaming Hub',[100,0,0]]];
+      const merchants = [];
+      seed.forEach(s => {
+        const el = document.createElement('div'); el.className = 'rt-merch';
+        el.innerHTML = `<div class="rt-name">${s[0]}</div><div class="rt-provs">`
+          + ['A','B','C'].map(p => `<div class="rt-prov"><div class="rt-plabel">Prov ${p}</div><div class="rt-bar"><div class="rt-fill"></div></div><div class="rt-pval">0%</div></div>`).join('')
+          + `</div>`;
+        track.appendChild(el); merchants.push({ el, split: s[1].slice() });
+        requestAnimationFrame(() => rtFill(el, s[1], -1));
+      });
+      if (REDUCE) { merchants.forEach(m => rtFill(m.el, m.split, -1)); return; }
+      const m = merchants[0]; let on = false;
+      setInterval(() => { if (!live(track)) return;
+        on = !on;
+        rtFill(m.el, on ? [0, 100, 0] : [70, 30, 0], on ? 0 : -1);
+      }, 2100);
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('.bl-form').forEach(startBl);
+        row.querySelectorAll('.rt-track').forEach(startRt);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
   })();
 </script>
 </body>

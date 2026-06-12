@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -200,23 +200,36 @@ footer { background: #08090a; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-/* Industry selector mockup */
-.ind-selector { display: flex; gap: 0; width: 100%; max-width: 480px; border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.ind-sel-list { width: 180px; flex-shrink: 0; border-right: 1px solid var(--bd); }
-.ind-sel-item { padding: 10px 14px; font-size: 12px; font-weight: 500; color: var(--t3); cursor: default; border-bottom: 1px solid var(--bd); display: flex; align-items: center; gap: 8px; }
-.ind-sel-item:last-child { border-bottom: none; }
-.ind-sel-item.active { background: rgba(26,86,255,.07); color: var(--t1); }
-.ind-sel-item.active::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-.ind-sel-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.ind-sel-rules { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
-.ind-sel-header { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); margin-bottom: 4px; }
-.ind-rule { background: var(--bg); border: 1px solid var(--bd); border-radius: 6px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
-.ind-rule-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.ind-rule-dot.green { background: #22c55e; }
-.ind-rule-dot.blue { background: var(--accent); }
-.ind-rule-dot.amber { background: #f59e0b; }
-.ind-rule-name { font-size: 11px; font-weight: 500; color: var(--t1); flex: 1; }
-.ind-rule-tag { font-size: 10px; font-weight: 600; color: var(--t3); }
+/* ── Animated product mockup (block 30 from blocks-explorer, 2026-06-12) ── */
+.feature-row-visual .rbx-frame { width: 100%; max-width: 460px; border: 1px solid var(--bd); border-radius: 14px; background: var(--bg2); overflow: hidden; font-family: var(--font-i); }
+[data-theme="light"] .feature-row-visual .rbx-frame { background: #fafbfd; }
+.feature-row-visual .rbx-frame.ep-frame { max-width: 400px; }
+.rbx-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--bd); background: var(--bg); }
+.rbx-head-title { font-family: var(--font-g); font-weight: 600; font-size: 12.5px; letter-spacing: -.2px; color: var(--t1); }
+.rbx-head-title .mut { color: var(--t3); font-weight: 500; }
+.rbx-head-badge { font-size: 10px; font-weight: 700; letter-spacing: .4px; padding: 3px 8px; border-radius: 6px; background: rgba(26,86,255,.14); color: var(--accent); white-space: nowrap; }
+.gen-body { padding: 14px 16px 16px; }
+.gen--anim .g-step { opacity: 0; transform: translateY(6px); }
+.gen--anim .g-step.shown { opacity: 1; transform: none; transition: opacity .3s ease, transform .3s ease; }
+.g-final { margin-top: 12px; opacity: 0; transform: translateY(6px); transition: opacity .5s ease, transform .5s ease; }
+.g-final.show { opacity: 1; transform: none; }
+.iw-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.iw-chip { font-family: var(--font-i); font-size: 10.5px; font-weight: 600; color: var(--t3); padding: 4px 9px; border: 1px solid var(--bd); border-radius: 6px; }
+.iw-chip.active { color: var(--accent); border-color: rgba(26,86,255,.5); background: rgba(26,86,255,.06); }
+.cs-list { display: flex; flex-direction: column; gap: 7px; }
+.cs-row { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); }
+.cs-type { font-family: var(--font-i); font-size: 11.5px; color: var(--t1); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-amt { font-family: 'JetBrains Mono','SFMono-Regular',monospace; font-size: 11px; color: var(--t2); flex-shrink: 0; }
+.dp-st { font-size: 8.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 3px 7px; border-radius: 5px; white-space: nowrap; }
+.dp-st.ok { background: rgba(34,197,94,.14); color: #16a34a; }
+[data-theme="dark"] .dp-st.ok { color: #22c55e; }
+.ep-sub { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 8px; background: rgba(26,86,255,.08); }
+.ep-sub-t { font-family: var(--font-i); font-size: 11.5px; font-weight: 600; color: var(--accent); }
+.ep-sub-m { font-family: 'JetBrains Mono','SFMono-Regular',monospace; font-size: 10px; color: var(--t3); }
+@media (prefers-reduced-motion: reduce) {
+  .gen--anim .g-step { opacity: 1; transform: none; }
+  .g-final { opacity: 1; transform: none; }
+}
 
 /* RESPONSIVE */
 
@@ -394,22 +407,20 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="ind-selector">
-        <div class="ind-sel-list">
-          <div class="ind-sel-item active">Gambling</div>
-          <div class="ind-sel-item">Crypto</div>
-          <div class="ind-sel-item">Fintech</div>
-          <div class="ind-sel-item">Payments</div>
-          <div class="ind-sel-item">E-commerce</div>
-          <div class="ind-sel-item">Trading</div>
-        </div>
-        <div class="ind-sel-rules">
-          <div class="ind-sel-header">Active rules — 14</div>
-          <div class="ind-rule"><span class="ind-rule-dot green"></span><span class="ind-rule-name">Multi-account detection</span><span class="ind-rule-tag">BLOCK</span></div>
-          <div class="ind-rule"><span class="ind-rule-dot green"></span><span class="ind-rule-name">Bonus abuse velocity</span><span class="ind-rule-tag">REVIEW</span></div>
-          <div class="ind-rule"><span class="ind-rule-dot blue"></span><span class="ind-rule-name">Deposit spike alert</span><span class="ind-rule-tag">ALERT</span></div>
-          <div class="ind-rule"><span class="ind-rule-dot amber"></span><span class="ind-rule-name">High-risk country block</span><span class="ind-rule-tag">BLOCK</span></div>
-          <div class="ind-rule"><span class="ind-rule-dot green"></span><span class="ind-rule-name">Card testing pattern</span><span class="ind-rule-tag">BLOCK</span></div>
+      <div class="rbx-frame ep-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Setup <span class="mut">· choose your vertical</span></span><span class="rbx-head-badge">Templates</span></div>
+        <div class="gen-body gen--anim" data-gen="reveal">
+          <div class="iw-chips">
+            <span class="iw-chip active">Gambling</span><span class="iw-chip">Crypto</span><span class="iw-chip">Fintech</span><span class="iw-chip">Payments</span><span class="iw-chip">Ecom</span><span class="iw-chip">Trading</span>
+          </div>
+          <div class="cs-list">
+            <div class="cs-row g-step"><span class="cs-type">Bonus abuse velocity pack</span><span class="cs-amt">12 rules</span><span class="dp-st ok">Included</span></div>
+            <div class="cs-row g-step"><span class="cs-type">Deposit monitoring pack</span><span class="cs-amt">9 rules</span><span class="dp-st ok">Included</span></div>
+            <div class="cs-row g-step"><span class="cs-type">Chargeback evidence pack</span><span class="cs-amt">7 rules</span><span class="dp-st ok">Included</span></div>
+          </div>
+          <div class="g-final">
+            <div class="ep-sub"><span class="ep-sub-t">Live in days</span><span class="ep-sub-m">same API across verticals</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -527,6 +538,68 @@ footer { background: #08090a; }
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockup (row 01, from blocks-explorer) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.feature-row')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.feature-row'); return !r || r.classList.contains('in-view'); };
+
+    /* Row 01 — generic reveal engine: .g-step rows appear in order, .g-final shows, loop */
+    function startGen(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const steps = [...scope.querySelectorAll('.g-step')];
+      const fin = scope.querySelector('.g-final');
+      const count = scope.querySelector('.g-count');
+      const finish = () => {
+        steps.forEach(s => s.classList.add('shown'));
+        if (fin) fin.classList.add('show');
+        if (count) count.textContent = count.dataset.to;
+      };
+      if (REDUCE || scope.dataset.gen !== 'reveal') { finish(); return; }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        steps.forEach(s => s.classList.remove('shown'));
+        if (fin) fin.classList.remove('show');
+        if (count) count.textContent = '0';
+        let i = 0;
+        (function step() {
+          if (i >= steps.length) {
+            if (fin) fin.classList.add('show');
+            if (count) {
+              const to = +count.dataset.to, t0 = performance.now();
+              (function tick(now) {
+                const t = Math.min((now - t0) / 700, 1);
+                count.textContent = Math.round(to * (1 - Math.pow(1 - t, 3)));
+                if (t < 1) requestAnimationFrame(tick);
+              })(t0);
+            }
+            setTimeout(run, 3600); return;
+          }
+          steps[i].classList.add('shown'); i++; setTimeout(step, 360);
+        })();
+      })();
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('[data-gen]').forEach(startGen);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
   })();
 </script>
 </body>

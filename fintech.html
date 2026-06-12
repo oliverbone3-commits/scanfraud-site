@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -146,41 +146,83 @@ footer { background: #08090a; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-/* Velocity rule mockup */
-.velocity-rule { width: 100%; max-width: 360px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.vr-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center; }
-.vr-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.vr-status { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: rgba(34,197,94,.1); color: #22c55e; }
-.vr-name { padding: 12px 16px 4px; font-size: 13px; font-weight: 600; color: var(--t1); }
-.vr-conditions { padding: 4px 16px 12px; display: flex; flex-direction: column; gap: 6px; }
-.vr-cond-label { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--t3); margin-bottom: 2px; }
-.vr-cond { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 6px; background: rgba(26,86,255,.06); border: 1px solid rgba(26,86,255,.12); }
-.vr-cond-key { font-size: 11px; font-weight: 600; color: var(--accent); }
-.vr-cond-op { font-size: 11px; color: var(--t3); }
-.vr-cond-val { font-size: 11px; font-weight: 600; color: var(--t1); }
-.vr-divider { height: 1px; background: var(--bd); margin: 0 16px; }
-.vr-action { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
-.vr-action-label { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--t3); }
-.vr-action-val { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; background: rgba(245,158,11,.1); color: #f59e0b; }
-.vr-footer { padding: 8px 16px; border-top: 1px solid var(--bd); display: flex; gap: 16px; }
-.vr-stat { font-size: 11px; color: var(--t3); }
-.vr-stat span { font-weight: 700; color: var(--t1); margin-right: 4px; }
+/* ── Animated product mockups (blocks-explorer 05 v2 / 21 v1, 2026-06-12) ── */
+.feature-row-visual .rbx-frame { width:100%; max-width:460px; border:1px solid var(--bd); border-radius:14px;
+  background:var(--bg2); overflow:hidden; font-family:var(--font-i); }
+[data-theme="light"] .feature-row-visual .rbx-frame { background:#fafbfd; }
+.rbx-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid var(--bd); background:var(--bg); }
+.rbx-head-title { font-family:var(--font-g); font-weight:600; font-size:12.5px; letter-spacing:-.2px; color:var(--t1); }
+.rbx-head-title .mut { color:var(--t3); font-weight:500; }
+.rbx-head-badge { font-size:10px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:6px; background:rgba(26,86,255,.14); color:var(--accent); white-space:nowrap; }
+.rbx-head-badge.hot { background:rgba(239,68,68,.16); color:#dc2626; }
+[data-theme="dark"] .rbx-head-badge.hot { color:#ef4444; }
+.rbx-viewport { position:relative; height:300px; overflow:hidden;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+          mask-image:linear-gradient(180deg, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%); }
+.rbx-track { position:relative; display:flex; flex-direction:column; padding:16px; will-change:transform; }
+.rbx-track.is-build { transition:transform .55s cubic-bezier(.4,0,.2,1); }
+/* perf: pause auto-scroll for rows outside viewport */
+.feature-row:not(.in-view) .rbx-track.is-auto { animation-play-state:paused; }
 
-/* ATO alert mockup */
-.ato-alert { width: 100%; max-width: 360px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.ato-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center; }
-.ato-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.ato-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: rgba(239,68,68,.12); color: #ef4444; }
-.ato-account { padding: 10px 16px 4px; font-size: 12px; font-weight: 600; color: var(--t1); }
-.ato-events { display: flex; flex-direction: column; }
-.ato-event { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-bottom: 1px solid var(--bd); }
-.ato-time { font-size: 11px; color: var(--t3); width: 36px; flex-shrink: 0; }
-.ato-desc { font-size: 12px; color: var(--t2); flex: 1; }
-.ato-flag { font-size: 12px; color: #f59e0b; }
-.ato-footer { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; background: rgba(239,68,68,.04); border-top: 1px solid var(--bd); }
-.ato-score-label { font-size: 11px; color: var(--t3); }
-.ato-score { font-size: 13px; font-weight: 700; color: #ef4444; }
-.ato-action { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 5px; background: rgba(239,68,68,.1); color: #ef4444; }
+/* Row 01 — velocity & AML rule builder */
+.rbx-card { border:1px solid var(--bd); border-radius:12px; background:var(--bg); padding:14px; display:flex; flex-direction:column; gap:11px; }
+.rbx-tabs { display:flex; border:1px solid var(--bd); border-radius:8px; overflow:hidden; }
+.rbx-tab { flex:1; height:30px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:500; color:var(--t3); }
+.rbx-tab.active { background:var(--accent); color:#fff; }
+.rbx-fields { display:flex; flex-direction:column; gap:8px; }
+.rbx-field { display:flex; align-items:center; gap:6px; font-size:12px; }
+.rbx-k { color:var(--t3); }
+.rbx-sep { color:var(--t3); }
+.rbx-v { color:var(--t1); font-weight:600; }
+.rbx-v.mono { font-family:'JetBrains Mono','SFMono-Regular',Consolas,monospace; font-weight:500; font-size:11px; }
+.rbx-v.strong { font-weight:700; }
+.rbx-where { align-self:flex-start; font-size:10px; font-weight:700; letter-spacing:.5px; color:#fff; background:var(--accent); padding:3px 9px; border-radius:6px; }
+.rbx-add { font-size:12px; font-weight:600; color:var(--accent); }
+.rbx-ops { display:flex; gap:4px; padding:10px 0; justify-content:center; }
+.rbx-op { min-width:30px; height:28px; display:flex; align-items:center; justify-content:center; border:1px solid var(--bd);
+  border-radius:6px; font-size:11px; font-weight:600; color:var(--t3); font-family:'JetBrains Mono','SFMono-Regular',monospace; }
+.rbx-op.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.rbx-valtabs { display:flex; border:1px solid var(--bd); border-radius:8px; overflow:hidden; width:100%; }
+.rbx-vt { flex:1; height:30px; display:flex; align-items:center; justify-content:center; padding:0 16px; font-size:12px; font-weight:500; color:var(--t3); }
+.rbx-vt.active { background:var(--bg3); color:var(--t1); }
+.rbx-conn { display:flex; justify-content:center; padding:10px 0; }
+.rbx-plus { width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:20px; line-height:1; font-weight:400; }
+.tw-cur { display:none; width:7px; height:13px; background:var(--accent); border-radius:1px; vertical-align:-1px; margin-left:1px; }
+.tw-cur.on { display:inline-block; animation:twCurBlink 1s step-end infinite; }
+@keyframes twCurBlink { 50% { opacity:0; } }
+
+/* Row 02 — ATO alert timeline */
+.feature-row-visual .rbx-frame.at-frame { max-width:400px; }
+.at-body { padding:14px 16px 16px; }
+.at-events { display:flex; flex-direction:column; gap:7px; }
+.at-ev { display:flex; align-items:center; gap:10px; padding:8px 11px; border:1px solid var(--bd); border-radius:8px; background:var(--bg); transition:background .3s ease, border-color .3s ease; }
+.at-time { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:10px; color:var(--t3); min-width:34px; }
+.at-desc { flex:1; font-family:var(--font-i); font-size:11.5px; color:var(--t1); }
+.at-flag { display:inline-flex; align-items:center; color:#b45309; }
+.at-flag svg { width:12px; height:12px; }
+[data-theme="dark"] .at-flag { color:#f59e0b; }
+.at--anim .at-ev { opacity:0; transform:translateY(6px); }
+.at--anim .at-ev.shown { opacity:1; transform:none; transition:opacity .3s ease, transform .3s ease, background .3s ease, border-color .3s ease; }
+.at-foot { margin-top:12px; }
+.gp-foot { display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--bd); border-radius:8px; background:var(--bg2); }
+.gp-foot-l { font-family:var(--font-i); font-size:11.5px; color:var(--t3); }
+.gp-score { margin-left:auto; font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:15px; font-weight:700; color:var(--t1); }
+.gp-score .mut { font-size:10px; font-weight:500; color:var(--t3); }
+.gp-act { font-size:8.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; padding:3px 7px; border-radius:5px; background:rgba(245,158,11,.16); color:#b45309; white-space:nowrap; }
+[data-theme="dark"] .gp-act { color:#f59e0b; }
+.gp-act.hot { background:rgba(239,68,68,.16); color:#dc2626; }
+[data-theme="dark"] .gp-act.hot { color:#ef4444; }
+.at--anim .gp-act { opacity:0; transition:opacity .4s ease; }
+.at--anim.acted .gp-act { opacity:1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rbx-viewport { height:auto; -webkit-mask-image:none; mask-image:none; }
+  .rbx-track.is-build { transition:none; transform:none !important; }
+  .tw-cur { display:none !important; }
+  .at--anim .at-ev { opacity:1; transform:none; }
+  .at--anim .gp-act { opacity:1; }
+}
 
 
 /* Full-width dividers */
@@ -310,26 +352,33 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="velocity-rule">
-        <div class="vr-header">
-          <span class="vr-title">Velocity Rule</span>
-          <span class="vr-status">Active</span>
-        </div>
-        <div class="vr-name">Suspicious transfer volume</div>
-        <div class="vr-conditions">
-          <div class="vr-cond-label">Conditions (all must match)</div>
-          <div class="vr-cond"><span class="vr-cond-key">transfers_count</span><span class="vr-cond-op">&gt;</span><span class="vr-cond-val">5 in 1 hour</span></div>
-          <div class="vr-cond"><span class="vr-cond-key">total_amount</span><span class="vr-cond-op">&gt;</span><span class="vr-cond-val">€1,000</span></div>
-          <div class="vr-cond"><span class="vr-cond-key">account_age_days</span><span class="vr-cond-op">&lt;</span><span class="vr-cond-val">30</span></div>
-        </div>
-        <div class="vr-divider"></div>
-        <div class="vr-action">
-          <span class="vr-action-label">Action</span>
-          <span class="vr-action-val">Hold for review</span>
-        </div>
-        <div class="vr-footer">
-          <div class="vr-stat"><span>38</span>hits today</div>
-          <div class="vr-stat"><span>94%</span>accuracy</div>
+      <div class="rbx-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Create a new rule <span class="mut">· Step 1</span></span><span class="rbx-head-badge">Visual</span></div>
+        <div class="rbx-viewport">
+          <div class="rbx-track is-build">
+            <div class="rbx-card">
+              <div class="rbx-tabs"><span class="rbx-tab">Parameter</span><span class="rbx-tab active">Function</span></div>
+              <div class="rbx-fields">
+                <div class="rbx-field"><span class="rbx-k">Aggregation function</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="uniqueCount"></span><span class="tw-cur"></span></div>
+                <div class="rbx-field"><span class="rbx-k">Parameter</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="service_id"></span><span class="tw-cur"></span></div>
+                <div class="rbx-field"><span class="rbx-k">Created at</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="Calendar 24 Hours"></span><span class="tw-cur"></span></div>
+              </div>
+              <div class="rbx-where">WHERE</div>
+              <div class="rbx-field"><span class="rbx-k">Parameter</span><span class="rbx-sep">:</span><span class="rbx-v mono tw" data-text="card_hash == tx.card_hash"></span><span class="tw-cur"></span></div>
+              <div class="rbx-add">+ Add Parameter</div>
+            </div>
+            <div class="rbx-ops"><span class="rbx-op">==</span><span class="rbx-op">!=</span><span class="rbx-op active">&gt;</span><span class="rbx-op">&lt;</span><span class="rbx-op">&gt;=</span><span class="rbx-op">&lt;=</span></div>
+            <div class="rbx-card">
+              <div class="rbx-valtabs"><span class="rbx-vt active">Value</span><span class="rbx-vt">Function</span></div>
+              <div class="rbx-field"><span class="rbx-k">Value</span><span class="rbx-sep">:</span><span class="rbx-v tw" data-text="2"></span><span class="tw-cur"></span></div>
+            </div>
+            <div class="rbx-conn"><div class="rbx-plus">+</div></div>
+            <div class="rbx-card">
+              <div class="rbx-field"><span class="rbx-k">Reaction</span><span class="rbx-sep">:</span><span class="rbx-v strong tw" data-text="Decline"></span><span class="tw-cur"></span></div>
+              <div class="rbx-field"><span class="rbx-k">Score</span><span class="rbx-sep">:</span><span class="rbx-v strong tw" data-text="0"></span><span class="tw-cur"></span></div>
+              <div class="rbx-field"><span class="rbx-k">Notification</span><span class="rbx-sep">:</span><span class="rbx-v strong tw" data-text="false"></span><span class="tw-cur"></span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -348,22 +397,18 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="ato-alert">
-        <div class="ato-header">
-          <span class="ato-title">ATO Alert</span>
-          <span class="ato-badge">High Risk</span>
-        </div>
-        <div class="ato-account">Account: USR-7812 · Maria K.</div>
-        <div class="ato-events">
-          <div class="ato-event"><span class="ato-time">14:22</span><span class="ato-desc">Login from new device (Moscow)</span><span class="ato-flag">⚠</span></div>
-          <div class="ato-event"><span class="ato-time">14:23</span><span class="ato-desc">Password changed</span><span class="ato-flag">⚠</span></div>
-          <div class="ato-event"><span class="ato-time">14:24</span><span class="ato-desc">Email address changed</span><span class="ato-flag">⚠</span></div>
-          <div class="ato-event"><span class="ato-time">14:25</span><span class="ato-desc">Transfer €2,400 initiated</span><span class="ato-flag">⚠</span></div>
-        </div>
-        <div class="ato-footer">
-          <span class="ato-score-label">ATO probability</span>
-          <span class="ato-score">94%</span>
-          <span class="ato-action">Account frozen</span>
+      <div class="rbx-frame at-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">ATO alert <span class="mut">· USR-7812 · Maria K.</span></span><span class="rbx-head-badge hot">High risk</span></div>
+        <div class="at-body at--anim" data-at="seq">
+          <div class="at-events">
+            <div class="at-ev" data-p="22"><span class="at-time">14:22</span><span class="at-desc">Login from new device (Moscow)</span><span class="at-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></div>
+            <div class="at-ev" data-p="47"><span class="at-time">14:23</span><span class="at-desc">Password changed</span><span class="at-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></div>
+            <div class="at-ev" data-p="71"><span class="at-time">14:24</span><span class="at-desc">Email address changed</span><span class="at-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></div>
+            <div class="at-ev" data-p="94"><span class="at-time">14:25</span><span class="at-desc">Transfer €2,400 initiated</span><span class="at-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></div>
+          </div>
+          <div class="at-foot">
+            <div class="gp-foot"><span class="gp-foot-l">ATO probability</span><span class="gp-score"><span data-to="94">0</span><span class="mut">%</span></span><span class="gp-act hot">Account frozen</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -385,24 +430,24 @@ footer { background: #08090a; }
     <h2 class="sec-title">Products used in fintech platforms</h2>
   </div>
   <div class="prod-cards reveal">
-      <a href="transaction-monitoring.html" class="prod-card">
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div class="prod-card-title">Transaction Monitoring</div>
         <div class="prod-card-desc">Real-time rules engine with velocity controls, AML flags, and behavioural alerts.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="risk-management.html" class="prod-card">
+        <a class="prod-card-link" href="transaction-monitoring.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
         <div class="prod-card-title">Risk Outsourcing</div>
         <div class="prod-card-desc">Our fraud analysts manage your rule set as your platform scales and new patterns emerge.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="routing-cascading.html" class="prod-card">
+        <a class="prod-card-link" href="risk-management.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h8M8 11l6-4M8 13l6 4"/></svg></div>
         <div class="prod-card-title">Routing &amp; Cascading</div>
         <div class="prod-card-desc">Optimise payment routing and automate failover across your provider stack.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
+        <a class="prod-card-link" href="routing-cascading.html">Learn more →</a>
+      </div>
   </div>
 
 <div class="cta-sec" id="ctaSection">
@@ -488,6 +533,96 @@ footer { background: #08090a; }
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (blocks-explorer 05 v2 / 21 v1) ── */
+  (function() {
+    const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = [...document.querySelectorAll('.feature-row')].filter(r => r.querySelector('.rbx-frame'));
+    if (!rows.length) return;
+    const live = el => { const r = el.closest('.feature-row'); return !r || r.classList.contains('in-view'); };
+
+    /* Row 01 — rule build: values typed line by line, viewport follows the active line */
+    function startBuild(tr) {
+      if (!tr || tr.dataset.started) return; tr.dataset.started = '1';
+      const vp = tr.parentElement;
+      const vals = [...tr.querySelectorAll('.tw')];
+      const carets = vals.map(v => v.nextElementSibling);
+      if (REDUCE) { vals.forEach(v => v.textContent = v.dataset.text); return; }
+      function followTo(el) {
+        const maxd = Math.max(0, tr.scrollHeight - vp.clientHeight);
+        const target = Math.min(maxd, Math.max(0, el.offsetTop - vp.clientHeight * 0.55));
+        tr.style.transform = 'translateY(' + (-target) + 'px)';
+      }
+      (function run() {
+        if (!live(tr)) { setTimeout(run, 900); return; } /* idle off-screen */
+        vals.forEach(v => v.textContent = ''); carets.forEach(c => c.classList.remove('on'));
+        tr.style.transform = 'translateY(0)';
+        let i = 0;
+        (function line() {
+          if (i >= vals.length) { setTimeout(run, 2600); return; }
+          const v = vals[i], c = carets[i], full = v.dataset.text; let j = 0;
+          c.classList.add('on'); followTo(v);
+          const iv = setInterval(() => {
+            v.textContent = full.slice(0, ++j);
+            if (j >= full.length) { clearInterval(iv); c.classList.remove('on'); i++; setTimeout(line, 320); }
+          }, 26);
+        })();
+      })();
+    }
+
+    /* Row 02 — ATO alert: events appear in sequence, probability tweens 22 → 47 → 71 → 94 */
+    function startAt(scope) {
+      if (scope.dataset.started) return; scope.dataset.started = '1';
+      const evs = [...scope.querySelectorAll('.at-ev')];
+      const score = scope.querySelector('.gp-score [data-to]');
+      const tween = (from, to, dur) => {
+        const t0 = performance.now();
+        (function tick(now) {
+          const t = Math.min((now - t0) / dur, 1);
+          score.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - t, 3)));
+          if (t < 1) requestAnimationFrame(tick);
+        })(t0);
+      };
+      if (REDUCE) {
+        evs.forEach(e => e.classList.add('shown'));
+        scope.classList.add('acted');
+        if (score) score.textContent = score.dataset.to;
+        return;
+      }
+      (function run() {
+        if (!live(scope)) { setTimeout(run, 900); return; }
+        evs.forEach(e => e.classList.remove('shown'));
+        scope.classList.remove('acted');
+        let prev = 0; if (score) score.textContent = '0';
+        let i = 0;
+        (function step() {
+          if (i >= evs.length) { scope.classList.add('acted'); setTimeout(run, 3600); return; }
+          const e = evs[i]; e.classList.add('shown');
+          if (score) { tween(prev, +e.dataset.p, 420); prev = +e.dataset.p; }
+          i++; setTimeout(step, 650);
+        })();
+      })();
+    }
+
+    function activateRow(row) {
+      requestAnimationFrame(() => {
+        row.querySelectorAll('.is-build').forEach(startBuild);
+        row.querySelectorAll('.at-body').forEach(startAt);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      rows.forEach(r => { r.classList.add('in-view'); activateRow(r); });
+      return;
+    }
+    const mio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); activateRow(e.target); }
+        else e.target.classList.remove('in-view');
+      });
+    }, { threshold: 0.3 });
+    rows.forEach(r => mio.observe(r));
   })();
 </script>
 </body>

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -146,46 +146,71 @@ footer { background: #08090a; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-/* On-ramp transaction mockup */
-.onramp-card { width: 100%; max-width: 360px; background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; font-family: var(--font-i); }
-.oc-header { padding: 10px 16px; border-bottom: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center; }
-.oc-title { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); }
-.oc-badge-medium { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: rgba(245,158,11,.1); color: #f59e0b; }
-.oc-row { display: flex; justify-content: space-between; padding: 9px 16px; border-bottom: 1px solid var(--bd); }
-.oc-label { font-size: 12px; color: var(--t3); }
-.oc-value { font-size: 12px; font-weight: 600; color: var(--t1); display: flex; align-items: center; gap: 5px; }
-.oc-warn { color: #f59e0b; font-size: 11px; }
-.oc-signals { padding: 12px 16px; border-bottom: 1px solid var(--bd); }
-.oc-signals-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--t3); margin-bottom: 8px; }
-.oc-signal { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
-.oc-signal-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.oc-signal-dot.amber { background: #f59e0b; }
-.oc-signal-dot.red { background: #ef4444; }
-.oc-signal-dot.green { background: #22c55e; }
-.oc-signal-text { font-size: 12px; color: var(--t2); }
-.oc-footer { padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,158,11,.04); }
-.oc-score-label { font-size: 11px; color: var(--t3); }
-.oc-score { font-size: 13px; font-weight: 700; color: #f59e0b; }
-.oc-action { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 5px; background: rgba(245,158,11,.1); color: #f59e0b; }
+/* ── Animated product mockups (blocks 17 + 20, blocks-explorer prod integration, 2026-06-12) ── */
+.feature-row-visual .rbx-frame { width:100%; max-width:460px; border:1px solid var(--bd); border-radius:14px; background:var(--bg2); overflow:hidden; font-family:var(--font-i); }
+[data-theme="light"] .feature-row-visual .rbx-frame { background:#fafbfd; }
+.rbx-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid var(--bd); background:var(--bg); }
+.rbx-head-title { font-family:var(--font-g); font-weight:600; font-size:12.5px; letter-spacing:-.2px; color:var(--t1); }
+.rbx-head-title .mut { color:var(--t3); font-weight:500; }
+.rbx-head-badge { font-size:10px; font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:6px; background:rgba(26,86,255,.14); color:var(--accent); white-space:nowrap; }
+.rbx-head-badge.warn { background:rgba(245,158,11,.16); color:#b45309; }
+[data-theme="dark"] .rbx-head-badge.warn { color:#f59e0b; }
 
-/* Wallet chain mockup */
-.wallet-chain { width: 100%; max-width: 380px; font-family: var(--font-i); }
-.wc-title { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--t3); margin-bottom: 14px; }
-.wc-node { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--bd); background: var(--bg); }
-.wc-node.flagged { border-color: rgba(239,68,68,.4); background: rgba(239,68,68,.04); }
-.wc-node.platform { border-color: rgba(26,86,255,.4); background: rgba(26,86,255,.04); }
-.wc-node-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.wc-node-dot.red { background: #ef4444; }
-.wc-node-dot.amber { background: #f59e0b; }
-.wc-node-dot.blue { background: var(--accent); }
-.wc-node-dot.gray { background: var(--t3); }
-.wc-node-label { font-size: 12px; font-weight: 500; color: var(--t1); flex: 1; }
-.wc-node-tag { font-size: 10px; font-weight: 600; color: var(--t3); }
-.wc-arrow { text-align: center; font-size: 11px; color: var(--t3); padding: 4px 0; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.wc-arrow-amount { font-size: 11px; font-weight: 600; color: var(--t2); }
-.wc-split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.wc-pattern { margin-top: 12px; padding: 8px 12px; border-radius: 6px; background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.2); }
-.wc-pattern-text { font-size: 11px; color: #ef4444; font-weight: 500; }
+/* Block 17 — on-ramp scoring (oc-) */
+.feature-row-visual .rbx-frame.oc-frame { max-width:400px; }
+.oc-body { padding:14px 16px 16px; }
+.oc-rows { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+.oc-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:7px 11px; border:1px solid var(--bd); border-radius:8px; background:var(--bg); }
+.oc-label { font-family:var(--font-i); font-size:11.5px; color:var(--t3); }
+.oc-value { font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:11.5px; color:var(--t1); }
+.oc-signals { border:1px solid var(--bd); border-radius:8px; background:var(--bg); padding:9px 11px; display:flex; flex-direction:column; gap:6px; }
+.oc-sig-title { font-size:9px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--t3); margin-bottom:2px; }
+.oc-sig { display:flex; align-items:center; gap:8px; min-height:18px; }
+.oc-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.oc-dot.g { background:#16a34a; } .oc-dot.a { background:#b45309; } .oc-dot.r { background:#dc2626; }
+[data-theme="dark"] .oc-dot.g { background:#22c55e; } [data-theme="dark"] .oc-dot.a { background:#f59e0b; } [data-theme="dark"] .oc-dot.r { background:#ef4444; }
+.oc-sig-t { font-family:var(--font-i); font-size:11.5px; color:var(--t1); }
+.oc-delta { margin-left:auto; font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:10px; font-weight:700; }
+.oc-delta.bad { color:#b45309; } .oc-delta.worse { color:#dc2626; } .oc-delta.good { color:#16a34a; }
+[data-theme="dark"] .oc-delta.bad { color:#f59e0b; } [data-theme="dark"] .oc-delta.worse { color:#ef4444; } [data-theme="dark"] .oc-delta.good { color:#22c55e; }
+.oc--anim .oc-sig { opacity:0; transform:translateY(5px); }
+.oc--anim .oc-sig.shown { opacity:1; transform:none; transition:opacity .3s ease, transform .3s ease; }
+.oc-foot { margin-top:12px; }
+.oc--anim .gp-act { opacity:0; transition:opacity .4s ease; }
+.oc--anim.acted .gp-act { opacity:1; }
+/* score footer (gp- set reused from block 16) */
+.gp-foot { display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--bd); border-radius:8px; background:var(--bg2); }
+.gp-foot-l { font-family:var(--font-i); font-size:11.5px; color:var(--t3); }
+.gp-score { margin-left:auto; font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:15px; font-weight:700; color:var(--t1); }
+.gp-score .mut { font-size:10px; font-weight:500; color:var(--t3); }
+.gp-act { font-size:8.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; padding:3px 7px; border-radius:5px; background:rgba(245,158,11,.16); color:#b45309; white-space:nowrap; }
+[data-theme="dark"] .gp-act { color:#f59e0b; }
+
+/* Block 20 — wallet chain trace (cn-) */
+.feature-row-visual .rbx-frame.cn-frame { max-width:400px; }
+.cn-body { padding:14px 16px 16px; }
+.cn-chain { display:flex; flex-direction:column; gap:6px; }
+.cn-node { display:flex; align-items:center; gap:8px; padding:8px 11px; border:1px solid var(--bd); border-radius:8px; background:var(--bg); min-width:0; }
+.cn-node.platform { border-color:rgba(26,86,255,.5); }
+.cn-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.cn-dot.r { background:#dc2626; } .cn-dot.a { background:#b45309; } .cn-dot.b { background:var(--accent); } .cn-dot.gy { background:var(--t3); }
+[data-theme="dark"] .cn-dot.r { background:#ef4444; } [data-theme="dark"] .cn-dot.a { background:#f59e0b; }
+.cn-label { font-family:var(--font-i); font-size:11.5px; color:var(--t1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cn-tag { margin-left:auto; font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:8.5px; font-weight:700; letter-spacing:.5px; color:var(--t3); }
+.cn-arrow { display:flex; align-items:center; gap:6px; padding:2px 0 2px 18px; font-family:'JetBrains Mono','SFMono-Regular',monospace; font-size:10px; color:var(--t3); }
+.cn-split { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.cn-banner { margin-top:12px; display:flex; align-items:center; gap:8px; padding:9px 12px; border-radius:8px; background:rgba(245,158,11,.12); }
+.cn-banner svg { width:12px; height:12px; flex-shrink:0; color:#b45309; }
+.cn-banner-t { font-family:var(--font-i); font-size:11.5px; font-weight:600; color:#b45309; }
+[data-theme="dark"] .cn-banner svg, [data-theme="dark"] .cn-banner-t { color:#f59e0b; }
+.cn--build .cn-step { opacity:0; transform:translateY(6px); }
+.cn--build .cn-step.shown { opacity:1; transform:none; transition:opacity .35s ease, transform .35s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc--anim .oc-sig { opacity:1; transform:none; }
+  .oc--anim .gp-act { opacity:1; }
+  .cn--build .cn-step { opacity:1; transform:none; }
+}
 
 
 /* Full-width dividers */
@@ -315,25 +340,23 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="onramp-card">
-        <div class="oc-header">
-          <span class="oc-title">On-Ramp Transaction</span>
-          <span class="oc-badge-medium">Medium Risk</span>
-        </div>
-        <div class="oc-row"><span class="oc-label">From wallet</span><span class="oc-value">0x7f3...c8a2</span></div>
-        <div class="oc-row"><span class="oc-label">Amount</span><span class="oc-value">€4,850</span></div>
-        <div class="oc-row"><span class="oc-label">Method</span><span class="oc-value">SEPA transfer</span></div>
-        <div class="oc-signals">
-          <div class="oc-signals-title">Risk signals</div>
-          <div class="oc-signal"><span class="oc-signal-dot amber"></span><span class="oc-signal-text">Wallet created 14 days ago</span></div>
-          <div class="oc-signal"><span class="oc-signal-dot amber"></span><span class="oc-signal-text">Only 2 prior transactions</span></div>
-          <div class="oc-signal"><span class="oc-signal-dot red"></span><span class="oc-signal-text">3 linked wallets previously flagged</span></div>
-          <div class="oc-signal"><span class="oc-signal-dot green"></span><span class="oc-signal-text">KYC verified user</span></div>
-        </div>
-        <div class="oc-footer">
-          <span class="oc-score-label">Risk score</span>
-          <span class="oc-score">54 / 100</span>
-          <span class="oc-action">Enhanced KYC</span>
+      <div class="rbx-frame oc-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">On-ramp transaction <span class="mut">· €4,850</span></span><span class="rbx-head-badge warn">Medium risk</span></div>
+        <div class="oc-body oc--anim" data-oc="score">
+          <div class="oc-rows">
+            <div class="oc-row"><span class="oc-label">From wallet</span><span class="oc-value">0x7f3...c8a2</span></div>
+            <div class="oc-row"><span class="oc-label">Method</span><span class="oc-value">SEPA transfer</span></div>
+          </div>
+          <div class="oc-signals">
+            <div class="oc-sig-title">Risk signals</div>
+            <div class="oc-sig" data-d="18"><span class="oc-dot a"></span><span class="oc-sig-t">Wallet created 14 days ago</span><span class="oc-delta bad">+18</span></div>
+            <div class="oc-sig" data-d="14"><span class="oc-dot a"></span><span class="oc-sig-t">Only 2 prior transactions</span><span class="oc-delta bad">+14</span></div>
+            <div class="oc-sig" data-d="30"><span class="oc-dot r"></span><span class="oc-sig-t">3 linked wallets previously flagged</span><span class="oc-delta worse">+30</span></div>
+            <div class="oc-sig" data-d="-8"><span class="oc-dot g"></span><span class="oc-sig-t">KYC verified user</span><span class="oc-delta good">−8</span></div>
+          </div>
+          <div class="oc-foot">
+            <div class="gp-foot"><span class="gp-foot-l">Risk score</span><span class="gp-score"><span data-to="54">0</span> <span class="mut">/ 100</span></span><span class="gp-act">Enhanced KYC</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -352,22 +375,26 @@ footer { background: #08090a; }
       </ul>
     </div>
     <div class="feature-row-visual">
-      <div class="wallet-chain">
-        <div class="wc-title">Transaction Chain — 0x7f3...c8a2</div>
-        <div class="wc-node flagged"><span class="wc-node-dot red"></span><span class="wc-node-label">Flagged Exchange</span><span class="wc-node-tag">SOURCE</span></div>
-        <div class="wc-arrow">↓ <span class="wc-arrow-amount">€12,000 SEPA</span></div>
-        <div class="wc-node"><span class="wc-node-dot amber"></span><span class="wc-node-label">Intermediate Wallet 0x4a1...f2c</span><span class="wc-node-tag">RELAY</span></div>
-        <div class="wc-arrow">↓ split</div>
-        <div class="wc-split">
-          <div class="wc-node"><span class="wc-node-dot amber"></span><span class="wc-node-label">Wallet A</span></div>
-          <div class="wc-node"><span class="wc-node-dot amber"></span><span class="wc-node-label">Wallet B</span></div>
+      <div class="rbx-frame cn-frame" aria-hidden="true">
+        <div class="rbx-head"><span class="rbx-head-title">Transaction chain <span class="mut">· 0x7f3...c8a2</span></span><span class="rbx-head-badge warn">Tracing</span></div>
+        <div class="cn-body cn--build" data-cn="build">
+          <div class="cn-chain">
+            <div class="cn-node cn-step"><span class="cn-dot r"></span><span class="cn-label">Flagged exchange</span><span class="cn-tag">SOURCE</span></div>
+            <div class="cn-arrow cn-step">↓ €12,000 SEPA</div>
+            <div class="cn-node cn-step"><span class="cn-dot a"></span><span class="cn-label">Intermediate wallet 0x4a1...f2c</span><span class="cn-tag">RELAY</span></div>
+            <div class="cn-arrow cn-step">↓ split</div>
+            <div class="cn-split cn-step">
+              <div class="cn-node"><span class="cn-dot a"></span><span class="cn-label">Wallet A</span></div>
+              <div class="cn-node"><span class="cn-dot a"></span><span class="cn-label">Wallet B</span></div>
+            </div>
+            <div class="cn-arrow cn-step">↓ €6,000 each</div>
+            <div class="cn-split cn-step">
+              <div class="cn-node platform"><span class="cn-dot b"></span><span class="cn-label">Your platform</span></div>
+              <div class="cn-node"><span class="cn-dot gy"></span><span class="cn-label">Unknown</span></div>
+            </div>
+          </div>
+          <div class="cn-banner cn-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span class="cn-banner-t">Splitting pattern detected — possible structuring</span></div>
         </div>
-        <div class="wc-arrow">↓ <span class="wc-arrow-amount">€6,000 each</span></div>
-        <div class="wc-split">
-          <div class="wc-node platform"><span class="wc-node-dot blue"></span><span class="wc-node-label">Your platform</span></div>
-          <div class="wc-node"><span class="wc-node-dot gray"></span><span class="wc-node-label">Unknown</span></div>
-        </div>
-        <div class="wc-pattern"><span class="wc-pattern-text">⚠ Splitting pattern detected — possible structuring</span></div>
       </div>
     </div>
   </div>
@@ -388,24 +415,24 @@ footer { background: #08090a; }
     <h2 class="sec-title">Products used in crypto platforms</h2>
   </div>
   <div class="prod-cards reveal">
-      <a href="transaction-monitoring.html" class="prod-card">
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div class="prod-card-title">Transaction Monitoring</div>
         <div class="prod-card-desc">Real-time rules and risk scoring on every on-ramp, off-ramp, and internal transfer.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="risk-management.html" class="prod-card">
+        <a class="prod-card-link" href="transaction-monitoring.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
         <div class="prod-card-title">Risk Outsourcing</div>
         <div class="prod-card-desc">Our team monitors your rule performance and handles incident response 24/7.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
-      <a href="dispute-resolution.html" class="prod-card">
+        <a class="prod-card-link" href="risk-management.html">Learn more →</a>
+      </div>
+      <div class="prod-card">
         <div class="prod-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div class="prod-card-title">Dispute Resolution</div>
         <div class="prod-card-desc">Handle chargebacks on fiat transactions and build evidence packages efficiently.</div>
-        <span class="prod-card-link">Learn more →</span>
-      </a>
+        <a class="prod-card-link" href="dispute-resolution.html">Learn more →</a>
+      </div>
   </div>
 
 <div class="cta-sec" id="ctaSection">
@@ -491,6 +518,80 @@ footer { background: #08090a; }
     window.addEventListener('resize',resize);setTimeout(resize,200);anim();
     window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
     window._sfCtaDotTheme(html.getAttribute('data-theme'));
+  })();
+
+  /* ── Animated product mockups (blocks 17 + 20, from blocks-explorer) ── */
+  (function(){
+    const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows=[...document.querySelectorAll('.feature-row')].filter(r=>r.querySelector('.rbx-frame'));
+    if(!rows.length)return;
+    const live=el=>{const r=el.closest('.feature-row');return !r||r.classList.contains('in-view');};
+
+    /* Block 17 — on-ramp scoring: signals reveal one by one, each shifts the score */
+    function startOc(scope){
+      if(scope.dataset.started)return;scope.dataset.started='1';
+      const sigs=[...scope.querySelectorAll('.oc-sig')];
+      const score=scope.querySelector('.gp-score [data-to]');
+      const tween=(from,to,dur)=>{
+        const t0=performance.now();
+        (function tick(now){
+          const t=Math.min((now-t0)/dur,1);
+          score.textContent=Math.round(from+(to-from)*(1-Math.pow(1-t,3)));
+          if(t<1)requestAnimationFrame(tick);
+        })(t0);
+      };
+      if(REDUCE||scope.dataset.oc!=='score'){
+        sigs.forEach(s=>s.classList.add('shown'));
+        scope.classList.add('acted');
+        if(score)score.textContent=score.dataset.to;
+        return;
+      }
+      (function run(){
+        if(!live(scope)){setTimeout(run,900);return;}
+        sigs.forEach(s=>s.classList.remove('shown'));
+        scope.classList.remove('acted');
+        let acc=0;if(score)score.textContent='0';
+        let i=0;
+        (function step(){
+          if(i>=sigs.length){scope.classList.add('acted');setTimeout(run,3600);return;}
+          const s=sigs[i];s.classList.add('shown');
+          const from=acc;acc+=+s.dataset.d;
+          if(score)tween(from,acc,420);
+          i++;setTimeout(step,620);
+        })();
+      })();
+    }
+
+    /* Block 20 — wallet chain trace: steps build top to bottom */
+    function startCn(scope){
+      if(scope.dataset.started)return;scope.dataset.started='1';
+      const steps=[...scope.querySelectorAll('.cn-step')];
+      if(REDUCE||scope.dataset.cn!=='build'){steps.forEach(s=>s.classList.add('shown'));return;}
+      (function run(){
+        if(!live(scope)){setTimeout(run,900);return;}
+        steps.forEach(s=>s.classList.remove('shown'));
+        let i=0;
+        (function step(){
+          if(i>=steps.length){setTimeout(run,3600);return;}
+          steps[i].classList.add('shown');i++;setTimeout(step,380);
+        })();
+      })();
+    }
+
+    function activateRow(row){
+      requestAnimationFrame(()=>{
+        row.querySelectorAll('.oc-body').forEach(startOc);
+        row.querySelectorAll('.cn-body').forEach(startCn);
+      });
+    }
+    if(!('IntersectionObserver' in window)){rows.forEach(r=>{r.classList.add('in-view');activateRow(r);});return;}
+    const mio=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('in-view');activateRow(e.target);}
+        else e.target.classList.remove('in-view');
+      });
+    },{threshold:0.3});
+    rows.forEach(r=>mio.observe(r));
   })();
 </script>
 </body>
