@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,13 +7,12 @@
   <meta name="description" content="Free BIN lookup tool. Enter the first 6-8 digits of any payment card to identify the issuer, card type, brand, and country."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="stylesheet" href="shared.css"/>
+  <link rel="stylesheet" href="shared.css?v=20260909"/>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root { --col-width:1160px; --side-pad:140px; --cell-pad:40px; --nav-h:65px; --accent:#1a56ff; --font-g:'Geist',sans-serif; --font-i:'Inter',sans-serif; }
+:root { --col-width:1160px; --side-pad:140px; --cell-pad:32px; --nav-h:65px; --accent:#1a56ff; --font-g:'Geist',sans-serif; --font-i:'Inter',sans-serif; }
 [data-theme="dark"] { --bg:#08090a; --bg2:#141516; --bg3:#0d0f14; --bd:#212223; --bdl:1px solid #212223; --t1:#ffffff; --t2:rgba(255,255,255,0.6); --t3:#8b909e; --tb:rgba(255,255,255,0.55); --nav-bg:rgba(8,9,10,0.92); --btn-bg:#ffffff; --btn-fg:#08090a; --btn-ob:rgba(255,255,255,0.6); --btn-ot:#ffffff; }
 [data-theme="light"] { --bg:#ffffff; --bg2:#f7f8fa; --bg3:#f0f1f3; --bd:#e4e7ed; --bdl:1px solid #e4e7ed; --t1:#171717; --t2:#4d4d4d; --t3:#8b909e; --tb:#86888b; --nav-bg:rgba(255,255,255,0.92); --btn-bg:#0d0f14; --btn-fg:#ffffff; --btn-ob:#d0d4dd; --btn-ot:#3d4151; }
 html { scroll-behavior:smooth; }
@@ -22,27 +21,12 @@ a { text-decoration:none; color:inherit; }
 .grid-wrap { width:var(--col-width); margin:0 auto; border-left:var(--bdl); border-right:var(--bdl);  }
 nav { position:fixed; top:0; left:0; right:0; height:var(--nav-h); background:var(--nav-bg); backdrop-filter:blur(8px); border-bottom:var(--bdl); z-index:100; transition:background .25s,border-color .25s; }
 
-
-
-
-
-
-
-
-
-
-
-
 [data-theme="light"] 
-
-
-
 
 .btn-dark { padding:14px 20px; background:var(--btn-bg); border:1px solid var(--bd); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-fg); cursor:pointer; white-space:nowrap; transition:opacity .15s,background .25s,color .25s; }
 .btn-dark:hover { opacity:.88; }
 .btn-ghost { padding:14px 21px; background:transparent; border:1px solid var(--btn-ob); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-ot); cursor:pointer; white-space:nowrap; transition:background .15s,border-color .25s,color .25s; }
 .btn-ghost:hover { background:rgba(128,128,128,.08); }
-
 
 footer { background:#08090a; }
 [data-theme="light"] footer { background:#ffffff; }
@@ -81,17 +65,15 @@ footer { background:#08090a; }
 .hero-sec { position:relative; overflow:visible; }
 .hero-sec::after { content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100vw; height:0; border-bottom:var(--bdl); z-index:10; }
 [data-theme="light"] .hero-sec { background:linear-gradient(180deg,#eef2ff 0%,#fff 100%); }
-#dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
-#dots canvas { display:block; width:100%!important; height:100%!important; }
 .hero-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,86,255,.18) 0%,transparent 60%); pointer-events:none; z-index:1; }
 [data-theme="light"] .hero-sec::before { background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(26,86,255,.06) 0%,transparent 70%); }
 .hero-main { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:20px; padding:calc(var(--nav-h) + 100px) var(--cell-pad) 80px; }
-.h-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
+.h-title { font-family:var(--font-g); font-weight:600; font-size:72px; line-height:76px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
 .h-sub { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--t2); text-align:center; max-width:600px; }
 .h-cta { display:flex; gap:12px; align-items:center; margin-top:8px; }
 .page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); }
 .page-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
-.page-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; color:var(--t1); max-width:720px; }
+.page-title { font-family:var(--font-g); font-weight:600; font-size:72px; line-height:76px; letter-spacing:-2.4px; color:var(--t1); max-width:720px; }
 .page-subtitle { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--tb); margin-top:16px; max-width:560px; }
 .page-section { padding:60px 0; }
 .page-section-inner { padding:0 var(--cell-pad); }
@@ -103,38 +85,64 @@ footer { background:#08090a; }
 [data-theme="light"] .cta-sec { background:linear-gradient(180deg,#fff 0%,#eef2ff 50%,#fff 100%); }
 .cta-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.15) 0%,transparent 65%); pointer-events:none; z-index:1; }
 [data-theme="light"] .cta-sec::before { background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.06) 0%,transparent 65%); }
-#cta-dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
-#cta-dots canvas { display:block; width:100%!important; height:100%!important; }
 .cta-inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:20px; padding:80px var(--cell-pad); text-align:center; max-width:680px; margin:0 auto; width:100%; }
 
 .cta-block-eyebrow { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--t3); }
 .cta-block-title { font-family:var(--font-g); font-weight:600; font-size:36px; line-height:40px; letter-spacing:-2px; color:var(--t1); }
 .cta-block-sub { font-family:var(--font-g); font-weight:400; font-size:15px; line-height:22px; color:var(--tb); max-width:480px; }
 
-
-/* BIN CHECKER */
-.bin-form { padding:var(--cell-pad); border-bottom:var(--bdl); display:flex; gap:12px; align-items:flex-end; }
-.bin-input-wrap { flex:1; display:flex; flex-direction:column; gap:6px; }
-.bin-label { font-family:var(--font-i); font-weight:600; font-size:12px; letter-spacing:.5px; text-transform:uppercase; color:var(--t3); }
-.bin-input { width:100%; height:48px; padding:0 16px; font-family:var(--font-g); font-size:18px; font-weight:500; letter-spacing:1px; color:var(--t1); background:var(--bg2); border:1px solid var(--bd); border-radius:10px; outline:none; transition:border-color .15s; }
-.bin-input::placeholder { color:var(--t3); font-weight:400; letter-spacing:0; }
+/* BIN CHECKER — aligned to design-system tokens */
+.bin-tool { max-width:600px; margin:8px auto 0; }
+.bin-form { background:#f7f9ff; border:1px solid #e7ebf7; border-radius:24px; padding:24px; display:flex; gap:16px; align-items:flex-end; }
+.bin-input-wrap { flex:1; display:flex; flex-direction:column; gap:8px; }
+.bin-label { font-family:var(--font-i); font-weight:700; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--t2); }
+.bin-input { width:100%; height:48px; padding:0 16px; font-family:var(--font-g); font-size:18px; font-weight:500; letter-spacing:1px; color:var(--t1); background:#fff; border:1px solid #e7ebf7; border-radius:12px; outline:none; transition:border-color .15s; }
+.bin-input::placeholder { color:var(--t2); opacity:.6; font-weight:400; letter-spacing:0; }
 .bin-input:focus { border-color:var(--accent); }
-.bin-btn { height:48px; padding:0 24px; background:var(--accent); color:#ffffff; border:none; border-radius:10px; font-family:var(--font-i); font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap; transition:opacity .15s; flex-shrink:0; }
-.bin-btn:hover { opacity:.88; }
-.bin-error { font-family:var(--font-i); font-size:13px; color:#ef4444; padding:12px var(--cell-pad); display:none; }
-.bin-result { display:none; }
+.bin-btn { height:48px; padding:0 26px; background:var(--accent); color:#fff; border:none; border-radius:999px; font-family:var(--font-i); font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap; transition:background .2s ease; flex-shrink:0; }
+.bin-btn:hover { background:var(--accent-2); }
+.bin-error { font-family:var(--font-i); font-size:13px; color:#e5484d; padding:10px 8px 0; display:none; }
+.bin-result { display:none; margin-top:16px; background:#f7f9ff; border:1px solid #e7ebf7; border-radius:24px; overflow:hidden; }
 .bin-result.visible { display:block; }
 .bin-table { width:100%; border-collapse:collapse; }
-.bin-table tr { border-bottom:var(--bdl); }
+.bin-table tr { border-bottom:1px solid #e7ebf7; }
 .bin-table tr:last-child { border-bottom:none; }
-.bin-table td { padding:14px var(--cell-pad); font-family:var(--font-g); font-size:14px; line-height:20px; vertical-align:top; }
-.bin-table td:first-child { font-weight:500; color:var(--t3); width:180px; font-family:var(--font-i); font-size:13px; }
-.bin-table td:last-child { color:var(--t1); font-weight:500; }
+.bin-table td { padding:14px 24px; font-family:var(--font-g); font-size:15px; line-height:20px; vertical-align:top; }
+.bin-table td:first-child { font-weight:600; color:var(--t2); width:180px; font-family:var(--font-i); font-size:13px; }
+.bin-table td:last-child { color:var(--t1); font-weight:600; }
+
+/* --- BIN page layout: centered tool hero (stacked) --- */
+.bin-hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:28px; padding:calc(var(--nav-h) + 24px) var(--cell-pad) 48px; }
+.bin-hero-left { max-width:640px; }
+.bin-hero-left .page-eyebrow, .bin-hero-left .h-title, .bin-hero-left .h-sub { text-align:center; }
+.bin-hero-left .h-title { margin:12px 0 0; }
+.bin-hero-left .h-sub { max-width:none; margin:18px 0 0; }
+.bin-hero-right { width:100%; max-width:600px; }
+.bin-hero-right .bin-tool { max-width:none; margin:0; }
+.bin-samples { margin-top:14px; font-size:13px; color:var(--t2); display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; }
+.bin-chip { font-family:var(--font-g); font-size:13px; font-weight:600; color:var(--accent); background:#eef1fb; border:none; border-radius:999px; padding:5px 13px; cursor:pointer; transition:background .15s, color .15s; }
+.bin-chip:hover { background:var(--accent); color:#fff; }
+
+/* Every lookup returns — on the industries blue band (full-bleed) */
+.bin-out-sec { position:relative; z-index:0; padding:56px 0 64px; margin-top:16px; }
+.bin-out-sec::before { content:''; position:absolute; top:0; bottom:0; left:50%; width:100vw; transform:translateX(-50%); background:var(--accent); z-index:-1; }
+.bin-out-sec .sec-eyebrow { color:#cdd8ff; }
+.bin-out-sec .sec-title { color:#fff; }
+.bin-out-sec .sec-desc { color:rgba(255,255,255,.82); font-size:16px; line-height:1.55; max-width:62ch; margin-top:14px; }
+.bin-out-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; padding:0 var(--cell-pad); }
+.bin-out-grid .card { display:flex; flex-direction:column; gap:12px; }
+.bin-out-sec .bin-out-grid .card { background:#fff !important; border:none !important; }
+/* blue-bg cards → PINK spark (site convention) via the shared --spark-color var */
+.bin-out-sec .card { --spark-color:var(--accent-2); --spark-hi:#ff6ea1; }
+
+@media (max-width:900px){
+  .bin-hero { padding-top:calc(var(--nav-h) + 40px); gap:24px; }
+  .bin-out-grid { grid-template-columns:1fr 1fr; }
+}
 
 /* Scroll reveal */
 .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
 .reveal.revealed { opacity:1; transform:translateY(0); }
-
 
 /* Full-width dividers */
 .stats-row, .feature-row, .prod-grid { border-bottom: var(--bdl); position:relative; }
@@ -171,8 +179,10 @@ footer { background:#08090a; }
   
 }
 </style>
+  <link rel="stylesheet" href="oldskin.css?v=20260914">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -201,14 +211,12 @@ footer { background:#08090a; }
         </div>
       </li>
       <li><a href="overview.html">Overview</a></li>
-      <li><a href="security.html">Security</a></li>
       <li>
-        <a href="resources.html" class="active">Docs <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="resources.html" class="active">Resources <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <div class="nav-drop">
-          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">API docs & guides</span></span></a>
+          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">Privacy, cookies & terms</span></span></a>
           <a href="security.html"><span class="nav-drop-icon"><i data-lucide="lock"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Security</span><span class="nav-drop-desc">Compliance & data protection</span></span></a>
           <a href="bin-checker.html"><span class="nav-drop-icon"><i data-lucide="search"></i></span><span class="nav-drop-text"><span class="nav-drop-title">BIN Checker</span><span class="nav-drop-desc">Card BIN lookup tool</span></span></a>
-          <a href="overview.html"><span class="nav-drop-icon"><i data-lucide="building-2"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Company Overview</span><span class="nav-drop-desc">About ScanFraud</span></span></a>
         </div>
       </li>
     </ul>
@@ -224,51 +232,112 @@ footer { background:#08090a; }
   </div>
 </nav>
 
-<div class="grid-wrap">
-<div class="hero-sec" id="heroWrap">
-  <div id="dots" aria-hidden="true"></div>
-  <section class="hero-main reveal">
-    <p class="page-eyebrow">Resources / BIN Checker</p>
-    <h1 class="h-title">BIN Checker</h1>
-    <p class="h-sub">Stop fraud at the first 6 digits. Identify issuer, country, and card type — before the transaction clears.</p>
-    <div class="h-cta">
-      <button class="btn-dark">Book a demo</button>
-      <button class="btn-ghost">Contact sales</button>
-    </div>
-  </section>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-links">
+    <a href="overview.html">Overview</a>
+    <a href="products.html">Products</a>
+    <a href="industries.html">Industries</a>
+    <a href="security.html">Security</a>
+    <a href="resources.html">Resources</a>
+    <div class="mob-sep"></div>
+    <a href="#">Log in</a>
+    <button class="btn-dark">Book a demo</button>
+  </div>
 </div>
 
-  <div class="bin-form">
-    <div class="bin-input-wrap">
-      <label class="bin-label" for="binInput">Card BIN (first 6-8 digits)</label>
-      <input type="text" id="binInput" class="bin-input" placeholder="e.g. 411111" maxlength="8" autocomplete="off"/>
-    </div>
-    <button class="bin-btn" id="binBtn">Check BIN</button>
-  </div>
-  <div class="bin-error" id="binError"></div>
-  <div class="bin-result" id="binResult">
-    <table class="bin-table">
-      <tr><td>BIN</td><td id="resBin"></td></tr>
-      <tr><td>Card brand</td><td id="resBrand"></td></tr>
-      <tr><td>Card type</td><td id="resType"></td></tr>
-      <tr><td>Card category</td><td id="resCategory"></td></tr>
-      <tr><td>Issuer</td><td id="resIssuer"></td></tr>
-      <tr><td>Country</td><td id="resCountry"></td></tr>
-      <tr><td>Country code</td><td id="resCode"></td></tr>
-      <tr><td>Currency</td><td id="resCurrency"></td></tr>
-    </table>
-  </div>
 
-  <section class="page-section page-section--divider">
-    <div class="page-section-inner">
-      <p class="sec-eyebrow">About</p>
-      <h2 class="sec-title">What is a BIN?</h2>
-      <p class="sec-desc">A Bank Identification Number (BIN) is the first 6-8 digits of a payment card number. It identifies the issuing institution, card network, card type, and country of origin. BIN data is used in fraud prevention to verify that a transaction's card details match the expected issuer and geography.</p>
+<div class="grid-wrap" id="main">
+<!-- TWO-COLUMN TOOL HERO -->
+<section class="bin-hero" id="heroWrap">
+  <div class="bin-hero-left reveal">
+    <p class="page-eyebrow">Resources / BIN Checker</p>
+    <h1 class="h-title">BIN Checker</h1>
+    <p class="h-sub">The BIN is the first 6–8 digits of any card number — it identifies the issuing bank, card network, country and card type. Look one up instantly, or wire it into your checkout via API.</p>
+  </div>
+  <div class="bin-hero-right reveal">
+    <div class="bin-tool">
+      <div class="bin-form">
+        <div class="bin-input-wrap">
+          <label class="bin-label" for="binInput">Card BIN (first 6-8 digits)</label>
+          <input type="text" id="binInput" class="bin-input" placeholder="e.g. 411111" maxlength="8" autocomplete="off"/>
+        </div>
+        <button class="bin-btn" id="binBtn">Check BIN</button>
+      </div>
+      <div class="bin-samples">Try
+        <button type="button" class="bin-chip" data-bin="411111">411111</button>
+        <button type="button" class="bin-chip" data-bin="520000">520000</button>
+        <button type="button" class="bin-chip" data-bin="374245">374245</button>
+      </div>
+      <div class="bin-error" id="binError" role="alert"></div>
+      <div class="bin-result" id="binResult" role="region" aria-label="BIN lookup result" aria-live="polite">
+        <table class="bin-table">
+          <tr><th scope="row">BIN</th><td id="resBin"></td></tr>
+          <tr><th scope="row">Card brand</th><td id="resBrand"></td></tr>
+          <tr><th scope="row">Card type</th><td id="resType"></td></tr>
+          <tr><th scope="row">Card category</th><td id="resCategory"></td></tr>
+          <tr><th scope="row">Issuer</th><td id="resIssuer"></td></tr>
+          <tr><th scope="row">Country</th><td id="resCountry"></td></tr>
+          <tr><th scope="row">Country code</th><td id="resCode"></td></tr>
+          <tr><th scope="row">Currency</th><td id="resCurrency"></td></tr>
+        </table>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="page-section bin-out-sec">
+  <div class="page-section-inner">
+    <p class="sec-eyebrow">Output</p>
+    <h2 class="sec-title">Every lookup returns</h2>
+    <p class="sec-desc">One lookup returns the full issuer profile — everything you need to verify a card and score a transaction before it clears.</p>
+  </div>
+  <div class="bin-out-grid reveal">
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-4 7 4v12M9 21v-6h6v6" stroke-linejoin="round"/></svg></div>
+      <div class="prod-card-title">Issuer</div>
+      <div class="prod-card-desc">The bank or institution that issued the card.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 11l8-4M8 13l8 4" stroke-linecap="round"/></svg></div>
+      <div class="prod-card-title">Network</div>
+      <div class="prod-card-desc">Visa, Mastercard, Amex, Discover and more.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="9" cy="12" r="2.5"/><circle cx="13" cy="12" r="2.5"/></svg></div>
+      <div class="prod-card-title">Card brand</div>
+      <div class="prod-card-desc">The specific card program or brand.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18" stroke-linecap="round"/></svg></div>
+      <div class="prod-card-title">Card type</div>
+      <div class="prod-card-desc">Debit, credit or prepaid.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 17.9l-5.3 2.8 1-5.8L3.5 9.7l5.9-.9z" stroke-linejoin="round"/></svg></div>
+      <div class="prod-card-title">Card category</div>
+      <div class="prod-card-desc">Classic, Gold, Platinum or Business tier.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke-linecap="round"/></svg></div>
+      <div class="prod-card-title">Country</div>
+      <div class="prod-card-desc">The card's issuing country.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2.2 3.5L16 11H5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="prod-card-title">Country code</div>
+      <div class="prod-card-desc">ISO 3166 two-letter country code.</div>
+    </div>
+    <div class="card">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2c-.5-.9-1.4-1.4-2.5-1.4-1.5 0-2.6.9-2.6 2.1 0 2.8 5.3 1.4 5.3 4.2 0 1.2-1.1 2.1-2.7 2.1-1.1 0-2.1-.5-2.6-1.4M12 6.3v11.4" stroke-linecap="round"/></svg></div>
+      <div class="prod-card-title">Currency</div>
+      <div class="prod-card-desc">Default settlement currency.</div>
+    </div>
+  </div>
+</section>
+
 
 <div class="cta-sec" id="ctaSection">
-  <div id="cta-dots" aria-hidden="true"></div>
   <div class="cta-inner reveal">
     <p class="cta-eyebrow">Need full BIN access?</p>
     <h2 class="cta-title">Unlimited BIN lookups via API</h2>
@@ -278,27 +347,89 @@ footer { background:#08090a; }
 </div>
 </div>
 <footer>
-  <div class="footer-outer"><div class="footer-inner-wrap">
-    <div class="ft-top-row">
-      <div class="ft-brand-col">
-        <a href="/" class="footer-logo"><div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div><span class="footer-brand-name">ScanFraud</span></a>
-        <p class="footer-desc">Smart risk and payment management for high-growth businesses.</p>
+  <div class="footer-outer">
+    <div class="footer-inner-wrap">
+      <div class="ft-top-row">
+        <div class="ft-brand-col">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div>
+            <span class="footer-brand-name">ScanFraud</span>
+          </a>
+          <p class="footer-desc">A leading anti-fraud solution &mdash; real-time transaction monitoring, optimised payment flows, and advanced dispute resolution.</p>
+          <div class="ft-contact">
+            <span class="ft-contact-label">Sales &amp; other requests</span>
+            <a href="mailto:support@scanfraud.com" class="ft-contact-mail">support@scanfraud.com</a>
+          </div>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Products</div>
+          <ul>
+            <li><a href="transaction-monitoring.html">Transaction Monitoring</a></li>
+            <li><a href="routing-cascading.html">Routing &amp; Cascading</a></li>
+            <li><a href="dispute-resolution.html">Dispute Resolution</a></li>
+            <li><a href="risk-management.html">Risk Outsourcing</a></li>
+            <li><a href="products.html" class="ft-overview">Products overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Industries</div>
+          <ul>
+            <li><a href="gambling.html">Gambling &amp; iGaming</a></li>
+            <li><a href="crypto.html">Crypto</a></li>
+            <li><a href="fintech.html">Fintech</a></li>
+            <li><a href="payment-providers.html">Payment Providers</a></li>
+            <li><a href="ecommerce.html">E-commerce</a></li>
+            <li><a href="trading.html">Trading</a></li>
+            <li><a href="industries.html" class="ft-overview">Industries overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Resources</div>
+          <ul>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="security.html">Security</a></li>
+            <li><a href="bin-checker.html">BIN Checker</a></li>
+            <li><a href="resources.html" class="ft-overview">Resources overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Company</div>
+          <ul>
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="#cta-section">Book a demo</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="ft-col"><div class="ft-col-title">Products</div><ul><li><a href="transaction-monitoring.html">Transaction Monitoring</a></li><li><a href="routing-cascading.html">Routing &amp; Cascading</a></li><li><a href="dispute-resolution.html">Dispute Resolution</a></li><li><a href="risk-management.html">Risk Outsourcing</a></li></ul></div>
-      <div class="ft-col"><div class="ft-col-title">Industries</div><ul><li><a href="industries.html">Gambling &amp; iGaming</a></li><li><a href="industries.html">Crypto</a></li><li><a href="industries.html">Fintech</a></li><li><a href="industries.html">E-commerce</a></li><li><a href="industries.html">Trading</a></li></ul></div>
-      <div class="ft-col"><div class="ft-col-title">Resources</div><ul><li><a href="security.html">Security</a></li><li><a href="bin-checker.html">BIN Checker</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="overview.html">Overview</a></li></ul></div>
+      <div class="ft-trust">
+        <span class="ft-trust-label">Trusted &amp; compliant</span>
+        <div class="ft-badges">
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/visa.svg" alt="Visa"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/mastercard.svg" alt="Mastercard"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/jcb.svg" alt="JCB"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/safekey.svg" alt="SafeKey"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/pcidss.svg" alt="PCI DSS"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/gdpr.svg" alt="GDPR"></span>
+        </div>
+      </div>
+      <div class="ft-bottom-bar">
+        <p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; Suite 7086, 128 Aldersgate Street, Barbican, London, EC1A 4AE, United Kingdom</p>
+        <div class="ft-legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="terms-of-use.html">Terms of Use</a>
+        </div>
+      </div>
     </div>
-    <div class="ft-bottom-bar"><p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; London, UK</p><div class="ft-legal"><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Terms</a></div></div>
-  </div></div>
+  </div>
 </footer>
 <script>
   const html=document.documentElement;
-  const saved=localStorage.getItem('sf-theme')||'dark';
+  const saved="light";
   html.setAttribute('data-theme',saved);
-  document.getElementById('themeBtn').addEventListener('click',()=>{
+  document.getElementById('themeBtn')?.addEventListener('click',()=>{
     const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
     html.setAttribute('data-theme',next);localStorage.setItem('sf-theme',next);
-    if(window._sfDotTheme)window._sfDotTheme(next);
+    
   });
   if(typeof lucide!=='undefined')lucide.createIcons();
 
@@ -337,59 +468,10 @@ footer { background:#08090a; }
   binBtn.addEventListener('click',lookup);
   binInput.addEventListener('keydown',function(e){if(e.key==='Enter')lookup();});
   binInput.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,8);});
+  document.querySelectorAll('.bin-chip').forEach(function(c){c.addEventListener('click',function(){binInput.value=this.getAttribute('data-bin');lookup();binInput.focus();});});
   (function(){const els=document.querySelectorAll('.reveal');if(!els.length)return;const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('revealed');obs.unobserve(x.target);}});},{threshold:.12});els.forEach(e=>obs.observe(e));})();
-  /* ── Three.js Hero Dots ── */
-  (function(){
-    const wrap=document.getElementById('heroWrap'),cont=document.getElementById('dots');
-    if(!wrap||!cont||typeof THREE==='undefined')return;
-    const SEP=180,AX=30,AY=40;
-    const scene=new THREE.Scene();
-    const cam=new THREE.PerspectiveCamera(60,wrap.offsetWidth/wrap.offsetHeight,1,10000);
-    cam.position.set(0,355,1220);
-    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
-    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(wrap.offsetWidth,wrap.offsetHeight);ren.setClearColor(0,0);
-    cont.appendChild(ren.domElement);
-    const geo=new THREE.BufferGeometry(),pos=[],col=[];
-    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
-    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
-    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
-    const mat=new THREE.PointsMaterial({size:7,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
-    scene.add(new THREE.Points(geo,mat));
-    let count=0;
-    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*40+Math.sin((iy+count)*.4)*40;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.08;}
-    function resize(){const w=wrap.offsetWidth,h=wrap.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
-    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
-    window._sfDotTheme=function(theme){
-      const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;
-      if(window._sfCtaDotTheme)window._sfCtaDotTheme(theme);
-    };
-    window._sfDotTheme(html.getAttribute('data-theme'));
-  })();
 
-  /* ── Three.js CTA Dots ── */
-  (function(){
-    const cont=document.getElementById('cta-dots');
-    if(!cont||typeof THREE==='undefined')return;
-    const SEP=200,AX=25,AY=30;
-    const scene=new THREE.Scene();
-    const cam=new THREE.PerspectiveCamera(60,cont.offsetWidth/cont.offsetHeight,1,10000);
-    cam.position.set(0,280,1100);
-    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
-    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(cont.offsetWidth,cont.offsetHeight);ren.setClearColor(0,0);
-    cont.appendChild(ren.domElement);
-    const geo=new THREE.BufferGeometry(),pos=[],col=[];
-    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
-    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
-    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
-    const mat=new THREE.PointsMaterial({size:6,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true});
-    scene.add(new THREE.Points(geo,mat));
-    let count=0;
-    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*35+Math.sin((iy+count)*.4)*35;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.06;}
-    function resize(){const w=cont.offsetWidth,h=cont.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
-    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
-    window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
-    window._sfCtaDotTheme(html.getAttribute('data-theme'));
-  })();
 </script>
+<script>document.getElementById("burger")?.addEventListener("click",function(){this.classList.toggle("open");document.getElementById("mobMenu")?.classList.toggle("open");});</script>
 </body>
 </html>

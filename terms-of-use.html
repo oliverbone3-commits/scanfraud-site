@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ScanFraud — Resources</title>
-  <meta name="description" content="Security documentation, BIN checker, and legal policies for the ScanFraud platform."/>
+  <title>ScanFraud — Terms of Use</title>
+  <meta name="description" content="The rules and guidelines for using the ScanFraud platform and website."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="shared.css?v=20260909"/>
@@ -153,7 +153,21 @@ footer { background: #08090a; }
 .card-grid .card:nth-last-child(-n+2) { border-bottom: none; }
 .card-grid-3 .card:nth-last-child(-n+3) { border-bottom: none; }
 .card:hover { box-shadow: inset 0 60px 120px -50px rgba(26,86,255,0.12); }
-/* .doc-card / .doc-foot / .doc-read now in oldskin.css (promoted 2026-09-08) */
+/* clickable document cards */
+.doc-card { text-decoration: none; color: inherit; cursor: pointer; }
+.doc-card .card-title { transition: color .2s ease; }
+.doc-card:hover .card-title { color: var(--accent); }
+.doc-foot {
+  margin-top: auto; padding-top: 20px; display: flex;
+  align-items: center; justify-content: space-between; gap: 12px;
+}
+.doc-updated { font-family: var(--font-i); font-size: 12px; color: var(--t3); }
+.doc-read {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 600; color: var(--accent);
+}
+.doc-read svg { width: 15px; height: 15px; transition: transform .2s ease; }
+.doc-card:hover .doc-read svg { transform: translateX(3px); }
 .card-icon {
   width: 36px; height: 36px; border-radius: 8px;
   background: rgba(26,86,255,.1); display: flex;
@@ -329,6 +343,35 @@ footer { background: #08090a; }
   
 }
 
+/* ── LEGAL PAGES ── */
+.legal-wrap { max-width: 840px; margin: 0 auto; padding: 56px var(--cell-pad) 76px; }
+.legal-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:var(--font-i); font-size:13px; color:var(--t3); padding-bottom:28px; margin-bottom:8px; border-bottom:var(--bdl); }
+.legal-meta .l-dot { width:3px; height:3px; border-radius:50%; background:var(--t3); }
+.legal-meta strong { color:var(--t2); font-weight:600; }
+.legal-toc { background:var(--bg2); border:var(--bdl); border-radius:14px; padding:24px 28px; margin:40px 0 8px; }
+.legal-toc-title { font-family:var(--font-i); font-weight:700; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--t3); margin-bottom:16px; }
+.legal-toc ol { list-style:none; counter-reset:toc; display:grid; grid-template-columns:1fr 1fr; gap:10px 40px; }
+.legal-toc li { counter-increment:toc; }
+.legal-toc a { font-family:var(--font-g); font-size:14px; line-height:20px; color:var(--t2); display:flex; gap:10px; align-items:baseline; transition:color .15s; }
+.legal-toc a::before { content:counter(toc,decimal-leading-zero); font-family:var(--font-i); font-weight:700; font-size:11px; color:var(--accent); }
+.legal-toc a:hover { color:var(--accent); }
+.legal-body { padding-top:8px; }
+.legal-sec { padding-top:40px; margin-top:40px; border-top:var(--bdl); scroll-margin-top:90px; }
+.legal-sec:first-child { border-top:none; margin-top:0; padding-top:8px; }
+.legal-h { font-family:var(--font-g); font-weight:600; font-size:23px; line-height:29px; letter-spacing:-.7px; color:var(--t1); margin-bottom:16px; display:flex; gap:14px; align-items:baseline; }
+.legal-h .n { font-family:var(--font-i); font-weight:700; font-size:13px; color:var(--accent); flex-shrink:0; }
+.legal-sec p { font-family:var(--font-g); font-size:15px; line-height:26px; color:var(--t2); margin-bottom:16px; }
+.legal-sec p:last-child { margin-bottom:0; }
+.legal-sec ul { list-style:none; display:flex; flex-direction:column; gap:12px; margin:0 0 16px; }
+.legal-sec ul li { position:relative; padding-left:24px; font-family:var(--font-g); font-size:15px; line-height:24px; color:var(--t2); }
+.legal-sec ul li::before { content:''; position:absolute; left:4px; top:9px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+.legal-sec strong { color:var(--t1); font-weight:600; }
+.legal-sec a { color:var(--accent); text-decoration:underline; }
+.legal-contact { margin-top:44px; padding:28px 32px; background:var(--bg2); border:var(--bdl); border-radius:14px; }
+.legal-contact .lc-title { font-family:var(--font-g); font-weight:600; font-size:17px; color:var(--t1); margin-bottom:8px; }
+.legal-contact p { font-family:var(--font-g); font-size:14px; line-height:23px; color:var(--t2); margin:0; }
+.legal-contact a { color:var(--accent); }
+@media (max-width:640px){ .legal-toc ol { grid-template-columns:1fr; } }
 </style>
   <link rel="stylesheet" href="oldskin.css?v=20260914">
 </head>
@@ -399,9 +442,9 @@ footer { background: #08090a; }
 <div class="grid-wrap" id="main">
 <div class="hero-sec" id="heroWrap">
   <section class="hero-main reveal">
-    <p class="page-eyebrow">Resources</p>
-    <h1 class="h-title">Security, tools, and documentation</h1>
-    <p class="h-sub">Everything you need to understand how we protect your data, verify payment cards, and review our policies.</p>
+    <p class="page-eyebrow">Legal &middot; Terms of Use</p>
+    <h1 class="h-title">Terms of Use</h1>
+    <p class="h-sub">The rules and guidelines for using the ScanFraud platform and website, including acceptable use and liability.</p>
     <div class="h-cta">
       <button class="btn-dark">Book a demo</button>
       <button class="btn-ghost">Contact sales</button>
@@ -409,31 +452,85 @@ footer { background: #08090a; }
   </section>
 </div>
 
-  <div class="card-grid card-grid-3">
-    <div class="card doc-card reveal">
-      <div class="card-icon"><i data-lucide="lock"></i></div>
-      <div class="card-title">Security</div>
-      <div class="card-desc">Dedicated databases, encryption, access controls, and compliance. How we protect your data at every layer.</div>
-      <div class="doc-foot">
-        <a href="security.html" class="doc-read">View security <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
+  <div class="legal-wrap">
+  <div class="legal-meta"><span>Last updated: <strong>October 2023</strong></span><span class="l-dot"></span><span>Rules for using the ScanFraud platform</span></div>
+  <div class="legal-toc" role="navigation" aria-label="On this page">
+    <div class="legal-toc-title">On this page</div>
+    <ol>
+        <li><a href="#acceptance">Acceptance of terms</a></li>
+        <li><a href="#eligibility">Eligibility &amp; accounts</a></li>
+        <li><a href="#use">Use of the platform</a></li>
+        <li><a href="#acceptable">Acceptable use</a></li>
+        <li><a href="#ip">Intellectual property</a></li>
+        <li><a href="#third-party">Third-party services</a></li>
+        <li><a href="#availability">Service availability</a></li>
+        <li><a href="#disclaimers">Disclaimers</a></li>
+        <li><a href="#liability">Limitation of liability</a></li>
+        <li><a href="#indemnity">Indemnification</a></li>
+        <li><a href="#law">Governing law &amp; disputes</a></li>
+        <li><a href="#changes">Changes &amp; contact</a></li>
+    </ol>
+  </div>
+  <div class="legal-body">
+    <section class="legal-sec" id="acceptance">
+      <h2 class="legal-h"><span class="n">01</span>Acceptance of terms</h2>
+      <p>These Terms of Use (&ldquo;Terms&rdquo;) govern your access to and use of the ScanFraud website and platform provided by SFC GROUP LTD (&ldquo;ScanFraud&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;). By accessing or using our services, you agree to these Terms. If you do not agree, do not use the services.</p>
+    </section>
+    <section class="legal-sec" id="eligibility">
+      <h2 class="legal-h"><span class="n">02</span>Eligibility &amp; accounts</h2>
+      <p>You must be authorised to act on behalf of your organisation and be capable of forming a binding contract. You are responsible for maintaining the confidentiality of account credentials and for all activity under your account. Notify us promptly of any unauthorised use.</p>
+    </section>
+    <section class="legal-sec" id="use">
+      <h2 class="legal-h"><span class="n">03</span>Use of the platform</h2>
+      <p>We grant you a limited, non-exclusive, non-transferable right to access and use the services in accordance with these Terms and any order or agreement between us. We may update, suspend, or discontinue features from time to time.</p>
+    </section>
+    <section class="legal-sec" id="acceptable">
+      <h2 class="legal-h"><span class="n">04</span>Acceptable use</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use the services unlawfully or in breach of any applicable regulation.</li>
+        <li>Interfere with, disrupt, or attempt to gain unauthorised access to our systems.</li>
+        <li>Reverse engineer, copy, or resell the services except as permitted by law.</li>
+        <li>Upload malicious code or use the platform to infringe the rights of others.</li>
+      </ul>
+    </section>
+    <section class="legal-sec" id="ip">
+      <h2 class="legal-h"><span class="n">05</span>Intellectual property</h2>
+      <p>The services, including all software, content, and trademarks, are owned by ScanFraud or our licensors and are protected by intellectual-property laws. Except for the rights expressly granted to you, no rights are transferred. You retain ownership of data you provide, and grant us the rights necessary to deliver the services.</p>
+    </section>
+    <section class="legal-sec" id="third-party">
+      <h2 class="legal-h"><span class="n">06</span>Third-party services</h2>
+      <p>The services may integrate with or link to third-party products. We are not responsible for third-party services, and your use of them is governed by their own terms. Availability of an integration does not imply endorsement.</p>
+    </section>
+    <section class="legal-sec" id="availability">
+      <h2 class="legal-h"><span class="n">07</span>Service availability</h2>
+      <p>We aim to provide reliable, secure services but do not guarantee uninterrupted availability. Access may be affected by maintenance, updates, or factors beyond our control. Where applicable, service levels are set out in your agreement with us.</p>
+    </section>
+    <section class="legal-sec" id="disclaimers">
+      <h2 class="legal-h"><span class="n">08</span>Disclaimers</h2>
+      <p>The services are provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis. To the fullest extent permitted by law, we disclaim all warranties, express or implied, including fitness for a particular purpose and non-infringement. Fraud-prevention tools reduce but cannot eliminate risk.</p>
+    </section>
+    <section class="legal-sec" id="liability">
+      <h2 class="legal-h"><span class="n">09</span>Limitation of liability</h2>
+      <p>To the fullest extent permitted by law, ScanFraud will not be liable for indirect, incidental, special, or consequential damages, or loss of profits, revenue, or data. Our total aggregate liability arising out of the services is limited to the amounts paid by you for the services in the twelve months preceding the claim. Nothing in these Terms limits liability that cannot be excluded by law.</p>
+    </section>
+    <section class="legal-sec" id="indemnity">
+      <h2 class="legal-h"><span class="n">10</span>Indemnification</h2>
+      <p>You agree to indemnify and hold ScanFraud harmless from claims, losses, and expenses arising out of your misuse of the services or breach of these Terms, to the extent permitted by applicable law.</p>
+    </section>
+    <section class="legal-sec" id="law">
+      <h2 class="legal-h"><span class="n">11</span>Governing law &amp; disputes</h2>
+      <p>These Terms are governed by the laws of England and Wales. The courts of England and Wales have exclusive jurisdiction over any dispute arising out of or in connection with these Terms, without prejudice to mandatory consumer protections that may apply.</p>
+    </section>
+    <section class="legal-sec" id="changes">
+      <h2 class="legal-h"><span class="n">12</span>Changes &amp; contact</h2>
+      <p>We may revise these Terms from time to time. Material changes will be posted on this page with an updated date, and continued use of the services constitutes acceptance. Questions? Contact <a href="mailto:legal@scanfraud.com">legal@scanfraud.com</a>.</p>
+    </section>
+    <div class="legal-contact">
+      <div class="lc-title">Questions about this policy?</div>
+      <p>Contact our team at <a href="mailto:privacy@scanfraud.com">privacy@scanfraud.com</a>. Postal: SFC GROUP LTD, Suite 7086, 128 Aldersgate Street, Barbican, London, EC1A 4AE, United Kingdom.</p>
     </div>
-    <div class="card doc-card reveal">
-      <div class="card-icon"><i data-lucide="search"></i></div>
-      <div class="card-title">BIN Checker</div>
-      <div class="card-desc">Look up any card BIN to identify the issuer, card type, brand, and country. Free tool with instant results.</div>
-      <div class="doc-foot">
-        <a href="bin-checker.html" class="doc-read">Open BIN Checker <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
-    <div class="card doc-card reveal">
-      <div class="card-icon"><i data-lucide="book-open"></i></div>
-      <div class="card-title">Documentation</div>
-      <div class="card-desc">Privacy policy, cookie policy, and terms of use. Our legal documentation and data handling commitments.</div>
-      <div class="doc-foot">
-        <a href="documentation.html" class="doc-read">View documentation <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
+  </div>
   </div>
 
 <div class="cta-sec" id="ctaSection">

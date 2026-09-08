@@ -1,0 +1,914 @@
+/* ============================================================
+   OLD-SITE SKIN — additive re-theme layer over our real page.
+   Loads LAST. Keeps all our markup/content; changes only the look
+   to scanfraud.com's visual language (Proxima Nova, blue/pink,
+   white bg, rounded soft cards, pill buttons, no grid lines).
+   Start-small scope: foundations + nav + hero + buttons + cards.
+   ============================================================ */
+
+/* --- Proxima Nova (from live site) --- */
+@font-face { font-family:"Proxima Nova"; src:url("webfonts/ProximaNova-Regular.ttf")  format("truetype"); font-weight:400; font-display:swap; }
+@font-face { font-family:"Proxima Nova"; src:url("webfonts/ProximaNova-Semibold.ttf") format("truetype"); font-weight:600; font-display:swap; }
+@font-face { font-family:"Proxima Nova"; src:url("webfonts/ProximaNova-Bold.ttf")     format("truetype"); font-weight:700; font-display:swap; }
+@font-face { font-family:"Proxima Nova"; src:url("webfonts/ProximaNova-Black.ttf")     format("truetype"); font-weight:800; font-display:swap; }
+
+/* --- Token overrides: retheme the light palette to the old site --- */
+:root,
+[data-theme="light"]{
+  --font-g:'Proxima Nova', sans-serif;   /* headings */
+  --font-i:'Proxima Nova', sans-serif;   /* body */
+  --accent:#4870EE;                      /* old-site primary blue */
+  --accent-2:#EE3164;                    /* old-site pink */
+  --bg:#ffffff; --bg2:#f4f6fe; --bg3:#eef1fb;
+  --t1:#212529; --t2:#5b6172;
+  --bd:transparent;                      /* kill the grid lines */
+  --bdl:0 solid transparent;
+  --nav-bg:rgba(255,255,255,.9);
+  --btn-bg:#4870EE; --btn-fg:#ffffff;
+}
+
+/* Spacing / radius scale (8-based) + semantic roles — tokenized (review P4).
+   Change a value here; every card/section/footer rule below reads it. */
+:root, [data-theme="light"]{
+  --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px; --space-5:24px;
+  --space-6:32px; --space-7:40px; --space-8:48px; --space-9:64px; --space-10:80px;
+  --space-11:96px; --space-12:120px;
+  --radius-card:24px; --radius-band-card:22px; --radius-feature:28px; --radius-tile:13px;
+  --card-pad:var(--space-6); --card-gap:var(--space-4); --grid-gap:var(--space-4);
+  --feature-pad:var(--space-7);
+  --sec-head-pt:var(--space-8); --sec-head-pb:var(--space-7);
+  --grid-pb:var(--space-8); --hero-pb:var(--space-11); --footer-pad:var(--space-8);
+  --spark-color:var(--accent); --spark-hi:#7850ff;  /* spark border; pink override per blue-bg block */
+}
+
+body{ font-family:var(--font-i); color:var(--t1); background:var(--bg); }
+
+/* --- De-grid: remove the bordered-grid chrome --- */
+.grid-wrap, .nav-inner, .footer-inner-wrap{ border-left:none !important; border-right:none !important; }
+.hero-sec, nav, .mob-menu{ border-bottom:none !important; }
+.section-divider, .page-section::after, .stats-row::after,
+.feature-row::after, .prod-grid::after{ display:none !important; box-shadow:none !important; border:none !important; }
+
+/* --- Typography: bold, tight, Proxima --- */
+h1,h2,h3,h4,.hero-main h1{ font-family:var(--font-g); font-weight:700; letter-spacing:-.01em; color:var(--t1); }
+h1,.hero-main h1{ font-weight:700; }
+
+/* --- Nav --- */
+[data-theme="light"] nav, nav{ background:var(--nav-bg) !important; backdrop-filter:blur(8px); box-shadow:0 1px 0 rgba(20,30,60,.06); }
+
+/* --- Hero: white, no grid, keep our animated dots --- */
+.hero-sec{ background:#ffffff !important; }
+[data-theme="light"] .hero-sec{ background:#ffffff !important; }
+
+/* --- Buttons → old-site pill style --- */
+.btn-dark, .btn-sl{
+  background:var(--accent) !important; color:#fff !important;
+  border:none !important; border-radius:999px !important;
+  padding:14px 26px !important; font-weight:600 !important;
+  box-shadow:0 8px 20px rgba(72,112,238,.28);
+  transition:background .2s ease, box-shadow .2s ease !important;
+}
+/* filled blue → pink on hover (like the original site) — solid, no opacity fade */
+.btn-dark:hover, .btn-sl:hover{ background:var(--accent-2) !important; opacity:1 !important;
+  box-shadow:0 8px 20px rgba(238,49,100,.30) !important; }
+.btn-ghost, .btn-ol{
+  background:transparent !important; color:var(--accent) !important;
+  border:1.5px solid var(--accent) !important; border-radius:999px !important;
+  padding:12px 24px !important; font-weight:600 !important;
+  transition:color .2s ease, border-color .2s ease !important;
+}
+/* outline → pink border+text on hover, no background fill */
+.btn-ghost:hover, .btn-ol:hover{ background:transparent !important;
+  color:var(--accent-2) !important; border-color:var(--accent-2) !important; }
+
+/* --- Generic cards: soften the sharp bordered cells into rounded cards --- */
+.card, .prod-card, .industry-card, .stat{
+  border:1px solid #e7ebf7 !important;
+  border-radius:20px !important;
+  background:#fff !important;
+  box-shadow:0 6px 24px rgba(20,30,60,.05);
+}
+
+/* =============================================================
+   BLOCK 1 — "Why ScanFraud" rebuilt as the old-site .mega-box
+   (grey rounded feature cards, big radius, 3D-style icon
+   bottom-right, Proxima type). Our content untouched.
+   ============================================================= */
+:root, [data-theme="light"]{ --os-card:#f7f9ff; --os-card-2:#eef1fb; }
+
+/* header: bigger, bolder, Proxima */
+.why-header{ padding:var(--sec-head-pt) var(--cell-pad) var(--sec-head-pb) !important; border-bottom:none !important; }
+.why-header-eye{ font-family:var(--font-i) !important; font-weight:700 !important;
+  font-size:13px !important; letter-spacing:.12em !important; color:var(--accent) !important; }
+.why-header-title{ font-family:var(--font-g) !important; font-weight:700 !important;
+  font-size:clamp(30px,4.4vw,46px) !important; line-height:1.06 !important;
+  letter-spacing:-.02em !important; max-width:16ch !important; }
+.why-header-sub{ font-size:17px !important; line-height:1.5 !important; color:var(--t2) !important; max-width:66ch !important; }
+
+/* grid: kill the bordered-cell chrome, thin gutters for the connected look */
+.why-grid{ gap:var(--grid-gap) !important; padding:0 var(--cell-pad) var(--grid-pb) !important; }
+
+/* card: grey rounded panel, icon anchored bottom-right */
+.why-card{
+  background:var(--os-card) !important;
+  border:none !important; border-right:none !important; border-bottom:none !important;
+  border-radius:var(--radius-card) !important;
+  padding:var(--card-pad) !important;
+  min-height:300px !important;
+  gap:var(--card-gap) !important;
+  box-shadow:none !important;
+  transition:transform .18s ease, box-shadow .18s ease !important;
+}
+.why-card:hover{
+  box-shadow:0 18px 44px rgba(20,30,60,.10) !important;
+  transform:translateY(-4px) !important;
+}
+/* clean cards, no fake tabs — keep the animated spark ::after (rounded), kill only ::before */
+.why-card::before{ display:none !important; content:none !important; }
+
+.why-h{ font-family:var(--font-g) !important; font-weight:700 !important;
+  font-size:24px !important; line-height:1.15 !important; letter-spacing:-.01em !important;
+  color:var(--t1) !important; order:1; }
+.why-b{ font-size:15px !important; line-height:1.5 !important; color:var(--t2) !important;
+  max-width:42ch !important; order:2; }
+
+/* icon → flat soft-blue tile, top-left (same treatment as the industries cards) */
+.why-icon{
+  position:static !important; top:auto !important; right:auto !important; bottom:auto !important;
+  width:46px !important; height:46px !important; border-radius:var(--radius-tile) !important;
+  display:inline-flex !important; align-items:center !important; justify-content:center !important;
+  margin:0 0 4px !important; order:0 !important;
+  background:linear-gradient(150deg, color-mix(in srgb,var(--accent) 14%,#fff), color-mix(in srgb,var(--accent) 26%,#fff)) !important;
+  box-shadow:none !important;
+  color:var(--accent) !important;
+}
+.why-icon svg{ width:22px !important; height:22px !important; stroke:var(--accent) !important; stroke-width:1.9 !important; }
+
+@media (max-width:1024px){ .why-grid{ grid-template-columns:1fr 1fr !important; } }
+@media (max-width:768px){ .why-grid{ grid-template-columns:1fr !important; } }
+
+/* =============================================================
+   BLOCK 2 — Industries rebuilt as the old-site .industrie-sec
+   (full-bleed blue band + white→blue wave + pale connector
+   cards + circular arrow buttons, one pink). CSS-only, no
+   markup change. Full-bleed via centered ::before + 100vw.
+   ============================================================= */
+.ind-header, .why-grid--ind, .ind-footer-line{ position:relative; z-index:0; }
+/* grid above the footer band so bottom-row card shadows aren't clipped by it */
+.why-grid--ind{ z-index:1 !important; }
+/* the continuous blue band behind the header + grid + footer line */
+.ind-header::before, .why-grid--ind::before, .ind-footer-line::before{
+  content:""; position:absolute; top:0; bottom:0; left:50%; width:100vw;
+  transform:translateX(-50%); background:var(--accent); z-index:-1;
+}
+.ind-header::before{ top:-2px; }
+.ind-footer-line::before{ bottom:-2px; }
+
+/* wave curls removed per request — plain straight band edges */
+.ind-header::after, .ind-footer-line::after{ display:none !important; content:none !important; }
+
+/* header sits on blue → white text */
+.ind-header{ padding:var(--sec-head-pt) var(--cell-pad) var(--sec-head-pb) !important; }
+.ind-header-eye{ color:#cdd8ff !important; font-family:var(--font-i) !important; font-weight:700 !important;
+  font-size:13px !important; letter-spacing:.12em !important; }
+.ind-header-title{ color:#fff !important; font-family:var(--font-g) !important; font-weight:700 !important;
+  font-size:clamp(30px,4.4vw,46px) !important; line-height:1.06 !important; letter-spacing:-.02em !important; max-width:20ch !important; }
+.ind-header-sub{ color:rgba(255,255,255,.82) !important; font-size:17px !important; line-height:1.5 !important; max-width:64ch !important; }
+
+/* grid gutters show the blue band between cards */
+.why-grid--ind{ gap:var(--grid-gap) !important; padding:0 var(--cell-pad) var(--grid-pb) !important; }
+
+/* pale cards on the blue band */
+.why-grid--ind .why-card{
+  background:#ffffff !important; border-radius:var(--radius-band-card) !important;
+  padding:32px 32px 84px !important; min-height:210px !important;
+  overflow:visible !important;
+}
+/* lift the hovered card above its neighbours so its drop shadow isn't painted over by adjacent/below cards */
+.why-grid--ind .why-card{ z-index:0 !important; }
+.why-grid--ind .why-card:hover{ box-shadow:0 20px 44px rgba(6,16,54,.28) !important; z-index:3 !important; }
+/* clean pale cards — keep the spark ::after (pink here), kill only ::before */
+.why-grid--ind .why-card::before{ display:none !important; content:none !important; }
+/* pink spark border on industry cards — echoes the active (pink) arrow button */
+.why-grid--ind .why-card::after{
+  background:conic-gradient(
+    from var(--spark-angle, 0deg),
+    transparent 0deg,
+    transparent 240deg,
+    rgba(238,49,100,0) 270deg,
+    var(--spark-color) 320deg,
+    var(--spark-hi) 340deg,
+    var(--spark-color) 350deg,
+    transparent 360deg) !important;
+}
+/* pink spark GEOMETRY — was only in index inline, so converted subpage industries
+   blocks ("Products used in X") had the pink colour but no visible/animated spark */
+.why-grid--ind .why-card::after{
+  content:'' !important; position:absolute !important; inset:0 !important; padding:1.5px !important;
+  border-radius:inherit !important;
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) !important;
+  mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite:xor !important; mask-composite:exclude !important;
+  opacity:0 !important; pointer-events:none !important; transition:opacity .25s ease !important; z-index:2 !important;
+}
+.why-grid--ind .why-card:hover::after{ opacity:1 !important; animation:sparkRotate 2.2s linear infinite !important; }
+@media (prefers-reduced-motion:reduce){ .why-grid--ind .why-card:hover::after{ animation:none !important; } }
+.why-grid--ind .why-h{ font-size:22px !important; }
+.why-grid--ind .why-b{ font-size:15px !important; max-width:34ch !important; }
+
+/* "Learn more" link → circular arrow button, bottom-right */
+/* default: blue, flat (no shadow). Hover: pink + soft shadow. */
+.why-grid--ind .why-link{
+  position:absolute !important; right:26px !important; bottom:26px !important;
+  width:46px !important; height:46px !important; border-radius:14px !important;
+  background:var(--accent) !important; color:#fff !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  font-size:0 !important; box-shadow:none !important;
+  transition:transform .16s ease, background .16s ease, box-shadow .16s ease !important;
+}
+/* button reacts on CARD hover — pink button + pink spark light up together */
+.why-grid--ind .why-card:hover .why-link{
+  transform:translateY(-2px) !important;
+  background:var(--accent-2) !important;
+  box-shadow:0 8px 18px color-mix(in srgb,var(--accent-2) 34%,transparent) !important;
+}
+.why-grid--ind .why-link svg{ width:20px !important; height:20px !important; stroke:#fff !important; stroke-width:2 !important; }
+
+/* footer line on blue → light text */
+.ind-footer-line{ padding:6px var(--cell-pad) 72px !important; color:rgba(255,255,255,.9) !important; }
+.ind-footer-line a{ color:#fff !important; text-decoration:underline !important; }
+
+/* =============================================================
+   FULL-PAGE PASS — every remaining section onto the old skin.
+   Broad strokes; mocks kept as-is inside light frames (polish later).
+   ============================================================= */
+
+/* ---- generic section eyebrows + headings across the page ---- */
+.prod-header-eye, .fe, .stats-v3-eye, .cta-eyebrow{
+  font-family:var(--font-i) !important; font-weight:700 !important; font-size:13px !important;
+  letter-spacing:.12em !important; text-transform:uppercase !important; color:var(--accent) !important;
+}
+.prod-header h2, .stats-v3-title, .fh{
+  font-family:var(--font-g) !important; font-weight:700 !important; color:var(--t1) !important;
+  letter-spacing:-.02em !important; line-height:1.08 !important;
+}
+.prod-header-sub, .fbody, .stats-v3 .st3-label, .fsb{ color:var(--t2) !important; }
+
+/* =============================================================
+   BLOCK 3 — hero visual: our monitoring mock as the dashboard
+   + two floating stat cards (old-site hero pattern).
+   ============================================================= */
+.os-hero-visual{ position:relative; width:100%; max-width:860px; margin:20px auto 8px; }
+.os-mono{ font-family:'JetBrains Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums; }
+
+.os-dash{ background:#fff; border:1px solid #e7ebf7; border-radius:18px;
+  box-shadow:0 26px 60px rgba(20,30,60,.17); overflow:hidden; }
+.os-dash-top{ display:flex; align-items:center; gap:7px; padding:14px 18px; border-bottom:1px solid #eef1f7; }
+.os-tdot{ width:9px; height:9px; border-radius:50%; background:#dfe3ec; }
+.os-tdot:nth-child(1){ background:#ff5f57; } .os-tdot:nth-child(2){ background:#febc2e; } .os-tdot:nth-child(3){ background:#28c840; }
+.os-dash-title{ margin-left:8px; font-size:13px; font-weight:700; color:#212529; }
+.os-dash-top .os-live{ margin-left:auto; }
+.os-dash-cols, .os-dash-row{ display:grid; grid-template-columns:1.2fr 1.1fr .9fr 1.2fr; gap:10px; align-items:center; padding:10px 18px; }
+.os-dash-cols{ font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#8b90a0; }
+.os-dash-row{ font-size:13px; color:#3a3f4c; border-top:1px solid #f2f4f9; }
+.os-dash-row span:nth-child(4){ justify-self:start; }
+.os-dash-foot{ padding:11px 18px; font-size:12px; color:#9aa0b0; border-top:1px solid #f2f4f9; background:#fafbfd; }
+
+.os-badge{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; white-space:nowrap; }
+.os-ok{ background:rgba(31,157,85,.13); color:#1f9d55; }
+.os-bad{ background:rgba(229,72,77,.13); color:#e5484d; }
+.os-warn{ background:rgba(245,165,36,.16); color:#b5760a; }
+.os-info{ background:rgba(72,112,238,.13); color:#4870ee; }
+.os-live{ background:rgba(31,157,85,.13); color:#1f9d55; }
+
+.os-float{ position:absolute; background:#fff; border:1px solid #eef1f7; border-radius:14px;
+  box-shadow:0 20px 44px rgba(20,30,60,.16); padding:12px 15px; display:flex; align-items:center; gap:11px; z-index:2; }
+.os-float-risk{ left:-26px; top:118px; }
+.os-float-vol{ right:-26px; top:44px; flex-direction:column; align-items:flex-start; gap:7px; }
+.os-float-t b{ display:block; font-size:13px; font-weight:800; color:#212529; }
+.os-float-t em{ font-style:normal; font-size:11px; color:#8b90a0; }
+.os-donut{ width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:conic-gradient(#1f9d55 0 92%, #edf0f5 0); flex:0 0 auto; }
+.os-donut span{ width:32px; height:32px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; font-weight:700; color:#212529; }
+.os-vol-row{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:#3a3f4c; }
+.os-vol-row b{ margin-left:4px; color:#212529; }
+.os-dotm{ width:8px; height:8px; border-radius:50%; } .os-dotm.ok{ background:#1f9d55; } .os-dotm.bad{ background:#e5484d; }
+
+@media (max-width:820px){ .os-float{ display:none; } .os-hero-visual{ max-width:520px; } }
+
+/* ---- ticker (item 5): visible chips on a light rail ---- */
+.ticker-sec{ background:var(--bg2) !important; border-top:none !important; border-bottom:1px solid var(--hair,#e7ebf7) !important; padding:18px 0 !important; }
+.ticker-track li{
+  color:var(--accent) !important; font-weight:700 !important; font-size:13px !important;
+  letter-spacing:.02em !important; background:#fff !important; border:1px solid #e2e8fb !important;
+  padding:7px 16px !important; border-radius:999px !important; margin:0 7px !important;
+  box-shadow:0 2px 8px rgba(20,30,60,.05) !important;
+}
+
+/* ---- icon tiles (item 4, redone): flat & calm, not puffy ---- */
+.why-icon{
+  background:#e9eefc !important;
+  box-shadow:none !important;
+}
+.why-icon svg{ stroke-width:1.75 !important; filter:none !important; }
+/* hero capability pills — no square behind the icon; full fill on hover */
+.ic-sq{
+  background:transparent !important; box-shadow:none !important;
+  color:var(--accent) !important; border:none !important;
+}
+.ic-sq svg{ stroke:var(--accent) !important; transition:stroke .2s ease; }
+.h-bullets{ margin:0 auto 4px !important; }   /* moved above the title */
+.h-bullets li{ transition:background .2s ease, border-color .2s ease, color .2s ease !important; }
+.h-bullets li:hover{ background:var(--accent) !important; border-color:var(--accent) !important; color:#fff !important; }
+.h-bullets li:hover .ic-sq{ color:#fff !important; }
+.h-bullets li:hover .ic-sq svg{ stroke:#fff !important; }
+
+/* ---- platform rows: white ground, mocks sit in soft light frames ---- */
+.fdr{ background:transparent !important; }
+/* .fdr::after kept — rounded spark border */
+.fsh{ color:var(--t1) !important; font-weight:700 !important; }
+.fi{ color:var(--accent) !important; }
+.fi svg{ stroke:var(--accent) !important; }
+/* mock frames → light card container so dark app UIs read as screenshots */
+.rbx-frame, .hm, .fmock, .fi-mock{
+  border-radius:18px !important;
+  box-shadow:0 18px 44px rgba(20,30,60,.12) !important;
+  border:1px solid var(--hair,#e7ebf7) !important;
+  overflow:hidden !important;
+}
+
+/* ---- stats: light ---- */
+.st3-num, .st3-val, .st3-prefix, .st3-suffix{ color:var(--t1) !important; }
+.st3-bar{ background:var(--bg3) !important; }
+.st3-bar-fill{ background:var(--accent) !important; }
+.st3-context-row{ color:var(--t2) !important; }
+
+/* ---- CTA: plain white, like the old-site .journey (no band, no dots) ---- */
+.cta-sec{ background:var(--bg) !important; border:none !important; }
+.cta-sec::after, .cta-sec::before{ display:none !important; }
+#cta-dots{ display:none !important; }
+.cta-title{ font-family:var(--font-g) !important; font-weight:700 !important; color:var(--t1) !important; letter-spacing:-.02em !important; }
+.cta-sub{ color:var(--t2) !important; }
+
+/* ---- footer: repaint dark → old-site blue gradient ---- */
+footer, .footer-outer{ background:linear-gradient(90deg,#2f58da,#183695) !important; }
+[data-theme="light"] footer, [data-theme="light"] .footer-outer{ background:linear-gradient(90deg,#2f58da,#183695) !important; }
+.footer-inner-wrap{ border-left:none !important; border-right:none !important; }
+.footer-brand-name, .ft-col ul li a, .footer-desc, .ft-col-title, .ft-bottom-bar, .ft-bottom-bar *{ color:#fff !important; }
+[data-theme="light"] .footer-brand-name{ color:#fff !important; }
+[data-theme="light"] .footer-desc, [data-theme="light"] .ft-col-title{ color:rgba(255,255,255,.72) !important; }
+[data-theme="light"] .ft-col ul li a{ color:rgba(255,255,255,.9) !important; }
+.ft-col ul li a:hover{ color:#fff !important; }
+.ft-bottom-bar{ border-top-color:rgba(255,255,255,.18) !important; }
+.footer-logomark{ background:rgba(255,255,255,.14) !important; }
+
+/* =====================================================================
+   PASS 2 — review fixes (header buttons, ticker, hover, arrows,
+   spacing, stats card). Appended last so it overrides earlier rules.
+   ===================================================================== */
+
+/* 1. Header buttons were sized like hero CTAs — make nav pills compact */
+nav .btn-sl, .nav-inner .btn-sl, .nav-right .btn-sl{
+  padding:9px 18px !important; font-size:14px !important;
+  box-shadow:0 4px 12px rgba(72,112,238,.22) !important;
+}
+nav .btn-ol, .nav-inner .btn-ol, .nav-right .btn-ol{
+  padding:8px 17px !important; font-size:14px !important; border-width:1.5px !important;
+}
+.theme-btn{ display:none !important; }
+
+/* 2. Ticker: full-bleed edge to edge */
+.ticker-sec{ width:100vw !important; position:relative !important; left:50% !important;
+  transform:translateX(-50%) !important; }
+
+/* 4. Mega-box hover: lift to white + crisp blue shadow (was muddy grey-on-grey) */
+.why-card:hover{ background:#ffffff !important; box-shadow:0 22px 48px -12px rgba(72,112,238,.30) !important; }
+
+/* 5. Industries arrow buttons: centre the glyph (was sinking to the bottom) */
+.why-grid--ind .why-link{ line-height:0 !important; font-size:0 !important; }
+.why-grid--ind .why-link svg{ display:block !important; margin:auto !important; position:static !important; }
+
+/* 6. 16px breathing room between the main blocks */
+.ticker-sec, .prod-header, .why-sec, .stats-v3-header, .ind-header, .cta-sec{ margin-top:16px !important; }
+
+/* 8. Stats → kill the old spark hovers (the card layout is set in item 12 below) */
+.stats-v3-header::after, .stats-v3::after{ display:none !important; content:none !important; }
+.stats-v3 .st3:hover{ box-shadow:none !important; transform:none !important; }
+
+/* 7. Platform rows — all 4 wrapped in light cards (flat, no shadow) */
+.fdr{
+  background:#f7f9ff !important; border:1px solid #e7ebf7 !important; border-radius:28px !important;
+  padding:44px !important; box-shadow:none !important;
+  margin:16px var(--cell-pad) !important; align-items:center !important;
+}
+/* inner mocks: no shadow, thin border to sit cleanly on the tinted card */
+.fdr .rbx-frame, .fdr .hm{ box-shadow:none !important; border:1px solid #e7ebf7 !important; }
+
+/* 9. Hero background full-bleed (gradient + dots span the whole screen) */
+.hero-sec{ width:100vw !important; position:relative !important; left:50% !important;
+  transform:translateX(-50%) !important; }
+
+/* 10. Ticker: no section band; keep white chips + border, grey text; white side-fades */
+.ticker-sec{ background:transparent !important; border-bottom:none !important; }
+.ticker-sec::before{ background:linear-gradient(to right, #ffffff, rgba(255,255,255,0)) !important; }
+.ticker-sec::after{ background:linear-gradient(to left, #ffffff, rgba(255,255,255,0)) !important; }
+.ticker-track li{
+  color:#98a0b3 !important; background:#ffffff !important;
+  border:1px solid #e7ebf7 !important; box-shadow:0 2px 8px rgba(20,30,60,.05) !important;
+}
+
+/* 11. Mega-box cards: add a thin border for definition (like the platform cards) */
+.why-grid:not(.why-grid--ind) .why-card{ border:1px solid #e7ebf7 !important; }
+
+/* 12. Stats → 3 standalone cards (was one loose card); no hover/spark */
+.stats-v3{
+  background:transparent !important; border:none !important; box-shadow:none !important; border-radius:0 !important;
+  margin:0 !important; padding:0 var(--cell-pad) 16px !important;
+  display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:16px !important;
+  align-items:stretch !important;
+}
+.st3{
+  background:#f7f9ff !important; border:1px solid #e7ebf7 !important; border-radius:24px !important;
+  padding:32px !important; border-right:none !important; box-shadow:none !important;
+}
+.st3:hover{ background:#f7f9ff !important; }
+/* .st3 spark ::after kept — rounded border on hover */
+/* pin the "industry average" context to the card bottom + separate it */
+.st3-context{ margin-top:auto !important; padding-top:18px !important; border-top:1px solid #e7ebf7 !important; }
+
+/* 13. Stats context: remove the bleeding lavender footer strip — clean separator only */
+.st3{ overflow:hidden !important; }
+.st3-context{
+  margin:auto 0 0 0 !important; padding:18px 0 0 0 !important;
+  background:transparent !important; border-top:1px solid #e7ebf7 !important;
+}
+
+/* 14. Stats separator edge-to-edge + tidy breathing room around it */
+.st3{ padding:34px !important; }
+.st3-label{ min-height:0 !important; }
+.st3-context{
+  margin:18px -34px 0 -34px !important;     /* 18px above the line; bleed to card edges */
+  padding:20px 34px 0 34px !important;      /* 20px below the line; content back to 34 */
+  border-top:1px solid #e7ebf7 !important;
+}
+
+/* 15. Industries arrow: thinner stroke, absolutely dead-centre in the button */
+.why-grid--ind .why-link svg{
+  width:18px !important; height:18px !important; stroke-width:1.5 !important;
+  position:absolute !important; top:50% !important; left:50% !important;
+  transform:translate(-50%,-50%) !important; margin:0 !important;
+}
+
+/* 16. Hero glows: drop the lavender/violet, keep only a soft brand-blue haze
+   that fades into the white background (gentle transition). */
+.hero-sec::before, [data-theme="light"] .hero-sec::before{
+  background:
+    radial-gradient(ellipse 55% 45% at 22% 72%, rgba(72,112,238,.09) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 45% at 82% 66%, rgba(72,112,238,.07) 0%, transparent 62%),
+    radial-gradient(ellipse 60% 40% at 50% 12%, rgba(72,112,238,.06) 0%, transparent 66%) !important;
+}
+.hero-sec::after, [data-theme="light"] .hero-sec::after{
+  background:
+    radial-gradient(ellipse 45% 35% at 62% 26%, rgba(72,112,238,.06) 0%, transparent 60%) !important;
+}
+
+/* 17. Hero glow: fade out toward the bottom so the clip edge is invisible */
+.hero-sec::before, .hero-sec::after,
+[data-theme="light"] .hero-sec::before, [data-theme="light"] .hero-sec::after{
+  -webkit-mask:linear-gradient(to bottom, #000 45%, transparent 88%) !important;
+  mask:linear-gradient(to bottom, #000 45%, transparent 88%) !important;
+}
+
+/* 18. Fade overlay over the hero animation → everything melts into white at the bottom */
+.hero-fade{
+  position:absolute; left:0; right:0; bottom:0; height:55%; z-index:2; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.7) 55%, #ffffff 100%);
+}
+
+/* 19. Hero: strip the animation entirely — no dots, no glows, no fade. Plain white. */
+#dots{ display:none !important; }
+.hero-sec::before, .hero-sec::after,
+[data-theme="light"] .hero-sec::before, [data-theme="light"] .hero-sec::after{ display:none !important; content:none !important; }
+.hero-fade{ display:none !important; }
+.hero-sec{ background:#ffffff !important; }
+
+/* 20. Unify inner-page cards to the homepage card look (bluish, bordered, gapped) */
+.prod-grid, .card-grid, .card-grid-3, .cap-grid, .stats-row, .ind-grid, .process-grid{
+  gap:16px !important; padding-left:var(--cell-pad) !important; padding-right:var(--cell-pad) !important;
+}
+.prod-grid::after, .card-grid::after, .cap-grid::after, .stats-row::after, .ind-grid::after,
+.process-grid::after{ display:none !important; content:none !important; }
+.prod-card, .card, .cap-item, .stat, .industry-card, .process-step{
+  background:#f7f9ff !important;
+  border:1px solid #e7ebf7 !important; border-radius:24px !important;
+  padding:32px !important; box-shadow:none !important;
+}
+/* content cards → WHITE on hover + blue-tinted shadow (match homepage .why-card) */
+.prod-card:hover, .card:hover, .cap-item:hover, .stat:hover,
+.industry-card:hover, .process-step:hover{
+  background:#ffffff !important;
+  box-shadow:0 22px 48px -12px rgba(72,112,238,.30) !important;
+  transform:translateY(-4px) !important;
+  position:relative !important; z-index:3 !important;  /* lift over the next section's bg so the shadow isn't clipped */
+}
+/* icon tiles across inner pages → flat blue tint, no shadow */
+.industry-icon, .prod-icon, .cap-icon, .card-icon, .step-icon, .feat-icon{
+  background:#e9eefc !important; box-shadow:none !important;
+}
+/* card headings → Proxima bold, consistent */
+.industry-name, .prod-card h3, .card h3, .cap-item h3, .process-step h3{
+  font-family:var(--font-g) !important; font-weight:700 !important; letter-spacing:-.01em !important;
+}
+
+/* Unified nav/hub card — .card.doc-card (promoted from resources/documentation/industries inline, 2026-09-08).
+   Whole card clickable via a stretched inner .doc-read link; keeps the shared conic spark (div, not <a>). */
+.doc-card{ cursor:pointer; }
+.doc-card .card-title{ transition:color .2s ease; }
+.doc-card:hover .card-title{ color:var(--accent) !important; }
+.doc-foot{ margin-top:auto; padding-top:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.doc-updated{ font-family:var(--font-i) !important; font-size:12px !important; color:var(--t3) !important; }
+.doc-read{ display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; color:var(--accent) !important; text-decoration:none; }
+.doc-read::after{ content:''; position:absolute; inset:0; z-index:2; }  /* stretch click to whole card */
+.doc-read svg{ width:15px; height:15px; transition:transform .2s ease; }
+.doc-card:hover .doc-read svg{ transform:translateX(3px); }
+
+/* 21. Inner-page feature rows → wrap in a light card like the homepage .fdr */
+.feature-row{
+  background:#f7f9ff !important; border:1px solid #e7ebf7 !important; border-radius:28px !important;
+  padding:40px !important; margin:16px var(--cell-pad) !important; gap:32px !important;
+  align-items:center !important; outline:none !important;
+}
+.feature-row::after{ display:none !important; content:none !important; }
+.feature-row-content{ padding:0 !important; border:none !important; }
+.feature-row-visual{ padding:0 !important; background:transparent !important; outline:none !important; }
+.feature-row-visual .rbx-frame, .feature-row-visual .rbx-frame.ep-frame{
+  box-shadow:0 8px 22px rgba(20,30,60,.08) !important; border:1px solid #e7ebf7 !important; outline:none !important;
+}
+
+/* =========================================================================
+   FOOTER — enriched (brand + 4 columns + contact + trust strip)
+   ========================================================================= */
+/* brand + 4 columns */
+.ft-top-row{ grid-template-columns:1.7fr repeat(4, 1fr) !important; border-bottom:none !important; }
+.ft-bottom-bar{ border-top:none !important; }
+/* edge-to-edge divider lines (full-bleed), 10% white so they don't draw attention */
+.ft-trust::before, .ft-trust::after{
+  content:''; position:absolute; left:50%; transform:translateX(-50%);
+  width:100vw; height:1px; background:rgba(255,255,255,.10); pointer-events:none;
+}
+.ft-trust::before{ top:0; }
+.ft-trust::after{ bottom:0; }
+
+/* menu links: a touch larger + explicit sliding-underline hover */
+.ft-col ul li a{ position:relative !important; font-size:15px !important; line-height:1.7 !important; }
+.ft-col ul li a::after{ content:'' !important; position:absolute; left:0; bottom:0; width:0; height:1.5px;
+  background:currentColor; transition:width .22s ease; }
+.ft-col ul li a:hover{ color:#fff !important; }
+.ft-col ul li a:hover::after{ width:100% !important; }
+
+/* "… overview" link — brighter, small arrow */
+.ft-overview{ font-weight:600 !important; color:#fff !important; }
+.ft-overview::before{ content:'\2192\00a0'; opacity:.7; }
+
+/* contact block in brand column */
+.ft-contact{ margin-top:18px !important; display:flex; flex-direction:column; gap:4px; }
+.ft-contact-label{ font-family:var(--font-i); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:rgba(255,255,255,.55) !important; }
+.ft-contact-mail{ font-size:15px; font-weight:600; color:#fff !important; text-decoration:none; width:max-content;
+  border-bottom:1px solid rgba(255,255,255,.32); transition:border-color .18s ease; }
+.ft-contact-mail:hover{ border-color:#fff !important; }
+
+/* trust / compliance strip */
+.ft-trust{ position:relative; display:flex; align-items:center; gap:16px 20px; flex-wrap:wrap;
+  padding:20px var(--cell-pad); }
+.ft-trust-label{ font-family:var(--font-i); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.5) !important; }
+.ft-badges{ display:flex; gap:10px; flex-wrap:wrap; }
+.ft-badge{ display:inline-flex; align-items:center; height:36px; padding:0 12px;
+  border-radius:8px; background:#ffffff; box-shadow:0 2px 10px rgba(6,16,54,.16);
+  transition:box-shadow .18s ease, transform .18s ease; }
+.ft-badge:hover{ box-shadow:0 6px 16px rgba(6,16,54,.24); transform:translateY(-1px); }
+.ft-badge-logo{ height:22px; width:auto; display:block; }
+
+/* responsive */
+@media (max-width: 1024px){ .ft-top-row{ grid-template-columns:1fr 1fr 1fr !important; } .ft-brand-col{ grid-column:1 / -1 !important; } }
+@media (max-width: 768px){ .ft-top-row{ grid-template-columns:1fr 1fr !important; gap:28px 20px !important; } }
+
+/* onboarding timeline (Row 04): the done-check follows the step colour (green),
+   not the generic .fi/.feature-row-visual accent-blue svg override */
+.gtm-step .gtm-ico svg{ stroke:currentColor !important; }
+
+/* rule-builder mock: Parameter/Function & Value/Function → proper segmented control
+   (oldskin sets --bd:transparent, which erased the container frame) */
+.rbx-tabs, .rbx-valtabs{
+  border:none !important; background:var(--bg3) !important; border-radius:9px !important;
+  padding:3px !important; gap:3px; overflow:visible !important;
+}
+.rbx-tab, .rbx-vt{
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  height:28px !important; padding:0 !important; border-radius:6px !important;
+  font-weight:600 !important; color:var(--t2) !important;
+  transition:background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.rbx-tab.active, .rbx-vt.active{ background:#ffffff !important; color:var(--t1) !important;
+  box-shadow:0 1px 2px rgba(20,30,60,.14) !important; }
+
+/* industries cards: bring back the top icon (was hidden in the reskin) —
+   small soft-blue tile, top-left; arrow button still lives bottom-right */
+.why-grid--ind .why-icon{
+  display:inline-flex !important; position:static !important;
+  top:auto !important; right:auto !important; bottom:auto !important;
+  width:46px !important; height:46px !important; border-radius:var(--radius-tile) !important;
+  align-items:center !important; justify-content:center !important;
+  margin:0 0 4px !important; order:0 !important;
+  background:linear-gradient(150deg, color-mix(in srgb,var(--accent) 14%,#fff), color-mix(in srgb,var(--accent) 26%,#fff)) !important;
+  box-shadow:none !important;
+  color:var(--accent) !important;
+}
+.why-grid--ind .why-icon svg{ width:22px !important; height:22px !important; stroke:var(--accent) !important; stroke-width:1.9 !important; }
+
+/* header: nav links a touch larger + medium/semibold (hovers unchanged) */
+.nav-links > li > a{ font-size:15px !important; font-weight:600 !important; }
+
+/* =========================================================================
+   HERO monitoring dashboard — liveliness
+   ========================================================================= */
+@property --os-dp{ syntax:'<percentage>'; initial-value:92%; inherits:false; }
+.os-donut{ background:conic-gradient(#1f9d55 0 var(--os-dp,92%), #edf0f5 0) !important; }
+.os-donut.draw{ animation:osDonutDraw 1.1s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes osDonutDraw{ from{ --os-dp:0%; } to{ --os-dp:92%; } }
+
+/* Live badge — pulsing dot */
+.os-live{ display:inline-flex !important; align-items:center; gap:6px; }
+.os-live::before{ content:''; width:6px; height:6px; border-radius:50%; background:#1f9d55; animation:osPulse 1.5s ease-in-out infinite; }
+@keyframes osPulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.35; transform:scale(.65); } }
+
+/* floating cards — gentle bob */
+.os-float-risk{ animation:osFloatA 6s ease-in-out infinite; }
+.os-float-vol{ animation:osFloatB 7s ease-in-out infinite; }
+@keyframes osFloatA{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-6px); } }
+@keyframes osFloatB{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(5px); } }
+
+/* rows — hover highlight + fresh-in */
+.os-dash-row{ transition:background .2s ease; }
+.os-dash-row:hover{ background:#f6f8ff; }
+.os-dash-row.fresh{ animation:osRowIn .5s ease; }
+@keyframes osRowIn{ from{ opacity:0; transform:translateY(-9px); } 30%{ background:#eaf1ff; } to{ opacity:1; transform:none; } }
+
+@media (prefers-reduced-motion: reduce){
+  .os-donut.draw, .os-live::before, .os-float-risk, .os-float-vol, .os-dash-row.fresh{ animation:none !important; }
+}
+
+/* =========================================================================
+   CANONICAL HEADINGS — single control point for weight across all pages
+   (subpages' inline CSS set headings to 600/Semibold; homepage uses 800/Black.
+    Unify to Black here so it's one place to change.)
+   ========================================================================= */
+.h-title, .sec-title, .cta-title, .prod-title, .step-title,
+.feature-heading, .prod-header-title, .why-header-title, .ind-header-title{
+  font-weight:700 !important;   /* Bold everywhere (was Black/800) */
+}
+.card-title, .rbx-head-title{ font-weight:700 !important; }
+
+/* "Other products" block removed — the markup was converted to .why-grid--ind,
+   so the entire .other-* component (band + white cards + pink spark) was dead. */
+
+/* footer full-bleed on subpages too (its grid-wrap constrained it to --col-width) */
+/* footer full-bleed WITHOUT widening its grid-wrap (which on subpages also holds
+   the RELATED block + CTA). Break out just the footer; inner-wrap re-columns it. */
+footer{ position:relative; left:50%; width:100vw; transform:translateX(-50%); }
+
+/* =========================================================================
+   UNIFIED FEATURE ROWS — homepage (.fdr) and subpages (.feature-row)
+   share ONE look. Eyebrow accent-blue, same heading/desc, bulleted sub-feats.
+   ========================================================================= */
+/* eyebrow */
+.fe, .feature-number{ font-family:var(--font-g) !important; font-weight:700 !important;
+  font-size:12px !important; letter-spacing:.09em !important; text-transform:uppercase !important; color:var(--accent) !important; }
+/* heading */
+.fh, .feature-heading{ font-family:var(--font-g) !important; font-weight:700 !important;
+  font-size:28px !important; line-height:1.18 !important; letter-spacing:-.015em !important; color:var(--t1) !important; margin-top:6px !important; }
+/* description */
+.fbody, .feature-desc{ font-family:var(--font-g) !important; font-weight:400 !important;
+  font-size:15px !important; line-height:1.55 !important; color:var(--t2) !important; }
+/* sub-features — bulleted everywhere */
+.feature-list{ list-style:none !important; display:flex !important; flex-direction:column !important; gap:14px !important; }
+.feature-list li{ position:relative !important; padding-left:18px !important; font-family:var(--font-g) !important;
+  font-weight:400 !important; font-size:14px !important; line-height:1.5 !important; color:var(--t2) !important; }
+.feature-list li::before{ content:'' !important; position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent) !important; }
+.feature-list li b, .feature-list li strong{ color:var(--t1) !important; font-weight:700 !important; }
+/* homepage sub-features (.fsh + .fsb pairs) → add the same bullet + typography */
+.fdr .fc > div:has(.fsh){ position:relative; padding-left:18px; }
+.fdr .fc > div:has(.fsh)::before{ content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+.fsh{ font-family:var(--font-g) !important; font-weight:700 !important; font-size:15px !important; line-height:1.35 !important; color:var(--t1) !important; letter-spacing:-.01em !important; }
+.fsb{ font-family:var(--font-g) !important; font-weight:400 !important; font-size:14px !important; line-height:1.5 !important; color:var(--t2) !important; margin-top:2px !important; }
+/* content column spacing — match */
+.fdr .fc, .feature-row-content{ gap:18px !important; }
+
+/* stats row → match the homepage .stats-v3/.st3 cards (tint, rounded 24, 1px border, LEFT-aligned) */
+.stats-row{ gap:16px !important; padding:0 var(--cell-pad) 16px !important; }
+/* stats strip sitting directly under a card grid reads as glued — give it air */
+.card-grid + .stats-row, .prod-grid + .stats-row, .cap-grid + .stats-row,
+.feature-row + .stats-row, .ind-grid + .stats-row, .why-grid + .stats-row{ margin-top:40px !important; }
+.stat{ background:#f7f9ff !important; border:1px solid #e7ebf7 !important; border-radius:var(--radius-card) !important; padding:34px !important; text-align:center !important; }
+.stat-num{ justify-content:center !important; }
+.stat-num{ font-family:var(--font-g) !important; font-weight:700 !important; font-size:44px !important; line-height:1 !important; letter-spacing:-2px !important; color:var(--t1) !important; }
+.stat-label{ font-family:var(--font-g) !important; font-weight:400 !important; font-size:13px !important; line-height:18px !important; color:var(--t2) !important; margin-top:10px !important; }
+
+/* icon tiles use stroke-based glyphs — never fill the shapes */
+.why-icon svg{ fill:none !important; }
+
+/* industries grid layout — define in the shared layer so subpages (Other products) lay out too */
+.why-grid--ind{ display:grid !important; grid-template-columns:repeat(3, 1fr) !important; }
+@media (max-width:1024px){ .why-grid--ind{ grid-template-columns:repeat(2,1fr) !important; } }
+@media (max-width:768px){ .why-grid--ind{ grid-template-columns:1fr !important; } }
+
+/* .why-card must be a flex column (was only set in index inline) so the gap
+   between icon/title/desc works on subpages too */
+.why-card{ display:flex !important; flex-direction:column !important; }
+/* "Other products" blue band: no .ind-footer-line after it, so add bottom breathing room */
+.why-grid--ind:not(:has(+ .ind-footer-line)){ padding-bottom:52px !important; }
+
+/* CTA blocks — uniform height (~720px), content vertically centered */
+.cta-sec{ min-height:620px !important; display:flex !important; align-items:center !important; justify-content:center !important; }
+
+/* section-level headers → ONE unified size (were mixed 36/40/46) */
+.sec-title, .prod-header-title, .prod-header h2, .why-header-title,
+.ind-header-title, .stats-v3-title, .cta-title{
+  font-size:clamp(30px, 4.4vw, 46px) !important; line-height:1.08 !important;
+}
+
+/* =========================================================
+   DESIGN SYSTEM — block rhythm & cards (single source of truth)
+   section gap 96 = grid.pb 48 + header.pt 48 · header→content 40
+   card pad 32 · radius 24 · grid gap 16 · scale 8-based
+   ========================================================= */
+.prod-header, .stats-v3-header{ padding-top:var(--sec-head-pt) !important; padding-bottom:var(--sec-head-pb) !important; }
+.stats-v3{ padding-bottom:var(--grid-pb) !important; }
+.hero-main{ padding-bottom:var(--hero-pb) !important; }  /* room for dashboard shadow (hero-sec clips) */
+.fdr-card{ padding:var(--feature-pad) !important; border-radius:var(--radius-card) !important; }
+.h-title{ line-height:1.05 !important; }
+.ft-top-row{ padding-top:var(--footer-pad) !important; padding-bottom:var(--footer-pad) !important; }
+
+@media (max-width:768px){
+  .prod-header, .why-header, .stats-v3-header, .ind-header{ padding-top:32px !important; padding-bottom:24px !important; }
+  .why-grid, .why-grid--ind, .stats-v3{ padding-bottom:32px !important; }
+  .hero-main{ padding-bottom:64px !important; }
+  .fdr-card{ padding:28px !important; }
+  .ft-top-row{ padding-top:40px !important; padding-bottom:40px !important; }
+}
+
+/* eyebrows — uppercase on EVERY page (was set only in homepage inline) */
+.ind-header-eye, .why-header-eye, .prod-header-eye, .stats-v3-eye,
+.cta-eyebrow, .fe, .page-eyebrow, .sec-eyebrow{
+  font-size:12px !important; font-weight:700 !important; letter-spacing:.09em !important;
+  text-transform:uppercase !important; }
+/* industries blue band: balance bottom inset (was 72) with the 48 top inset */
+.ind-footer-line{ padding-bottom:48px !important; }
+
+/* =========================================================
+   BLOCK TYPE — Step cards ("How it works" numbered process)
+   used on dispute-resolution, risk-management. Card conforms
+   to the card scale (pad 32 · r24 · bg #f7f9ff · gap 16).
+   num 28/700 accent-50% · title 18/700 · desc 15/400 t2
+   ========================================================= */
+.process-grid{ gap:16px !important; }
+.process-step{ gap:16px !important; }
+.step-num{ font-size:28px !important; font-weight:700 !important; color:var(--accent) !important; opacity:.5 !important; letter-spacing:-1px !important; }
+.step-title{ font-size:18px !important; line-height:1.25 !important; }
+.step-desc{ font-size:15px !important; line-height:1.5 !important; color:var(--t2) !important; }
+
+/* =========================================================
+   COMPACT-CARD CONTENT — one role shared by prod-card,
+   industry-card and step-card (title 18/700 · desc 15/t2).
+   Fixes per-page drift (prod-card-title was 16/600, descs 13).
+   ========================================================= */
+.prod-card-title, .industry-name, .step-title{
+  font-size:18px !important; font-weight:700 !important; line-height:1.25 !important; color:var(--t1) !important; }
+.prod-card-desc, .industry-desc, .step-desc{
+  font-size:15px !important; line-height:1.5 !important; color:var(--t2) !important; }
+.prod-card-icon{ width:44px !important; height:44px !important; border-radius:12px !important; background:#e9eefc !important; }
+
+/* =========================================================
+   P3 CONSISTENCY (5-agent review) — claim the properties
+   oldskin didn't, so subpages match the spec everywhere.
+   ========================================================= */
+/* secondary text: --tb drift → --t2; .card-desc up to body size 15 */
+.sec-desc, .card-desc{ color:var(--t2) !important; }
+.card-desc{ font-size:15px !important; line-height:1.5 !important; }
+/* icon tiles → one size (spec 46×46 / r13); were 36/40/44 */
+.card-icon, .industry-icon, .prod-card-icon{ width:46px !important; height:46px !important; border-radius:var(--radius-tile) !important; }
+.card-icon svg, .industry-icon svg, .prod-card-icon svg{ width:22px !important; height:22px !important; }
+/* hero subtitle → 18 / 1.33 (spec); subpages had 16/1.5 */
+.h-sub{ font-size:18px !important; line-height:1.33 !important; }
+/* heading letter-spacing → scale-independent −2% (were tight px values) */
+.h-title{ letter-spacing:-.02em !important; }
+.sec-title, .cta-title, .prod-header-title, .why-header-title,
+.ind-header-title, .stats-v3-title{ letter-spacing:-.02em !important; }
+
+/* =========================================================
+   P0/P1 A11Y (5-agent review) — focus ring + motion fallback
+   ========================================================= */
+/* visible keyboard focus (was absent site-wide) */
+a:focus-visible, button:focus-visible, input:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible, .bin-chip:focus-visible{
+  outline:2px solid var(--accent) !important; outline-offset:2px !important;
+}
+/* light ring on the blue bands / dark surfaces */
+.why-grid--ind a:focus-visible, .why-grid--ind button:focus-visible,
+.cta-sec a:focus-visible, footer a:focus-visible, nav a:focus-visible{ outline-color:#fff !important; }
+/* reduced-motion: reveal content immediately (no scroll-in translate) */
+@media (prefers-reduced-motion:reduce){
+  .reveal, .reveal-left, .reveal-right{ opacity:1 !important; transform:none !important; transition:none !important; }
+}
+
+/* =========================================================
+   P1 A11Y contrast (5-agent review) — band text → solid white,
+   darken muted greys + error red. Band stays #4870EE (decision 3).
+   ========================================================= */
+.ind-header-eye, .bin-out-sec .sec-eyebrow{ color:#ffffff !important; }
+.ind-header-sub, .bin-out-sec .sec-desc{ color:rgba(255,255,255,.95) !important; }
+.ind-footer-line, .ind-footer-line a{ color:#ffffff !important; }
+.os-dash-cols{ color:#6b7280 !important; }
+.os-dash-foot, .os-float-t em{ color:#6b7280 !important; }
+.bin-error, .os-bad{ color:#d42a30 !important; }
+
+/* skip-link — visible only on keyboard focus (a11y bypass-blocks) */
+.skip-link{ position:absolute; left:-9999px; top:0; z-index:1000; background:var(--accent); color:#fff !important;
+  padding:10px 18px; font-weight:600; border-radius:0 0 10px 0; text-decoration:none; }
+.skip-link:focus{ left:0; }
+
+/* P4 safety: guard full-bleed 100vw bands against scrollbar-width horizontal overflow */
+html{ overflow-x:clip; }
+
+/* blue-bg card context → pink spark colour (industries / "Products used" band) */
+.why-grid--ind .why-card{ --spark-color:var(--accent-2); --spark-hi:#ff6ea1; }
+
+/* =========================================================
+   P1 A11Y CONTRAST (review · Decision 3: keep #4870EE band,
+   make band text solid white; darken mock greys + error)
+   ========================================================= */
+.ind-header-eye, .bin-out-sec .sec-eyebrow{ color:#ffffff !important; }
+.ind-header-sub, .bin-out-sec .sec-desc{ color:#ffffff !important; }
+.ind-footer-line, .ind-footer-line a{ color:#ffffff !important; }
+/* muted greys in the hero-dashboard mock → AA on white */
+.os-dash-cols, .os-dash-foot, .os-float-t em{ color:#6b7280 !important; }
+/* error red → AA (was #e5484d 3.9:1) */
+.bin-error, .os-bad{ color:#d42a30 !important; }
+
+/* .fdr feature rows keep min-height:423 when stacked → dead space on phones (review P4) */
+@media (max-width:768px){ .fdr{ min-height:auto !important; } }
+
+/* =========================================================
+   CARD INTERNAL SPACING SYSTEM (site-wide, 2026-09-04)
+   Content-card stacks: flex column + uniform 16 gap.
+   gap needs flex — some pages leave these display:block inline
+   (e.g. .process-step), so force flex here or the gap is inert.
+   Padding: 32 standard (card shell above) · 40 feature (.fdr-card).
+   Exceptions: .stat (tight number+label unit — kept natural) and
+   .sfx-wide (horizontal split in the catalog — keeps its 34 row-gap).
+   Canonical: DESIGN-SYSTEM.md §5.
+   ========================================================= */
+.card:not(.sfx-wide), .prod-card, .why-card, .industry-card, .cap-item, .process-step{
+  display:flex !important; flex-direction:column !important; gap:16px !important;
+}
+/* stat / st3: on-scale padding (were 34) — number+label keeps its own tight rhythm */
+.stat, .st3{ padding:32px !important; }
+
+/* =========================================================
+   STAT COUNTER PANEL — .num-strip (component, 2026-09-05)
+   Dark rounded panel, content-width, pink gradient numbers +
+   soft pink glow. Count-up via counters.js (auto-parses each
+   .num-v; ranges like "2-3 days"/"24/7" stay static).
+   Replaces the old .stats-row/.stat counters site-wide.
+   ========================================================= */
+.num-strip{ position:relative; display:grid; grid-template-columns:repeat(4,1fr);
+  margin:84px var(--cell-pad) 48px; padding:72px 40px; overflow:hidden;
+  /* border = a conic BACKGROUND layer clipped to border-box → perfect rounded corners, no mask artifact.
+     --rim is DARK (blends into the panel → no visible edge at rest); --spark-c/-h turn pink on hover (rotating spark).
+     overflow:hidden is safe for the corners here (the border is the element's own background, not a clipped pseudo) and clips the glow blob. */
+  --rim:#141c31; --spark-c:var(--rim); --spark-h:var(--rim);
+  border:1.5px solid transparent; border-radius:24px;
+  background:
+    linear-gradient(135deg,#151d33 0%,#0e1424 100%) padding-box,
+    conic-gradient(from var(--spark-angle,0deg), var(--rim) 0deg, var(--rim) 300deg, var(--spark-c) 326deg, var(--spark-h) 340deg, var(--spark-c) 354deg, var(--rim) 360deg) border-box;
+  transition:box-shadow .3s ease, transform .3s ease; }
+/* big pink glow blob — hidden at rest; on hover it fades in and travels an ARC (bottom-left corner → up over the middle → bottom-right) */
+.num-strip::before{ content:''; position:absolute; z-index:0; width:120%; height:230%;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse at center, rgba(238,49,100,.44) 0%, rgba(238,49,100,0) 60%);
+  opacity:0; pointer-events:none; transition:opacity .35s ease; }
+.num-strip > *{ position:relative; z-index:1; }
+.num-strip:hover{ transform:translateY(-3px);
+  --spark-c:#ee3164; --spark-h:#ff6ea1;
+  box-shadow:0 20px 48px -22px rgba(238,49,100,.42), 0 14px 34px -18px rgba(0,0,0,.45);
+  animation:sparkRotate 2.6s linear infinite; }
+.num-strip:hover::before{ opacity:1; animation:glowArc 3.6s ease-in-out infinite; }
+@keyframes glowArc{ 0%{ left:-15%; top:135%; } 50%{ left:55%; top:-40%; } 100%{ left:120%; top:135%; } }
+@media(prefers-reduced-motion:reduce){ .num-strip:hover{ animation:none; } .num-strip:hover::before{ animation:none; left:50%; top:40%; } }
+.num-strip > *{ position:relative; z-index:1; }
+.num-item{ position:relative; text-align:center; padding:8px 12px; }
+.num-item:not(:last-child)::after{ content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:1px; height:60px; background:rgba(255,255,255,.12); }
+.num-v{ font-size:clamp(30px,4vw,46px); font-weight:800; letter-spacing:-.02em; line-height:1.15; white-space:nowrap; font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#ffd0e0 0%,#ee3164 100%); -webkit-background-clip:text; background-clip:text; color:transparent; padding-bottom:2px; }
+.num-l{ margin-top:16px; font-size:14px; color:rgba(255,255,255,.6); }
+@media(max-width:768px){ .num-strip{ grid-template-columns:repeat(2,1fr); gap:44px 0; padding:48px 24px; margin:64px var(--cell-pad) 40px; } .num-item::after{ display:none; } }

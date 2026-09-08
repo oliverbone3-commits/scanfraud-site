@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ScanFraud — Pure Traffic. No Friction.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="shared.css"/>
+  <link rel="stylesheet" href="shared.css?v=20260909"/>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -118,10 +117,7 @@
     .hero { padding-top:var(--nav-h); }
     .hero-sec { position:relative; border-bottom:var(--bdl); overflow:hidden; background:#08090a; }
     [data-theme="light"] .hero-sec { background:#ffffff; }
-    #dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2; }
-    #dots canvas { display:block; width:100%!important; height:100%!important; }
-    [data-theme="light"] #dots { opacity:1; }
-    /* Aurora gradient behind dots — animated flow */
+    /* Aurora gradient — animated flow */
     .hero-sec::before {
       content:'';
       position:absolute;
@@ -374,20 +370,12 @@
     [data-theme="light"] .cta-sec::before {
       background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(26,86,255,.07) 0%, transparent 65%);
     }
-    /* cta-dots opacity handled same as hero — via JS _sfDotTheme */
     [data-theme="light"] .cta-eyebrow { color: #8b909e; }
     [data-theme="light"] .cta-title   { color: #171717; }
     [data-theme="light"] .cta-sub     { color: #4d4d4d; }
     [data-theme="light"] .cta-inner .btn-dark  { background: #0d0f14; color: #fff; border-color: #0d0f14; }
     [data-theme="light"] .cta-inner .btn-ghost { border-color: #d0d4dd; color: #3d4151; }
     [data-theme="light"] .cta-inner .btn-ghost:hover { background: rgba(0,0,0,.05); }
-    /* cta-dots visible in both themes */
-    #cta-dots {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
-    }
-    #cta-dots canvas { display: block; width: 100%!important; height: 100%!important; }
     .cta-sec::before {
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(26,86,255,.2) 0%, transparent 65%);
@@ -835,7 +823,7 @@
       .sn { font-size:26px; }
 
       /* FEATURE ROWS */
-      .fdr { flex-direction:column; }
+      .fdr { flex-direction:column; min-height:auto; }
       .fdr .fc, .fdr .fi { flex:none; width:100%; }
       .fdr .fc { border-right:none; border-bottom:var(--bdl); }
       .fdr.rev .fc { order:1; border-left:none; border-bottom:var(--bdl); }
@@ -1279,12 +1267,8 @@
     .why-card:hover {
       box-shadow: inset 0 60px 120px -50px rgba(26,86,255,0.12);
     }
-    /* Spark border — conic gradient revealed via mask (.why-card + .fdr + .st3) */
-    @property --spark-angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: true;
-    }
+    /* Spark border — conic gradient revealed via mask; follows each block's radius */
+    /* --spark-angle @property + sparkRotate keyframes are defined globally in shared.css */
     .why-card::after,
     .fdr::after,
     .stats-v3 .st3::after {
@@ -1292,14 +1276,15 @@
       position: absolute;
       inset: 0;
       padding: 1.5px;
+      border-radius: inherit;              /* follow the block's rounded corners */
       background: conic-gradient(
         from var(--spark-angle, 0deg),
         transparent 0deg,
         transparent 240deg,
         rgba(26,86,255,0) 270deg,
-        var(--accent) 320deg,
-        #7850ff 340deg,
-        var(--accent) 350deg,
+        var(--spark-color) 320deg,
+        var(--spark-hi) 340deg,
+        var(--spark-color) 350deg,
         transparent 360deg
       );
       -webkit-mask:
@@ -1326,9 +1311,6 @@
     .stats-v3 .st3:hover::after {
       opacity: 1;
       animation: sparkRotate 2.6s linear infinite;
-    }
-    @keyframes sparkRotate {
-      to { --spark-angle: 360deg; }
     }
     @media (prefers-reduced-motion: reduce) {
       .why-card:hover::after,
@@ -1609,8 +1591,10 @@
     }
 
   </style>
+  <link rel="stylesheet" href="oldskin.css?v=20260914">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav>
   <div class="nav-inner">
@@ -1645,22 +1629,16 @@
         </div>
       </li>
       <li><a href="overview.html">Overview</a></li>
-      <li><a href="security.html">Security</a></li>
       <li>
-        <a href="resources.html">Docs <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="resources.html">Resources <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <div class="nav-drop">
-          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">API docs & guides</span></span></a>
+          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">Privacy, cookies & terms</span></span></a>
           <a href="security.html"><span class="nav-drop-icon"><i data-lucide="lock"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Security</span><span class="nav-drop-desc">Compliance & data protection</span></span></a>
           <a href="bin-checker.html"><span class="nav-drop-icon"><i data-lucide="search"></i></span><span class="nav-drop-text"><span class="nav-drop-title">BIN Checker</span><span class="nav-drop-desc">Card BIN lookup tool</span></span></a>
-          <a href="overview.html"><span class="nav-drop-icon"><i data-lucide="building-2"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Company Overview</span><span class="nav-drop-desc">About ScanFraud</span></span></a>
         </div>
       </li>
     </ul>
     <div class="nav-right">
-      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
       <button class="btn-ol">Log in</button>
       <button class="btn-sl">Book a demo</button>
       <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -1683,23 +1661,49 @@
 </div>
 
 <main>
-  <div class="grid-wrap">
+  <div class="grid-wrap" id="main">
 
     <!-- HERO -->
     <div class="hero-sec" id="heroWrap">
-      <div id="dots" aria-hidden="true"></div>
+      <div class="hero-fade" aria-hidden="true"></div>
       <section class="hero-main">
+        <ul class="h-bullets" aria-label="Key capabilities">
+          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span>No-code Rule Engine</li>
+          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="shield-check"></i></span>Advanced Case Management</li>
+          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="code-2"></i></span>Fast REST API Integration</li>
+        </ul>
         <h1 class="h-title">Pure Traffic. No Friction.</h1>
         <p class="h-sub">Real-time fraud detection and payment orchestration designed to protect revenue without blocking legitimate customers.</p>
         <div class="h-cta">
           <a href="#cta-section" class="btn-dark">Book a demo &nbsp;→</a>
           <a href="products.html" class="btn-ghost">Explore platform</a>
         </div>
-        <ul class="h-bullets" aria-label="Key capabilities">
-          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span>No-code Rule Engine</li>
-          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="shield-check"></i></span>Advanced Case Management</li>
-          <li><span class="ic-sq" aria-hidden="true"><i data-lucide="code-2"></i></span>Fast REST API Integration</li>
-        </ul>
+        <!-- OLD-SKIN hero visual: our monitoring mock as the dashboard + floating stat cards -->
+        <div class="os-hero-visual">
+          <div class="os-float os-float-risk">
+            <div class="os-donut"><span>9.3%</span></div>
+            <div class="os-float-t"><b>Minimal risk</b><em>current traffic</em></div>
+          </div>
+          <div class="os-dash">
+            <div class="os-dash-top">
+              <span class="os-tdot"></span><span class="os-tdot"></span><span class="os-tdot"></span>
+              <span class="os-dash-title">Monitoring &middot; all events</span>
+              <span class="os-badge os-live">Live</span>
+            </div>
+            <div class="os-dash-cols"><span>ID</span><span>Merchant</span><span>Amount</span><span>Decision</span></div>
+            <div class="os-dash-row"><span class="os-mono">#1461463</span><span>Acme Pay</span><span class="os-mono">$1,204</span><span class="os-badge os-ok">Approve</span></div>
+            <div class="os-dash-row"><span class="os-mono">#5414614</span><span>NovaFX</span><span class="os-mono">$860</span><span class="os-badge os-ok">Approve&amp;Notify</span></div>
+            <div class="os-dash-row"><span class="os-mono">#2571474</span><span>BetOne</span><span class="os-mono">$3,120</span><span class="os-badge os-bad">Decline</span></div>
+            <div class="os-dash-row"><span class="os-mono">#8257452</span><span>CryptoX</span><span class="os-mono">$540</span><span class="os-badge os-warn">Decline&amp;Notify</span></div>
+            <div class="os-dash-row"><span class="os-mono">#2583465</span><span>ShopHub</span><span class="os-mono">$212</span><span class="os-badge os-info">Pre-auth</span></div>
+            <div class="os-dash-foot">Shown 5 of 2,121,055</div>
+          </div>
+          <div class="os-float os-float-vol">
+            <div class="os-float-t"><b>Transaction volume</b></div>
+            <div class="os-vol-row"><span class="os-dotm ok"></span>Approved <b class="os-mono">$891,974</b></div>
+            <div class="os-vol-row"><span class="os-dotm bad"></span>Declined <b class="os-mono">$114,231</b></div>
+          </div>
+        </div>
       </section>
     </div>
     <!-- /HERO -->
@@ -1747,7 +1751,7 @@
     </section>
 
     <!-- PRODUCTS Row 01 — No-code Rule Engine (animated mockup: rule build, v2) -->
-    <div class="fdr reveal">
+    <div class="fdr fdr-card reveal">
       <div class="fc reveal-left">
         <div>
           <div class="fe">01 — NO-CODE RULE ENGINE</div>
@@ -2014,7 +2018,6 @@
 
     <!-- CTA SECTION — inside grid-wrap for left/right border continuity -->
       <div class="cta-sec" id="cta-section">
-        <div id="cta-dots" aria-hidden="true"></div>
         <div class="cta-inner">
           <p class="cta-eyebrow">GET STARTED TODAY</p>
           <h2 class="cta-title">Stop fraud. Protect revenue. Launch in 3 days.</h2>
@@ -2030,25 +2033,20 @@
 </main>
 
 <footer>
-  <!-- Footer uses dark bg always, matching Figma 2981:4190 -->
   <div class="footer-outer">
     <div class="footer-inner-wrap">
-      <!-- Top: logo + 3 cols, padding 40px all sides -->
       <div class="ft-top-row">
-        <!-- Brand col -->
         <div class="ft-brand-col">
-          <a href="/" class="footer-logo">
-            <div class="footer-logomark">
-              <svg viewBox="0 0 16 16" fill="none">
-                <path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/>
-                <path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/>
-              </svg>
-            </div>
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div>
             <span class="footer-brand-name">ScanFraud</span>
           </a>
-          <p class="footer-desc">Smart risk and payment management for high-growth businesses. Real-time fraud prevention, intelligent routing, and dispute resolution.</p>
+          <p class="footer-desc">A leading anti-fraud solution &mdash; real-time transaction monitoring, optimised payment flows, and advanced dispute resolution.</p>
+          <div class="ft-contact">
+            <span class="ft-contact-label">Sales &amp; other requests</span>
+            <a href="mailto:support@scanfraud.com" class="ft-contact-mail">support@scanfraud.com</a>
+          </div>
         </div>
-        <!-- Products -->
         <div class="ft-col">
           <div class="ft-col-title">Products</div>
           <ul>
@@ -2056,38 +2054,55 @@
             <li><a href="routing-cascading.html">Routing &amp; Cascading</a></li>
             <li><a href="dispute-resolution.html">Dispute Resolution</a></li>
             <li><a href="risk-management.html">Risk Outsourcing</a></li>
+            <li><a href="products.html" class="ft-overview">Products overview</a></li>
           </ul>
         </div>
-        <!-- Industries -->
         <div class="ft-col">
           <div class="ft-col-title">Industries</div>
           <ul>
-            <li><a href="industries.html#gambling">Gambling &amp; iGaming</a></li>
-            <li><a href="industries.html#crypto">Crypto</a></li>
-            <li><a href="industries.html#fintech">Fintech</a></li>
-            <li><a href="industries.html#providers">Payment Providers</a></li>
-            <li><a href="industries.html#ecommerce">E-commerce</a></li>
-            <li><a href="industries.html#trading">Trading</a></li>
+            <li><a href="gambling.html">Gambling &amp; iGaming</a></li>
+            <li><a href="crypto.html">Crypto</a></li>
+            <li><a href="fintech.html">Fintech</a></li>
+            <li><a href="payment-providers.html">Payment Providers</a></li>
+            <li><a href="ecommerce.html">E-commerce</a></li>
+            <li><a href="trading.html">Trading</a></li>
+            <li><a href="industries.html" class="ft-overview">Industries overview</a></li>
           </ul>
         </div>
-        <!-- Resources -->
         <div class="ft-col">
           <div class="ft-col-title">Resources</div>
           <ul>
+            <li><a href="documentation.html">Documentation</a></li>
             <li><a href="security.html">Security</a></li>
             <li><a href="bin-checker.html">BIN Checker</a></li>
-            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="resources.html" class="ft-overview">Resources overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Company</div>
+          <ul>
             <li><a href="overview.html">Overview</a></li>
+            <li><a href="#cta-section">Book a demo</a></li>
           </ul>
         </div>
       </div>
-      <!-- Bottom bar -->
+      <div class="ft-trust">
+        <span class="ft-trust-label">Trusted &amp; compliant</span>
+        <div class="ft-badges">
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/visa.svg" alt="Visa"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/mastercard.svg" alt="Mastercard"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/jcb.svg" alt="JCB"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/safekey.svg" alt="SafeKey"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/pcidss.svg" alt="PCI DSS"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/gdpr.svg" alt="GDPR"></span>
+        </div>
+      </div>
       <div class="ft-bottom-bar">
-        <p class="ft-copy">© 2026 Scanfraud, SFC GROUP LTD · London, UK</p>
+        <p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; Suite 7086, 128 Aldersgate Street, Barbican, London, EC1A 4AE, United Kingdom</p>
         <div class="ft-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Cookie Policy</a>
-          <a href="#">Terms of Use</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="terms-of-use.html">Terms of Use</a>
         </div>
       </div>
     </div>
@@ -2097,15 +2112,8 @@
 <script>
   /* ── Theme ── */
   const html = document.documentElement;
-  const saved = localStorage.getItem('sf-theme') || 'dark';
-  html.setAttribute('data-theme', saved);
-
-  document.getElementById('themeBtn').addEventListener('click', () => {
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('sf-theme', next);
-    if (window._sfDotTheme) window._sfDotTheme(next);
-  });
+  /* theme support removed — always light */
+  html.setAttribute('data-theme', 'light');
 
   /* ── Burger ── */
   const burger = document.getElementById('burger');
@@ -2121,108 +2129,6 @@
     document.body.style.overflow = '';
   }
   window.addEventListener('resize', () => { if (window.innerWidth > 768) closeM(); });
-
-  /* ── efferd DottedSurface — Three.js ── */
-  (function() {
-    const wrap = document.getElementById('heroWrap');
-    const cont = document.getElementById('dots');
-    if (!wrap || !cont || typeof THREE === 'undefined') return;
-
-    const SEP=150, AX=40, AY=60;
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x08090a, 2000, 10000);
-
-    const cam = new THREE.PerspectiveCamera(60, wrap.offsetWidth/wrap.offsetHeight, 1, 10000);
-    cam.position.set(0, 355, 1220);
-    window._sfCamera = cam; // expose for mouse parallax
-
-    const ren = new THREE.WebGLRenderer({ alpha:true, antialias:true });
-    ren.setPixelRatio(window.devicePixelRatio);
-    ren.setSize(wrap.offsetWidth, wrap.offsetHeight);
-    ren.setClearColor(0,0);
-    cont.appendChild(ren.domElement);
-
-    const geo = new THREE.BufferGeometry();
-    const pos=[], col=[];
-    for(let ix=0;ix<AX;ix++) for(let iy=0;iy<AY;iy++){
-      pos.push(ix*SEP-(AX*SEP)/2, 0, iy*SEP-(AY*SEP)/2);
-      col.push(.78,.78,.78);
-    }
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
-    geo.setAttribute('color',    new THREE.Float32BufferAttribute(col,3));
-
-    const mat = new THREE.PointsMaterial({ size:8, vertexColors:true, transparent:true, opacity:.8, sizeAttenuation:true });
-    scene.add(new THREE.Points(geo, mat));
-
-    let count=0, aid;
-    function anim() {
-      aid = requestAnimationFrame(anim);
-      const p = geo.attributes.position.array;
-      let i=0;
-      for(let ix=0;ix<AX;ix++) for(let iy=0;iy<AY;iy++){
-        p[i*3+1] = Math.sin((ix+count)*.3)*50 + Math.sin((iy+count)*.5)*50;
-        i++;
-      }
-      geo.attributes.position.needsUpdate = true;
-      ren.render(scene, cam);
-      count += .1;
-    }
-
-    function resize() {
-      const w=wrap.offsetWidth, h=wrap.offsetHeight;
-      cam.aspect = w/h; cam.updateProjectionMatrix(); ren.setSize(w,h);
-    }
-    window.addEventListener('resize', resize);
-    window.addEventListener('orientationchange', ()=>setTimeout(resize,100));
-    setTimeout(resize, 200);
-    anim();
-
-    window._sfIsoTheme = function(theme) {
-      const light = theme === 'light';
-      const fills = light
-        ? [['#e8eaf0','#ebedf2','#f0f2f6','#f0f2f6'], ['#e0e2e8','#e3e5ea','#e8eaef','#e8eaef'], ['#d8dae2','#dbdde4','#e0e2e8','#e0e2e8'], ['#d0d2da','#d3d5dc','#d8dae2','#d8dae2'], ['#c8cad4','#cbcdd6','#d0d2dc','#d0d2dc']]
-        : [['#161820','#191b22','#191b22','#1e2028'], ['#121420','#15171f','#15171f','#191b21'], ['#0f111d','#12141c','#12141c','#15171e'], ['#0d0f1a','#0f1119','#0f1119','#12141b'], ['#0b0d17','#0d0f16','#0d0f16','#0f1118']];
-      const strokes = light
-        ? ['rgba(0,0,0,0.12)','rgba(0,0,0,0.10)','rgba(0,0,0,0.08)','rgba(0,0,0,0.06)','rgba(0,0,0,0.04)']
-        : ['rgba(255,255,255,0.40)','rgba(255,255,255,0.24)','rgba(255,255,255,0.15)','rgba(255,255,255,0.09)','rgba(255,255,255,0.05)'];
-      const sideStrokes = light
-        ? ['rgba(0,0,0,0.08)','rgba(0,0,0,0.06)','rgba(0,0,0,0.05)','rgba(0,0,0,0.04)','rgba(0,0,0,0.03)']
-        : ['rgba(255,255,255,0.15)','rgba(255,255,255,0.10)','rgba(255,255,255,0.07)','rgba(255,255,255,0.05)','rgba(255,255,255,0.03)'];
-      const iconBg = light ? 'rgba(220,225,245,0.94)' : 'rgba(8,14,42,0.94)';
-
-      document.querySelectorAll('.f3-iso svg').forEach(svg => {
-        for (let i = 0; i < 5; i++) {
-          const layer = svg.querySelector('.iso-l' + i);
-          if (!layer) continue;
-          const paths = layer.querySelectorAll('path');
-          paths.forEach((p, j) => {
-            p.setAttribute('fill', fills[i][Math.min(j, 3)]);
-            p.setAttribute('stroke', j < 3 ? sideStrokes[i] : strokes[i]);
-          });
-        }
-        // Icon background circle (r="22" at top level)
-        const bgCircle = svg.querySelector(':scope > circle[r="22"]');
-        if (bgCircle) bgCircle.setAttribute('fill', iconBg);
-        // Connector line
-        const connLine = svg.querySelector(':scope > line');
-        if (connLine) connLine.setAttribute('stroke', light ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)');
-      });
-    };
-
-    window._sfDotTheme = function(theme) {
-      const v = theme==='light'?0.18:.78;
-      const c = geo.attributes.color.array;
-      for(let i=0;i<c.length;i++) c[i]=v;
-      geo.attributes.color.needsUpdate=true;
-      scene.fog.color.setHex(theme==='light'?0xffffff:0x08090a);
-      if (window._sfCtaDotTheme) window._sfCtaDotTheme(theme);
-      // Update ISO SVG colors
-      if (window._sfIsoTheme) window._sfIsoTheme(theme);
-    };
-    window._sfDotTheme(html.getAttribute('data-theme'));
-
-    window.addEventListener('unload',()=>{cancelAnimationFrame(aid);geo.dispose();mat.dispose();ren.dispose();});
-  })();
 
   /* ══ 1. TYPEWRITER on hero title ══ */
   (function() {
@@ -2246,36 +2152,6 @@
       }
     }
     setTimeout(type, 400);
-  })();
-
-  /* ══ 2. MOUSE PARALLAX on hero Three.js dots ══ */
-  (function() {
-    const wrap = document.getElementById('heroWrap');
-    if (!wrap) return;
-    let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-    const strength = 0.018;
-
-    wrap.addEventListener('mousemove', (e) => {
-      const r = wrap.getBoundingClientRect();
-      targetX = ((e.clientX - r.left) / r.width  - 0.5) * 2;
-      targetY = ((e.clientY - r.top)  / r.height - 0.5) * 2;
-    });
-    wrap.addEventListener('mouseleave', () => { targetX = 0; targetY = 0; });
-
-    // Inject into Three.js render loop via camera position offset
-    const origUpdate = window._sfDotTheme;
-    let rafId;
-    function parallaxLoop() {
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
-      // Access camera via global (set in Three.js init)
-      if (window._sfCamera) {
-        window._sfCamera.position.x =  currentX * 80;
-        window._sfCamera.position.y = 355 - currentY * 40;
-      }
-      rafId = requestAnimationFrame(parallaxLoop);
-    }
-    parallaxLoop();
   })();
 
   /* ══ 3. BUTTON RIPPLE ══ */
@@ -2521,56 +2397,69 @@
     rows.forEach(r => mio.observe(r));
   })();
 
-  /* ── CTA Three.js (mini version of hero dots) ── */
-  (function() {
-    const cont = document.getElementById('cta-dots');
-    if (!cont || typeof THREE === 'undefined') return;
-    const SEP=180, AX=30, AY=40;
-    const scene2 = new THREE.Scene();
-    const cam2 = new THREE.PerspectiveCamera(60, cont.offsetWidth/cont.offsetHeight, 1, 10000);
-    cam2.position.set(0, 280, 1100);
-    const ren2 = new THREE.WebGLRenderer({ alpha:true, antialias:true });
-    ren2.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    ren2.setSize(cont.offsetWidth, cont.offsetHeight);
-    ren2.setClearColor(0,0);
-    cont.appendChild(ren2.domElement);
-    const geo2 = new THREE.BufferGeometry();
-    const p2=[], c2=[];
-    for(let ix=0;ix<AX;ix++) for(let iy=0;iy<AY;iy++){
-      p2.push(ix*SEP-(AX*SEP)/2, 0, iy*SEP-(AY*SEP)/2);
-      c2.push(.78,.78,.78);
-    }
-    geo2.setAttribute('position', new THREE.Float32BufferAttribute(p2,3));
-    geo2.setAttribute('color',    new THREE.Float32BufferAttribute(c2,3));
-    const mat2 = new THREE.PointsMaterial({ size:7, vertexColors:true, transparent:true, opacity:.6, sizeAttenuation:true });
-    scene2.add(new THREE.Points(geo2,mat2));
-    let ct2=0;
-    function a2() {
-      requestAnimationFrame(a2);
-      const pa=geo2.attributes.position.array; let i=0;
-      for(let ix=0;ix<AX;ix++) for(let iy=0;iy<AY;iy++){
-        pa[i*3+1]=Math.sin((ix+ct2)*.25)*40+Math.sin((iy+ct2)*.4)*40; i++;
-      }
-      geo2.attributes.position.needsUpdate=true;
-      ren2.render(scene2,cam2); ct2+=.08;
-    }
-    function r2(){
-      const w=cont.offsetWidth,h=cont.offsetHeight;
-      cam2.aspect=w/h; cam2.updateProjectionMatrix(); ren2.setSize(w,h);
-    }
-    window.addEventListener('resize',r2);
-    setTimeout(r2,200); a2();
+</script>
+<script>
+/* ── HERO monitoring dashboard: live stream + count-up + donut draw ── */
+(function(){
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dash = document.querySelector('.os-hero-visual'); if(!dash) return;
+  const donut  = dash.querySelector('.os-donut');
+  const riskEl = dash.querySelector('.os-donut span');
+  const volEls = [...dash.querySelectorAll('.os-vol-row b')];
+  const foot   = dash.querySelector('.os-dash-foot');
+  const cols   = dash.querySelector('.os-dash-cols');
+  const money  = v => '$' + Math.round(v).toLocaleString('en-US');
+  const pick   = a => a[Math.random()*a.length|0];
+  const MERCH=['Acme Pay','NovaFX','BetOne','CryptoX','ShopHub','Helix Markets','Aurora Pay','LuckyBet','CoinFlow','NovaPay Inc'];
+  const DEC=[['Approve','os-ok'],['Approve&Notify','os-ok'],['Approve','os-ok'],['Decline','os-bad'],['Decline&Notify','os-warn'],['Pre-auth','os-info']];
 
-    // Expose colour updater — same logic as hero
-    window._sfCtaDotTheme = function(theme) {
-      const v = theme==='light'?0.18:.78;
-      const c2arr = geo2.attributes.color.array;
-      for(let i=0;i<c2arr.length;i++) c2arr[i]=v;
-      geo2.attributes.color.needsUpdate=true;
-    };
-    // Apply current theme on init
-    window._sfCtaDotTheme(document.documentElement.getAttribute('data-theme'));
-  })();
+  function countUp(el, to, dur, fmt){
+    const t0=performance.now();
+    (function f(now){
+      const p=Math.min(1, Math.max(0, now-t0)/dur), e=1-Math.pow(1-p,3);
+      el.textContent = fmt(e*to);
+      if(p<1) requestAnimationFrame(f);
+    })(t0);
+  }
+  function newRow(){
+    const d=pick(DEC), r=document.createElement('div');
+    r.className='os-dash-row fresh';
+    r.innerHTML='<span class="os-mono">#'+(1000000+(Math.random()*8999999|0))+'</span>'
+      +'<span>'+pick(MERCH)+'</span>'
+      +'<span class="os-mono">$'+(120+(Math.random()*3900|0)).toLocaleString('en-US')+'</span>'
+      +'<span class="os-badge '+d[1]+'">'+d[0]+'</span>';
+    return r;
+  }
+
+  let started=false, inView=true, total=2121055, ap=891974, de=114231;
+  function start(){
+    if(started) return; started=true;
+    if(REDUCE) return;                          /* keep the static values */
+    if(donut) donut.classList.add('draw');
+    if(volEls[0]) countUp(volEls[0], ap, 1400, money);
+    if(volEls[1]) countUp(volEls[1], de, 1400, money);
+    if(riskEl)    countUp(riskEl, 9.3, 1200, v=>v.toFixed(1)+'%');
+    /* slow volume tick */
+    setInterval(()=>{ if(!inView) return;
+      ap += 200+(Math.random()*700|0); de += (Math.random()*160|0);
+      if(volEls[0]) volEls[0].textContent=money(ap);
+      if(volEls[1]) volEls[1].textContent=money(de);
+    }, 2600);
+    /* live rows */
+    setInterval(()=>{ if(!inView || !cols) return;
+      cols.insertAdjacentElement('afterend', newRow());
+      const rows=[...dash.querySelectorAll('.os-dash-row')];
+      while(rows.length>5) rows.pop().remove();
+      total += 1+(Math.random()*5|0);
+      if(foot) foot.textContent='Shown 5 of '+total.toLocaleString('en-US');
+    }, 2300);
+  }
+
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ inView=e.isIntersecting; if(e.isIntersecting) start(); }), {threshold:.15});
+    io.observe(dash);
+  } else start();
+})();
 </script>
 </body>
 </html>

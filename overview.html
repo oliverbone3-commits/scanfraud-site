@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,9 +7,8 @@
   <meta name="description" content="ScanFraud is a fraud prevention and payment management platform by SFC GROUP LTD, London."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="stylesheet" href="shared.css"/>
+  <link rel="stylesheet" href="shared.css?v=20260909"/>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
 /* ═══════════════════════════════════════════════
@@ -21,7 +20,7 @@
 :root {
   --col-width:  1160px;
   --side-pad:   140px;
-  --cell-pad:   40px;
+  --cell-pad:   32px;
   --nav-h:      65px;
   --accent:     #1a56ff;
   --font-g:     'Geist', sans-serif;
@@ -52,25 +51,11 @@ img { display: block; max-width: 100%; }
 /* ── NAV ── */
 nav { position: fixed; top:0; left:0; right:0; height: var(--nav-h); background: var(--nav-bg); backdrop-filter: blur(8px); border-bottom: var(--bdl); z-index:100; transition: background .25s, border-color .25s; }
 
-
-
-
-
-
-
-
 /* Theme toggle */
-
-
-
-
 
 [data-theme="light"] 
 
 /* Buttons */
-
-
-
 
 .btn-dark { padding:14px 20px; background:var(--btn-bg); border:1px solid var(--bd); border-radius:10px; font-size:15px; font-weight:500; color:var(--btn-fg); cursor:pointer; white-space:nowrap; transition:opacity .15s,background .25s,color .25s; }
 .btn-dark:hover { opacity:.88; }
@@ -78,11 +63,6 @@ nav { position: fixed; top:0; left:0; right:0; height: var(--nav-h); background:
 .btn-ghost:hover { background:rgba(128,128,128,.08); }
 
 /* Burger */
-
-
-
-
-
 
 /* ── FOOTER ── */
 footer { background: #08090a; }
@@ -125,12 +105,10 @@ footer { background: #08090a; }
 .hero-sec { position:relative; overflow:visible; }
 .hero-sec::after { content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100vw; height:0; border-bottom:var(--bdl); z-index:10; }
 [data-theme="light"] .hero-sec { background:linear-gradient(180deg,#eef2ff 0%,#fff 100%); }
-#dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
-#dots canvas { display:block; width:100%!important; height:100%!important; }
 .hero-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,86,255,.18) 0%,transparent 60%); pointer-events:none; z-index:1; }
 [data-theme="light"] .hero-sec::before { background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(26,86,255,.06) 0%,transparent 70%); }
 .hero-main { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:20px; padding:calc(var(--nav-h) + 100px) var(--cell-pad) 80px; }
-.h-title { font-family:var(--font-g); font-weight:600; font-size:48px; line-height:52px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
+.h-title { font-family:var(--font-g); font-weight:600; font-size:72px; line-height:76px; letter-spacing:-2.4px; text-align:center; color:var(--t1); max-width:800px; }
 .h-sub { font-family:var(--font-g); font-weight:400; font-size:16px; line-height:24px; color:var(--t2); text-align:center; max-width:600px; }
 .h-cta { display:flex; gap:12px; align-items:center; margin-top:8px; }
 .page-eyebrow {
@@ -143,8 +121,6 @@ footer { background: #08090a; }
 [data-theme="light"] .cta-sec { background:linear-gradient(180deg,#fff 0%,#eef2ff 50%,#fff 100%); }
 .cta-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.15) 0%,transparent 65%); pointer-events:none; z-index:1; }
 [data-theme="light"] .cta-sec::before { background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,86,255,.06) 0%,transparent 65%); }
-#cta-dots { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
-#cta-dots canvas { display:block; width:100%!important; height:100%!important; }
 .cta-inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:20px; padding:80px var(--cell-pad); text-align:center; max-width:680px; margin:0 auto; width:100%; }
 
 /* Section pattern for inner pages */
@@ -320,7 +296,6 @@ footer { background: #08090a; }
   background:var(--bd); box-shadow: 100vw 0 0 0 var(--bd), -100vw 0 0 0 var(--bd);
 }
 
-
 /* ── RESPONSIVE ── */
 @media (max-width: 1280px) {
   :root { --col-width: 100%; --side-pad: 40px; }
@@ -362,9 +337,81 @@ footer { background: #08090a; }
   .cta-title { font-size: 24px; line-height: 28px; }
 }
 
+/* pulse keyframe — used by .ob-ico.live (onboarding cards) */
+@keyframes gtmPing{ 0%{ transform:scale(.75); opacity:.6; } 100%{ transform:scale(1.5); opacity:0; } }
+
+/* ===== Company: two-column + credentials card (Variant A) ===== */
+.split-cols{ display:grid; grid-template-columns:1.1fr .9fr; gap:44px; align-items:center; padding:0 var(--cell-pad); }
+.split-cols .page-section-inner{ padding:0; }
+.cred-card{ background:#f7f9ff; border:1px solid #e7ebf7; border-radius:24px; padding:32px; display:flex; flex-direction:column; gap:16px; }
+.cred-row{ display:flex; align-items:center; gap:14px; }
+.cred-ico{ width:40px; height:40px; border-radius:11px; background:#e9eefc; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--accent); }
+.cred-ico svg{ width:20px; height:20px; }
+.cred-row b{ display:block; font-size:15px; color:var(--t1); }
+.cred-row .cred-sub{ font-size:13px; color:var(--t2); }
+.cred-div{ height:1px; background:#e7ebf7; margin:2px 0; }
+.cred-label{ font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--t2); }
+.cred-badges{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+.cred-badges img{ height:22px; width:auto; opacity:.85; }
+@media (max-width:900px){ .split-cols{ grid-template-columns:1fr; gap:28px; } }
+
+/* ===== Company on a blue full-bleed band (our industries-band style) ===== */
+.company-band{ position:relative; margin-top:32px; padding:128px 0; }
+.company-band::before{ content:''; position:absolute; inset:0; left:50%; width:100vw; transform:translateX(-50%); background:var(--accent); z-index:0; }
+.company-band > *{ position:relative; z-index:1; }
+.company-band .sec-eyebrow{ color:#fff; }
+.company-band .sec-title{ color:#fff; }
+.company-band .sec-desc{ color:#fff !important; }
+.company-band .cred-card{ background:#fff; border-color:transparent; box-shadow:0 26px 54px -22px rgba(16,24,48,.4); }
+@media (max-width:900px){ .company-band{ padding:96px 0; } }
+
+/* ===== Onboarding — 3 big step cards in a row ===== */
+.ob-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:0 var(--cell-pad); }
+.ob-card{ background:#f7f9ff; border:1px solid #e7ebf7; border-radius:24px; padding:32px; display:flex; flex-direction:column; gap:16px; transition:background .45s ease, border-color .45s ease; }
+.ob-card.is-live{ border-color:var(--accent); background:rgba(72,112,238,.05); }
+.ob-top{ display:flex; align-items:center; justify-content:space-between; }
+.ob-day{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--t3); background:#eef1f7; padding:6px 13px; border-radius:999px; transition:color .4s ease, background .4s ease; }
+.ob-card.act .ob-day{ color:var(--accent); background:#e9eefc; }
+.ob-card.is-live .ob-day{ color:#fff; background:var(--accent); }
+.ob-ico{ position:relative; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  border:1px solid #e7ebf7; background:#f4f6fe; color:#8b90a0; transition:background .35s ease, border-color .35s ease, color .35s ease; }
+.ob-ico svg{ width:15px; height:15px; opacity:0; transition:opacity .3s ease; }
+.ob-ico.done{ background:rgba(31,157,85,.16); border-color:transparent; color:#1f9d55; }
+.ob-ico.done svg{ opacity:1; }
+.ob-ico.live{ background:var(--accent); border-color:transparent; }
+.ob-ico.live svg{ display:none; }
+.ob-ico.live::before{ content:''; width:9px; height:9px; border-radius:50%; background:#fff; }
+.ob-ico.live::after{ content:''; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--accent); animation:gtmPing 1.6s ease-out infinite; }
+.ob-card.pop{ animation:obPop .5s ease; }
+@keyframes obPop{ 0%{ transform:scale(1);} 42%{ transform:scale(1.03);} 100%{ transform:scale(1);} }
+.ob-card.pop .ob-ico{ animation:obIcoPop .5s ease; }
+@keyframes obIcoPop{ 0%{ transform:scale(.5);} 55%{ transform:scale(1.18);} 100%{ transform:scale(1);} }
+@media (prefers-reduced-motion: reduce){ .ob-ico.live::after{ animation:none; } .ob-card,.ob-day,.ob-ico,.ob-ico svg{ transition:none; } }
+.ob-title{ font-size:20px; font-weight:700; color:var(--t1); letter-spacing:-.01em; }
+.ob-desc{ font-size:14px; line-height:1.55; color:var(--t2); }
+@media(max-width:900px){ .ob-grid{ grid-template-columns:1fr; } }
+
+/* ===== Bento A (what-we-do) ===== */
+.sfx-bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding:0 var(--cell-pad); }
+.sfx-bento .sfx-lg{ grid-column:span 2; grid-row:span 2; padding:40px !important; justify-content:flex-start; }
+.sfx-lg .mod-grid{ margin-top:auto; }
+.sfx-bignum{ font-size:clamp(44px,7vw,72px); font-weight:800; color:var(--accent); line-height:.95; letter-spacing:-.03em; }
+.sfx-lg .lead{ font-size:15px; color:var(--t2); max-width:38ch; margin-top:12px; }
+.mod-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
+.mod-item{ display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #e7ebf7; border-radius:14px; padding:15px 16px; }
+.mod-ic{ width:36px; height:36px; border-radius:10px; background:#e9eefc; display:flex; align-items:center; justify-content:center; color:var(--accent); flex-shrink:0; }
+.mod-ic svg, .mod-ic i{ width:18px; height:18px; }
+.mod-item b{ display:block; font-size:14px; color:var(--t1); font-weight:700; }
+.mod-item em{ font-style:normal; font-size:12px; color:var(--t2); }
+@media(max-width:520px){ .mod-grid{ grid-template-columns:1fr; } }
+@media(max-width:768px){ .sfx-bento{ grid-template-columns:1fr; } .sfx-bento .sfx-lg{ grid-column:auto; grid-row:auto; } }
+
+
 </style>
+  <link rel="stylesheet" href="oldskin.css?v=20260914">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -393,14 +440,12 @@ footer { background: #08090a; }
         </div>
       </li>
       <li><a href="overview.html" class="active">Overview</a></li>
-      <li><a href="security.html">Security</a></li>
       <li>
-        <a href="resources.html">Docs <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="resources.html">Resources <svg class="nav-chev" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <div class="nav-drop">
-          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">API docs & guides</span></span></a>
+          <a href="documentation.html"><span class="nav-drop-icon"><i data-lucide="book-open"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Documentation</span><span class="nav-drop-desc">Privacy, cookies & terms</span></span></a>
           <a href="security.html"><span class="nav-drop-icon"><i data-lucide="lock"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Security</span><span class="nav-drop-desc">Compliance & data protection</span></span></a>
           <a href="bin-checker.html"><span class="nav-drop-icon"><i data-lucide="search"></i></span><span class="nav-drop-text"><span class="nav-drop-title">BIN Checker</span><span class="nav-drop-desc">Card BIN lookup tool</span></span></a>
-          <a href="overview.html"><span class="nav-drop-icon"><i data-lucide="building-2"></i></span><span class="nav-drop-text"><span class="nav-drop-title">Company Overview</span><span class="nav-drop-desc">About ScanFraud</span></span></a>
         </div>
       </li>
     </ul>
@@ -415,9 +460,22 @@ footer { background: #08090a; }
     </div>
   </div>
 </nav>
-<div class="grid-wrap">
+
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-links">
+    <a href="overview.html">Overview</a>
+    <a href="products.html">Products</a>
+    <a href="industries.html">Industries</a>
+    <a href="security.html">Security</a>
+    <a href="resources.html">Resources</a>
+    <div class="mob-sep"></div>
+    <a href="#">Log in</a>
+    <button class="btn-dark">Book a demo</button>
+  </div>
+</div>
+
+<div class="grid-wrap" id="main">
 <div class="hero-sec" id="heroWrap">
-  <div id="dots" aria-hidden="true"></div>
   <section class="hero-main reveal">
     <p class="page-eyebrow">Company</p>
     <h1 class="h-title">Fraud is a revenue problem. We solve it.</h1>
@@ -442,28 +500,26 @@ footer { background: #08090a; }
     </div>
   </section>
 
-  <!-- VALUE PROPOSITIONS -->
-  <div class="card-grid">
-    <div class="card reveal">
-      <div class="card-icon"><i data-lucide="layout-dashboard"></i></div>
-      <div class="card-title">Everything in one place</div>
-      <div class="card-desc">Consolidate transaction and risk management in a single system. Replace manual reviews and spreadsheets with automated, real-time decision-making.</div>
+  <!-- VALUE PROPOSITIONS · Bento A -->
+  <div class="sfx-bento reveal">
+    <div class="card sfx-lg">
+      <div>
+        <div class="card-title" style="font-size:15px;color:var(--t2);font-weight:700;">One platform</div>
+        <div class="sfx-bignum">4-in-1</div>
+        <div class="lead">Transaction monitoring, payment routing, dispute resolution, and risk outsourcing — one API, one contract. No patchwork, no data silos.</div>
+      </div>
+      <div class="mod-grid">
+        <div class="mod-item"><span class="mod-ic"><i data-lucide="activity"></i></span><div><b>Monitoring</b><em>Real-time scoring</em></div></div>
+        <div class="mod-item"><span class="mod-ic"><i data-lucide="git-branch"></i></span><div><b>Routing</b><em>Smart cascading</em></div></div>
+        <div class="mod-item"><span class="mod-ic"><i data-lucide="shield-check"></i></span><div><b>Disputes</b><em>Chargeback ops</em></div></div>
+        <div class="mod-item"><span class="mod-ic"><i data-lucide="users"></i></span><div><b>Risk</b><em>Outsourced team</em></div></div>
+      </div>
     </div>
-    <div class="card reveal">
-      <div class="card-icon"><i data-lucide="trending-up"></i></div>
-      <div class="card-title">Higher approval rates</div>
-      <div class="card-desc">Reduce false positives and let legitimate customers finish orders. Smart routing reroutes transactions when a provider fails — no lost revenue.</div>
-    </div>
-    <div class="card reveal">
-      <div class="card-icon"><i data-lucide="shield"></i></div>
-      <div class="card-title">Lower fraud and chargebacks</div>
-      <div class="card-desc">Identify high-risk transactions before they clear. Monitor chargeback ratios across card networks to stay within thresholds and avoid PSP offboarding.</div>
-    </div>
-    <div class="card reveal">
-      <div class="card-icon"><i data-lucide="settings"></i></div>
-      <div class="card-title">Less manual work</div>
-      <div class="card-desc">Automate fraud detection and payment flows. Even with a single risk manager, the platform handles data-driven decisions automatically.</div>
-    </div>
+    <div class="card"><div class="card-icon"><i data-lucide="trending-up"></i></div><div class="card-title">Higher approval rates</div><div class="card-desc">Fewer false declines; smart routing rescues failed payments.</div></div>
+    <div class="card"><div class="card-icon"><i data-lucide="shield"></i></div><div class="card-title">Lower fraud &amp; chargebacks</div><div class="card-desc">Catch high-risk before it clears; stay under CB thresholds.</div></div>
+    <div class="card"><div class="card-icon"><i data-lucide="settings"></i></div><div class="card-title">Less manual work</div><div class="card-desc">Data-driven decisions run automatically.</div></div>
+    <div class="card"><div class="card-icon"><i data-lucide="zap"></i></div><div class="card-title">Immediate value</div><div class="card-desc">Expert-built rules ready on arrival — or customise your own.</div></div>
+    <div class="card"><div class="card-icon"><i data-lucide="users"></i></div><div class="card-title">Works for small teams</div><div class="card-desc">One risk manager can run the whole platform.</div></div>
   </div>
 
   <!-- MODULAR APPROACH -->
@@ -540,24 +596,12 @@ footer { background: #08090a; }
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-row reveal">
-    <div class="stat">
-      <div class="stat-num">&lt;300ms</div>
-      <div class="stat-label">Decision latency</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100+</div>
-      <div class="stat-label">Pre-built rules</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">2-3 days</div>
-      <div class="stat-label">API integration</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">6</div>
-      <div class="stat-label">Industry verticals</div>
-    </div>
+  <!-- STATS · accent number strip -->
+  <div class="num-strip reveal">
+    <div class="num-item"><div class="num-v">&lt;300ms</div><div class="num-l">Decision latency</div></div>
+    <div class="num-item"><div class="num-v">100+</div><div class="num-l">Pre-built rules</div></div>
+    <div class="num-item"><div class="num-v">2–3 days</div><div class="num-l">API integration</div></div>
+    <div class="num-item"><div class="num-v">6</div><div class="num-l">Industry verticals</div></div>
   </div>
 
   <!-- IMPLEMENTATION TIMELINE -->
@@ -569,33 +613,54 @@ footer { background: #08090a; }
     </div>
   </section>
 
-  <div class="card-grid card-grid-3">
-    <div class="card reveal">
-      <div class="card-title">Day 1: Onboarding</div>
-      <div class="card-desc">Dedicated data storage and system access from day one. Your data is isolated — never shared with other clients. We walk you through the dashboard and configure initial settings.</div>
+  <div class="ob-grid reveal">
+    <div class="ob-card" data-target="done">
+      <div class="ob-top"><span class="ob-day">Day 1</span><span class="ob-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+      <div class="ob-title">Onboarding</div>
+      <div class="ob-desc">Dedicated environment and isolated data from day one — never shared with other clients. We walk you through the dashboard and configure your initial settings.</div>
     </div>
-    <div class="card reveal">
-      <div class="card-title">Day 2-3: API integration</div>
-      <div class="card-desc">Connect your payment data via our REST API. Clear documentation, sandbox environment, and predictable JSON structures. Routing and cascading are connected in the same step.</div>
+    <div class="ob-card" data-target="done">
+      <div class="ob-top"><span class="ob-day">Day 2–3</span><span class="ob-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+      <div class="ob-title">API integration</div>
+      <div class="ob-desc">Connect payment data via our REST API — clear docs, sandbox, predictable JSON. Routing and cascading are connected in the same step.</div>
     </div>
-    <div class="card reveal">
-      <div class="card-title">Go live</div>
-      <div class="card-desc">Choose our preset rule configurations or build custom thresholds. Optionally import historical transaction data to test rules before deploying. Then continuous improvement — adjust scoring and fine-tune actions over time.</div>
+    <div class="ob-card" data-target="live">
+      <div class="ob-top"><span class="ob-day">Go live</span><span class="ob-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+      <div class="ob-title">Production &amp; tuning</div>
+      <div class="ob-desc">Go live with preset or custom rules. Optionally test on historical data first, then continuously fine-tune scoring and actions over time.</div>
     </div>
   </div>
 
   <!-- WHO WE ARE -->
-  <section class="page-section page-section--divider">
-    <div class="page-section-inner">
-      <p class="sec-eyebrow">Company</p>
-      <h2 class="sec-title">SFC GROUP LTD, London</h2>
-      <p class="sec-desc">ScanFraud is a product of SFC GROUP LTD, a UK-registered company. Our team has direct backgrounds in payment processing, acquiring, risk analysis, and regulatory compliance. We've worked on both sides — as payment processors and as the teams fighting fraud.</p>
+  <section class="company-band">
+    <div class="split-cols reveal">
+      <div class="page-section-inner">
+        <p class="sec-eyebrow">Company</p>
+        <h2 class="sec-title">SFC GROUP LTD, London</h2>
+        <p class="sec-desc">ScanFraud is a product of SFC GROUP LTD, a UK-registered company. Our team has direct backgrounds in payment processing, acquiring, risk analysis, and regulatory compliance. We've worked on both sides — as payment processors and as the teams fighting fraud.</p>
+      </div>
+      <div class="cred-card">
+        <div class="cred-row">
+          <span class="cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V7l8-4 8 4v14" stroke-linejoin="round"/><path d="M4 21h16M9 21v-5h6v5M8 10h.01M12 10h.01M16 10h.01M8 13h.01M12 13h.01M16 13h.01" stroke-linecap="round"/></svg></span>
+          <div><b>SFC GROUP LTD</b><span class="cred-sub">UK-registered company · London</span></div>
+        </div>
+        <div class="cred-row">
+          <span class="cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>Built by payments &amp; risk insiders</b><span class="cred-sub">Processing · acquiring · risk · compliance</span></div>
+        </div>
+        <div class="cred-div"></div>
+        <span class="cred-label">Trusted &amp; compliant</span>
+        <div class="cred-badges">
+          <img src="img/badges/visa.svg" alt="Visa">
+          <img src="img/badges/mastercard.svg" alt="Mastercard">
+          <img src="img/badges/pcidss.svg" alt="PCI DSS">
+          <img src="img/badges/gdpr.svg" alt="GDPR">
+        </div>
+      </div>
     </div>
   </section>
 
-
 <div class="cta-sec" id="ctaSection">
-  <div id="cta-dots" aria-hidden="true"></div>
   <div class="cta-inner reveal">
     <p class="cta-eyebrow">Ready to start?</p>
     <h2 class="cta-title">Stop fraud. Protect revenue.</h2>
@@ -604,80 +669,111 @@ footer { background: #08090a; }
   </div>
 </div>
 </div><footer>
-  <div class="footer-outer"><div class="footer-inner-wrap">
-    <div class="ft-top-row">
-      <div class="ft-brand-col">
-        <a href="/" class="footer-logo"><div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div><span class="footer-brand-name">ScanFraud</span></a>
-        <p class="footer-desc">Smart risk and payment management for high-growth businesses.</p>
+  <div class="footer-outer">
+    <div class="footer-inner-wrap">
+      <div class="ft-top-row">
+        <div class="ft-brand-col">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logomark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4.5V11.5L8 15L14 11.5V4.5L8 1Z" fill="#08090a"/><path d="M8 4L5 5.73V9.27L8 11L11 9.27V5.73L8 4Z" fill="#08090a" opacity=".4"/></svg></div>
+            <span class="footer-brand-name">ScanFraud</span>
+          </a>
+          <p class="footer-desc">A leading anti-fraud solution &mdash; real-time transaction monitoring, optimised payment flows, and advanced dispute resolution.</p>
+          <div class="ft-contact">
+            <span class="ft-contact-label">Sales &amp; other requests</span>
+            <a href="mailto:support@scanfraud.com" class="ft-contact-mail">support@scanfraud.com</a>
+          </div>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Products</div>
+          <ul>
+            <li><a href="transaction-monitoring.html">Transaction Monitoring</a></li>
+            <li><a href="routing-cascading.html">Routing &amp; Cascading</a></li>
+            <li><a href="dispute-resolution.html">Dispute Resolution</a></li>
+            <li><a href="risk-management.html">Risk Outsourcing</a></li>
+            <li><a href="products.html" class="ft-overview">Products overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Industries</div>
+          <ul>
+            <li><a href="gambling.html">Gambling &amp; iGaming</a></li>
+            <li><a href="crypto.html">Crypto</a></li>
+            <li><a href="fintech.html">Fintech</a></li>
+            <li><a href="payment-providers.html">Payment Providers</a></li>
+            <li><a href="ecommerce.html">E-commerce</a></li>
+            <li><a href="trading.html">Trading</a></li>
+            <li><a href="industries.html" class="ft-overview">Industries overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Resources</div>
+          <ul>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="security.html">Security</a></li>
+            <li><a href="bin-checker.html">BIN Checker</a></li>
+            <li><a href="resources.html" class="ft-overview">Resources overview</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <div class="ft-col-title">Company</div>
+          <ul>
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="#cta-section">Book a demo</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="ft-col"><div class="ft-col-title">Products</div><ul><li><a href="transaction-monitoring.html">Transaction Monitoring</a></li><li><a href="routing-cascading.html">Routing &amp; Cascading</a></li><li><a href="dispute-resolution.html">Dispute Resolution</a></li><li><a href="risk-management.html">Risk Outsourcing</a></li></ul></div>
-      <div class="ft-col"><div class="ft-col-title">Industries</div><ul><li><a href="industries.html">Gambling &amp; iGaming</a></li><li><a href="industries.html">Crypto</a></li><li><a href="industries.html">Fintech</a></li><li><a href="industries.html">E-commerce</a></li><li><a href="industries.html">Trading</a></li></ul></div>
-      <div class="ft-col"><div class="ft-col-title">Resources</div><ul><li><a href="security.html">Security</a></li><li><a href="bin-checker.html">BIN Checker</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="overview.html">Overview</a></li></ul></div>
+      <div class="ft-trust">
+        <span class="ft-trust-label">Trusted &amp; compliant</span>
+        <div class="ft-badges">
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/visa.svg" alt="Visa"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/mastercard.svg" alt="Mastercard"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/jcb.svg" alt="JCB"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/safekey.svg" alt="SafeKey"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/pcidss.svg" alt="PCI DSS"></span>
+          <span class="ft-badge"><img class="ft-badge-logo" src="img/badges/gdpr.svg" alt="GDPR"></span>
+        </div>
+      </div>
+      <div class="ft-bottom-bar">
+        <p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; Suite 7086, 128 Aldersgate Street, Barbican, London, EC1A 4AE, United Kingdom</p>
+        <div class="ft-legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="terms-of-use.html">Terms of Use</a>
+        </div>
+      </div>
     </div>
-    <div class="ft-bottom-bar"><p class="ft-copy">&copy; 2026 Scanfraud, SFC GROUP LTD &middot; London, UK</p><div class="ft-legal"><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Terms</a></div></div>
-  </div></div>
+  </div>
 </footer><script>
   const html=document.documentElement;
-  const saved=localStorage.getItem('sf-theme')||'dark';
+  const saved="light";
   html.setAttribute('data-theme',saved);
-  document.getElementById('themeBtn').addEventListener('click',()=>{
+  document.getElementById('themeBtn')?.addEventListener('click',()=>{
     const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
     html.setAttribute('data-theme',next);localStorage.setItem('sf-theme',next);
-    if(window._sfDotTheme)window._sfDotTheme(next);
+    
   });
   if(typeof lucide!=='undefined')lucide.createIcons();
   (function(){const els=document.querySelectorAll('.reveal');if(!els.length)return;const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('revealed');obs.unobserve(x.target);}});},{threshold:.12});els.forEach(e=>obs.observe(e));})();
 
-  /* ── Three.js Hero Dots ── */
-  (function(){
-    const wrap=document.getElementById('heroWrap'),cont=document.getElementById('dots');
-    if(!wrap||!cont||typeof THREE==='undefined')return;
-    const SEP=180,AX=30,AY=40;
-    const scene=new THREE.Scene();
-    const cam=new THREE.PerspectiveCamera(60,wrap.offsetWidth/wrap.offsetHeight,1,10000);
-    cam.position.set(0,355,1220);
-    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
-    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(wrap.offsetWidth,wrap.offsetHeight);ren.setClearColor(0,0);
-    cont.appendChild(ren.domElement);
-    const geo=new THREE.BufferGeometry(),pos=[],col=[];
-    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
-    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
-    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
-    const mat=new THREE.PointsMaterial({size:7,vertexColors:true,transparent:true,opacity:.7,sizeAttenuation:true});
-    scene.add(new THREE.Points(geo,mat));
-    let count=0;
-    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*40+Math.sin((iy+count)*.4)*40;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.08;}
-    function resize(){const w=wrap.offsetWidth,h=wrap.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
-    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
-    window._sfDotTheme=function(theme){
-      const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;
-      if(window._sfCtaDotTheme)window._sfCtaDotTheme(theme);
-    };
-    window._sfDotTheme(html.getAttribute('data-theme'));
-  })();
+</script><script>document.getElementById("burger")?.addEventListener("click",function(){this.classList.toggle("open");document.getElementById("mobMenu")?.classList.toggle("open");});</script>
+<script>
+/* Onboarding cards: activate in sequence on scroll — checks pop in, last goes live */
+(function(){
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const grid = document.querySelector('.ob-grid'); if(!grid) return;
+  const cards = [...grid.querySelectorAll('.ob-card')];
+  const apply = c => { const t=c.dataset.target||'done'; c.classList.add('act'); c.querySelector('.ob-ico').classList.add(t); if(t==='live') c.classList.add('is-live'); };
+  const pop = c => { c.classList.add('pop'); setTimeout(()=>c.classList.remove('pop'),520); };
+  if(REDUCE){ cards.forEach(apply); return; }
+  let done=false;
+  function activate(){ if(done) return; done=true;
+    cards.forEach((c,i)=> setTimeout(()=>{ apply(c); pop(c); }, 300 + i*540)); }
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ activate(); io.disconnect(); } }),{threshold:.35});
+    io.observe(grid);
+  } else cards.forEach(apply);
+})();
+</script>
 
-  /* ── Three.js CTA Dots ── */
-  (function(){
-    const cont=document.getElementById('cta-dots');
-    if(!cont||typeof THREE==='undefined')return;
-    const SEP=200,AX=25,AY=30;
-    const scene=new THREE.Scene();
-    const cam=new THREE.PerspectiveCamera(60,cont.offsetWidth/cont.offsetHeight,1,10000);
-    cam.position.set(0,280,1100);
-    const ren=new THREE.WebGLRenderer({alpha:true,antialias:true});
-    ren.setPixelRatio(Math.min(window.devicePixelRatio,2));ren.setSize(cont.offsetWidth,cont.offsetHeight);ren.setClearColor(0,0);
-    cont.appendChild(ren.domElement);
-    const geo=new THREE.BufferGeometry(),pos=[],col=[];
-    for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){pos.push(ix*SEP-(AX*SEP)/2,0,iy*SEP-(AY*SEP)/2);col.push(.78,.78,.78);}
-    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
-    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
-    const mat=new THREE.PointsMaterial({size:6,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true});
-    scene.add(new THREE.Points(geo,mat));
-    let count=0;
-    function anim(){requestAnimationFrame(anim);const p=geo.attributes.position.array;let i=0;for(let ix=0;ix<AX;ix++)for(let iy=0;iy<AY;iy++){p[i*3+1]=Math.sin((ix+count)*.25)*35+Math.sin((iy+count)*.4)*35;i++;}geo.attributes.position.needsUpdate=true;ren.render(scene,cam);count+=.06;}
-    function resize(){const w=cont.offsetWidth,h=cont.offsetHeight;cam.aspect=w/h;cam.updateProjectionMatrix();ren.setSize(w,h);}
-    window.addEventListener('resize',resize);setTimeout(resize,200);anim();
-    window._sfCtaDotTheme=function(theme){const v=theme==='light'?.18:.78;const c=geo.attributes.color.array;for(let i=0;i<c.length;i++)c[i]=v;geo.attributes.color.needsUpdate=true;};
-    window._sfCtaDotTheme(html.getAttribute('data-theme'));
-  })();
-</script></body></html>
+<script src="counters.js?v=1" defer></script>
+</body></html>
