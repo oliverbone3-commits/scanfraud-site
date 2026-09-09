@@ -109,6 +109,8 @@ footer { background: #08090a; }
 .ft-top-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding: 40px var(--cell-pad); border-bottom: 1px solid rgba(255,255,255,0.08); }
 .ft-brand-col { display: flex; flex-direction: column; gap: 11px; }
 .footer-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+/* footer bg is a dark/blue gradient in every theme → logo always white */
+.footer-logo-img { height: 26px; width: auto; display: block; filter: brightness(0) invert(1); }
 .footer-logomark { width: 28px; height: 28px; border-radius: 6px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .footer-logomark svg { width: 16px; height: 16px; }
 .footer-brand-name { font-family: var(--font-i); font-weight: 600; font-size: 15px; color: #ffffff; letter-spacing: -.3px; }
