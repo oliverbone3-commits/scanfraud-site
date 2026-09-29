@@ -876,8 +876,8 @@ html{ overflow-x:clip; }
 
 /* =========================================================
    STAT COUNTER PANEL — .num-strip (component, 2026-09-05)
-   Dark rounded panel, content-width, pink gradient numbers +
-   soft pink glow. Count-up via counters.js (auto-parses each
+   Light rounded panel (#f7f9ff card surface), content-width, blue gradient numbers +
+   soft blue glow (was dark navy + pink until ANTF-1274). Count-up via counters.js (auto-parses each
    .num-v; ranges like "2-3 days"/"24/7" stay static).
    Replaces the old .stats-row/.stat counters site-wide.
    ========================================================= */
@@ -886,29 +886,56 @@ html{ overflow-x:clip; }
   /* border = a conic BACKGROUND layer clipped to border-box → perfect rounded corners, no mask artifact.
      --rim is DARK (blends into the panel → no visible edge at rest); --spark-c/-h turn pink on hover (rotating spark).
      overflow:hidden is safe for the corners here (the border is the element's own background, not a clipped pseudo) and clips the glow blob. */
-  --rim:#141c31; --spark-c:var(--rim); --spark-h:var(--rim);
-  border:1.5px solid transparent; border-radius:24px;
+  /* ANTF-1274 (п.9/23): repainted from dark navy to the site's light card surface — the dark panel clashed with the palette.
+     Light-bg block → BLUE spark on hover (see spark color convention). */
+  --rim:#e7ebf7; --spark-c:var(--rim); --spark-h:var(--rim);   /* rim = the standard card hairline (#e7ebf7) */
+  border:1px solid transparent; border-radius:24px;
   background:
-    linear-gradient(135deg,#151d33 0%,#0e1424 100%) padding-box,
+    linear-gradient(var(--os-card,#f7f9ff),var(--os-card,#f7f9ff)) padding-box,
     conic-gradient(from var(--spark-angle,0deg), var(--rim) 0deg, var(--rim) 300deg, var(--spark-c) 326deg, var(--spark-h) 340deg, var(--spark-c) 354deg, var(--rim) 360deg) border-box;
   transition:box-shadow .3s ease, transform .3s ease; }
 /* big pink glow blob — hidden at rest; on hover it fades in and travels an ARC (bottom-left corner → up over the middle → bottom-right) */
 .num-strip::before{ content:''; position:absolute; z-index:0; width:120%; height:230%;
   left:50%; top:50%; transform:translate(-50%,-50%);
-  background:radial-gradient(ellipse at center, rgba(238,49,100,.44) 0%, rgba(238,49,100,0) 60%);
+  background:radial-gradient(ellipse at center, rgba(72,112,238,.14) 0%, rgba(72,112,238,0) 60%);
   opacity:0; pointer-events:none; transition:opacity .35s ease; }
 .num-strip > *{ position:relative; z-index:1; }
 .num-strip:hover{ transform:translateY(-3px);
-  --spark-c:#ee3164; --spark-h:#ff6ea1;
-  box-shadow:0 20px 48px -22px rgba(238,49,100,.42), 0 14px 34px -18px rgba(0,0,0,.45);
+  --spark-c:var(--accent); --spark-h:#7850ff;
+  box-shadow:0 18px 44px rgba(20,30,60,.10);
   animation:sparkRotate 2.6s linear infinite; }
-.num-strip:hover::before{ opacity:1; animation:glowArc 3.6s ease-in-out infinite; }
+.num-strip::before{ display:none; }   /* background glow removed (user, 2026-09-29) — spark + shadow only */
 @keyframes glowArc{ 0%{ left:-15%; top:135%; } 50%{ left:55%; top:-40%; } 100%{ left:120%; top:135%; } }
 @media(prefers-reduced-motion:reduce){ .num-strip:hover{ animation:none; } .num-strip:hover::before{ animation:none; left:50%; top:40%; } }
 .num-strip > *{ position:relative; z-index:1; }
 .num-item{ position:relative; text-align:center; padding:8px 12px; }
-.num-item:not(:last-child)::after{ content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:1px; height:60px; background:rgba(255,255,255,.12); }
+.num-item:not(:last-child)::after{ content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:1px; height:60px; background:rgba(20,30,60,.10); }
 .num-v{ font-size:clamp(30px,4vw,46px); font-weight:800; letter-spacing:-.02em; line-height:1.15; white-space:nowrap; font-variant-numeric:tabular-nums;
-  background:linear-gradient(180deg,#ffd0e0 0%,#ee3164 100%); -webkit-background-clip:text; background-clip:text; color:transparent; padding-bottom:2px; }
-.num-l{ margin-top:16px; font-size:14px; color:rgba(255,255,255,.6); }
-@media(max-width:768px){ .num-strip{ grid-template-columns:repeat(2,1fr); gap:44px 0; padding:48px 24px; margin:64px var(--cell-pad) 40px; } .num-item::after{ display:none; } }
+  color:var(--accent); padding-bottom:2px; }
+.num-l{ margin-top:16px; font-size:14px; color:var(--t2); }
+/* 3-item panels (ANTF-1274: some stats removed) */
+.num-strip:has(> .num-item:nth-child(3):last-child){ grid-template-columns:repeat(3,1fr); }
+@media(max-width:768px){ .num-strip{ grid-template-columns:repeat(2,1fr); gap:44px 0; padding:48px 24px; margin:64px var(--cell-pad) 40px; } .num-item::after{ display:none; } .num-strip:has(> .num-item:nth-child(3):last-child){ grid-template-columns:repeat(2,1fr); } .num-strip > .num-item:nth-child(3):last-child{ grid-column:1 / -1; } }
+
+/* ANTF-1274: 2-card doc grid on Resources (BIN Checker removed) */
+@media(min-width:769px){ .card-grid-3:has(> .card:nth-child(2):last-child){ grid-template-columns:repeat(2,1fr); } }
+
+/* =========================================================
+   COMPARISON — .vs-grid "Why teams switch" (ANTF-1274 п.20)
+   Two standard cards side by side: muted "traditional vendor" vs
+   ScanFraud (blue). Rows line up because both lists have the same
+   count and the same row height.
+   ========================================================= */
+.vs-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--grid-gap,16px); padding:0 var(--cell-pad) var(--grid-pb,48px); }
+.vs-col{ border-radius:var(--radius-card,24px); padding:var(--card-pad,32px); background:var(--os-card,#f7f9ff); }
+.vs-col--sf{ background:linear-gradient(160deg,#4870EE 0%,#3558d6 100%); color:#fff; box-shadow:0 18px 44px -18px rgba(72,112,238,.55); }
+.vs-col-h{ font-family:var(--font-g); font-weight:700; font-size:22px; line-height:1.2; margin-bottom:24px; color:var(--t2); }
+.vs-col--sf .vs-col-h{ color:#fff; }
+.vs-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+.vs-list li{ display:flex; align-items:center; gap:14px; min-height:56px; padding:12px 0; font-size:16px; line-height:1.4; color:var(--t2); border-top:1px solid rgba(20,30,60,.08); }
+.vs-list li:first-child{ border-top:none; }
+.vs-col--sf .vs-list li{ color:#fff; font-weight:600; border-top-color:rgba(255,255,255,.18); }
+.vs-list li svg, .vs-list li i{ flex:none; width:22px; height:22px; padding:4px; border-radius:50%; box-sizing:border-box; }
+.vs-col--old .vs-list li svg{ color:#9aa1b4; background:rgba(20,30,60,.06); }
+.vs-col--sf .vs-list li svg{ color:#4870EE; background:#fff; stroke-width:3; }
+@media(max-width:768px){ .vs-grid{ grid-template-columns:1fr; } .vs-list li{ min-height:0; } }
