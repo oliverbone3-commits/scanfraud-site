@@ -939,3 +939,44 @@ html{ overflow-x:clip; }
 .vs-col--old .vs-list li svg{ color:#9aa1b4; background:rgba(20,30,60,.06); }
 .vs-col--sf .vs-list li svg{ color:#4870EE; background:#fff; stroke-width:3; }
 @media(max-width:768px){ .vs-grid{ grid-template-columns:1fr; } .vs-list li{ min-height:0; } }
+
+/* =========================================================
+   MOBILE QA PASS (2026-10-02) — header, menu, card paddings, spacing
+   ========================================================= */
+/* band-card arrow: anchor to its own card (was relying on the reveal transform as containing block) */
+.why-grid--ind .why-card{ position:relative !important; }
+
+@media (max-width:768px){
+  /* nav-links hidden → push Book a demo + burger to the right edge */
+  .nav-right{ margin-left:auto; }
+}
+@media (max-width:768px){
+  /* full-height mobile menu sheet */
+  .mob-menu.open{ bottom:0; overflow-y:auto; -webkit-overflow-scrolling:touch; background:#fff; padding-bottom:calc(24px + env(safe-area-inset-bottom,0px)); }
+  .mob-links{ list-style:none; margin:0; padding:16px var(--cell-pad) 8px !important; gap:2px; }
+  .mob-links li{ list-style:none; margin:0; padding:0; }
+  .mob-links a{ display:block; padding:14px 12px !important; font-size:17px !important; font-weight:600 !important; color:var(--t1) !important; border-radius:12px; }
+  .mob-links .mob-sep{ margin:12px 0 !important; background:#eef1f7 !important; }
+  .mob-links .btn-dark, .mob-btns .btn-sl, .mob-btns .btn-dark{ width:100%; height:48px; margin-top:8px; }
+  .mob-btns{ display:flex; flex-direction:column; gap:10px; padding:8px var(--cell-pad) 0; }
+  body:has(.mob-menu.open){ overflow:hidden; }
+}
+@media (max-width:768px){
+  /* cards: one padding layer, not three */
+  .fdr, .fdr-card{ padding:24px 20px !important; gap:28px !important; }
+  .fdr .fc, .fdr .fi{ padding:0 !important; }
+  .feature-row{ padding:28px 20px !important; gap:28px !important; }
+  .why-card, .prod-card, .card, .industry-card, .other-card{ min-height:0 !important; }
+  .why-card{ padding:24px !important; }
+  .vs-col{ padding:24px 20px; }
+  /* homepage stats: 3 tiles in a row were clipped → stack */
+  .stats-v3{ grid-template-columns:1fr !important; }
+  /* CTA: no fixed 620px block on phones */
+  .cta-sec{ min-height:0 !important; }
+  .cta-inner{ padding:64px 20px !important; }
+}
+@media (max-width:480px){
+  /* homepage monitoring stream: 5 columns don't fit a phone card → drop Merchant */
+  .mon-thead, .mon-row{ grid-template-columns:76px 84px 60px minmax(0,1fr) !important; }
+  .mon-thead span:nth-child(5), .mon-row .mer{ display:none !important; }
+}
