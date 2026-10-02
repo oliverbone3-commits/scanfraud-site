@@ -331,7 +331,7 @@ footer { background: #08090a; }
 }
 
 </style>
-  <link rel="stylesheet" href="oldskin.css?v=20261002">
+  <link rel="stylesheet" href="oldskin.css?v=20261002b">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -382,15 +382,40 @@ footer { background: #08090a; }
 </nav>
 
 <div class="mob-menu" id="mobMenu">
-  <div class="mob-links">
-    <a href="overview">Overview</a>
-    <a href="products">Products</a>
-    <a href="industries">Industries</a>
-    <a href="security">Security</a>
-    <a href="resources">Resources</a>
-    <div class="mob-sep"></div>
-    <button class="btn-dark">Book a demo</button>
+  <div class="mm" role="navigation" aria-label="Mobile">
+    <details class="mm-group">
+      <summary class="mm-sum">Products<span class="mm-chev" aria-hidden="true"></span></summary>
+      <div class="mm-items">
+        <a href="transaction-monitoring" class="mm-item"><span class="mm-ic"><i data-lucide="activity"></i></span><span class="mm-txt"><b>Transaction Monitoring</b><em>Real-time scoring & rules engine</em></span></a>
+        <a href="routing-cascading" class="mm-item"><span class="mm-ic"><i data-lucide="git-branch"></i></span><span class="mm-txt"><b>Routing Advisory</b><em>Route recommendations</em></span></a>
+        <a href="dispute-resolution" class="mm-item"><span class="mm-ic"><i data-lucide="shield-check"></i></span><span class="mm-txt"><b>Dispute Resolution</b><em>Chargeback management</em></span></a>
+        <a href="risk-management" class="mm-item"><span class="mm-ic"><i data-lucide="users"></i></span><span class="mm-txt"><b>Risk Outsourcing</b><em>Expert fraud operations</em></span></a>
+        <a href="products" class="mm-all">All products <span aria-hidden="true">→</span></a>
+      </div>
+    </details>
+    <details class="mm-group">
+      <summary class="mm-sum">Industries<span class="mm-chev" aria-hidden="true"></span></summary>
+      <div class="mm-items">
+        <a href="gambling" class="mm-item"><span class="mm-ic"><i data-lucide="dice-5"></i></span><span class="mm-txt"><b>Gambling &amp; iGaming</b><em>Betting, casino &amp; sports</em></span></a>
+        <a href="crypto" class="mm-item"><span class="mm-ic"><i data-lucide="bitcoin"></i></span><span class="mm-txt"><b>Crypto</b><em>Wallets, exchanges &amp; stablecoins</em></span></a>
+        <a href="fintech" class="mm-item"><span class="mm-ic"><i data-lucide="landmark"></i></span><span class="mm-txt"><b>Fintech</b><em>Neobanks &amp; digital finance</em></span></a>
+        <a href="payment-providers" class="mm-item"><span class="mm-ic"><i data-lucide="credit-card"></i></span><span class="mm-txt"><b>Payment Providers</b><em>PSPs &amp; acquirers</em></span></a>
+        <a href="ecommerce" class="mm-item"><span class="mm-ic"><i data-lucide="shopping-cart"></i></span><span class="mm-txt"><b>E-commerce</b><em>Online retail &amp; marketplaces</em></span></a>
+        <a href="trading" class="mm-item"><span class="mm-ic"><i data-lucide="trending-up"></i></span><span class="mm-txt"><b>Trading</b><em>Forex, CFDs &amp; prop firms</em></span></a>
+        <a href="industries" class="mm-all">All industries <span aria-hidden="true">→</span></a>
+      </div>
+    </details>
+    <a href="overview" class="mm-link">Overview</a>
+    <details class="mm-group" open>
+      <summary class="mm-sum">Resources<span class="mm-chev" aria-hidden="true"></span></summary>
+      <div class="mm-items">
+        <a href="documentation" class="mm-item" aria-current="page"><span class="mm-ic"><i data-lucide="book-open"></i></span><span class="mm-txt"><b>Documentation</b><em>Privacy, cookies &amp; terms</em></span></a>
+        <a href="security" class="mm-item"><span class="mm-ic"><i data-lucide="lock"></i></span><span class="mm-txt"><b>Security</b><em>Compliance &amp; data protection</em></span></a>
+        <a href="resources" class="mm-all">All resources <span aria-hidden="true">→</span></a>
+      </div>
+    </details>
   </div>
+  <div class="mm-cta"><button class="mm-btn mm-btn--primary" type="button">Book a demo</button><button class="mm-btn mm-btn--ghost" type="button">Contact sales</button></div>
 </div>
 
 <div class="grid-wrap" id="main">
