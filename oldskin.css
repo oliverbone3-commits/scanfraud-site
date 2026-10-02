@@ -1050,3 +1050,19 @@ button, .btn-dark, .btn-ghost, .btn-sl, .btn-ol{ font-family:var(--font-i) !impo
   .ben-title{ font-size:24px !important; }
   .ben-points{ padding:18px !important; }
 }
+
+/* =========================================================
+   MOBILE SECTION RHYTHM (2026-10-02) — tighter vertical spacing on phones
+   measured blank bands were 85–180px; target ≈ 40–64px between sections
+   ========================================================= */
+@media (max-width:768px){
+  /* subpage hero: nav is fixed over the hero → offset = nav height + 32 (was 96 flat) */
+  .hero-main:has(.page-eyebrow){ padding-top:calc(var(--nav-h, 56px) + 32px) !important; }
+  .hero-main{ padding-bottom:40px !important; }
+  .page-section{ padding-top:40px !important; padding-bottom:32px !important; }
+  .prod-header, .why-header, .stats-v3-header, .ind-header{ padding-top:28px !important; padding-bottom:20px !important; }
+  .num-strip{ margin-top:40px !important; margin-bottom:24px !important; }
+  .cta-inner{ padding-top:32px !important; padding-bottom:48px !important; }
+  .legal-sec{ padding-top:28px !important; margin-top:28px !important; }
+  .legal-sec p{ margin-bottom:12px !important; }
+}
