@@ -1905,7 +1905,7 @@
     <div class="section-divider" aria-hidden="true"></div>
 
     <!-- WHY SCANFRAUD -->
-    <section class="why-sec reveal">
+    <section class="why-sec reveal" id="why">
       <div class="why-header">
         <span class="why-header-eye">WHY SCANFRAUD</span>
         <h2 class="why-header-title">Built where mainstream fraud vendors won't bid</h2>
@@ -2329,11 +2329,11 @@
     const _pick = a => a[Math.random() * a.length | 0];
     const MON_SYS = ['Visa','Mastercard','Amex','JCB','HUMO','Discover'];
     const MON_MER = ['SFC GROUP LTD','Betway Holdings','CoinFlow AG','NovaPay Inc','LuckyBet GmbH','Aurora Pay','Helix Markets'];
-    const MON_EV  = [['TRANSACTION','mon-b-blue'],['TRANSACTION','mon-b-blue'],['TRANSACTION','mon-b-blue'],['CHARGEBACK','mon-b-red'],['ALERT','mon-b-amber']];
+    const MON_EV  = [['TRANSACTION','mon-b-blue'],['TRANSACTION','mon-b-blue'],['TRANSACTION','mon-b-blue'],['ALERT','mon-b-amber']];
     const MON_TY  = [['PAYMENT','mon-b-green'],['PAYMENT','mon-b-green'],['PAYOUT','mon-b-amber'],['REFUND','mon-b-red']];
     let MON_ID = 12789402012;
     function monRow(fresh) {
-      const ev = _pick(MON_EV), ty = ev[0] === 'CHARGEBACK' ? MON_TY[0] : _pick(MON_TY);
+      const ev = _pick(MON_EV), ty = _pick(MON_TY);
       const d = document.createElement('div');
       d.className = 'mon-row' + (fresh ? ' fresh' : '');
       d.innerHTML = `<span class="id">${MON_ID--}</span><span class="mon-chip ${ev[1]}">${ev[0]}</span>`
